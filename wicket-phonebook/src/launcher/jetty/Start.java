@@ -17,62 +17,37 @@
  */
 package jetty;
 
-import java.net.URL;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
+import org.mortbay.jetty.bio.SocketConnector;
+import org.mortbay.jetty.webapp.WebAppContext;
 
 /**
  * Seperate startup class for people that want to run the examples directly.
  */
-public class Start
-{
-	/**
-	 * Used for logging.
-	 */
-	private static Log log = LogFactory.getLog(Start.class);
-
-	/**
-	 * Construct.
-	 */
-	Start()
-	{
-		super();
-	}
-
+public class Start {
 	/**
 	 * Main function, starts the jetty server.
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args)
-	{
-        Server jettyServer = null;
-		try
-		{
-			URL jettyConfig = new URL("file:src/launcher/jetty-config.xml");
-			if (jettyConfig == null)
-			{
-				log.fatal("Unable to locate jetty-config.xml on the classpath");
-			}
-			jettyServer = new Server(jettyConfig);
-			jettyServer.start();
+	public static void main(String[] args) {
+		Server server = new Server();
+		SocketConnector connector = new SocketConnector();
+		connector.setPort(8080);
+		server.setConnectors(new Connector[] { connector });
+
+		WebAppContext context = new WebAppContext();
+		context.setServer(server);
+		context.setContextPath("/phonebook");
+		context.setWar("src/webapp");
+
+		server.addHandler(context);
+		try {
+			server.start();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		catch (Exception e)
-		{
-			log.fatal("Could not start the Jetty server: " + e);
-			if (jettyServer != null)
-			{
-				try
-				{
-					jettyServer.stop();
-				}
-				catch (InterruptedException e1)
-				{
-					log.fatal("Unable to stop the jetty server: " + e1);
-				}
-			}
-		}
+
 	}
 }
