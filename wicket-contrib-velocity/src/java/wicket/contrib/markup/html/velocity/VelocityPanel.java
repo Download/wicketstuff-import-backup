@@ -31,24 +31,22 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import wicket.WicketRuntimeException;
 import wicket.markup.ComponentTag;
-import wicket.markup.Markup;
 import wicket.markup.MarkupStream;
-import wicket.markup.html.panel.Panel;
+import wicket.markup.html.WebComponent;
 import wicket.model.Model;
 import wicket.util.resource.IStringResourceStream;
-import wicket.util.resource.ResourceStreamNotFoundException;
 import wicket.util.string.Strings;
 
 /**
  * Panel that displays the result of rendering a Velocity template. The template
- * itself can be any IStringResourceStream implementation, of which there are a
- * number of convenient implementations in wicket.util. The model can be any
- * normal Wicket MapModel.
+ * itself can be any IStringResourceStream implementation, of which there are a number
+ * of convenient implementations in wicket.util. The model can be any normal
+ * Wicket MapModel.
  * 
  * @author Eelco Hillenius
  * @author Jonathan Locke
  */
-public final class VelocityPanel extends Panel
+public final class VelocityPanel extends WebComponent
 {
 	/** Whether to escape HTML characters. The default value is false. */
 	private boolean escapeHtml = false;
@@ -151,7 +149,7 @@ public final class VelocityPanel extends Panel
 		if (templateReader != null)
 		{
 			// Get model as a map
-			final Map map = (Map) getModelObject();
+			final Map map = (Map)getModelObject();
 
 			// create a Velocity context object using the model if set
 			final VelocityContext ctx = new VelocityContext(map);
@@ -177,19 +175,9 @@ public final class VelocityPanel extends Panel
 					result = Strings.escapeMarkup(result).toString();
 				}
 
-				// now parse the velocity merge result
-				Markup markup;
-				try
-				{
-					markup = getApplication().getMarkupSettings()
-							.getMarkupParserFactory().newMarkupParser().parse(result);
-				}
-				catch (ResourceStreamNotFoundException e)
-				{
-					throw new RuntimeException(e);
-				}
-
-				renderAll(new MarkupStream(markup));
+				// now replace the body of the tag with the velocity merge
+				// result
+				replaceComponentTagBody(markupStream, openTag, result);
 			}
 			catch (ParseErrorException e)
 			{
