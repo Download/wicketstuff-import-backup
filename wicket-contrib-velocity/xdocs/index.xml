@@ -12,7 +12,7 @@
 				component that displays the result of rendering a
 				<a href="http://jakarta.apache.org/velocity">Velocity</a>
 				template. The template itself can be any
-				<code>IStringResource</code>
+				<code><a href="http://wicket.sourceforge.net/apidocs/wicket/util/resource/IStringResourceStream.html">IStringResourceStream</a></code>
 				implementation, of which there are a number of convenient implementations in the
 				<code>wicket.util</code>
 				package. The model can be any normal
