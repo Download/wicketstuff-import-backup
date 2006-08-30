@@ -37,6 +37,7 @@ import wicket.extensions.markup.html.repeater.refreshing.Item;
 import wicket.markup.html.link.Link;
 import wicket.markup.html.panel.Panel;
 import wicket.model.IModel;
+import wicket.model.LoadableDetachableModel;
 import wicket.model.Model;
 
 /**
@@ -91,15 +92,20 @@ public class ListContactsPage extends BasePage {
 		columns[1] = new TextFilteredPropertyColumn(new Model("First Name"),
 				"firstname", "firstname");
 
-		List names = getDao().getUniqueLastNames();
-		
 		columns[2] = new ChoiceFilteredPropertyColumn(new Model("Last Name"),
-				"lastname", "lastname", new Model((Serializable) names)) ;
-		
-		columns[3] = new TextFilteredPropertyColumn(new Model("Phone Number"), "phone",
-				"phone");
-		
-		columns[4] = new TextFilteredPropertyColumn(new Model("Email"), "email", "email");
+				"lastname", "lastname", new LoadableDetachableModel() {
+
+					protected Object load() {
+						return getDao().getUniqueLastNames();
+					}
+
+				});
+
+		columns[3] = new TextFilteredPropertyColumn(new Model("Phone Number"),
+				"phone", "phone");
+
+		columns[4] = new TextFilteredPropertyColumn(new Model("Email"),
+				"email", "email");
 
 		// set up data provider
 		ContactsDataProvider dataProvider = new ContactsDataProvider(getDao());
