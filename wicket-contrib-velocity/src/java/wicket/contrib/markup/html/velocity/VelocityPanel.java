@@ -31,25 +31,35 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 import wicket.WicketRuntimeException;
 import wicket.markup.ComponentTag;
+import wicket.markup.Markup;
 import wicket.markup.MarkupStream;
-import wicket.markup.html.WebComponent;
+import wicket.markup.html.panel.Panel;
 import wicket.model.Model;
 import wicket.util.resource.IStringResourceStream;
+import wicket.util.resource.ResourceStreamNotFoundException;
 import wicket.util.string.Strings;
 
 /**
- * Panel that displays the result of rendering a Velocity template. The template
- * itself can be any IStringResourceStream implementation, of which there are a number
- * of convenient implementations in wicket.util. The model can be any normal
- * Wicket MapModel.
- * 
+ * Panel that displays the result of rendering a <a href="http://jakarta.apache.org/velocity">Velocity</a> template.
+ * The template itself can be any
+ * <code><a href="http://wicket.sourceforge.net/apidocs/wicket/util/resource/IStringResourceStream.html">IStringResourceStream</a></code>
+ * implementation, of which there are a number of convenient implementations in the wicket.util package. The model can
+ * be any normal <code><a href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Map.html">Map</a></code>,
+ * which will be used to create the
+ * <code><a href="http://jakarta.apache.org/velocity/docs/api/org/apache/velocity/VelocityContext.html">VelocityContext</a></code>.
+ *
+ * <p><b>Note:</b> Be sure to properly initialize the Velocity engine before using <code>VelocityPanel</code>.</p>
+ *
  * @author Eelco Hillenius
  * @author Jonathan Locke
  */
-public final class VelocityPanel extends WebComponent
+public final class VelocityPanel extends Panel
 {
 	/** Whether to escape HTML characters. The default value is false. */
 	private boolean escapeHtml = false;
+
+	/** Whether to parse the resulting Wicket markup */
+	private boolean parseGeneratedMarkup = false;
 
 	/** Velocity template resource */
 	private final IStringResourceStream templateResource;
@@ -175,9 +185,20 @@ public final class VelocityPanel extends WebComponent
 					result = Strings.escapeMarkup(result).toString();
 				}
 
-				// now replace the body of the tag with the velocity merge
-				// result
-				replaceComponentTagBody(markupStream, openTag, result);
+				if (! getParseGeneratedMarkup()) {
+					// now replace the body of the tag with the velocity merge
+					// result
+					replaceComponentTagBody(markupStream, openTag, result);
+				} else {
+					// now parse the velocity merge result
+					Markup markup;
+					try {
+						markup = getApplication().getMarkupSettings().getMarkupParserFactory().newMarkupParser().parse(result);
+					} catch (ResourceStreamNotFoundException e) {
+						throw new RuntimeException("Could not parse resulting markup from '" + templateResource + "'", e);
+					}
+					renderAll(new MarkupStream(markup));					
+				}
 			}
 			catch (ParseErrorException e)
 			{
@@ -241,5 +262,28 @@ public final class VelocityPanel extends WebComponent
 			// rethrow the exception
 			throw new WicketRuntimeException(exception);
 		}
+	}
+
+	/**
+	 * Gets whether to parse the resulting Wicket markup
+	 *
+	 * @return whether to parse the resulting Wicket markup
+	 */
+	public boolean getParseGeneratedMarkup()
+	{
+		return parseGeneratedMarkup;
+	}
+
+	/**
+	 * Sets whether to parse the resulting Wicket markup. The default value is false.
+	 * 
+	 * @param parseGeneratedMarkup
+	 *            whether to parse the resulting Wicket markup
+	 * @return This
+	 */
+	public final VelocityPanel setParseGeneratedMarkup(boolean parseGeneratedMarkup)
+	{
+		this.parseGeneratedMarkup = parseGeneratedMarkup;
+		return this;
 	}
 }

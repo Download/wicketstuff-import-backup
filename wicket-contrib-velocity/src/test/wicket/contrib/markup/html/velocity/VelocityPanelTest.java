@@ -33,4 +33,14 @@ public class VelocityPanelTest extends TestCase
 		tester.assertContains(VelocityPage.TEST_STRING);
 		tester.dumpPage();
 	}
+
+	/**
+	 * Test with Wicket markup parsing
+	 */
+	public void testVelocityPanelWithMarkupParsing() {
+		WicketTester tester = new WicketTester();
+		tester.startPage(VelocityWithMarkupParsingPage.class);
+		tester.assertLabel("velocityPanel:message", VelocityPage.TEST_STRING);
+		tester.dumpPage();
+	}
 }
