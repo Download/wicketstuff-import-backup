@@ -73,6 +73,11 @@
 			<id>Eelco</id>
 			<email>eelco12 at users.sf.net</email>
 		</developer>
+		<developer>
+			<name>Jean-Baptiste Quenot</name>
+			<id>quenotj</id>
+			<email>quenotj at users.sf.net</email>
+		</developer>
 	</developers>
 	<dependencies>
 		<dependency>
