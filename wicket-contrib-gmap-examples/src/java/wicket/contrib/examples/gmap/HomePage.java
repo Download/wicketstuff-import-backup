@@ -46,12 +46,15 @@ public class HomePage extends WicketExamplePage
         GMarker wicket = new GMarker(new GPoint(-78.7073f, 35.7512f), new InfoPanel("gmarkerInfo"));
         gmap.addOverlay(wicket);
 
-        add(new GMapPanel("gmap", gmap, 800, 600, LOCALHOST_8080_WICKET_CONTRIB_GMAP_KEY));
+        add(new GMapPanel("gmap", gmap, 800, 600, LOCALHOST_8080_WICKET_CONTRIB_GMAP_EXAMPLES_KEY));
     }
 
     //pay attention at webapp deploy context, we need a different key for each deploy context
     //check <a href="http://www.google.com/apis/maps/signup.html">Google Maps API - Sign Up</a> for more info
 
+    // key for http://localhost:8080/wicket-contrib-gmap-examples/
+    private static final String LOCALHOST_8080_WICKET_CONTRIB_GMAP_EXAMPLES_KEY = "ABQIAAAALjfJpigGWq5XvKwy7McLIxTEpDPjw6LRH7yL06TcOjcEpKZmCRRGeXL1BMh_MNX22hDtswyQqVAOyQ";
+    
     //key for http://localhost:8080/wicket-contrib-gmap, deploy context is wicket-contrib-gmap
     private static final String LOCALHOST_8080_WICKET_CONTRIB_GMAP_KEY = "ABQIAAAALjfJpigGWq5XvKwy7McLIxTDxbH1TVfo7w-iwzG2OxhXSIjJdhQTwgha-mCK8wiVEq4rgi9qvz8HYw";
 

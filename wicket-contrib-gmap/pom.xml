@@ -15,29 +15,21 @@
             <groupId>wicket</groupId>
             <artifactId>wicket</artifactId>
             <version>1.2-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.11</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
