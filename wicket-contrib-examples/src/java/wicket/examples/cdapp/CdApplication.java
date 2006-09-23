@@ -109,7 +109,9 @@ public class CdApplication extends WicketExampleApplication implements ISessionF
 		return Home.class;
 	}
 
-	@Override
+	/**
+	 * @see wicket.protocol.http.WebApplication#getDefaultRequestCycleFactory()
+	 */
 	protected IRequestCycleFactory getDefaultRequestCycleFactory()
 	{
 		return requestCycleFactory;
