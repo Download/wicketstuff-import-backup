@@ -22,7 +22,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import wicket.IRequestCycleFactory;
-import wicket.ISessionFactory;
 import wicket.Request;
 import wicket.RequestCycle;
 import wicket.Response;
@@ -37,7 +36,7 @@ import wicket.protocol.http.WebSession;
  * 
  * @author Eelco Hillenius
  */
-public class CdApplication extends WicketExampleApplication implements ISessionFactory
+public class CdApplication extends WicketExampleApplication
 {
 	/** Logger. */
 	private static Log log = LogFactory.getLog(CdApplication.class);
