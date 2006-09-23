@@ -42,27 +42,53 @@ public class CdApplication extends WicketExampleApplication implements ISessionF
 	/** Logger. */
 	private static Log log = LogFactory.getLog(CdApplication.class);
 
-	/** hibernate session factory. */
-	private SessionFactory sessionFactory;
-
 	/**
 	 * custom request cycle factory.
 	 */
-	private transient IRequestCycleFactory requestCycleFactory = new IRequestCycleFactory()
+	private static class CdRequestCycleFactory implements IRequestCycleFactory
 	{
+		/** hibernate session factory. */
+		private final SessionFactory sessionFactory;
+
+		/**
+		 * Construct.
+		 */
+		public CdRequestCycleFactory()
+		{
+			try
+			{
+				final Configuration configuration = new Configuration();
+				configuration.configure();
+				// build hibernate SessionFactory for this application instance
+				sessionFactory = configuration.buildSessionFactory();
+				// create database
+				new DatabaseUtil(configuration).createDatabase();
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+
+		/**
+		 * @see wicket.IRequestCycleFactory#newRequestCycle(wicket.Session,
+		 *      wicket.Request, wicket.Response)
+		 */
 		public RequestCycle newRequestCycle(Session session, Request request, Response response)
 		{
 			return new CdAppRequestCycle((WebSession)session, (WebRequest)request, response,
 					sessionFactory);
 		}
-
 	};
+
+	private final CdRequestCycleFactory requestCycleFactory;
 
 	/**
 	 * Constructor
 	 */
 	public CdApplication()
 	{
+		requestCycleFactory = new CdRequestCycleFactory();
 	}
 
 	/**
@@ -70,20 +96,6 @@ public class CdApplication extends WicketExampleApplication implements ISessionF
 	 */
 	protected void init()
 	{
-		try
-		{
-			final Configuration configuration = new Configuration();
-			configuration.configure();
-			// build hibernate SessionFactory for this application instance
-			sessionFactory = configuration.buildSessionFactory();
-			// create database
-			new DatabaseUtil(configuration).createDatabase();
-		}
-		catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
-
 		getResourceSettings().setThrowExceptionOnMissingResource(false);
 
 		setSessionFactory(this);
@@ -97,20 +109,9 @@ public class CdApplication extends WicketExampleApplication implements ISessionF
 		return Home.class;
 	}
 
-	/**
-	 * @see wicket.ISessionFactory#newSession()
-	 */
-	public Session newSession()
+	@Override
+	protected IRequestCycleFactory getDefaultRequestCycleFactory()
 	{
-		return new WebSession(CdApplication.this)
-		{
-			/**
-			 * @see wicket.protocol.http.WebSession#getRequestCycleFactory()
-			 */
-			protected IRequestCycleFactory getRequestCycleFactory()
-			{
-				return requestCycleFactory;
-			}
-		};
+		return requestCycleFactory;
 	}
 }
