@@ -1,0 +1,71 @@
+/*
+ * $Id: ActionPermissionsTest.java 598 2006-02-27 06:29:40Z cowwoc $
+ * $Revision: 598 $ $Date: 2006-02-27 01:29:40 -0500 (Mon, 27 Feb 2006) $
+ *
+ * ==============================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package wicket.contrib.authorization.strategies.role.metadata;
+
+import junit.framework.TestCase;
+import wicket.authorization.Action;
+import wicket.contrib.authorization.strategies.role.annotations.EelcoRole;
+import wicket.contrib.authorization.strategies.role.annotations.JohanRole;
+import wicket.contrib.authorization.strategies.role.annotations.JonathanRole;
+import wicket.contrib.authorization.strategies.role.annotations.MauriceRole;
+import wicket.contrib.authorization.strategies.role.Roles;
+
+/**
+ * Test case for {@link wicket.authorization.strategies.role.metadata.ActionPermissions}.
+ *
+ * @author Eelco Hillenius
+ */
+public class ActionPermissionsTest extends TestCase
+{
+  /**
+   * Construct.
+   */
+  public ActionPermissionsTest()
+  {
+    super();
+  }
+  
+  /**
+   * Construct.
+   * @param arg0
+   */
+  public ActionPermissionsTest(String arg0)
+  {
+    super(arg0);
+  }
+  
+  /**
+   * Test adding roles.
+   *
+   * @throws Exception
+   */
+  public void testAdd1() throws Exception
+  {
+    ActionPermissions permissions = new ActionPermissions();
+    Action mambo = new Action("mambo");
+    permissions.authorize(mambo, new Roles(JonathanRole.class));
+    permissions.authorize(mambo, new Roles(JohanRole.class));
+    permissions.authorize(mambo, new Roles(MauriceRole.class));
+    permissions.authorize(mambo, new Roles(EelcoRole.class));
+    assertEquals(4, permissions.rolesFor(mambo).size());
+    permissions.unauthorize(mambo, new Roles(MauriceRole.class));
+    assertEquals(3, permissions.rolesFor(mambo).size());
+    permissions.authorizeAll(mambo);
+    assertEquals(null, permissions.rolesFor(mambo));
+  }
+}
