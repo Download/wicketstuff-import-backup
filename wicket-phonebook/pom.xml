@@ -102,7 +102,7 @@
         <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.7.3.3</version>
+            <version>1.8.0.7</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -115,6 +115,11 @@
 			<artifactId>jetty</artifactId>
 			<version>6.0.0beta16</version>
 			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>net.sf.shadesdb</groupId>
+			<artifactId>shades</artifactId>
+			<version>0.0.5</version>
 		</dependency>
     </dependencies>
 
@@ -205,6 +210,14 @@
 
     <reporting>
         <plugins>
+		<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.4</source>
+                    <target>1.4</target>
+                </configuration>
+             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
