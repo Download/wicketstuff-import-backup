@@ -93,7 +93,7 @@ public class HibernateContactDao implements ContactDao {
 	 * @return The results of the query as an Iterator.
 	 */
 	public Iterator find(final QueryParam qp, Contact filter) {
-		return buildFindQuery(qp, filter, false).iterate();
+		return buildFindQuery(qp, filter, false).list().iterator();
 
 	}
 
