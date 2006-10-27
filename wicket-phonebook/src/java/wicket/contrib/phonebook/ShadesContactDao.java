@@ -15,12 +15,13 @@ import hendrey.orm.Query;
 import hendrey.orm.Record;
 import hendrey.orm.RecordSet;
 import hendrey.shades.DatabaseSessionFactory;
-import hendrey.shades.QueryFactory;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 /**

@@ -9,8 +9,6 @@
 package wicket.contrib.phonebook;
 
 import hendrey.shades.DefaultHsqlORMapping;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  *
