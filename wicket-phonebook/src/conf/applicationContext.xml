@@ -9,11 +9,13 @@
 		Choose a persistence option...
 		NOTE: If using Hibernate, uncomment the filters in the web.xml
 	-->
-	<!--<import resource="classpath:persistence.shades.xml"/>-->
-	<!--<import resource="classpath:persistence.hibernate.xml"/>-->
+	<!--
+	<import resource="classpath:persistence.shades.xml"/>
+	-->
+	<import resource="classpath:persistence.hibernate.xml"/>
+	<!--
 	<import resource="classpath:persistence.ibatis.xml"/>
-
-
+	-->
 	<!-- setup data generator that will add some data into the db when the app starts up -->
 	<bean id="dataGenerator" class="wicket.contrib.phonebook.DataGenerator">
 		<property name="contactDao" ref="contactDao"/>

@@ -106,7 +106,7 @@ public class HibernateContactDao implements ContactDao {
 	 * @return count
 	 */
 	public int count(Contact filter) {
-		return ((Integer) buildFindQuery(null, filter, true).uniqueResult())
+		return ((Long) buildFindQuery(null, filter, true).uniqueResult())
 				.intValue();
 	}
 
