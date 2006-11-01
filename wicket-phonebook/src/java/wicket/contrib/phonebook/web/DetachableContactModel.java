@@ -18,69 +18,51 @@
  */
 package wicket.contrib.phonebook.web;
 
-import wicket.Component;
 import wicket.contrib.phonebook.Contact;
 import wicket.contrib.phonebook.ContactDao;
-import wicket.model.AbstractReadOnlyDetachableModel;
-import wicket.model.IModel;
+import wicket.model.LoadableDetachableModel;
 
 /**
- * Detatchable, read-only Contact model.
- * Ensures that memory used to load the contact details is immediately freed
- * rather than held in the session.
+ * Detatchable, read-only Contact model. Ensures that memory used to load the
+ * contact details is immediately freed rather than held in the session.
  * Typically used by <tt>List</tt>-type pages, where multiple elements are
  * loaded at a time.
- *
- * @author igor
+ * 
+ * @author ivaynberg
  */
-public class DetachableContactModel extends AbstractReadOnlyDetachableModel {
+public class DetachableContactModel extends LoadableDetachableModel {
+	/**
+	 * database identity of the contact
+	 */
 	private final long id;
+
+	/**
+	 * dao reference - must be a wicket-wrapped proxy, holding onto a reference
+	 * to the real dao will cause its serialization into session or a
+	 * not-serializable exception when the servelt container serializes the
+	 * session.
+	 */
 	private final ContactDao dao;
-	private transient Contact contact;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param contact
+	 * @param dao
+	 */
 	public DetachableContactModel(Contact contact, ContactDao dao) {
-		this(contact.getId(), dao);
-		this.contact=contact;
-	}
-
-	public DetachableContactModel(long id, ContactDao dao) {
-		if (id==0) {
-			throw new IllegalArgumentException();
-		}
-		this.id=id;
-		this.dao=dao;
+		super(contact);
+		this.id = contact.getId();
+		this.dao = dao;
 	}
 
 	/**
-	 * Returns null to indicate there is no nested model.
-	 * @return Null
+	 * Loads the contact from the database
+	 * 
+	 * @see wicket.model.LoadableDetachableModel#load()
 	 */
-	public IModel getNestedModel() {
-		return null;
-	}
-
-
-	/**
-	 * Uses the DAO to load the required contact when the model is attatched to the request.
-	 */
-	protected void onAttach() {
-		contact=dao.load(id);
-	}
-
-	/**
-	 * Clear the reference to the contact when the model is detatched.
-	 */
-	protected void onDetach() {
-		contact=null;
-	}
-
-	/**
-	 * Called after attatch to return the detatchable object.
-	 * @param component  The component asking for the object
-	 * @return The detatchable object.
-	 */
-	protected Object onGetObject(Component component) {
-		return contact;
+	protected Object load() {
+		return dao.load(id);
 	}
 
 }
