@@ -17,6 +17,8 @@ package wicket.extensions.markup.html.datepicker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -152,8 +154,15 @@ public abstract class DatePicker extends Panel
 	private CallbackScript onSelect;
 	private CallbackScript onClose;
 	private CallbackScript onUpdate;
+	
+	private Date defaultDate;;
 
 	public DatePicker(final String id, final DatePickerSettings settings)
+	{
+		this(id, settings, null);
+	}
+	
+	public DatePicker(final String id, final DatePickerSettings settings, Date defaultDate)
 	{
 		super(id);
 
@@ -164,6 +173,7 @@ public abstract class DatePicker extends Panel
 		}
 
 		this.settings = settings;
+		this.defaultDate = defaultDate;
 
 		add(new InitScript("script"));
 		add(new JavaScriptReference("calendarMain", JAVASCRIPT));
@@ -233,8 +243,23 @@ public abstract class DatePicker extends Panel
 		Map additionalSettings = new HashMap();
 		appendSettings(additionalSettings);
 
-		AppendingStringBuffer b = new AppendingStringBuffer("\nCalendar.setup(\n{");
+		AppendingStringBuffer b = new AppendingStringBuffer();
 
+		if (defaultDate != null) 
+		{
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(defaultDate);
+			
+			b.append("\nvar defaultDate = new Date();");
+			b.append("\ndefaultDate.setFullYear(").append(calendar.get(Calendar.YEAR)).append(");");
+			b.append("\ndefaultDate.setMonth(").append(calendar.get(Calendar.MONTH)).append(");");
+			b.append("\ndefaultDate.setDate(").append(calendar.get(Calendar.DAY_OF_MONTH)).append(");");
+			b.append("\ndefaultDate.setHours(").append(calendar.get(Calendar.HOUR_OF_DAY)).append(");");
+			b.append("\ndefaultDate.setMinutes(").append(calendar.get(Calendar.MINUTE)).append(");\n");
+		}
+		
+		b.append("\nCalendar.setup(\n{");
+		
 		// Append specific settings
 		for (Iterator iter = additionalSettings.keySet().iterator(); iter.hasNext();)
 		{
@@ -256,6 +281,11 @@ public abstract class DatePicker extends Panel
 		if (settings.getOnUpdate() != null) 
 		{
 			b.append("\n\t\tonUpdate : ").append(onUpdate.getCallbackFunctionName()).append(",");
+		}
+		
+		if (defaultDate != null)
+		{
+			b.append("\n\t\tdate : defaultDate,");
 		}
 		
 		String pattern = null;

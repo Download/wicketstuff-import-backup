@@ -15,6 +15,7 @@
  */
 package wicket.extensions.markup.html.datepicker;
 
+import java.util.Date;
 import java.util.Map;
 
 import wicket.Component;
@@ -39,20 +40,18 @@ public class FlatDatePicker extends DatePicker
 
 	public FlatDatePicker(String id, ISelectCallback selectCallback)
 	{
-		this(id, selectCallback, new DatePickerSettings());
+		this(id, selectCallback, new DatePickerSettings(), null);
 	}
 
 	public FlatDatePicker(String id, final ISelectCallback selectCallback,
-			DatePickerSettings settings)
+			DatePickerSettings settings, Date date)
 	{
-		super(id, settings);
-
+		super(id, settings, date);
+		
 		if (selectCallback == null)
 		{
 			throw new IllegalArgumentException("ISelectCallback must not be null.");
 		}
-
-//		selectCallback.bind(this);
 
 		flatCalendar = new WebMarkupContainer("flatCalendar");
 		flatCalendar.setOutputMarkupId(true);
