@@ -1,7 +1,4 @@
 /*
- * $Id$ $Revision:
- * 1.3 $ $Date$
- * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the
@@ -18,66 +15,79 @@
 package wicket.contrib.jasperreports.examples;
 
 import java.io.File;
-
 import javax.servlet.ServletContext;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import wicket.Component;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.jasperreports.JRCsvResource;
 import wicket.contrib.jasperreports.JRHtmlResource;
 import wicket.contrib.jasperreports.JRImageResource;
 import wicket.contrib.jasperreports.JRPdfResource;
-import wicket.contrib.jasperreports.JRResource;
 import wicket.contrib.jasperreports.JRRtfResource;
 import wicket.contrib.jasperreports.JRTextResource;
 import wicket.markup.html.link.ResourceLink;
 import wicket.protocol.http.WebApplication;
 
 /**
- * Simple Jasper reports example with PDF output and a jasper reports panel..
- * 
+ * Simple Jasper reports example
+ *
  * @author Eelco Hillenius
+ * @author Justin Lee
  */
-public class ReportLinksPage extends WicketExamplePage
-{
-	/**
-	 * Constructor.
-	 */
-	public ReportLinksPage()
-	{
-		ServletContext context = ((WebApplication) getApplication()).getWicketServlet()
-				.getServletContext();
-		final File reportFile = new File(context.getRealPath("/reports/example.jasper"));
+public class ReportLinksPage extends WicketExamplePage {
+    /**
+     * Constructor.
+     */
+    public ReportLinksPage() {
+        ServletContext context = ((WebApplication)getApplication()).getWicketServlet().getServletContext();
+        final File reportFile = new File(context.getRealPath("/reports/example.jrxml"));
 
-		JRResource pdfResource = new JRPdfResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToPdf", pdfResource));
+        // Override getReportDataSource to avoid serializing the data source to the session
+        add(new ResourceLink("linkToPdf", new JRPdfResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }));
 
-		JRResource rtfResource = new JRRtfResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToRtf", rtfResource));
+        add(new ResourceLink("linkToRtf", new JRRtfResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }));
 
-		JRResource htmlResource = new JRHtmlResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToHtml", htmlResource));
+        add(new ResourceLink("linkToHtml", new JRHtmlResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }));
 
-		JRResource textResource = new JRTextResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToText", textResource));
+        add(new ResourceLink("linkToText", new JRTextResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }));
 
-		JRResource imageResource = new JRImageResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToImage", imageResource));
+        JRImageResource jrImageResource = new JRImageResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        };
+        // defaults to png but you can change that by setting the format
+        jrImageResource.setFormat("jpg");
+        add(new ResourceLink("linkToImage", jrImageResource));
 
-		JRResource csvResource = new JRCsvResource(reportFile)
-				.setReportDataSource(new ExampleDataSource());
-		add(new ResourceLink("linkToCsv", csvResource));
-	}
+        add(new ResourceLink("linkToCsv", new JRCsvResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }));
+    }
 
-	/**
-	 * @see wicket.Component#isVersioned()
-	 */
-	public boolean isVersioned()
-	{
-		return false;
-	}
+    /**
+     * @see Component#isVersioned()
+     */
+    public boolean isVersioned() {
+        return false;
+    }
 }

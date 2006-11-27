@@ -1,7 +1,4 @@
 /*
- * $Id$ $Revision:
- * 1.5 $ $Date$
- * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the
@@ -19,42 +16,40 @@ package wicket.contrib.jasperreports.examples;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletContext;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import wicket.Component;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.jasperreports.EmbeddedJRReport;
 import wicket.contrib.jasperreports.JRPdfResource;
-import wicket.contrib.jasperreports.JRResource;
 import wicket.protocol.http.WebApplication;
 
 /**
- * Simple Jasper reports example with PDF output and a jasper reports panel..
- * 
+ * Simple Jasper reports example
+ *
  * @author Eelco Hillenius
+ * @author Justin Lee
  */
-public class SimplePdfPage extends WicketExamplePage
-{
-	/**
-	 * Constructor.
-	 */
-	public SimplePdfPage()
-	{
-		ServletContext context = ((WebApplication) getApplication()).getWicketServlet()
-				.getServletContext();
-		final File reportFile = new File(context.getRealPath("/reports/example.jasper"));
-		final Map parameters = new HashMap();
-		JRResource pdfResource = new JRPdfResource(reportFile).setReportParameters(
-				parameters).setReportDataSource(new ExampleDataSource());
-		add(new EmbeddedJRReport("report", pdfResource));
-	}
+public class SimplePdfPage extends WicketExamplePage {
+    /**
+     * Constructor.
+     */
+    public SimplePdfPage() {
+        ServletContext context = ((WebApplication)getApplication()).getWicketServlet().getServletContext();
+        final File reportFile = new File(context.getRealPath("/reports/example.jrxml"));
 
-	/**
-	 * @see wicket.Component#isVersioned()
-	 */
-	public boolean isVersioned()
-	{
-		return false;
-	}
+        add(new EmbeddedJRReport("report", new JRPdfResource(reportFile) {
+            public JRDataSource getReportDataSource() {
+                return new ExampleDataSource();
+            }
+        }.setReportParameters(new HashMap())));
+    }
+
+    /**
+     * @see Component#isVersioned()
+     */
+    public boolean isVersioned() {
+        return false;
+    }
 }

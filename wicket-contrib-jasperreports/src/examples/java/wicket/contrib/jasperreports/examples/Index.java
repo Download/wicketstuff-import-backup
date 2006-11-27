@@ -19,18 +19,20 @@
 package wicket.contrib.jasperreports.examples;
 
 import wicket.contrib.examples.WicketExamplePage;
+import wicket.markup.html.link.PageLink;
 
 /**
  * Jasper reports example index page.
- * 
+ *
  * @author Eelco Hillenius
+ * @author <a href="mailto:jlee at antwerkz.com">Justin Lee</a>
  */
-public class Index extends WicketExamplePage
-{
+public class Index extends WicketExamplePage {
     /**
      * Constructor
      */
-    public Index()
-    {
+    public Index() {
+        add(new PageLink("simple", SimplePdfPage.class));
+        add(new PageLink("links", ReportLinksPage.class));
     }
 }
