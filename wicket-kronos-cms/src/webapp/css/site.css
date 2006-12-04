@@ -1,0 +1,37 @@
+.clear,br,#projectLogo,#organizationLogo,#poweredBy {
+	display: none;
+}
+
+body {
+	background-color: white;
+	background-attachment: fixed;
+	color: #6F6F6F;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 8pt;
+	line-height: 1.8em;
+	height: 99%;
+	padding: 10px;
+	margin: 10;
+}
+
+.names {
+	float: right;
+	display: block;
+	width: 175px;
+	background-color: #EEEEEE;
+	border: solid black 1px;
+}
+
+.container {
+	border: ridge #6F6F6F 3px;
+	padding: 10px;
+}
+
+h1 {
+	color: #e9601a;
+	font-size: 200%;
+}
+
+a {
+	color: #e9601a;
+}

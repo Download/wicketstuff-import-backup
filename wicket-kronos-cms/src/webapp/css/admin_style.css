@@ -1,0 +1,106 @@
+body {
+	width: 100%;
+	height: 800px;
+	padding: 0;
+	margin: 0;
+	color: #E9601A;
+	background-color: #C0C0C0;
+	font-family: garamond;
+}
+
+.container {
+	height: 100%;
+}
+
+/* div style definitions*/
+.header {
+	height: 100px;
+	background-color: #C0C0C0;
+}
+
+.menu {
+	width: 100%;
+	background-color: #C0C0C0;
+	border-style: solid;
+	border-color: #A8A8A8;
+	border-width: 2px 0px 0px 0px;
+}
+
+.configuration {
+	clear: both;
+	height: 88%;
+	background-color: #C0C0C0;
+}
+
+.configmenu {
+	height: 36px;
+	background-color: #C0C0C0;
+	border-style: solid;
+	border-color: #A8A8A8;
+	border-width: 2px 0px 2px 0px;
+}
+
+.footer {
+	height: 20px;
+	background-color: #FFFFFF;
+	vertical-align: bottom;
+	border-style: solid;
+	border-color: #A8A8A8;
+	border-width: 2px 0px 0px 0px;
+	text-align: center;
+}
+
+/* style definition of the menubar */
+.menubar {
+	width: 100%;
+	background-color: #C0C0C0;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+li.menuitem {
+	float: left;
+}
+
+a.menuitem {
+	display: block;
+	width: 100px;
+	background-color: #C0C0C0;
+	text-decoration: none;
+	color: #E9601A;
+	padding: 2px 0px 2px 0px;
+}
+
+a.menuitem:hover {
+	display: block;
+	width: 100px;
+	color: #808080;
+	border-style: solid;
+	background-color: #E0E0E0;
+	border-width: 0px 1px 0px 1px;
+	padding: 2px 0px 2px 0px;
+}
+
+a{
+	display: block;
+	text-decoration: none;	
+}
+
+a:hover{
+	background-color: #E0E0E0;
+}
+
+table{
+	border: inset black 1px;
+}
+
+th{
+	text-align: left;
+	border: inset black 1px;
+}
+
+td {
+	border: inset black 1px;	
+}

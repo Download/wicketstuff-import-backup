@@ -1,0 +1,29 @@
+a.menuItem {
+	background-color: #e9601a;
+	color: black;
+	text-decoration: none;
+	display: block;
+}
+
+a.menuItem:hover {
+	background-color: #a9a9a9;
+	color: #e9601a;
+}
+
+ul.menuItems {
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+li.menuItemsHorizontal {
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+li.menuItemsHorizontal a {
+	width: 100px;
+	text-align: center;
+}

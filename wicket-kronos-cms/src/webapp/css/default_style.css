@@ -1,0 +1,121 @@
+.header {
+	clear: both;
+	position: relative;
+	margin: 2px;
+}
+
+.header img {
+	width: 1011px;
+}
+
+.left {
+	float: left;
+	position: relative;
+	width: 20%;
+	margin: 2px;
+}
+
+.center {
+	float: left;
+	position: relative;
+	width: 59%;
+	margin: 2px;
+}
+
+.right {
+	width: 19%;
+	float: left;
+	position: relative;
+	margin: 2px;
+}
+
+.footer {
+	clear: both;
+	position: relative;
+	margin: 2px;
+}
+
+body {
+	text-align: center;
+	background-color: #EEEEEE;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+}
+
+.container {
+	width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	border: double #e9601a 1px;
+	background-color: #DDDDDD;
+}
+
+.plugin {
+	border: dashed #e9601a 1px;
+	margin: 2px;
+	padding: 2px;
+}
+
+.blogpost {
+	border: double #e9601a 1px;
+	margin: 5px 5px 15px 5px;;
+	padding: 5px;
+}
+
+.blogpost a {
+	color: #E9601A;
+	font-size: 80%;
+}
+
+.blogpost .title {
+	font-size: 150%;
+	font-family: "lucida console";
+	font-style: italic;
+	color: #4169E1;
+}
+
+.blogpost .text p:first-letter {
+	font-family: cursive;
+	font-family: "lucida console";
+	font-size: 150%;
+	font-weight: bold;
+	color: #4169E1;
+}
+
+.blogpost .date {
+	font-size: 75%;
+	float: left;
+	margin-right: 10px;
+}
+
+.blogpost .author {
+	font-style: italic;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.blogpost div.commenttext {
+	border-top: dotted black 1px;
+}
+
+.helloworld {
+	font-size: 125%;
+	font-weight: bold;
+}
+
+.titan a {
+	text-decoration: none;
+	color: black;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.titan a:hover div {
+	background-color: #F07a2b;
+}
+
+.titan a:visited {
+	color: black;
+}

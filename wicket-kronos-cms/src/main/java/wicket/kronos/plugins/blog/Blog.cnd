@@ -1,0 +1,22 @@
+<kronos = 'http://kronos.com'>
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+
+[kronos:BlogPost] > nt:base, mix:referenceable
+-kronos:date (DATE) mandatory
+-kronos:title (STRING) mandatory primary
+-kronos:text (STRING) mandatory
+-kronos:author (STRING) mandatory
++kronos:comments (kronos:Comments) 
+
+[kronos:Comment] > nt:base, mix:referenceable
+-kronos:text (STRING) mandatory
+-kronos:author (STRING) mandatory
+-kronos:date (DATE) mandatory
+
+[kronos:Comments] > nt:base
++kronos:comment(kronos:Comment) = kronos:Comment multiple
+
+[kronos:BlogPostings] > nt:base
+-kronos:blogname (STRING) mandatory
++kronos:blogpost(kronos:BlogPost) = kronos:BlogPost multiple
