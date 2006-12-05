@@ -5,8 +5,9 @@ import wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosPage;
 import wicket.kronos.KronosSession;
-import wicket.kronos.Admin.AdminPluginOverview;
+import wicket.kronos.frontpage.Frontpage;
 import wicket.kronos.plugins.IPlugin;
+import wicket.markup.html.link.BookmarkablePageLink;
 
 /**
  * @author postma
@@ -23,6 +24,8 @@ public class AdminPage extends KronosPage {
 	public AdminPage()
 	{
 		add(new AdminPluginOverview("plugin"));
+		add(new BookmarkablePageLink("frontpage", Frontpage.class));
+		add(new BookmarkablePageLink("newPlugin", AdminPage.class));
 	}
 
 	/**
@@ -32,6 +35,8 @@ public class AdminPage extends KronosPage {
 	 */
 	public AdminPage(PageParameters pageParameters)
 	{
+		add(new BookmarkablePageLink("newPlugin", AdminPage.class));
+		add(new BookmarkablePageLink("frontpage", Frontpage.class));
 		if (pageParameters == null || pageParameters.isEmpty())
 		{
 			add(new AdminPluginOverview("plugin"));

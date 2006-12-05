@@ -15,6 +15,7 @@ import javax.jcr.query.QueryResult;
 
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
+import wicket.kronos.plugins.banner.panels.BannerAdminpagePanel;
 import wicket.kronos.plugins.banner.panels.BannerFrontpagePanel;
 import wicket.markup.html.image.resource.DynamicImageResource;
 
@@ -50,7 +51,21 @@ public class BannerPlugin extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
-
+		if(isAdmin)
+		{
+			add(new BannerAdminpagePanel("panel"));
+		} else {
+			add(new BannerFrontpagePanel("panel", this.getImage()));
+		}
+	}
+	
+	/**
+	 * Retrieve the image for the banner from the repository
+	 * 
+	 * @return DynamicImageResource resource
+	 */
+	public DynamicImageResource getImage()
+	{
 		Session jcrSession = KronosSession.get().getJCRSession();
 		DynamicImageResource resource = null;
 
@@ -115,10 +130,10 @@ public class BannerPlugin extends IPlugin {
 		{
 			e.printStackTrace();
 		}
-
-		add(new BannerFrontpagePanel("panel", resource));
+		
+		return resource;
 	}
-
+	
 	@Override
 	public boolean isConfigurable()
 	{

@@ -1,6 +1,7 @@
 package wicket.kronos.plugins.helloworld;
 
 import wicket.kronos.plugins.IPlugin;
+import wicket.kronos.plugins.helloworld.panels.HelloWorldAdminpagePanel;
 import wicket.markup.html.basic.Label;
 
 /**
@@ -27,8 +28,13 @@ public class HelloWorld extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
-		add(new Label("helloworld",
-				"Hello beautiful world how is theigh today?"));
+		if(isAdmin)
+		{
+			add(new HelloWorldAdminpagePanel("helloworld"));
+		} else {
+			add(new Label("helloworld",
+					"Hello beautiful world how is theigh today?"));
+		}
 	}
 
 	/**

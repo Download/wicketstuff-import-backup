@@ -1,6 +1,5 @@
 .header {
 	clear: both;
-	position: relative;
 	margin: 2px;
 }
 
@@ -10,14 +9,12 @@
 
 .left {
 	float: left;
-	position: relative;
 	width: 20%;
 	margin: 2px;
 }
 
 .center {
 	float: left;
-	position: relative;
 	width: 59%;
 	margin: 2px;
 }
@@ -25,13 +22,11 @@
 .right {
 	width: 19%;
 	float: left;
-	position: relative;
 	margin: 2px;
 }
 
 .footer {
 	clear: both;
-	position: relative;
 	margin: 2px;
 }
 

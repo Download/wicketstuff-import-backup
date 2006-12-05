@@ -1,16 +1,15 @@
 package wicket.kronos.adminpage;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
-import wicket.kronos.plugins.IPlugin;
 
 /**
  * @author postma
@@ -19,46 +18,36 @@ public class AdminPanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
 
-	private IPlugin plugin = null;
+	//private IPlugin plugin = null;
 
 	/**
 	 * Default when no plugin is to be configured
+	 * @param wicketId 
 	 */
 	public AdminPanel(String wicketId)
 	{
 		super(wicketId);
+		
+		add(new AdminForm("adminpanelform"));
 	}
 
 	/**
 	 * Constructor when a specific plugin is to be configured
 	 * 
+	 * @param wicketId
 	 * @param pluginId
 	 */
-	public AdminPanel(int pluginId)
+	public AdminPanel(String wicketId, int pluginId)
 	{
-		super("adminpanel");
-		// boolean isAdmin = true;
-		// plugin = DataProcessor.getPlugin(isAdmin, pluginId);
+		super(wicketId);
 
 		add(new AdminForm("adminpanelform"));
-
-		/*
-		 * Form adminPanelForm = new Form("adminpanelform") {
-		 * super("adminpanelform", new CompoundPropertyModel(new
-		 * FormInputModel())); }; //changing pluginname add(new
-		 * Label("currentpluginname", "Currentpluginname \"" +
-		 * plugin.getPluginname() + "\"")); add(new Label("namelabel", "New
-		 * pluginname")); add(new TextField("newpluginname")); /* publish /
-		 * unpublish //setIspublished(); add(new Label("publish", "Publish"));
-		 * add(new CheckBox("ispublished")); /* set the plugin type add(new
-		 * Label("plugintype", "Plugintype")); /* ToDo: add dropdown when
-		 * repository has list of plugin types add(new DropDownChoice());
-		 */
-
-		/* ToDo: add child panels */
-
 	}
 
+	/**
+	 * @author postma
+	 *
+	 */
 	public class AdminForm extends Form {
 		/**
 		 * Default serialVersionUID
@@ -70,16 +59,12 @@ public class AdminPanel extends Panel {
 		 */
 		public AdminForm(String id)
 		{
-			super(id, new CompoundPropertyModel(new FormInputModel(plugin
-					.isPublished(), plugin.getPluginname(), plugin
-					.getPluginType())));
+			super(id, new CompoundPropertyModel(new FormInputModel()));
 
 			List pluginType = Arrays.asList(new String[] {"HelloWorld", "Blog",
 					"Menu"});
 
 			/* changing pluginname */
-			add(new Label("currentpluginname", "Currentpluginname \""
-					+ plugin.getPluginname() + "\""));
 			add(new TextField("newpluginname"));
 
 			/* publish / unpublish */
@@ -96,7 +81,12 @@ public class AdminPanel extends Panel {
 	 * 
 	 * @author roeloffzen
 	 */
-	public class FormInputModel {
+	public class FormInputModel implements Serializable {
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+
 		boolean ispublished;
 
 		String newpluginname;

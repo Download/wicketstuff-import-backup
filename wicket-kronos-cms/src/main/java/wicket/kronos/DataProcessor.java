@@ -178,7 +178,7 @@ public final class DataProcessor {
 			String pluginType = pluginNode.getProperty("kronos:pluginType")
 					.getString();
 
-			plugin = getPluginObject(isAdmin, null, name, published, intOrder,
+			plugin = getPluginObject(isAdmin, pluginUUID, name, published, intOrder,
 					intPosition, pluginType);
 		}
 		catch (ItemNotFoundException e)
