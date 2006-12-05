@@ -2,7 +2,6 @@ package wicket.kronos.plugins.blog.panels.adminpage;
 
 import wicket.kronos.plugins.blog.panels.BlogInputModel;
 import wicket.kronos.plugins.blog.panels.BlogPost;
-import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
@@ -56,9 +55,7 @@ public class AdminBlogEdit extends Panel {
 		{
 			super(name, new CompoundPropertyModel(new BlogInputModel(blogPost
 					.getTitle(), blogPost.getText())));
-			add(new Label("titlelabel"));
 			add(new TextField("title"));
-			add(new Label("textlabel"));
 			add(new TextArea("text"));
 		}
 	}
@@ -66,6 +63,12 @@ public class AdminBlogEdit extends Panel {
 	private void createMenu()
 	{
 		add(new Link("savepost") {
+			
+			/**
+			 * Default serialVersionUID
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void onClick()
 			{
@@ -74,7 +77,7 @@ public class AdminBlogEdit extends Panel {
 				blogPost.setTitle(changedModel.getTitle());
 				blogPost.setText(changedModel.getText());
 			}
-		}.add(new Image("/Kronos_Icon_Pack/Save.png")));
+		}.add(new Image("save", "Save.png")));
 		/* ToDo: add all other necessary menu items */
 	}
 }

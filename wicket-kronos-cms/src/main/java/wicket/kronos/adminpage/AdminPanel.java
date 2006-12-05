@@ -24,9 +24,9 @@ public class AdminPanel extends Panel {
 	/**
 	 * Default when no plugin is to be configured
 	 */
-	public AdminPanel()
+	public AdminPanel(String wicketId)
 	{
-		super("adminpanel");
+		super(wicketId);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class AdminPanel extends Panel {
 
 	}
 
-	class AdminForm extends Form {
+	public class AdminForm extends Form {
 		/**
 		 * Default serialVersionUID
 		 */
@@ -96,7 +96,7 @@ public class AdminPanel extends Panel {
 	 * 
 	 * @author roeloffzen
 	 */
-	class FormInputModel {
+	public class FormInputModel {
 		boolean ispublished;
 
 		String newpluginname;
