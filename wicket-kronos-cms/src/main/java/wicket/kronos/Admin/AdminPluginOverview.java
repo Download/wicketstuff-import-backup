@@ -3,9 +3,8 @@ package wicket.kronos.Admin;
 import java.util.List;
 
 import wicket.PageParameters;
-import wicket.kronos.AdminPage;
+import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.DataProcessor;
-import wicket.kronos.Frontpage;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.link.BookmarkablePageLink;

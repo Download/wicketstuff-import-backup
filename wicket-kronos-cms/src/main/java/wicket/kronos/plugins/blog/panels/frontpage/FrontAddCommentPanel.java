@@ -1,4 +1,4 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.frontpage;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -13,8 +13,9 @@ import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
 import wicket.authentication.User;
-import wicket.kronos.Frontpage;
 import wicket.kronos.KronosSession;
+import wicket.kronos.frontpage.Frontpage;
+import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;
 import wicket.markup.html.panel.Panel;

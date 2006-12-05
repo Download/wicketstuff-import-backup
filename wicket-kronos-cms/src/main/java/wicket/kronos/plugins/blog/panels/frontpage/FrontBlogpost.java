@@ -1,10 +1,12 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.frontpage;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
 import wicket.kronos.KronosSession;
+import wicket.kronos.plugins.blog.panels.BlogPost;
+import wicket.kronos.plugins.blog.panels.Comment;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.basic.MultiLineLabel;
 import wicket.markup.html.list.ListItem;

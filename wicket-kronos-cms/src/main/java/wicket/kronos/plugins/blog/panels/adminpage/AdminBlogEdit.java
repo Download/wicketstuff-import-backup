@@ -1,5 +1,7 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.adminpage;
 
+import wicket.kronos.plugins.blog.panels.BlogInputModel;
+import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;

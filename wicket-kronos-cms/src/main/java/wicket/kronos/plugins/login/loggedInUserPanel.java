@@ -1,7 +1,7 @@
 package wicket.kronos.plugins.login;
 
-import wicket.kronos.Frontpage;
 import wicket.kronos.KronosSession;
+import wicket.kronos.frontpage.Frontpage;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.panel.Panel;

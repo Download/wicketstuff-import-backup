@@ -1,7 +1,8 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.frontpage;
 
 import java.util.List;
 
+import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.panel.Panel;
 
 /**

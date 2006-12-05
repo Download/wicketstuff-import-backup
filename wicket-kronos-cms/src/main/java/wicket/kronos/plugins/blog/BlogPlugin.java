@@ -15,10 +15,10 @@ import javax.jcr.query.QueryResult;
 
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
-import wicket.kronos.plugins.blog.panels.AdminBlogPanel;
 import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.kronos.plugins.blog.panels.Comment;
-import wicket.kronos.plugins.blog.panels.FrontBlogPanel;
+import wicket.kronos.plugins.blog.panels.adminpage.AdminBlogPanel;
+import wicket.kronos.plugins.blog.panels.frontpage.FrontBlogPanel;
 
 /**
  * @author postma

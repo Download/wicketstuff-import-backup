@@ -1,9 +1,9 @@
 package wicket.test;
 
-import wicket.PageParameters;
-import wicket.kronos.Frontpage;
-import wicket.kronos.KronosSession;
 import junit.framework.TestCase;
+import wicket.PageParameters;
+import wicket.kronos.KronosSession;
+import wicket.kronos.frontpage.Frontpage;
 
 /**
  * @author postma

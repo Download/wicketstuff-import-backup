@@ -1,7 +1,10 @@
-package wicket.kronos;
+package wicket.kronos.adminpage;
 
 import wicket.PageParameters;
 import wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import wicket.kronos.DataProcessor;
+import wicket.kronos.KronosPage;
+import wicket.kronos.KronosSession;
 import wicket.kronos.Admin.AdminPluginOverview;
 import wicket.kronos.plugins.IPlugin;
 

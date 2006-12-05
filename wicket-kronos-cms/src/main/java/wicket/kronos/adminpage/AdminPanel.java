@@ -1,4 +1,4 @@
-package wicket.kronos;
+package wicket.kronos.adminpage;
 
 import java.util.Arrays;
 import java.util.List;

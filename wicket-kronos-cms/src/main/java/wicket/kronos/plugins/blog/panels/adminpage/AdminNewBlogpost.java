@@ -1,6 +1,7 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.adminpage;
 
 import wicket.extensions.markup.html.datepicker.DatePicker;
+import wicket.kronos.plugins.blog.panels.BlogInputModel;
 import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;

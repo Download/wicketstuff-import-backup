@@ -1,8 +1,8 @@
 package wicket.authentication.panel;
 
 import wicket.authentication.AuthenticatedWebSession;
-import wicket.kronos.Frontpage;
 import wicket.kronos.KronosSession;
+import wicket.kronos.frontpage.Frontpage;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.PasswordTextField;
 import wicket.markup.html.form.TextField;

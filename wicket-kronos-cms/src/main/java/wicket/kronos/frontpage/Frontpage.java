@@ -1,4 +1,4 @@
-package wicket.kronos;
+package wicket.kronos.frontpage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,6 +8,10 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import wicket.PageParameters;
+import wicket.kronos.Area;
+import wicket.kronos.DataProcessor;
+import wicket.kronos.KronosPage;
+import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 
 /**

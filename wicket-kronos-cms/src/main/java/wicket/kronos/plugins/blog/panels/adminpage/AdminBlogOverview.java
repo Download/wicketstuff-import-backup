@@ -1,11 +1,12 @@
-package wicket.kronos.plugins.blog.panels;
+package wicket.kronos.plugins.blog.panels.adminpage;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import wicket.PageParameters;
-import wicket.kronos.AdminPage;
+import wicket.kronos.adminpage.AdminPanel;
+import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.list.ListItem;
@@ -48,7 +49,7 @@ public class AdminBlogOverview extends Panel {
 				PageParameters param = new PageParameters();
 				param.put("IDType", "content");
 				param.put("ID", post.getPostUUID());
-				item.add(new BookmarkablePageLink("titlelink", AdminPage.class,
+				item.add(new BookmarkablePageLink("titlelink", AdminPanel.class,
 						param)
 						.add(new Label("titlelinkLabel", post.getTitle())));
 				Date date = post.getDate().getTime();
