@@ -62,7 +62,7 @@ public final class DataProcessor {
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugins/kronos:plugin", Query.XPATH);
+			Query q = qm.createQuery("//kronos:plugins/kronos:plugin order by @kronos:position ascending, @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -116,7 +116,7 @@ public final class DataProcessor {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery("//kronos:plugin[@kronos:position='"
-					+ area + "' and @kronos:published='true']", Query.XPATH);
+					+ area + "' and @kronos:published='true'] order by @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -502,16 +502,16 @@ public final class DataProcessor {
 		String cndFileName = "nodetype.cnd";
 
 		FileReader fileReader = new FileReader(cndFileName);
-		System.out.println("Het bestand openen");
+		System.out.println("Opening file");
 
 		// Create a CompactNodeTypeDefReader
 		CompactNodeTypeDefReader cndReader = new CompactNodeTypeDefReader(
 				fileReader, cndFileName);
-		System.out.println("Het bestand inlezen");
+		System.out.println("Reading file");
 
 		// Get the List of NodeTypeDef objects
 		List ntdList = cndReader.getNodeTypeDefs();
-		System.out.println("Nodetypes ophalen");
+		System.out.println("Retrieving nodetypes");
 
 		// Get the NodeTypeManager from the Workspace.
 		// Note that it must be cast from the generic JCR NodeTypeManager to the
@@ -521,11 +521,11 @@ public final class DataProcessor {
 		ntmgr = (NodeTypeManagerImpl) session.getWorkspace()
 				.getNodeTypeManager();
 
-		System.out.println("Manager aanmaken");
+		System.out.println("Creating manager");
 
 		// Acquire the NodeTypeRegistry
 		NodeTypeRegistry ntreg = ntmgr.getNodeTypeRegistry();
-		System.out.println("Registratie ophalen");
+		System.out.println("Retrieving registration");
 
 		// Loop through the prepared NodeTypeDefs
 		for (Iterator i = ntdList.iterator(); i.hasNext();)
@@ -536,7 +536,7 @@ public final class DataProcessor {
 
 			// ...and register it
 			ntreg.registerNodeType(ntd);
-			System.out.println("nodetype registreren");
+			System.out.println("Registering nodetypes");
 		}
 
 		Node root = session.getRootNode();
@@ -550,7 +550,7 @@ public final class DataProcessor {
 		Node users = cms.addNode("kronos:users");
 		Node user = users.addNode("kronos:user");
 		user.setProperty("kronos:username", "wicket");
-		user.setProperty("kronos:fullname", "Teddy RRRRRR");
+		user.setProperty("kronos:fullname", "Teddy");
 		user.setProperty("kronos:email", "kronos@kronos.com");
 
 		String hashedPassword = null;
@@ -612,20 +612,6 @@ public final class DataProcessor {
 		menuItem.setProperty("kronos:linkType", "extern");
 		menuItem.setProperty("kronos:link", "http://www.tweakers.net");
 
-		Node menu1 = menus.addNode("kronos:menu");
-		menu1.setProperty("kronos:menuname", "MenuTop");
-
-		Node menuItemTop = menu1.addNode("kronos:menuitem");
-		menuItemTop.setProperty("kronos:menuitemname", "Home");
-		menuItemTop.setProperty("kronos:linkType", "intern");
-		menuItemTop.setProperty("kronos:isAdmin", false);
-		menuItemTop.setProperty("kronos:IDType", "frontpage");
-
-		menuItemTop = menu1.addNode("kronos:menuitem");
-		menuItemTop.setProperty("kronos:menuitemname", "Tweakers");
-		menuItemTop.setProperty("kronos:linkType", "extern");
-		menuItemTop.setProperty("kronos:link", "http://www.tweakers.net");
-
 		Node plugins = cms.addNode("kronos:plugins");
 
 		Node plugin = plugins.addNode("kronos:plugin");
@@ -650,18 +636,11 @@ public final class DataProcessor {
 				"wicket.kronos.plugins.menu.MenuPlugin");
 		plugin.setProperty("kronos:isHorizontal", false);
 
-		plugin = plugins.addNode("kronos:plugin", "kronos:MenuPlugin");
-		plugin.setProperty("kronos:name", "MenuTop");
-		plugin.setProperty("kronos:position", 0);
-		plugin.setProperty("kronos:published", true);
-		plugin.setProperty("kronos:pluginType",
-				"wicket.kronos.plugins.menu.MenuPlugin");
-		plugin.setProperty("kronos:isHorizontal", true);
-
 		plugin = plugins.addNode("kronos:plugin");
 		plugin.setProperty("kronos:name", "login");
 		plugin.setProperty("kronos:position", 1);
 		plugin.setProperty("kronos:published", true);
+		plugin.setProperty("kronos:order", 2);
 		plugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.login.LoginPlugin");
 
