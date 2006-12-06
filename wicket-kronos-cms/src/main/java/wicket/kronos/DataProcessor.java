@@ -46,6 +46,7 @@ public final class DataProcessor {
 	/**
 	 * Generates all the plugins for a certain area that have been published.
 	 * All the data is retrieved from the repository
+	 * The PluginProperties are sorted by position and order
 	 * 
 	 * @param area
 	 * @return List<IPlugin>

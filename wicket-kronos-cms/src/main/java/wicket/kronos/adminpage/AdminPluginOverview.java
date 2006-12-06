@@ -3,15 +3,21 @@ package wicket.kronos.adminpage;
 import java.util.List;
 
 import wicket.PageParameters;
-import wicket.kronos.adminpage.AdminPage;
+import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
+import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
+import wicket.model.Model;
 
+/**
+ * @author postma
+ *
+ */
 public class AdminPluginOverview extends Panel{
 
 	/**
@@ -19,6 +25,9 @@ public class AdminPluginOverview extends Panel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @param id
+	 */
 	public AdminPluginOverview(String id)
 	{
 		super(id);
@@ -26,6 +35,11 @@ public class AdminPluginOverview extends Panel{
 		
 		add(new ListView("pluginRepeater", propertiesList)
 		{
+			/**
+			 * Default serialVersionUID
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void populateItem(ListItem item)
 			{
@@ -37,11 +51,14 @@ public class AdminPluginOverview extends Panel{
 				item.add(new BookmarkablePageLink("nameLink",
 						AdminPage.class, param).add(new Label(
 						"nameLabel", properties.getName())));
-								
-				item.add(new Label("published", ""+properties.getPublished() ));
-				item.add(new Label("order", ""+properties.getOrder()));
-				item.add(new Label("position", ""+properties.getPosition()));
-				item.add(new Label("pluginType", properties.getPluginType()));
+				
+				item.add(new CheckBox("published", new Model(properties.getPublished())));
+				item.add(new Label("order", ""+ properties.getOrder()));
+				String areaLocation = AreaLocations.getLocationname(properties.getPosition());
+				item.add(new Label("position", areaLocation));
+				int lastPeriod = properties.getPluginType().lastIndexOf(".");
+				String pluginType = properties.getPluginType().substring(lastPeriod + 1);
+				item.add(new Label("pluginType", pluginType));
 			}
 		});
 	}

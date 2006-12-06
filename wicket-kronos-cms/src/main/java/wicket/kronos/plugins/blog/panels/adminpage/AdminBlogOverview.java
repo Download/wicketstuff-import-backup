@@ -6,7 +6,6 @@ import java.util.List;
 
 import wicket.PageParameters;
 import wicket.kronos.adminpage.AdminPage;
-import wicket.kronos.adminpage.AdminPanel;
 import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.link.BookmarkablePageLink;
@@ -65,4 +64,6 @@ public class AdminBlogOverview extends Panel {
 		};
 		add(blogsList);
 	}
+	
+	
 }
