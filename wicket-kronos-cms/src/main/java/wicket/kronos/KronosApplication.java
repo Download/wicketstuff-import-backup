@@ -45,7 +45,7 @@ public class KronosApplication extends AuthenticatedWebApplication {
 		catch (IOException e)
 		{
 			throw new RuntimeException(e);
-		} 
+		}
 		catch (InvalidNodeTypeDefException e)
 		{
 			e.printStackTrace();

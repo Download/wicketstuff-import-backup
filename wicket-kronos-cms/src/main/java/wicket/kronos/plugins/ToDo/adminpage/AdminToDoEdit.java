@@ -1,45 +1,41 @@
-package wicket.kronos.plugins.blog.panels.adminpage;
+package wicket.kronos.plugins.ToDo.adminpage;
 
 import wicket.extensions.markup.html.datepicker.DatePicker;
-import wicket.kronos.plugins.blog.panels.BlogInputModel;
+import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.WebMarkupContainer;
-import wicket.markup.html.basic.Label;
+import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
-import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
 
 /**
  * @author postma
+ *
  */
-public class AdminNewBlogpost extends Panel {
+public class AdminToDoEdit extends Panel {
 
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private InputForm inputForm = null;
 
 	/**
-	 * Create an inputform for a new blogposting
-	 * 
-	 * @param id
+	 * @param wicketId
+	 * @param todoItem
 	 */
-	public AdminNewBlogpost(String id)
+	public AdminToDoEdit(String wicketId, ToDoItem todoItem)
 	{
-		super(id);
-
-		add(new InputForm("inputForm"));
-		/* ToDo: nieuwe blogpost opslaan */
-
+		super(wicketId);
+		
+		inputForm = new InputForm("admintodoedit", todoItem);
+		add(inputForm);
 	}
 
-	/**
-	 * Create inputform for a new blogpost
-	 * 
-	 * @author postma
-	 */
 	private class InputForm extends Form {
+		
 		/**
 		 * Default serialVersionUID
 		 */
@@ -47,19 +43,21 @@ public class AdminNewBlogpost extends Panel {
 
 		/**
 		 * @param name
+		 * @param todoItem
 		 */
-		public InputForm(String name)
+		public InputForm(String name, ToDoItem todoItem)
 		{
-			super(name, new CompoundPropertyModel(new BlogInputModel()));
-
+			super(name, new CompoundPropertyModel(todoItem));
+			add(new TextField("title"));
+			add(new TextField("subject"));
+			add(new TextField("content"));
+			add(new CheckBox("done"));
+			
 			WebMarkupContainer dateLabel = new WebMarkupContainer("datelabel");
 			add(dateLabel);
 			TextField datePropertyTextField = new TextField("date");
 			add(datePropertyTextField).setEnabled(false);
 			add(new DatePicker("datePicker", dateLabel, datePropertyTextField));
-			add(new TextField("title"));
-			add(new TextField("author"));
-			add(new TextArea("text"));
 		}
 	}
 }

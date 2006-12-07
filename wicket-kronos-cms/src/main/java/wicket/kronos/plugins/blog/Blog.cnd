@@ -3,6 +3,7 @@
 <mix = 'http://www.jcp.org/jcr/mix/1.0'>
 
 [kronos:BlogPost] > nt:base, mix:referenceable
+-kronos:pluginname (STRING) mandatory
 -kronos:date (DATE) mandatory
 -kronos:title (STRING) mandatory primary
 -kronos:text (STRING) mandatory

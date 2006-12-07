@@ -24,7 +24,7 @@ public class AdminNewPlugin extends Form{
 	 */
 	public AdminNewPlugin(String wicketId)
 	{
-		//ToDo read position's from repository an give as parameter to PluginProperties
+		//TODO read position's from repository an give as parameter to PluginProperties
 		super(wicketId, new CompoundPropertyModel(new PluginProperties()));
 		
 		add(new TextField("name"));
@@ -43,7 +43,7 @@ public class AdminNewPlugin extends Form{
 			@Override
 			public void onClick()
 			{
-				//ToDo save new plugin to repository
+				//TODO save new plugin to repository
 			}
 		});
 	}

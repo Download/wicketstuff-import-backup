@@ -1,0 +1,17 @@
+<kronos = 'http://kronos.com'>
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+
+[kronos:ToDo] > nt:base, mix:referenceable
+-kronos:pluginname (STRING) mandatory
+-kronos:title STRING mandatory
+-kronos:subject STRING mandatory
+-kronos:content STRING mandatory 
+-kronos:done BOOLEAN mandatory
+-kronos:date DATE
+
+[kronos:ToDoItems] > nt:base
++kronos:todo(kronos:ToDo) = kronos:ToDo multiple
+
+[kronos:UnfinishedToDoPlugin] > kronos:plugin
+-kronos:plugincontentname (STRING) mandatory

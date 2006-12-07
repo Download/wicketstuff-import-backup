@@ -68,7 +68,7 @@
 +kronos:menus(kronos:Menus) = kronos:Menus
 +kronos:content(kronos:Content) = kronos:Content 
 
-//=====================================================
+//===================================================== Blog plugin
 
 [kronos:Comment] > nt:base, mix:referenceable
 -kronos:text (STRING) mandatory
@@ -88,3 +88,19 @@
 
 [kronos:BlogPostings] > nt:base
 +kronos:blogpost(kronos:BlogPost) = kronos:BlogPost multiple
+
+//===================================================== ToDo plugin
+
+[kronos:ToDoItem] > nt:base, mix:referenceable
+-kronos:pluginname (STRING) mandatory
+-kronos:title (STRING) mandatory
+-kronos:subject (STRING) mandatory
+-kronos:content (STRING) mandatory 
+-kronos:done (BOOLEAN) mandatory
+-kronos:date (DATE)
+
+[kronos:ToDoItems] > nt:base
++kronos:todoitem(kronos:ToDoItem) = kronos:ToDoItem multiple
+
+[kronos:UnfinishedToDoPlugin] > kronos:Plugin
+-kronos:plugincontentname (STRING) mandatory
