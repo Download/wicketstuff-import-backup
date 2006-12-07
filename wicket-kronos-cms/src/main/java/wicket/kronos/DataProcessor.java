@@ -96,6 +96,75 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * 
+	 * @param pluginUUID
+	 * @return
+	 */
+	public static PluginProperties getPluginProperties(String pluginUUID)
+	{
+		PluginProperties properties = null;
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+		
+		Node n;
+		try
+		{
+			n = jcrSession.getNodeByUUID(pluginUUID);
+			String name = n.getProperty("kronos:name").getString();
+			Boolean published = n.getProperty("kronos:published")
+					.getBoolean();
+			Long order = n.getProperty("kronos:order").getLong();
+			Integer intOrder = order.intValue();
+			Long position = n.getProperty("kronos:position").getLong();
+			Integer intPosition = position.intValue();
+			String pluginType = n.getProperty("kronos:pluginType")
+					.getString();
+			properties = new PluginProperties(pluginUUID, name,
+					published, intOrder, intPosition, pluginType);
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return properties;
+	}
+	
+	/**
+	 * 
+	 * @param properties
+	 */
+	public static void savePluginProperties(PluginProperties properties)
+	{
+		Session jcrSession = KronosSession.get().getJCRSession();
+		
+		Node n;
+		try
+		{
+			n = jcrSession.getNodeByUUID(properties.getPluginUUID());
+			n.setProperty("kronos:name", properties.getName());
+			n.setProperty("kronos:published", properties.getPublished());
+			n.setProperty("kronos:order", properties.getOrder());
+			n.setProperty("kronos:position", properties.getPosition());
+			n.setProperty("kronos:pluginType", properties.getPluginType());
+			jcrSession.save();
+			
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Generates all the plugins for a certain area that have been published.
 	 * All the data is retrieved from the repository
 	 * 
@@ -661,6 +730,7 @@ public final class DataProcessor {
 		Node blogPlugin = plugins.addNode("kronos:plugin");
 		blogPlugin.setProperty("kronos:name", "blog");
 		blogPlugin.setProperty("kronos:position", 2);
+		blogPlugin.setProperty("kronos:order", 2);
 		blogPlugin.setProperty("kronos:published", true);
 		blogPlugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.blog.BlogPlugin");

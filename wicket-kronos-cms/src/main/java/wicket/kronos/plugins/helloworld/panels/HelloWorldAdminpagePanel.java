@@ -18,9 +18,9 @@ public class HelloWorldAdminpagePanel extends AdminPanel{
 	 * 
 	 * @param wicketId
 	 */
-	public HelloWorldAdminpagePanel(String wicketId)
+	public HelloWorldAdminpagePanel(String wicketId, String pluginUUID)
 	{
-		super(wicketId);
+		super(wicketId, pluginUUID);
 		
 	}
 

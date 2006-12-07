@@ -53,7 +53,7 @@ public class BannerPlugin extends IPlugin {
 				areaposition, pluginType);
 		if(isAdmin)
 		{
-			add(new BannerAdminpagePanel("panel"));
+			add(new BannerAdminpagePanel("panel", pluginUUID));
 		} else {
 			add(new BannerFrontpagePanel("panel", this.getImage()));
 		}

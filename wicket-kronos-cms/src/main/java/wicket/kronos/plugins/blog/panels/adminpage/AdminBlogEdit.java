@@ -1,5 +1,14 @@
 package wicket.kronos.plugins.blog.panels.adminpage;
 
+import java.util.GregorianCalendar;
+
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
+import wicket.kronos.KronosSession;
+import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.plugins.blog.panels.BlogInputModel;
 import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.form.Form;
@@ -57,6 +66,32 @@ public class AdminBlogEdit extends Panel {
 					.getTitle(), blogPost.getText())));
 			add(new TextField("title"));
 			add(new TextArea("text"));
+		}
+		
+		public void onSubmit()
+		{
+			Session jcrSession = KronosSession.get().getJCRSession();
+			Node blogNode;
+			BlogInputModel model = (BlogInputModel)this.getModelObject();
+			try
+			{
+				blogNode = jcrSession.getNodeByUUID(blogPost.getPostUUID());
+				blogNode.setProperty("kronos:title", model.getTitle());
+				blogNode.setProperty("kronos:text", model.getText());
+				blogNode.setProperty("kronos:date", new GregorianCalendar());
+			}
+			catch (ItemNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (RepositoryException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			setResponsePage(AdminPage.class);
+			
 		}
 	}
 

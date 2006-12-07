@@ -8,6 +8,7 @@ import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
+import wicket.markup.html.form.TextField;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
@@ -53,9 +54,9 @@ public class AdminPluginOverview extends Panel{
 						"nameLabel", properties.getName())));
 				
 				item.add(new CheckBox("published", new Model(properties.getPublished())));
-				item.add(new Label("order", ""+ properties.getOrder()));
+				item.add(new TextField("order", new Model(properties.getOrder())));
 				String areaLocation = AreaLocations.getLocationname(properties.getPosition());
-				item.add(new Label("position", areaLocation));
+				item.add(new TextField("position", new Model(areaLocation)));
 				int lastPeriod = properties.getPluginType().lastIndexOf(".");
 				String pluginType = properties.getPluginType().substring(lastPeriod + 1);
 				item.add(new Label("pluginType", pluginType));

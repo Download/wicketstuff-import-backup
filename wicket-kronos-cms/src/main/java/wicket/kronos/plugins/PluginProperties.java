@@ -1,12 +1,14 @@
 package wicket.kronos.plugins;
 
+import java.io.Serializable;
+
 import wicket.model.Model;
 
 /**
  * @author postma
  *
  */
-public class PluginProperties extends Model {
+public class PluginProperties implements Serializable{
 	
 	/**
 	 * Default serialVersionUUID
@@ -30,7 +32,12 @@ public class PluginProperties extends Model {
 	 */
 	public PluginProperties()
 	{
-		
+		pluginUUID = null;
+		name = "Constructor";
+		published = false;
+		order = 0;
+		position = 0;
+		pluginType = null;
 	}
 	
 	/**

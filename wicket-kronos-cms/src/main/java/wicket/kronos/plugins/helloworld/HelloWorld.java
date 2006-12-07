@@ -30,7 +30,7 @@ public class HelloWorld extends IPlugin {
 				areaposition, pluginType);
 		if(isAdmin)
 		{
-			add(new HelloWorldAdminpagePanel("helloworld"));
+			add(new HelloWorldAdminpagePanel("helloworld", pluginUUID));
 		} else {
 			add(new Label("helloworld",
 					"Hello beautiful world how is theigh today?"));

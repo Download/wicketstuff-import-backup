@@ -15,9 +15,9 @@ public class BannerAdminpagePanel extends AdminPanel{
 	/**
 	 * @param wicketId
 	 */
-	public BannerAdminpagePanel(String wicketId)
+	public BannerAdminpagePanel(String wicketId, String pluginUUID)
 	{
-		super(wicketId);
+		super(wicketId, pluginUUID);
 	}
 	
 	class BannerAdminpageForm extends AdminForm

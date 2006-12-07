@@ -34,7 +34,7 @@ public class FrontBlogpost extends Panel {
 		super(id);
 
 		add(new Label("title", blogpost.getTitle()));
-		add(new MultiLineLabel("text", blogpost.getText()));
+		add(new MultiLineLabel("text", blogpost.getText()).setEscapeModelStrings(false) );
 		Date date = blogpost.getDate().getTime();
 		SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
