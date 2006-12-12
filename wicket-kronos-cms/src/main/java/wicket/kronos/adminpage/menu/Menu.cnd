@@ -1,0 +1,12 @@
+<kronos = 'http://kronos.com'>
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+
+[kronos:MenuItem] > nt:base
+-kronos:name (STRING) mandatory
++kronos:submenuitem(kronos:SubMenuItem) = kronos:SubMenuItem multiple
+
+[kronos:SubMenuItem] > nt:base
+-kronos:name (STRING) mandatory primary
+-kronos:IDType (STRING) mandatory
+-kronos:ID (STRING) mandatory

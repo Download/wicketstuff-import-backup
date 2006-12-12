@@ -98,7 +98,7 @@ public final class DataProcessor {
 	/**
 	 * 
 	 * @param pluginUUID
-	 * @return
+	 * @return PluginProperties
 	 */
 	public static PluginProperties getPluginProperties(String pluginUUID)
 	{
@@ -900,7 +900,6 @@ public final class DataProcessor {
 		menuItem4.setProperty("kronos:IDType", "plugin");
 		menuItem4.setProperty("kronos:ID", todoPlugin.getUUID());
 		
-//ToDo Plugin with all unfinished items	
 		//put test parameters in todo Repository
 		todoPlugin = plugins.addNode("kronos:plugin", "kronos:UnfinishedToDoPlugin");
 		todoPlugin.setProperty("kronos:name", "unfinishedToDo");
@@ -911,11 +910,41 @@ public final class DataProcessor {
 		todoPlugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.ToDo.UnfinishedToDoItemsPlugin");
 		
-		
-		
 		//TODO add admin tests for ToDo plugin
 		
 /* End of ToDo plugin test */
+		
+/* Start of admin menu test */
+		
+		//Creating menu structure
+		Node adminmenus = cms.addNode("kronos:adminmenus");
+		Node adminmenu = adminmenus.addNode("kronos:adminmenu");
+		Node adminmenuitem = adminmenu.addNode("kronos:adminmenuitem"); 
+
+		adminmenuitem.setProperty("kronos:name", "Home");
+		
+		//Creating submenu items
+		Node adminsubmenuitem1 = adminmenuitem.addNode("kronos:adminsubmenuitem");
+		adminsubmenuitem1.setProperty("kronos:name", "Home");
+		adminsubmenuitem1.setProperty("kronos:IDType", "adminpage");
+		adminsubmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
+		Node adminsubmenuitem2 = adminmenuitem.addNode("kronos:adminsubmenuitem");
+		adminsubmenuitem2.setProperty("kronos:name", "Frontpage");
+		adminsubmenuitem2.setProperty("kronos:IDType", "frontpage");
+		adminsubmenuitem2.setProperty("kronos:ID", adminmenu.getUUID());
+		
+		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem.setProperty("kronos:name", "Users");
+		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem.setProperty("kronos:name", "Menu");
+		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem.setProperty("kronos:name", "Plugins");
+		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem.setProperty("kronos:name", "Configuration");
+		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem.setProperty("kronos:name", "Help");
+		
+/* End of admin menu test */
 		
 
 		session.save();

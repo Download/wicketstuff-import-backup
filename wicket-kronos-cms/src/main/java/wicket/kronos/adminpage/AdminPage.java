@@ -5,6 +5,7 @@ import wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosPage;
 import wicket.kronos.KronosSession;
+import wicket.kronos.adminpage.menu.AdminMenu;
 import wicket.kronos.frontpage.Frontpage;
 import wicket.kronos.plugins.IPlugin;
 import wicket.markup.html.link.BookmarkablePageLink;
@@ -24,8 +25,7 @@ public class AdminPage extends KronosPage {
 	public AdminPage()
 	{
 		add(new AdminPluginOverview("plugin"));
-		add(new BookmarkablePageLink("frontpage", Frontpage.class));
-		add(new BookmarkablePageLink("newPlugin", AdminPage.class));
+		add(new AdminMenu("menu"));
 	}
 
 	/**
@@ -35,12 +35,13 @@ public class AdminPage extends KronosPage {
 	 */
 	public AdminPage(PageParameters pageParameters)
 	{
-		add(new BookmarkablePageLink("newPlugin", AdminPage.class));
-		add(new BookmarkablePageLink("frontpage", Frontpage.class));
+		add(new AdminMenu("menu"));
 		if (pageParameters == null || pageParameters.isEmpty())
 		{
 			add(new AdminPluginOverview("plugin"));
-		} else
+		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminpage")) {
+			add(new AdminPluginOverview("plugin"));
+		} else 
 		{
 			KronosSession currentsession = KronosSession.get();
 			currentsession.setPageParameters(pageParameters);

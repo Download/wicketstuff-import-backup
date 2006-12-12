@@ -27,11 +27,11 @@ public class AdminPluginOverview extends Panel{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param id
+	 * @param wicketId
 	 */
-	public AdminPluginOverview(String id)
+	public AdminPluginOverview(String wicketId)
 	{
-		super(id);
+		super(wicketId);
 		List<PluginProperties> propertiesList = DataProcessor.getPluginPropertiesObjects();
 		
 		add(new ListView("pluginRepeater", propertiesList)

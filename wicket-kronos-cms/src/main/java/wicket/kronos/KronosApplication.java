@@ -57,7 +57,7 @@ public class KronosApplication extends AuthenticatedWebApplication {
 		catch (RepositoryException e)
 		{
 			e.printStackTrace();
-		} 
+		}
 
 		mountBookmarkablePage("/admin", AdminPage.class);
 
