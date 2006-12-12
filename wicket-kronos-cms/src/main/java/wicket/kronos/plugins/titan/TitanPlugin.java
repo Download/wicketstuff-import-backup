@@ -2,6 +2,8 @@ package wicket.kronos.plugins.titan;
 
 import wicket.PageMap;
 import wicket.kronos.plugins.IPlugin;
+import wicket.kronos.plugins.titan.panels.TitanAdminPanel;
+import wicket.kronos.plugins.titan.panels.TitanFrontpagePanel;
 import wicket.kronos.plugins.titan.popup.TitanPopup;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.link.PopupSettings;
@@ -34,10 +36,12 @@ public class TitanPlugin extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
-		PopupSettings popupSettings = new PopupSettings(PageMap
-				.forName("popuppagemap")).setHeight(500).setWidth(500);
-		add(new BookmarkablePageLink("popupLink", TitanPopup.class)
-				.setPopupSettings(popupSettings));
+		if(isAdmin)
+		{
+			add(new TitanAdminPanel("titanpanel", pluginUUID));
+		} else {
+			add(new TitanFrontpagePanel("titanpanel"));
+		}
 	}
 
 	@Override

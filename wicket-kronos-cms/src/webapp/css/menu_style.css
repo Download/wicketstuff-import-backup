@@ -19,11 +19,13 @@ ul.menuItems {
 
 li.menuItemsHorizontal {
 	float: left;
-	padding: 0;
-	margin: 0;
 }
 
 li.menuItemsHorizontal a {
 	width: 100px;
 	text-align: center;
+}
+
+.menu {
+	width: 100%;
 }

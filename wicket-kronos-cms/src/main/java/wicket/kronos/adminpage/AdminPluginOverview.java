@@ -1,26 +1,34 @@
 package wicket.kronos.adminpage;
 
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import wicket.PageParameters;
+import wicket.ajax.AjaxRequestTarget;
+import wicket.ajax.markup.html.AjaxLink;
 import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
+import wicket.markup.html.form.DropDownChoice;
+import wicket.markup.html.form.Form;
+import wicket.markup.html.form.IChoiceRenderer;
 import wicket.markup.html.form.TextField;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
-import wicket.model.Model;
+import wicket.model.CompoundPropertyModel;
+import wicket.model.PropertyModel;
 
 /**
  * @author postma
  *
  */
 public class AdminPluginOverview extends Panel{
-
+	private List<PluginProperties> propertiesList;
 	/**
 	 * Default serialVersionUID.
 	 */
@@ -32,36 +40,138 @@ public class AdminPluginOverview extends Panel{
 	public AdminPluginOverview(String wicketId)
 	{
 		super(wicketId);
-		List<PluginProperties> propertiesList = DataProcessor.getPluginPropertiesObjects();
-		
-		add(new ListView("pluginRepeater", propertiesList)
-		{
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
+		propertiesList = DataProcessor.getPluginPropertiesObjects();
+		add(new OverviewForm("overviewForm"));
 
-			@Override
-			protected void populateItem(ListItem item)
-			{
-				PluginProperties properties = (PluginProperties)item.getModelObject();
-				
-				PageParameters param = new PageParameters();
-				param.put("IDType", "plugin");
-				param.put("ID", properties.getPluginUUID());
-				item.add(new BookmarkablePageLink("nameLink",
-						AdminPage.class, param).add(new Label(
-						"nameLabel", properties.getName())));
-				
-				item.add(new CheckBox("published", new Model(properties.getPublished())));
-				item.add(new TextField("order", new Model(properties.getOrder())));
-				String areaLocation = AreaLocations.getLocationname(properties.getPosition());
-				item.add(new TextField("position", new Model(areaLocation)));
-				int lastPeriod = properties.getPluginType().lastIndexOf(".");
-				String pluginType = properties.getPluginType().substring(lastPeriod + 1);
-				item.add(new Label("pluginType", pluginType));
-			}
-		});
 	}
+	
+	/**
+	 * 
+	 * @author roeloffzen
+	 *
+	 */
+	public class OverviewForm extends Form {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public OverviewForm(String wicketID)
+		{
+			super(wicketID, new CompoundPropertyModel(new PluginPropertiesModel(propertiesList)));
+			add(new ListView("properties")
+			{
+				/**
+				 * Default serialVersionUID
+				 */
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected void populateItem(ListItem item)
+				{
+					final PluginProperties props = (PluginProperties)item.getModelObject();
+					final TextField orderField;
+					
+					PageParameters param = new PageParameters();
+					param.put("IDType", "plugin");
+					param.put("ID", props.getPluginUUID());
+					item.add(new BookmarkablePageLink("nameLink",
+							AdminPage.class, param).add(new Label(
+							"nameLabel", props.getName())));
+					
+					item.add(new CheckBox("published", new PropertyModel(props, "published")));
+					item.add(orderField = new TextField("order", new PropertyModel(props, "order")));
+					
+					orderField.setOutputMarkupId(true);
+					
+					item.add(new AjaxLink("incrementLink")
+					{
+						public void onClick(AjaxRequestTarget target)
+						{
+							int newValue = props.getOrder()+1;
+							props.setOrder(newValue);
+							target.addComponent(orderField);
+						}
+					});
+					
+					item.add(new AjaxLink("decrementLink")
+							{
+								public void onClick(AjaxRequestTarget target)
+								{
+									int oldValue = props.getOrder();
+									int newValue;
+									if(oldValue > 1)		
+										newValue = oldValue-1;
+									else 
+										newValue = oldValue;
+									props.setOrder(newValue);
+									target.addComponent(orderField);
+								}
+							});
+					
+					item.add(new DropDownChoice("position", new PropertyModel(props, "position"), AreaLocations.getAreaLocations(), new IChoiceRenderer() {
+					
+						public String getIdValue(Object object, int arg1)
+						{	
+							return ((Integer)object).toString();
+						}
+					
+						public Object getDisplayValue(Object object)
+						{
+							int value = ((Integer)object).intValue();
+							return AreaLocations.getLocationname(value);
+						}
+						
+					}));
+					int lastPeriod = props.getPluginType().lastIndexOf(".");
+					String pluginType = props.getPluginType().substring(lastPeriod + 1);
+					item.add(new Label("pluginType", pluginType));
+				}
+			});
+		}
+		
+		public void onSubmit()
+		{
+			List<PluginProperties> properties = ((PluginPropertiesModel)this.getModelObject()).getProperties();
+			Iterator pluginIterator = properties.iterator();
+			
+			while(pluginIterator.hasNext())
+			{
+				PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
+				
+				DataProcessor.savePluginProperties(pluginProps, pluginProps.getName());
+			}
+			
+			setResponsePage(AdminPage.class);
+		}
+	}
+	
+	/**
+	 * 
+	 * @author roeloffzen
+	 *
+	 */
+	public class PluginPropertiesModel implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private List<PluginProperties> properties;
+		
+		public PluginPropertiesModel(List properties)
+		{
+			this.properties = properties;
+		}
+
+		public List<PluginProperties> getProperties()
+		{
+			return properties;
+		}
+
+		public void setProperties(List<PluginProperties> properties)
+		{
+			this.properties = properties;
+		}
+	}
 }

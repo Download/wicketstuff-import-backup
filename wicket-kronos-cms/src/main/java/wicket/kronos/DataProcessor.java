@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -95,6 +96,35 @@ public final class DataProcessor {
 		return plugins;
 	}
 	
+	public static List getImageNodes()
+	{
+		List<Node> imageNodes = new ArrayList<Node>();
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:content/kronos:images/*", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			while (it.hasNext())
+			{
+				Node n = it.nextNode();
+				imageNodes.add(n);
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return imageNodes;
+	}
+	
 	/**
 	 * 
 	 * @param pluginUUID
@@ -138,7 +168,7 @@ public final class DataProcessor {
 	 * 
 	 * @param properties
 	 */
-	public static void savePluginProperties(PluginProperties properties)
+	public static void savePluginProperties(PluginProperties properties, String oldPluginName)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
 		
@@ -151,6 +181,22 @@ public final class DataProcessor {
 			n.setProperty("kronos:order", properties.getOrder());
 			n.setProperty("kronos:position", properties.getPosition());
 			n.setProperty("kronos:pluginType", properties.getPluginType());
+			
+			if(!oldPluginName.equalsIgnoreCase(properties.getName()))
+			{
+				Workspace ws = jcrSession.getWorkspace();
+				QueryManager qm = ws.getQueryManager();
+				Query q = qm.createQuery("//*[@kronos:pluginname = '" + oldPluginName + "']" , Query.XPATH);
+		
+				QueryResult result = q.execute();
+				NodeIterator it = result.getNodes();
+		
+				while (it.hasNext())
+				{
+					n = it.nextNode();
+					n.setProperty("kronos:pluginname", properties.getName());			
+				}
+			}
 			jcrSession.save();
 			
 		}
@@ -751,7 +797,8 @@ public final class DataProcessor {
 
 		Node content = cms.addNode("kronos:content");
 		Node images = content.addNode("kronos:images");
-
+		
+		/* Inserting First image */
 		File file = new File("./header-1024x125.png");
 		MimeTable mt = MimeTable.getDefaultTable();
 		String mimeType = mt.getContentTypeFor(file.getName());
@@ -763,14 +810,45 @@ public final class DataProcessor {
 		resNode.setProperty("jcr:mimeType", mimeType);
 		resNode.setProperty("jcr:encoding", "");
 		resNode.setProperty("jcr:data", new FileInputStream(file));
-		Calendar lastModified = Calendar.getInstance();
+		Calendar lastModified = new GregorianCalendar();
 		lastModified.setTimeInMillis(file.lastModified());
 		resNode.setProperty("jcr:lastModified", lastModified);
 
+		/* Inserting banner content */
 		Node pluginContent = content.addNode("kronos:plugin");
 		Node item = pluginContent.addNode("kronos:banner", "nt:unstructured");
 		item.setProperty("kronos:pluginname", "banner");
 		item.setProperty("kronos:image", fileNode);
+		
+		/* Inserting second image */
+		file = new File("./osmbanner2.png");
+		mt = MimeTable.getDefaultTable();
+		mimeType = mt.getContentTypeFor(file.getName());
+		if (mimeType == null) mimeType = "application/octet-stream";
+
+		fileNode = images.addNode(file.getName(), "nt:file");
+		fileNode.addMixin("mix:referenceable");
+		resNode = fileNode.addNode("jcr:content", "nt:resource");
+		resNode.setProperty("jcr:mimeType", mimeType);
+		resNode.setProperty("jcr:encoding", "");
+		resNode.setProperty("jcr:data", new FileInputStream(file));
+		lastModified.setTimeInMillis(file.lastModified());
+		resNode.setProperty("jcr:lastModified", lastModified);
+		
+		/* Inserting third image */ 
+		file = new File("./header_short.jpg");
+		mt = MimeTable.getDefaultTable();
+		mimeType = mt.getContentTypeFor(file.getName());
+		if (mimeType == null) mimeType = "application/octet-stream";
+
+		fileNode = images.addNode(file.getName(), "nt:file");
+		fileNode.addMixin("mix:referenceable");
+		resNode = fileNode.addNode("jcr:content", "nt:resource");
+		resNode.setProperty("jcr:mimeType", mimeType);
+		resNode.setProperty("jcr:encoding", "");
+		resNode.setProperty("jcr:data", new FileInputStream(file));
+		lastModified.setTimeInMillis(file.lastModified());
+		resNode.setProperty("jcr:lastModified", lastModified);
 
 		Node pluginContent1 = content.addNode("kronos:plugin");
 		Node itemNode = pluginContent1.addNode("kronos:blogpostings",
@@ -892,6 +970,14 @@ public final class DataProcessor {
 		todoItem.setProperty("kronos:done", true);
 		todoItem.setProperty("kronos:date", date);
 		
+		todoItem = todoItems.addNode("kronos:todoitem");
+		todoItem.setProperty("kronos:pluginname", "ToDo");
+		todoItem.setProperty("kronos:title", "Authorization");
+		todoItem.setProperty("kronos:subject", "Authorization must be implemented");
+		todoItem.setProperty("kronos:content", "The authorization must be implemented for the entire CMS. This will include all the plugins");
+		todoItem.setProperty("kronos:done", false);
+		todoItem.setProperty("kronos:date", date);
+		
 		//add menu item
 		Node menuItem4 = menu.addNode("kronos:menuitem");
 		menuItem4.setProperty("kronos:menuitemname", "ToDo");
@@ -908,7 +994,7 @@ public final class DataProcessor {
 		todoPlugin.setProperty("kronos:order", 2);
 		todoPlugin.setProperty("kronos:plugincontentname", "ToDo");
 		todoPlugin.setProperty("kronos:pluginType",
-				"wicket.kronos.plugins.ToDo.UnfinishedToDoItemsPlugin");
+				"wicket.kronos.plugins.unfinishedtodo.UnfinishedToDoItemsPlugin");
 		
 		//TODO add admin tests for ToDo plugin
 		

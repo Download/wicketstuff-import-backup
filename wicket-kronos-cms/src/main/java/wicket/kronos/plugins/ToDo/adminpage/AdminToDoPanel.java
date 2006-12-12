@@ -20,10 +20,10 @@ public class AdminToDoPanel extends Panel {
 	 * @param wicketId
 	 * @param todoItems 
 	 */
-	public AdminToDoPanel(String wicketId, List<ToDoItem> todoItems)
+	public AdminToDoPanel(String wicketId, List<ToDoItem> todoItems, String pluginUUID)
 	{
 		super(wicketId);
-		add(new AdminToDoOverview("admintodopanel", todoItems));
+		add(new AdminToDoOverview("admintodopanel", todoItems, pluginUUID));
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class AdminToDoPanel extends Panel {
 	public AdminToDoPanel(String wicketId, ToDoItem todoItem)
 	{
 		super(wicketId);
-		if (todoItem.equals(null))
+		if (todoItem == null)
 		{
 			add(new AdminNewToDo("admintodopanel"));
 		} else

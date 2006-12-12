@@ -49,8 +49,7 @@ public class MenuFrontpagePanel extends Panel {
 				MenuItem menuItem = (MenuItem) item.getModelObject();
 				if (menuItem.getLinkType().equalsIgnoreCase("extern"))
 				{
-					item
-							.add(new ExternalLink("menuItem", menuItem
+					item.add(new ExternalLink("menuItem", menuItem
 									.getLink()).add(new Label("menuItemLabel",
 									menuItem.getName())));
 				} else
@@ -72,8 +71,8 @@ public class MenuFrontpagePanel extends Panel {
 						} else
 						{
 							PageParameters param = new PageParameters();
-							param.put("IDType", menuItem.getIDType());
-							param.put("ID", menuItem.getID());
+							param.add("IDType", menuItem.getIDType());
+							param.add("ID", menuItem.getID());
 							item.add(new BookmarkablePageLink("menuItem",
 									Frontpage.class, param).add(new Label(
 									"menuItemLabel", menuItem.getName())));

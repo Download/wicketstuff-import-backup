@@ -16,11 +16,11 @@ public class ToDoItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String todoUUID = null;
-	String title = null;
-	String subject = null;
-	String content = null;
-	Boolean done = false;
-	Calendar date = null;
+	private String title = null;
+	private String subject = null;
+	private String content = null;
+	private Boolean done = false;
+	private Calendar date = null;
 	
 	/**
 	 * 

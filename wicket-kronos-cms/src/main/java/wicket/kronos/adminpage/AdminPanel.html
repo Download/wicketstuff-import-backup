@@ -17,17 +17,20 @@
 			</tr>
 			<tr>
 				<td><label for="position">Position:</label> </td>
-				<td><input wicket:id="position" type="text" id="position" size="30"/></td>
+				<td><select wicket:id="position" id="position" width="30"> 
+					<option>foo</option>
+					<option>bar</option>
+				</select></td>
 	 		</tr>
 	 		<tr>
-				<td><label for="pluginType">Change plugintype:</label> </td>
+				<td><label for="pluginType">Plugintype:</label> </td>
 				<td> <input type="text" wicket:id="pluginType" id="pluginType" size="30"/></td>
 			</tr>	
-		</table>
-		<wicket:child />
-		
-		<br/>
-		<input type="submit" value="Save"/>  
+			<tr>
+				<td><input type="submit" value="Save"/> </td>
+			</tr>
+		</table>		 
 	</form>
+	<wicket:child />
 </wicket:panel>	
 </html>

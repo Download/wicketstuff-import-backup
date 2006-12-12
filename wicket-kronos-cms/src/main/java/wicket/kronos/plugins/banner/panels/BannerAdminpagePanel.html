@@ -1,3 +1,17 @@
 <wicket:extend>
-
+	<h2>Additional Settings</h2>
+	<form wicket:id="bannerAdminForm">
+		<table class="noborder">
+		<tr><td><label>Bannerimage:</label></td>
+		<td>
+		<select wicket:id="imageUUID">
+			<option>foo</option>
+			<option>bar</option>
+		</select>
+		</td></tr>
+		<tr><td>
+		<input type="submit" value="save"/>
+		</td></tr>
+		</table>
+	</form>
 </wicket:extend>

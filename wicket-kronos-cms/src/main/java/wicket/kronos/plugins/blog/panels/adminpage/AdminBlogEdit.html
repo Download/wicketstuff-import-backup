@@ -1,13 +1,17 @@
 <html>
 <wicket:panel>
 	<form wicket:id="inputForm" id="inputForm">
-		<label for="title">Title:</label><br/>
-		<input type="text" wicket:id="title" id="title" size="65"> </input> <br/>
-		<br/>
-		<label for="text">Blog text:</label><br/>
-		<textarea rows="20" cols="50" wicket:id="text" id="text"> </textarea> <br/>
-		<input type="submit" value="Save" />
+			<label for="title">Title:</label><br/>
+			<input type="text" wicket:id="title" id="title" size="65"> </input> <br/>
+			<br/>
+			<label for="text">Blog text:</label><br/>
+			<textarea rows="20" cols="50" wicket:id="text" id="text"> </textarea> <br/>
+		<table class="noborder">
+			<tr><td>
+				<input type="submit" value="Save" />
+			</td></tr>
+		</table>
 	</form>
-	<a wicket:id="savepost"><img wicket:id="save" /></a>
+	
 </wicket:panel>
 </html>

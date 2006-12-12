@@ -1,19 +1,21 @@
-<wicket:panel>
-	<table>
-		<tr>
-			<th>ID</th>
-			<th>Title</th>
-			<th>Date</th>
-			<th>Author</th>
-			<th>Nr comments</th>
-		</tr>
-		
-		<tr wicket:id="blogposts">
-			<td><div wicket:id="counter">auto independent post counter</div></td>
-			<td><a wicket:id="titlelink" ><div wicket:id="titlelinkLabel">title of post</div></a></td>
-			<td><div wicket:id="datetime">date and time of post</div></td>
-			<td><div wicket:id="author">author of post</div></td>
-			<td><div wicket:id="nrcomments">total nr of post comments</div></td>
-		</tr>
-	</table>
-</wicket:panel>
+<wicket:extend>
+	<form>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Date</th>
+				<th>Author</th>
+				<th>Nr comments</th>
+			</tr>
+			
+			<tr wicket:id="blogposts">
+				<td><div wicket:id="counter">auto independent post counter</div></td>
+				<td><a wicket:id="titlelink" ><div wicket:id="titlelinkLabel">title of post</div></a></td>
+				<td><div wicket:id="datetime">date and time of post</div></td>
+				<td><div wicket:id="author">author of post</div></td>
+				<td><div wicket:id="nrcomments">total nr of post comments</div></td>
+			</tr>
+		</table>
+	</form>
+</wicket:extend>

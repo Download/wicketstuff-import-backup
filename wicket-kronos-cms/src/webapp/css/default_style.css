@@ -3,8 +3,8 @@
 	margin: 2px;
 }
 
-.header img {
-	width: 1011px;
+img.banner {
+	width: 100%;
 }
 
 .left {
@@ -48,7 +48,7 @@ body {
 
 .plugin {
 	border: dashed #e9601a 1px;
-	margin: 2px;
+	margin: 6px 2px 6px 2px;
 	padding: 2px;
 }
 
@@ -113,4 +113,14 @@ body {
 
 .titan a:visited {
 	color: black;
+}
+
+
+a.unfinishedlink {
+	text-decoration: none;
+	display: block;
+}
+
+a.unfinishedlink:hover {
+	background-color: #EEEEEE;
 }

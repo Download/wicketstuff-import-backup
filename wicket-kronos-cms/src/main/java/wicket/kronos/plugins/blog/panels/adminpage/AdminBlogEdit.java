@@ -48,7 +48,6 @@ public class AdminBlogEdit extends Panel {
 		this.blogPost = blogPost;
 		inputForm = new InputForm("inputForm");
 		add(inputForm);
-		this.createMenu();
 	}
 
 	private class InputForm extends Form {
@@ -82,12 +81,10 @@ public class AdminBlogEdit extends Panel {
 			}
 			catch (ItemNotFoundException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			catch (RepositoryException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setResponsePage(AdminPage.class);

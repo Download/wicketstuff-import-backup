@@ -1,6 +1,8 @@
 package wicket.kronos.plugins.version;
 
 import wicket.kronos.plugins.IPlugin;
+import wicket.kronos.plugins.version.panels.VersionAdminPanel;
+import wicket.kronos.plugins.version.panels.VersionFrontpagePanel;
 
 /**
  * @author postma
@@ -29,7 +31,12 @@ public class VersionPlugin extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
-
+		if(isAdmin)
+		{
+			add(new VersionAdminPanel("versionpanel", pluginUUID));
+		} else {
+			add(new VersionFrontpagePanel("versionpanel"));
+		}
 	}
 
 	@Override

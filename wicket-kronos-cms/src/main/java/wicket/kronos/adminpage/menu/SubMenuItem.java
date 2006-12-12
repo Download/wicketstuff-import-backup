@@ -1,12 +1,14 @@
 package wicket.kronos.adminpage.menu;
 
+import java.io.Serializable;
+
 
 
 /**
  * @author postma
  *
  */
-public class SubMenuItem {
+public class SubMenuItem implements Serializable{
 	
 	/**
 	 * Default serialVersionUID

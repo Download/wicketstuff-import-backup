@@ -15,6 +15,7 @@ import javax.jcr.query.QueryResult;
 
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.KronosSession;
+import wicket.kronos.plugins.menu.panels.MenuAdminpagePanel;
 import wicket.kronos.plugins.menu.panels.MenuFrontpagePanel;
 
 /**
@@ -30,7 +31,7 @@ public class MenuPlugin extends IPlugin {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private boolean isHorizontal;
+	protected boolean isHorizontal;
 
 	/**
 	 * Supports only the constructor without a specific contentUUID
@@ -49,7 +50,7 @@ public class MenuPlugin extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
-
+		
 		Session jcrSession = KronosSession.get().getJCRSession();
 
 		try
@@ -67,8 +68,12 @@ public class MenuPlugin extends IPlugin {
 		{
 			e.printStackTrace();
 		}
-
-		add(new MenuFrontpagePanel("panel", this.getMenuItems(), isHorizontal));
+		if(isAdmin)
+		{
+			add(new MenuAdminpagePanel("panel", this.pluginUUID, isHorizontal));
+		} else {
+			add(new MenuFrontpagePanel("panel", this.getMenuItems(), isHorizontal));
+		}
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
+import wicket.PageParameters;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.plugins.ToDo.adminpage.AdminToDoPanel;
@@ -45,7 +46,18 @@ public class ToDoPlugin extends IPlugin {
 		
 		if (isAdmin)
 		{
-			add(new AdminToDoPanel("todoplugin", todoItems));
+			PageParameters param = KronosSession.get().getPageParameters();
+			String action = "";
+			if(param.containsKey("action"))
+			{
+				action = param.getString("action");
+			}
+			if(action.equalsIgnoreCase("") || action == null)
+			{
+				add(new AdminToDoPanel("todoplugin", todoItems, pluginUUID));
+			} else {	
+				add(new AdminToDoPanel("todoplugin", (ToDoItem)null));
+			}
 		}else {
 			add(new FrontToDoPanel("todoplugin", todoItems));
 		}
@@ -96,7 +108,7 @@ public class ToDoPlugin extends IPlugin {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugin/kronos:todoitems/kronos:todoitem", Query.XPATH);
+					"//kronos:plugin/kronos:todoitems/kronos:todoitem order by @kronos:done ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();

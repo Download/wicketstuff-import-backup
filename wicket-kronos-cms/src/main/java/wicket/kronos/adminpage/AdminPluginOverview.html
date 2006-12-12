@@ -1,20 +1,30 @@
 <wicket:panel>
 	<div class="plugins">
-		<table width="100%" border="1">
-			<tr>
-				<th>Name:</th>
-				<th>Published:</th>
-				<th>Order:</th>
-				<th>Position:</th>
-				<th>Plugintype:</th>
-			</tr>
-			<tr wicket:id="pluginRepeater">
-				<td width="40%"><a wicket:id="nameLink"><div wicket:id="nameLabel"></div></a></td>
-				<td width="10%" class="center"><input type="checkbox" wicket:id="published"/> </td>
-				<td width="10%" class="center"><input size="1" type="text" wicket:id="order"/></td>
-				<td width="10%" class="center"><input size="5" type="text" wicket:id="position"/></td>
-				<td width="30%" wicket:id="pluginType"></td>
-			</tr>
-		</table>
+		<form wicket:id="overviewForm">
+			<table width="100%" border="1">
+				<tr>
+					<th>Name:</th>
+					<th>Published:</th>
+					<th>Order:</th>
+					<th>Position:</th>
+					<th>Plugintype:</th>
+				</tr>
+				<tr wicket:id="properties">
+					<td width="35%"><a wicket:id="nameLink"><div wicket:id="nameLabel"></div></a></td>
+					<td width="10%" class="center"><input type="checkbox" wicket:id="published"/> </td>
+					<td width="20%" class="center"><a href="#" wicket:id="incrementLink" class="orderLink"><img src="./uparrow.png" alt="up"/></a><a href="#" wicket:id="decrementLink" class="orderLink"><img src="./downarrow.png" alt="down"/></a><input type="text" wicket:id="order" size="1" class="orderLink"/></td>
+					<td width="10%" class="center">
+						<select wicket:id="position">
+					  		<option>foo</option>
+					  		<option>bar</option>
+			  			</select>
+			  		</td>
+					<td width="25%" wicket:id="pluginType"></td>
+				</tr>
+			</table>
+			<table class="noborder">
+				<tr><td><input type="submit" value="save"/></td></tr>
+			</table>
+		</form>
 	</div>
 </wicket:panel>

@@ -1,5 +1,8 @@
 package wicket.kronos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author postma
  */
@@ -59,5 +62,19 @@ public final class AreaLocations {
 			break;
 		}
 		return areaname;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List getAreaLocations()
+	{
+		List locations = new ArrayList();
+		
+		locations.add(new Integer(0));
+		locations.add(new Integer(1));
+		locations.add(new Integer(2));
+		locations.add(new Integer(3));
+		locations.add(new Integer(4));
+		
+		return locations;
 	}
 }

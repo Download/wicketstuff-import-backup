@@ -6,6 +6,7 @@ import java.util.List;
 
 import wicket.PageParameters;
 import wicket.kronos.adminpage.AdminPage;
+import wicket.kronos.adminpage.AdminPanel;
 import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.link.BookmarkablePageLink;
@@ -16,7 +17,7 @@ import wicket.markup.html.panel.Panel;
 /**
  * @author postma
  */
-public class AdminBlogOverview extends Panel {
+public class AdminBlogOverview extends AdminPanel {
 
 	/**
 	 * Default serialVersionUID
@@ -29,9 +30,9 @@ public class AdminBlogOverview extends Panel {
 	 * @param id
 	 * @param blogposts
 	 */
-	public AdminBlogOverview(String id, List<BlogPost> blogposts)
+	public AdminBlogOverview(String id, List<BlogPost> blogposts, String pluginUUID)
 	{
-		super(id);
+		super(id, pluginUUID);
 		ListView blogsList = new ListView("blogposts", blogposts) {
 			/**
 			 * Default serialVersionUID

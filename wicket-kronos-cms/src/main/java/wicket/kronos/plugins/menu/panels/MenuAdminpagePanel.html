@@ -1,3 +1,15 @@
-<html>
-<div wicket:id="test"></div>
-</html>
+<wicket:extend>
+	<h2> Additional Settings</h2>
+	<form wicket:id="menuAdminForm">
+		<table class="noborder">
+			<tr>
+				<td><label for="isHorizontal">Horizontal:</label> </td>
+				<td><input wicket:id="isHorizontal" type="checkbox" id="isHorizontal" /> </td>
+			</tr>
+			
+			<tr>
+				<td><input type="submit" value="Save" /></td>
+			</tr>
+		</table>
+	</form> 
+</wicket:extend>

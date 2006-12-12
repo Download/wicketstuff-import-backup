@@ -50,7 +50,7 @@ public class BlogPlugin extends IPlugin {
 		List<BlogPost> blogposts = this.getBlogPosts();
 		if (isAdmin)
 		{
-			add(new AdminBlogPanel("blogpluginpanel", blogposts));
+			add(new AdminBlogPanel("blogpluginpanel", blogposts, pluginUUID));
 		} else
 		{
 			add(new FrontBlogPanel("blogpluginpanel", blogposts));

@@ -1,10 +1,18 @@
 package wicket.kronos.plugins.ToDo.adminpage;
 
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
 import wicket.extensions.markup.html.datepicker.DatePicker;
+import wicket.kronos.KronosSession;
+import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
+import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
@@ -50,14 +58,34 @@ public class AdminToDoEdit extends Panel {
 			super(name, new CompoundPropertyModel(todoItem));
 			add(new TextField("title"));
 			add(new TextField("subject"));
-			add(new TextField("content"));
+			add(new TextArea("content"));
 			add(new CheckBox("done"));
-			
-			WebMarkupContainer dateLabel = new WebMarkupContainer("datelabel");
-			add(dateLabel);
-			TextField datePropertyTextField = new TextField("date");
-			add(datePropertyTextField).setEnabled(false);
-			add(new DatePicker("datePicker", dateLabel, datePropertyTextField));
+		}
+		
+		public void onSubmit()
+		{
+			Session jcrSession = KronosSession.get().getJCRSession();
+			ToDoItem item = (ToDoItem)this.getModelObject();
+			try
+			{
+				Node todoItemNode = jcrSession.getNodeByUUID(item.getTodoUUID());
+				todoItemNode.setProperty("kronos:title", item.getTitle());
+				todoItemNode.setProperty("kronos:subject", item.getSubject());
+				todoItemNode.setProperty("kronos:content", item.getContent());
+				todoItemNode.setProperty("kronos:done", item.getDone());
+				
+				jcrSession.save();
+				
+				setResponsePage(AdminPage.class);
+			}
+			catch (ItemNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch (RepositoryException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

@@ -31,6 +31,7 @@ public class BannerPlugin extends IPlugin {
 	 * Default serialUID
 	 */
 	private static final long serialVersionUID = 1L;
+	private String imageUUID;
 
 	/**
 	 * Default plugin constructor Retrieves the image data from the repository
@@ -51,11 +52,12 @@ public class BannerPlugin extends IPlugin {
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
+		DynamicImageResource resource = this.getImage();
 		if(isAdmin)
 		{
-			add(new BannerAdminpagePanel("panel", pluginUUID));
+			add(new BannerAdminpagePanel("panel", pluginUUID, imageUUID));
 		} else {
-			add(new BannerFrontpagePanel("panel", this.getImage()));
+			add(new BannerFrontpagePanel("panel", resource));
 		}
 	}
 	
@@ -85,9 +87,10 @@ public class BannerPlugin extends IPlugin {
 				Node bannerNode = it.nextNode();
 				Node imageNode = bannerNode.getProperty("kronos:image")
 						.getNode();
+				imageUUID = imageNode.getUUID();
 				InputStream input = imageNode.getNode("jcr:content")
 						.getProperty("jcr:data").getStream();
-
+				
 				/*
 				 * Retrieve the image data from the repository and put it into a
 				 * byteArray

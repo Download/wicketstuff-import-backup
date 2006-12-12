@@ -1,5 +1,6 @@
 <html>
 	<wicket:panel>
+	<form wicket:id="todoform">
 		<table>
 			<tr>
 				<th>Title</th>
@@ -9,16 +10,18 @@
 				<th>Date</th>
 			</tr>
 			<tr wicket:id="todoRepeater">
-				<td wicket:id="title"> </td>
-				<br/>
+				<td><a wicket:id="titlelink"><div wicket:id="title"></div></a> </td>
 				<td wicket:id="subject"> </td>
-				<br/>
 				<td wicket:id="content"> </td>
-				<br/>
-				<td wicket:id="done"> </td>
-				<br/>
+				<td> <input type="checkbox" wicket:id="done"/> </td>
 				<td wicket:id="date"> </td>
 			</tr>
 		</table>
+		<table class="noborder">
+			<tr>
+				<td><input type="submit" value="New Item" /></td>
+			</tr>
+		</table>
+	</form>
 	</wicket:panel>
 </html>

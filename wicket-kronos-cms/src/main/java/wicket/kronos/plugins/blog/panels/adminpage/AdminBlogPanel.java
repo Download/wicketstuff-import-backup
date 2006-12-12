@@ -21,10 +21,10 @@ public class AdminBlogPanel extends Panel {
 	 * @param id
 	 * @param blogposts
 	 */
-	public AdminBlogPanel(String id, List<BlogPost> blogposts)
+	public AdminBlogPanel(String id, List<BlogPost> blogposts, String pluginUUID)
 	{
 		super(id);
-		add(new AdminBlogOverview("adminblogpanel", blogposts));
+		add(new AdminBlogOverview("adminblogpanel", blogposts, pluginUUID));
 	}
 
 	/**

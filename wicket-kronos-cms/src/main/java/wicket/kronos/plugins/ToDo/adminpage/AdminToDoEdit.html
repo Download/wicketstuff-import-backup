@@ -1,20 +1,27 @@
 <html>
 	<wicket:panel>
-		<div wicket:id="admintodoedit"> 
-			<label for="title">Title</label>
-			<div wicket:id="title"> </div>
-			<br/>
-			<label for="subject">Subject</label>
-			<div wicket:id="subject"> </div>
-			<br/>
-			<label for="content">Content</label>
-			<div wicket:id="content"> </div>
-			<br/>
-			<label for="done">Done</label>
-			<div wicket:id="done"> </div>
-			<br/>
-			<label for="date">Date</label>
-			<div wicket:id="date"> </div>
-		</div>
+		<form wicket:id="admintodoedit"> 
+			<table class="noborder">
+				<tr>
+					<td><label for="title">Title:</label></td>
+					<td><input type="text" wicket:id="title"/></td>
+				</tr>
+				<tr>
+					<td><label for="subject">Subject:</label></td>
+					<td><input type="text" wicket:id="subject"/></td>
+				</tr>
+				<tr>
+					<td><label for="content">Content:</label></td>
+					<td><textarea wicket:id="content" cols="50" rows="15"></textarea></td>
+				</tr>
+				<tr>
+					<td><label for="done">Done:</label></td>
+					<td><input type="checkbox" wicket:id="done"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Save"/></td>
+				</tr>
+			</table>
+		</form>
 	</wicket:panel>
 </html>
