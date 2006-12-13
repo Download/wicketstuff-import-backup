@@ -99,8 +99,15 @@ public class AdminMenu extends Panel {
 				Node n = it.nextNode();
 				
 				String name = n.getProperty("kronos:name").getString();
-				
-				menuItem = new MenuItem("menuitem", name);
+				String ID = n.getProperty("kronos:ID").getString();
+				if (!ID.equalsIgnoreCase("#"))
+				{
+					String IDType = n.getProperty("kronos:IDType").getString();
+					menuItem = new MenuItem("menuitem", name, ID, IDType);
+				} else 
+				{
+					menuItem = new MenuItem("menuitem", name, ID, null);
+				}
 				menuItems.add(menuItem);
 			}
 		} catch(RepositoryException e) {

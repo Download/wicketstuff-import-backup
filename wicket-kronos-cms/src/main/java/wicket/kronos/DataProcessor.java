@@ -1002,33 +1002,39 @@ public final class DataProcessor {
 		
 /* Start of admin menu test */
 		
-		//Creating menu structure
+//		Creating menu structure
 		Node adminmenus = cms.addNode("kronos:adminmenus");
-		Node adminmenu = adminmenus.addNode("kronos:adminmenu");
-		Node adminmenuitem = adminmenu.addNode("kronos:adminmenuitem"); 
-
-		adminmenuitem.setProperty("kronos:name", "Home");
+		Node adminmenu = adminmenus.addNode("kronos:adminmenu"); 
 		
 		//Creating submenu items
-		Node adminsubmenuitem1 = adminmenuitem.addNode("kronos:adminsubmenuitem");
+		Node adminmenuitem1 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem1.setProperty("kronos:name", "Home");
+		adminmenuitem1.setProperty("kronos:IDType", "frontpage");
+		adminmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
+		Node adminsubmenuitem1 = adminmenuitem1.addNode("kronos:adminsubmenuitem");
 		adminsubmenuitem1.setProperty("kronos:name", "Home");
 		adminsubmenuitem1.setProperty("kronos:IDType", "adminpage");
 		adminsubmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
-		Node adminsubmenuitem2 = adminmenuitem.addNode("kronos:adminsubmenuitem");
+		Node adminsubmenuitem2 = adminmenuitem1.addNode("kronos:adminsubmenuitem");
 		adminsubmenuitem2.setProperty("kronos:name", "Frontpage");
 		adminsubmenuitem2.setProperty("kronos:IDType", "frontpage");
 		adminsubmenuitem2.setProperty("kronos:ID", adminmenu.getUUID());
 		
-		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem.setProperty("kronos:name", "Users");
-		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem.setProperty("kronos:name", "Menu");
-		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem.setProperty("kronos:name", "Plugins");
-		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem.setProperty("kronos:name", "Configuration");
-		adminmenuitem = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem.setProperty("kronos:name", "Help");
+		Node adminmenuitem2 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem2.setProperty("kronos:name", "Users");
+		adminmenuitem2.setProperty("kronos:ID", "#");
+		Node adminmenuitem3 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem3.setProperty("kronos:name", "Menu");
+		adminmenuitem3.setProperty("kronos:ID", "#");
+		Node adminmenuitem4 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem4.setProperty("kronos:name", "Plugins");
+		adminmenuitem4.setProperty("kronos:ID", "#");
+		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem5.setProperty("kronos:name", "Configuration");
+		adminmenuitem5.setProperty("kronos:ID", "#");
+		Node adminmenuitem6 = adminmenu.addNode("kronos:adminmenuitem");
+		adminmenuitem6.setProperty("kronos:name", "Help");
+		adminmenuitem6.setProperty("kronos:ID", "#");
 		
 /* End of admin menu test */
 		

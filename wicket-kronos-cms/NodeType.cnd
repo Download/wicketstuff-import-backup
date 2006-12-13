@@ -50,6 +50,8 @@
 
 [kronos:AdminMenuItem] > nt:base
 -kronos:name (STRING) mandatory
+-kronos:ID (STRING) mandatory
+-kronos:IDType (STRING)
 +kronos:adminsubmenuitem(kronos:AdminSubMenuItem) = kronos:AdminSubMenuItem multiple
 
 [kronos:AdminMenu] > nt:base, mix:referenceable

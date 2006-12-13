@@ -43,11 +43,27 @@ public class MenuItem extends Panel {
 	 * @param wicketId 
 	 * @param name
 	 */
-	public MenuItem(String wicketId, String name) 
+	public MenuItem(String wicketId, String name, String ID, String IDType) 
 	{
 		super(wicketId);
 		this.name = name;
-		add(new ExternalLink("menulink", "#", name));
+		if (ID.equals("#"))
+		{
+			add(new ExternalLink("menulink", "#")
+				.add(new Label("menulinklabel", name)));
+		} else if(IDType.equals("adminpage"))
+		{			
+			PageParameters menulinkParam = new PageParameters();
+			menulinkParam.add("IDType", IDType);
+			menulinkParam.add("ID", ID);
+			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam)
+				.add(new Label("menulinklabel", name)));
+		} else
+		{
+			add(new BookmarkablePageLink("menulink", Frontpage.class, PageParameters.NULL)
+				.add(new Label("menulinklabel", name)));
+		}
+		 
 		
 		List<SubMenuItem> subMenuItems = this.getSubMenuItems(name);
 		ListView subMenuItemsList = new ListView("submenurepeater", subMenuItems) {
