@@ -1116,11 +1116,11 @@ public final class DataProcessor {
 			adminmenuitem4.setProperty("kronos:ID", "#");
 			
 		Node adminsubmenuitem6 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
-			adminsubmenuitem6.setProperty("kronos:name", "Add Plugin");
+			adminsubmenuitem6.setProperty("kronos:name", "Upload JAR");
 			adminsubmenuitem6.setProperty("kronos:IDType", "AdminPluginUpload");
 			adminsubmenuitem6.setProperty("kronos:ID", "");
 		Node adminsubmenuitem7 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
-			adminsubmenuitem7.setProperty("kronos:name", "Add Plugin Instance");
+			adminsubmenuitem7.setProperty("kronos:name", "Add Instance");
 			adminsubmenuitem7.setProperty("kronos:IDType", "AdminNewPlugin");
 			adminsubmenuitem7.setProperty("kronos:ID","");
 			
