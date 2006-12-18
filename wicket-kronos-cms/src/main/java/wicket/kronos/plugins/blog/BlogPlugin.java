@@ -118,9 +118,10 @@ public class BlogPlugin extends IPlugin {
 				String title = n.getProperty("kronos:title").getString();
 				String text = n.getProperty("kronos:text").getString();
 				String author = n.getProperty("kronos:author").getString();
-				int nrComments = 0;
-				List<Comment> comments = this.getComments(nrComments, postUUID);
-
+				
+				List<Comment> comments = this.getComments(postUUID);
+				int nrComments = comments.size();
+				
 				post = new BlogPost(postUUID, date, title, text, author,
 						comments, nrComments);
 				blogposts.add(post);
@@ -141,7 +142,7 @@ public class BlogPlugin extends IPlugin {
 	 * @param nrComments
 	 * @return List of Comments
 	 */
-	private List<Comment> getComments(int nrComments, String blogPostUUID)
+	private List<Comment> getComments(String blogPostUUID)
 	{
 		List<Comment> comments = new ArrayList<Comment>();
 		Comment newComment = null;
@@ -171,7 +172,7 @@ public class BlogPlugin extends IPlugin {
 				newComment = new Comment(commentUUID, text, author, date);
 
 				comments.add(newComment);
-				nrComments++;
+				
 			}
 		}
 		catch (RepositoryException e)
@@ -203,9 +204,10 @@ public class BlogPlugin extends IPlugin {
 			String title = n.getProperty("kronos:title").getString();
 			String text = n.getProperty("kronos:text").getString();
 			String author = n.getProperty("kronos:author").getString();
-			int nrComments = 0;
-			List<Comment> comments = this.getComments(nrComments, postUUID);
-
+			
+			List<Comment> comments = this.getComments(postUUID);
+			int nrComments = comments.size();
+			
 			blogpost = new BlogPost(postUUID, date, title, text, author,
 					comments, nrComments);
 		}
