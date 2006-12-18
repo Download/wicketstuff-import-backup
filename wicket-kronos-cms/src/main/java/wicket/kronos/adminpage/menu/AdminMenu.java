@@ -55,7 +55,6 @@ public class AdminMenu extends Panel {
 			/* Scan for Help menu item and place it to the right of the menu bar */	
 				if (menuItem.getName().equalsIgnoreCase("Help"))
 				{
-					System.out.println("Help menu item found");
 					item.add(new AttributeModifier("id", true, new Model() {
 						@Override
 						public Object getObject(final Component component)

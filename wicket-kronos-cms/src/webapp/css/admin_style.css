@@ -46,6 +46,10 @@ td a:hover{
 	background-color: #E0E0E0;
 }
 
+td a{
+	display:block;	
+}
+
 table{
 	border: inset black 1px;
 }
