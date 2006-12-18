@@ -15,6 +15,8 @@ public class PluginProperties implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private boolean selected;
+	
 	private String pluginUUID;
 
 	private String name;
@@ -32,8 +34,9 @@ public class PluginProperties implements Serializable{
 	 */
 	public PluginProperties()
 	{
+		selected = false;
 		pluginUUID = null;
-		name = "Constructor";
+		name = null;
 		published = false;
 		order = 0;
 		position = 0;
@@ -51,6 +54,7 @@ public class PluginProperties implements Serializable{
 	public PluginProperties(String pluginUUID, String name, boolean published, int order,
 			int position, String pluginType)
 	{
+		selected = false;
 		this.pluginUUID = pluginUUID;
 		this.name = name;
 		this.published = published;
@@ -152,5 +156,21 @@ public class PluginProperties implements Serializable{
 	public void setPublished(boolean published)
 	{
 		this.published = published;
+	}
+
+	/**
+	 * @return the selected
+	 */
+	public boolean isSelected()
+	{
+		return selected;
+	}
+
+	/**
+	 * @param selected the selected to set
+	 */
+	public void setSelected(boolean selected)
+	{
+		this.selected = selected;
 	}
 }

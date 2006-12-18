@@ -63,7 +63,7 @@ public final class DataProcessor {
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugins/kronos:plugin order by @kronos:position ascending, @kronos:order ascending", Query.XPATH);
+			Query q = qm.createQuery("//kronos:plugininstantiations/kronos:plugininstance order by @kronos:position ascending, @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -164,6 +164,44 @@ public final class DataProcessor {
 		return properties;
 	}
 	
+	public static void savePlugin(String canonicalPluginname) 
+	{
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try {
+			Node root = jcrSession.getRootNode();
+			Node plugin = root.getNode("kronos:cms")
+				.getNode("kronos:plugins")
+					.getNode("kronos:plugin");
+			plugin.setProperty("kronos:canonicalpluginname", canonicalPluginname);
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removePluginInstance(String pluginUUID)
+	{	
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try {
+			Node pluginNode = jcrSession.getNodeByUUID(pluginUUID);
+			pluginNode.remove();
+			jcrSession.save();
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 
 	 * @param properties
@@ -175,14 +213,21 @@ public final class DataProcessor {
 		Node n;
 		try
 		{
-			n = jcrSession.getNodeByUUID(properties.getPluginUUID());
+			if(properties.getPluginUUID() == null || properties.getPluginUUID().equals("")) {
+				n = jcrSession.getRootNode()
+					.getNode("kronos:cms")
+						.getNode("kronos:plugininstantiations")
+							.addNode("kronos:plugininstance");
+			} else {
+				n = jcrSession.getNodeByUUID(properties.getPluginUUID());
+			}
 			n.setProperty("kronos:name", properties.getName());
 			n.setProperty("kronos:published", properties.getPublished());
 			n.setProperty("kronos:order", properties.getOrder());
 			n.setProperty("kronos:position", properties.getPosition());
 			n.setProperty("kronos:pluginType", properties.getPluginType());
 			
-			if(!oldPluginName.equalsIgnoreCase(properties.getName()))
+			if(!oldPluginName.equals(properties.getName()))
 			{
 				Workspace ws = jcrSession.getWorkspace();
 				QueryManager qm = ws.getQueryManager();
@@ -198,7 +243,6 @@ public final class DataProcessor {
 				}
 			}
 			jcrSession.save();
-			
 		}
 		catch (ItemNotFoundException e)
 		{
@@ -208,6 +252,36 @@ public final class DataProcessor {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static List getPluginTypes() 
+	{
+		List<String> pluginTypes = new ArrayList<String>();
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+		
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:plugins/kronos:plugin", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			while (it.hasNext())
+			{
+				Node n = it.nextNode();
+				String pluginType = n.getProperty("kronos:canonicalpluginname").getString();
+				
+				pluginTypes.add(pluginType);
+			}
+		}catch(RepositoryException e)
+		{
+			e.printStackTrace();			
+		}
+		
+		return pluginTypes;
 	}
 	
 	/**
@@ -230,7 +304,7 @@ public final class DataProcessor {
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugin[@kronos:position='"
+			Query q = qm.createQuery("//kronos:plugininstance[@kronos:position='"
 					+ area + "' and @kronos:published='true'] order by @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
@@ -316,7 +390,6 @@ public final class DataProcessor {
 	 * @param contentUUID
 	 * @return IPlugin
 	 */
-	@SuppressWarnings( {"boxing"})
 	public static IPlugin getPluginByContent(boolean isAdmin, String contentUUID)
 	{
 		assert (contentUUID != null);
@@ -335,7 +408,7 @@ public final class DataProcessor {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugins/kronos:plugin[@kronos:name = '"
+					"//kronos:plugininstantiations/kronos:plugininstance[@kronos:name = '"
 							+ pluginName + "']", Query.XPATH);
 
 			QueryResult result = q.execute();
@@ -727,23 +800,23 @@ public final class DataProcessor {
 		menuItem.setProperty("kronos:linkType", "extern");
 		menuItem.setProperty("kronos:link", "http://www.tweakers.net");
 
-		Node plugins = cms.addNode("kronos:plugins");
+		Node plugins = cms.addNode("kronos:plugininstantiations");
 
-		Node plugin = plugins.addNode("kronos:plugin");
+		Node plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "banner");
 		plugin.setProperty("kronos:position", 0);
 		plugin.setProperty("kronos:published", true);
 		plugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.banner.BannerPlugin");
 
-		plugin = plugins.addNode("kronos:plugin");
+		plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "titan");
 		plugin.setProperty("kronos:position", 3);
 		plugin.setProperty("kronos:published", true);
 		plugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.titan.TitanPlugin");
 
-		plugin = plugins.addNode("kronos:plugin", "kronos:MenuPlugin");
+		plugin = plugins.addNode("kronos:plugininstance", "kronos:MenuPlugin");
 		plugin.setProperty("kronos:name", "Menuleft");
 		plugin.setProperty("kronos:position", 1);
 		plugin.setProperty("kronos:published", true);
@@ -751,7 +824,7 @@ public final class DataProcessor {
 				"wicket.kronos.plugins.menu.MenuPlugin");
 		plugin.setProperty("kronos:isHorizontal", false);
 
-		plugin = plugins.addNode("kronos:plugin");
+		plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "login");
 		plugin.setProperty("kronos:position", 1);
 		plugin.setProperty("kronos:published", true);
@@ -759,7 +832,7 @@ public final class DataProcessor {
 		plugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.login.LoginPlugin");
 
-		plugin = plugins.addNode("kronos:plugin");
+		plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "hellocenter1");
 		plugin.setProperty("kronos:position", 2);
 		plugin.setProperty("kronos:published", true);
@@ -773,7 +846,7 @@ public final class DataProcessor {
 		menuItem2.setProperty("kronos:IDType", "plugin");
 		menuItem2.setProperty("kronos:ID", plugin.getUUID());
 
-		Node blogPlugin = plugins.addNode("kronos:plugin");
+		Node blogPlugin = plugins.addNode("kronos:plugininstance");
 		blogPlugin.setProperty("kronos:name", "blog");
 		blogPlugin.setProperty("kronos:position", 2);
 		blogPlugin.setProperty("kronos:order", 2);
@@ -788,7 +861,7 @@ public final class DataProcessor {
 		menuItem3.setProperty("kronos:IDType", "plugin");
 		menuItem3.setProperty("kronos:ID", blogPlugin.getUUID());
 
-		plugin = plugins.addNode("kronos:plugin");
+		plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "version");
 		plugin.setProperty("kronos:position", 4);
 		plugin.setProperty("kronos:published", true);
@@ -857,12 +930,9 @@ public final class DataProcessor {
 		Calendar date = new GregorianCalendar();
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode
-				.setProperty("kronos:title", "The standard Lorem Ipsum passage");
-		blogNode
-				.setProperty(
-						"kronos:text",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+		blogNode.setProperty("kronos:title", "The standard Lorem Ipsum passage");
+		blogNode.setProperty("kronos:text",
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 		blogNode.setProperty("kronos:author", "minime");
 		Node comments = blogNode.addNode("kronos:comments");
 		Node comment = comments.addNode("kronos:comment");
@@ -875,10 +945,8 @@ public final class DataProcessor {
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
 		blogNode.setProperty("kronos:title", "de Finibus Bonorum et Malorum");
-		blogNode
-				.setProperty(
-						"kronos:text",
-						"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?");
+		blogNode.setProperty("kronos:text",
+				"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?");
 		blogNode.setProperty("kronos:author", "minime");
 		comments = blogNode.addNode("kronos:comments");
 		comment = comments.addNode("kronos:comment");
@@ -945,7 +1013,7 @@ public final class DataProcessor {
 		
 //ToDo Plugin with all items		
 		//put test parameters in todo Repository
-		Node todoPlugin = plugins.addNode("kronos:plugin");
+		Node todoPlugin = plugins.addNode("kronos:plugininstance");
 		todoPlugin.setProperty("kronos:name", "ToDo");
 		todoPlugin.setProperty("kronos:position", 2);
 		todoPlugin.setProperty("kronos:published", false);
@@ -987,7 +1055,7 @@ public final class DataProcessor {
 		menuItem4.setProperty("kronos:ID", todoPlugin.getUUID());
 		
 		//put test parameters in todo Repository
-		todoPlugin = plugins.addNode("kronos:plugin", "kronos:UnfinishedToDoPlugin");
+		todoPlugin = plugins.addNode("kronos:plugininstance", "kronos:UnfinishedToDoPlugin");
 		todoPlugin.setProperty("kronos:name", "unfinishedToDo");
 		todoPlugin.setProperty("kronos:position", 3);
 		todoPlugin.setProperty("kronos:published", true);
@@ -1006,37 +1074,105 @@ public final class DataProcessor {
 		Node adminmenus = cms.addNode("kronos:adminmenus");
 		Node adminmenu = adminmenus.addNode("kronos:adminmenu"); 
 		
-		//Creating submenu items
+	//Home menu item with submenu items
 		Node adminmenuitem1 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem1.setProperty("kronos:name", "Home");
-		adminmenuitem1.setProperty("kronos:IDType", "frontpage");
-		adminmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
+			adminmenuitem1.setProperty("kronos:name", "Home");
+			adminmenuitem1.setProperty("kronos:IDType", "frontpage");
+			adminmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
 		Node adminsubmenuitem1 = adminmenuitem1.addNode("kronos:adminsubmenuitem");
-		adminsubmenuitem1.setProperty("kronos:name", "Home");
-		adminsubmenuitem1.setProperty("kronos:IDType", "adminpage");
-		adminsubmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
+			adminsubmenuitem1.setProperty("kronos:name", "Home");
+			adminsubmenuitem1.setProperty("kronos:IDType", "adminpage");
+			adminsubmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
 		Node adminsubmenuitem2 = adminmenuitem1.addNode("kronos:adminsubmenuitem");
-		adminsubmenuitem2.setProperty("kronos:name", "Frontpage");
-		adminsubmenuitem2.setProperty("kronos:IDType", "frontpage");
-		adminsubmenuitem2.setProperty("kronos:ID", adminmenu.getUUID());
+			adminsubmenuitem2.setProperty("kronos:name", "Frontpage");
+			adminsubmenuitem2.setProperty("kronos:IDType", "frontpage");
+			adminsubmenuitem2.setProperty("kronos:ID", adminmenu.getUUID());
 		
+	//User menu item with submenu items		
 		Node adminmenuitem2 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem2.setProperty("kronos:name", "Users");
-		adminmenuitem2.setProperty("kronos:ID", "#");
+			adminmenuitem2.setProperty("kronos:name", "Users");
+			adminmenuitem2.setProperty("kronos:ID", "#");
+		Node adminsubmenuitem3 = adminmenuitem2.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem3.setProperty("kronos:name", "Listing");
+			adminsubmenuitem3.setProperty("kronos:IDType", "adminpage");
+			adminsubmenuitem3.setProperty("kronos:ID", adminmenu.getUUID());
+		Node adminsubmenuitem4 = adminmenuitem2.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem4.setProperty("kronos:name", "Add User");
+			adminsubmenuitem4.setProperty("kronos:IDType", "adminpage");
+			adminsubmenuitem4.setProperty("kronos:ID", adminmenu.getUUID());
+		Node adminsubmenuitem5 = adminmenuitem2.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem5.setProperty("kronos:name", "Roles");
+			adminsubmenuitem5.setProperty("kronos:IDType", "adminpage");
+			adminsubmenuitem5.setProperty("kronos:ID", adminmenu.getUUID());
+	
+	//Menu menu item with submenu items		
 		Node adminmenuitem3 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem3.setProperty("kronos:name", "Menu");
-		adminmenuitem3.setProperty("kronos:ID", "#");
+			adminmenuitem3.setProperty("kronos:name", "Menu");
+			adminmenuitem3.setProperty("kronos:ID", "#");
+			
+	//Plugins menu item with submenu items
 		Node adminmenuitem4 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem4.setProperty("kronos:name", "Plugins");
-		adminmenuitem4.setProperty("kronos:ID", "#");
+			adminmenuitem4.setProperty("kronos:name", "Plugins");
+			adminmenuitem4.setProperty("kronos:ID", "#");
+			
+		Node adminsubmenuitem6 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem6.setProperty("kronos:name", "Add Plugin");
+			adminsubmenuitem6.setProperty("kronos:IDType", "AdminPluginUpload");
+			adminsubmenuitem6.setProperty("kronos:ID", "");
+		Node adminsubmenuitem7 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem7.setProperty("kronos:name", "Add Plugin Instance");
+			adminsubmenuitem7.setProperty("kronos:IDType", "AdminNewPlugin");
+			adminsubmenuitem7.setProperty("kronos:ID","");
+			
+	//Configuration menu item with submenu items
 		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem5.setProperty("kronos:name", "Configuration");
-		adminmenuitem5.setProperty("kronos:ID", "#");
+			adminmenuitem5.setProperty("kronos:name", "Configuration");
+			adminmenuitem5.setProperty("kronos:ID", "#");
+			
+	//Help menu item with submenu items
 		Node adminmenuitem6 = adminmenu.addNode("kronos:adminmenuitem");
-		adminmenuitem6.setProperty("kronos:name", "Help");
-		adminmenuitem6.setProperty("kronos:ID", "#");
+			adminmenuitem6.setProperty("kronos:name", "Help");
+			adminmenuitem6.setProperty("kronos:ID", "#");
 		
 /* End of admin menu test */
+			
+		Node pluginsNode = cms.addNode("kronos:plugins");
+		Node pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "HelloWorld");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.helloworld.HelloWorld");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Blog");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.blog.BlogPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Banner");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.banner.BannerPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Login");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.login.LoginPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Menu");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.menu.MenuPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Titan");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.titan.TitanPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "To Do");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.ToDo.ToDoPlugin");
+
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Unfinished To Do");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.unfinishedtodo.UnfinishedToDoItemsPlugin");
+		
+		pluginNode = pluginsNode.addNode("kronos:plugin");
+		pluginNode.setProperty("kronos:pluginname", "Version");
+		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.version.VersionPlugin");
+		
 		
 
 		session.save();

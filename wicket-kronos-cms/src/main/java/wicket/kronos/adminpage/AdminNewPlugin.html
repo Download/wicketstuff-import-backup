@@ -1,14 +1,35 @@
 <html>
 	<wicket:panel>
-		<label for="name">Name</label>
-		<div wicket:id="name" id="name"> </div>
-		<label for="published">Published</label>
-		<div wicket:id="published" id="published"> </div>
-		<label for="order">Order</label>
-		<div wicket:id=order" id="order"> </div>
-		<label for="position">Position</label>
-		<div wicket:id="position" id="position"> </div>
-		<label for="plugintype">Plugintype</label>
-		<div wicket:id="plugintype" id="plugintype"> </div>
+		<form wicket:id="newpluginform">
+			<table class="noborder">
+				<tr>
+					<td><label for="name">Name</label></td>
+					<td><input type="text" wicket:id="name" id="name" size="30"> </input></td>
+				</tr>
+				<tr>
+					<td><label for="published">Published</label></td>
+					<td><input type="checkbox" wicket:id="published" id="published"> </input></td>
+				</tr>
+				<tr>
+					<td><label for="order">Order</label></td>
+					<td><input type="text" wicket:id=order" id="order" size="30"> </input></td>
+				</tr>
+				<tr>
+					<td><label for="position">Position</label></td>
+					<td><select wicket:id="position" id="position"> 
+						<option></option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><label for="pluginType">Plugintype</label></td>
+					<td><select wicket:id="pluginType" id="pluginType"> 
+						<option></option>
+					</select> </td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Save"/></td>
+				</tr>
+			</table>
+		</form>
 	</wicket:panel>
 </html>

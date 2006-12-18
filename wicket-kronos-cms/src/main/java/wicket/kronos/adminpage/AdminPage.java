@@ -41,6 +41,10 @@ public class AdminPage extends KronosPage {
 			add(new AdminPluginOverview("plugin"));
 		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminpage")) {
 			add(new AdminPluginOverview("plugin"));
+		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminnewplugin")) {
+			add(new AdminNewPlugin("plugin"));
+		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminpluginupload")) {
+			add(new AdminPluginUpload("plugin"));
 		} else 
 		{
 			KronosSession currentsession = KronosSession.get();

@@ -1,0 +1,20 @@
+<html> 
+	<wicket:panel>
+	<form wicket:id="simpleUpload">
+		<fieldset>
+	    	<p>
+		    <label for="upload">File</label>
+		    <input wicket:id="fileUpload" id="upload" type="file"/>
+		    <div wicket:id="dir"> </div>		   
+		    </p>
+		    <p>
+		    <input type="submit" value="Upload!"/>
+		   	</p>
+	 	</fieldset>
+	</form>
+	
+	<div>
+		<span wicket:id="uploadFeedback"/>
+	</div>
+	</wicket:panel>
+</html>

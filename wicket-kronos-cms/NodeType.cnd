@@ -14,14 +14,17 @@
 -kronos:name (STRING) mandatory primary
 -kronos:description (STRING)
 
-[kronos:Plugin] > nt:base, mix:referenceable
+[kronos:Plugin] > nt:base
+-kronos:canonicalpluginname (STRING) mandatory
+
+[kronos:PluginInstance] > nt:base, mix:referenceable
 -kronos:name (STRING) mandatory primary
 -kronos:published (BOOLEAN) = 'false' mandatory autocreated
 -kronos:order (LONG) = '1'  mandatory autocreated
 -kronos:position (LONG) mandatory 
 -kronos:pluginType (STRING) mandatory
 
-[kronos:MenuPlugin] > kronos:Plugin
+[kronos:MenuPlugin] > kronos:PluginInstance
 -kronos:isHorizontal (BOOLEAN) = 'false' mandatory autocreated
 
 [kronos:Configuration] > nt:base
@@ -77,17 +80,21 @@
 [kronos:Plugins] > nt:base
 +kronos:plugin(kronos:Plugin) = kronos:Plugin multiple
 
+[kronos:PluginInstantiations] > nt:base
++kronos:plugininstance(kronos:PluginInstance) = kronos:PluginInstance multiple
+
 [kronos:AdminMenus] > nt:base
 +kronos:adminmenu(kronos:AdminMenu) = kronos:AdminMenu multiple
 
 [kronos:Cms] > nt:base
 +kronos:configuration(kronos:Configuration) = kronos:Configuration 
-+kronos:plugins(kronos:Plugins)	= kronos:Plugins
++kronos:plugininstantiations(kronos:PluginInstantiations)	= kronos:PluginInstantiations
 +kronos:users(kronos:Users) = kronos:Users
 +kronos:roles(kronos:Roles) = kronos:Roles
 +kronos:menus(kronos:Menus) = kronos:Menus
 +kronos:content(kronos:Content) = kronos:Content 
 +kronos:adminmenus(kronos:AdminMenus) = kronos:AdminMenus
++kronos:plugins(kronos:Plugins) = kronos:Plugins
 
 //===================================================== Blog plugin
 
@@ -123,5 +130,5 @@
 [kronos:ToDoItems] > nt:base
 +kronos:todoitem(kronos:ToDoItem) = kronos:ToDoItem multiple
 
-[kronos:UnfinishedToDoPlugin] > kronos:Plugin
+[kronos:UnfinishedToDoPlugin] > kronos:PluginInstance
 -kronos:plugincontentname (STRING) mandatory

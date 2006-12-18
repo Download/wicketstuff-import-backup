@@ -47,23 +47,32 @@ public class MenuItem extends Panel {
 	{
 		super(wicketId);
 		this.name = name;
+		
+		PageParameters menulinkParam = new PageParameters();
+		menulinkParam.add("IDType", IDType);
+		menulinkParam.add("ID", ID);
+		
 		if (ID.equals("#"))
 		{
 			add(new ExternalLink("menulink", "#")
 				.add(new Label("menulinklabel", name)));
-		} else if(IDType.equals("adminpage"))
+		} else if(IDType.equalsIgnoreCase("adminpage"))
 		{			
-			PageParameters menulinkParam = new PageParameters();
-			menulinkParam.add("IDType", IDType);
-			menulinkParam.add("ID", ID);
 			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam)
 				.add(new Label("menulinklabel", name)));
-		} else
+		} else if(IDType.equalsIgnoreCase("adminnewplugin"))
+		{
+			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam)
+				.add(new Label("menulinklabel", name)));
+		} else if(IDType.equalsIgnoreCase("frontpage"))
 		{
 			add(new BookmarkablePageLink("menulink", Frontpage.class, PageParameters.NULL)
 				.add(new Label("menulinklabel", name)));
-		}
-		 
+		} else
+		{
+			add(new BookmarkablePageLink("menulink", AdminPage.class, PageParameters.NULL)
+				.add(new Label("menulinklabel", name)));
+		}		 
 		
 		List<SubMenuItem> subMenuItems = this.getSubMenuItems(name);
 		ListView subMenuItemsList = new ListView("submenurepeater", subMenuItems) {
@@ -81,7 +90,7 @@ public class MenuItem extends Panel {
 				PageParameters param = new PageParameters();
 				param.add("IDType", subMenuItem.getIDType());
 				param.add("ID", subMenuItem.getID());
-				if (!(subMenuItem.getIDType().equals("adminpage")))
+				if ((subMenuItem.getIDType().equals("frontpage")))
 				{
 					item.add(new BookmarkablePageLink("submenulink",
 							Frontpage.class, PageParameters.NULL).add(

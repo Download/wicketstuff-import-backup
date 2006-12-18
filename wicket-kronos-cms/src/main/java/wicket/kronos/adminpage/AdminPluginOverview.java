@@ -11,6 +11,7 @@ import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
+import wicket.markup.html.form.Button;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
@@ -42,7 +43,6 @@ public class AdminPluginOverview extends Panel{
 		super(wicketId);
 		propertiesList = DataProcessor.getPluginPropertiesObjects();
 		add(new OverviewForm("overviewForm"));
-
 	}
 	
 	/**
@@ -73,6 +73,7 @@ public class AdminPluginOverview extends Panel{
 					final PluginProperties props = (PluginProperties)item.getModelObject();
 					final TextField orderField;
 					
+					item.add(new CheckBox("selected", new PropertyModel(props, "selected")));
 					PageParameters param = new PageParameters();
 					param.put("IDType", "plugin");
 					param.put("ID", props.getPluginUUID());
@@ -129,21 +130,48 @@ public class AdminPluginOverview extends Panel{
 					item.add(new Label("pluginType", pluginType));
 				}
 			});
+			
+			add(new Button("deletebutton"){
+				public void onSubmit()
+				{	
+					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
+					Iterator pluginIterator = properties.iterator();
+					
+					while(pluginIterator.hasNext())
+					{
+						PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
+						if(pluginProps.isSelected())
+						{
+							DataProcessor.removePluginInstance(pluginProps.getPluginUUID());
+						}
+					}
+					setResponsePage(AdminPage.class);
+				}
+			});
+			
+			add(new Button("savebutton"){
+				public void onSubmit()
+				{
+					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
+					Iterator pluginIterator = properties.iterator();
+					
+					while(pluginIterator.hasNext())
+					{
+						PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
+						
+						DataProcessor.savePluginProperties(pluginProps, pluginProps.getName());
+					}
+					
+					setResponsePage(AdminPage.class);
+				}
+				
+			});
+			
 		}
 		
 		public void onSubmit()
 		{
-			List<PluginProperties> properties = ((PluginPropertiesModel)this.getModelObject()).getProperties();
-			Iterator pluginIterator = properties.iterator();
 			
-			while(pluginIterator.hasNext())
-			{
-				PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
-				
-				DataProcessor.savePluginProperties(pluginProps, pluginProps.getName());
-			}
-			
-			setResponsePage(AdminPage.class);
 		}
 	}
 	

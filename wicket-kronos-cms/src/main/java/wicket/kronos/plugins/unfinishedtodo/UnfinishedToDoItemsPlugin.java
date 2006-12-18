@@ -124,7 +124,7 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugins/kronos:plugin[@kronos:name = '" 
+					"//kronos:plugininstantiations/kronos:plugininstance[@kronos:name = '" 
 							+ toDoPluginName + "']", Query.XPATH);
 
 			QueryResult result = q.execute();

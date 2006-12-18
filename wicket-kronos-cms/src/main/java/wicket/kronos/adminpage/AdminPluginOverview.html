@@ -3,6 +3,7 @@
 		<form wicket:id="overviewForm">
 			<table width="100%" border="1">
 				<tr>
+					<th>Selected</th>
 					<th>Name:</th>
 					<th>Published:</th>
 					<th>Order:</th>
@@ -10,21 +11,27 @@
 					<th>Plugintype:</th>
 				</tr>
 				<tr wicket:id="properties">
-					<td width="35%"><a wicket:id="nameLink"><div wicket:id="nameLabel"></div></a></td>
-					<td width="10%" class="center"><input type="checkbox" wicket:id="published"/> </td>
-					<td width="20%" class="center"><a href="#" wicket:id="incrementLink" class="orderLink"><img src="./uparrow.png" alt="up"/></a><a href="#" wicket:id="decrementLink" class="orderLink"><img src="./downarrow.png" alt="down"/></a><input type="text" wicket:id="order" size="1" class="orderLink"/></td>
-					<td width="10%" class="center">
+					<td class="center"><input type="checkbox" wicket:id="selected"/></td>
+					<td><a wicket:id="nameLink"><div wicket:id="nameLabel"></div></a></td>
+					<td class="center"><input type="checkbox" wicket:id="published"/> </td>
+					<td class="center"><a href="#" wicket:id="incrementLink" class="orderLink"><img src="./uparrow.png" alt="up"/></a><a href="#" wicket:id="decrementLink" class="orderLink"><img src="./downarrow.png" alt="down"/></a><input type="text" wicket:id="order" size="1" class="orderLink"/></td>
+					<td class="center">
 						<select wicket:id="position">
 					  		<option>foo</option>
 					  		<option>bar</option>
 			  			</select>
 			  		</td>
-					<td width="25%" wicket:id="pluginType"></td>
+					<td wicket:id="pluginType"></td>
 				</tr>
 			</table>
 			<br/>
 			<table class="noborder">
-				<tr><td><input type="submit" value="Save"/></td></tr>
+				<tr>
+					<td>
+						<input type="submit" wicket:id="savebutton" value="Save"/>
+						<input type="submit" wicket:id="deletebutton" value="Delete"/>
+					</td>
+				</tr>
 			</table>
 		</form>
 	</div>

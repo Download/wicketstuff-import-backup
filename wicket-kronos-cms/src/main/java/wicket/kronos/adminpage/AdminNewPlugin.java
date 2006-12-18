@@ -1,18 +1,30 @@
 package wicket.kronos.adminpage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
+import wicket.kronos.AreaLocations;
+import wicket.kronos.DataProcessor;
+import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.PluginProperties;
+import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
+import wicket.markup.html.form.IChoiceRenderer;
 import wicket.markup.html.form.TextField;
-import wicket.markup.html.link.Link;
+import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
 
 /**
  * @author postma
  *
  */
-public class AdminNewPlugin extends Form{
+public class AdminNewPlugin extends Panel{
 	
 	/**
 	 * Default serialVersionUID
@@ -24,27 +36,60 @@ public class AdminNewPlugin extends Form{
 	 */
 	public AdminNewPlugin(String wicketId)
 	{
-		//TODO read position's from repository an give as parameter to PluginProperties
-		super(wicketId, new CompoundPropertyModel(new PluginProperties()));
+		super(wicketId);
+		add(new AdminNewPluginForm("newpluginform"));		
+	}
+	
+	public class AdminNewPluginForm extends Form{
 		
-		add(new TextField("name"));
-		add(new CheckBox("published"));
-		add(new TextField("order"));
-		add(new DropDownChoice("position"));
-		add(new TextField("plugintype"));	
-		
-		add(new Link("savenewplugin")
+		public AdminNewPluginForm(String wicketId)
 		{
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick()
-			{
-				//TODO save new plugin to repository
-			}
-		});
+			super(wicketId, new CompoundPropertyModel(new PluginProperties()));
+			
+			add(new TextField("name"));
+			add(new CheckBox("published"));
+			add(new TextField("order"));
+			add(new DropDownChoice("position", AreaLocations.getAreaLocations(), new IChoiceRenderer() {
+				
+				public String getIdValue(Object object, int arg1)
+				{	
+					return ((Integer)object).toString();
+				}
+			
+				public Object getDisplayValue(Object object)
+				{
+					int value = ((Integer)object).intValue();
+					return AreaLocations.getLocationname(value);
+				}
+			}));
+			
+			List<String> plugintypes = DataProcessor.getPluginTypes();
+			add(new DropDownChoice("pluginType", plugintypes, new IChoiceRenderer() {
+				
+				public String getIdValue(Object object, int arg1)
+				{	
+					return (String)object;
+				}
+			
+				public Object getDisplayValue(Object object)
+				{
+					String canonicalName = (String)object;
+					int lastPeriod = canonicalName.lastIndexOf(".");
+					String pluginType = canonicalName.substring(lastPeriod + 1);
+					return pluginType;
+				}
+				
+			}));
+		}
+		
+		public void onSubmit() 
+		{
+			Session jcrSession = KronosSession.get().getJCRSession();
+			PluginProperties pluginProperties = (PluginProperties)this.getModelObject();
+			
+			DataProcessor.savePluginProperties(pluginProperties, pluginProperties.getName());
+			
+			setResponsePage(AdminPage.class);
+		}
 	}
 }
