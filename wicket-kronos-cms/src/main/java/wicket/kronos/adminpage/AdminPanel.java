@@ -3,6 +3,7 @@ package wicket.kronos.adminpage;
 import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.PluginProperties;
+import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
@@ -20,6 +21,7 @@ public class AdminPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	protected PluginProperties properties;
 	protected String oldPluginName;
+	private String myPluginType = null;
 
 	/**
 	 * Default when no plugin is to be configured
@@ -44,7 +46,7 @@ public class AdminPanel extends Panel {
 		properties = DataProcessor.getPluginProperties(pluginUUID);
 		String tempType = properties.getPluginType();
 		int lastPeriod = tempType.lastIndexOf(".");
-		properties.setPluginType(tempType.substring(lastPeriod+1));
+		myPluginType = tempType.substring(lastPeriod+1);
 		oldPluginName = properties.getName();
 		add(new AdminForm("adminpanelform"));
 	}
@@ -71,7 +73,7 @@ public class AdminPanel extends Panel {
 
 			add(new TextField("name"));
 			add(new CheckBox("published"));
-			add(new TextField("pluginType").setEnabled(false));
+			add(new Label("pluginType", myPluginType));
 			add(new TextField("order"));
 			add(new DropDownChoice("position", AreaLocations.getAreaLocations(), new IChoiceRenderer() {
 				

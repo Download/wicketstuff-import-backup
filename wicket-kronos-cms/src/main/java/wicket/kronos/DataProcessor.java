@@ -1138,39 +1138,30 @@ public final class DataProcessor {
 			
 		Node pluginsNode = cms.addNode("kronos:plugins");
 		Node pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "HelloWorld");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.helloworld.HelloWorld");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Blog");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.blog.BlogPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Banner");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.banner.BannerPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Login");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.login.LoginPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Menu");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.menu.MenuPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Titan");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.titan.TitanPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "To Do");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.ToDo.ToDoPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Unfinished To Do");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.unfinishedtodo.UnfinishedToDoItemsPlugin");
 		
 		pluginNode = pluginsNode.addNode("kronos:plugin");
-		pluginNode.setProperty("kronos:pluginname", "Version");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.version.VersionPlugin");
 		
 		
