@@ -6,6 +6,7 @@ import java.util.List;
 
 import wicket.PageParameters;
 import wicket.kronos.adminpage.AdminPage;
+import wicket.kronos.adminpage.AdminPanel;
 import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
@@ -20,7 +21,7 @@ import wicket.model.Model;
  * @author postma
  *
  */
-public class AdminToDoOverview extends Panel{
+public class AdminToDoOverview extends AdminPanel{
 
 	/**
 	 * Default serialVersionUID
@@ -35,7 +36,7 @@ public class AdminToDoOverview extends Panel{
 	 */
 	public AdminToDoOverview(String wicketId, List<ToDoItem> todoItemList, String todoPluginUUID)
 	{
-		super(wicketId);
+		super(wicketId, todoPluginUUID);
 		this.todoItemList = todoItemList;
 		this.todoPluginUUID = todoPluginUUID;
 		add(new ToDoForm("todoform"));
