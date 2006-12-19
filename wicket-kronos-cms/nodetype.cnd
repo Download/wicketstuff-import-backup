@@ -15,6 +15,7 @@
 -kronos:description (STRING)
 
 [kronos:Plugin] > nt:base
+-kronos:nodetype (STRING) = 'kronos:PluginInstance' mandatory autocreated
 -kronos:canonicalpluginname (STRING) mandatory
 
 [kronos:PluginInstance] > nt:base, mix:referenceable
