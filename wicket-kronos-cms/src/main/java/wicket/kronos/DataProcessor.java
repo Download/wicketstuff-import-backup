@@ -221,6 +221,9 @@ public final class DataProcessor {
 			} else {
 				n = jcrSession.getNodeByUUID(properties.getPluginUUID());
 			}
+			
+			String pluginType = getNodeType(properties.getPluginType());
+			
 			n.setProperty("kronos:name", properties.getName());
 			n.setProperty("kronos:published", properties.getPublished());
 			n.setProperty("kronos:order", properties.getOrder());
@@ -253,6 +256,36 @@ public final class DataProcessor {
 			e.printStackTrace();
 		}
 	}
+	
+	public static String getNodeType(String canonicalPluginName)
+	{
+		String nodeType = "";
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:plugins/kronos:plugin[@kronos:canonicalpluginname = '" + canonicalPluginName + "']", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			if (it.hasNext())
+			{
+				Node n = it.nextNode();
+				nodeType = n.getProperty("kronos:nodetype").getString();
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return nodeType;
+	}
+	
 	
 	public static List getPluginTypes() 
 	{
@@ -802,14 +835,14 @@ public final class DataProcessor {
 
 		Node plugins = cms.addNode("kronos:plugininstantiations");
 
-		Node plugin = plugins.addNode("kronos:plugininstance");
-		plugin.setProperty("kronos:name", "banner");
-		plugin.setProperty("kronos:position", 0);
-		plugin.setProperty("kronos:published", true);
-		plugin.setProperty("kronos:pluginType",
+		Node bannerPlugin = plugins.addNode("kronos:plugininstance", "kronos:BannerPlugin");
+		bannerPlugin.setProperty("kronos:name", "banner");
+		bannerPlugin.setProperty("kronos:position", 0);
+		bannerPlugin.setProperty("kronos:published", true);
+		bannerPlugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.banner.BannerPlugin");
 
-		plugin = plugins.addNode("kronos:plugininstance");
+		Node plugin = plugins.addNode("kronos:plugininstance");
 		plugin.setProperty("kronos:name", "titan");
 		plugin.setProperty("kronos:position", 3);
 		plugin.setProperty("kronos:published", true);
@@ -892,6 +925,8 @@ public final class DataProcessor {
 		Node item = pluginContent.addNode("kronos:banner", "nt:unstructured");
 		item.setProperty("kronos:pluginname", "banner");
 		item.setProperty("kronos:image", fileNode);
+		
+		bannerPlugin.setProperty("kronos:bannerimage", fileNode);
 		
 		/* Inserting second image */
 		file = new File("./osmbanner2.png");
@@ -1151,6 +1186,7 @@ public final class DataProcessor {
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.menu.MenuPlugin");
+		pluginNode.setProperty("kronos:nodetype", "kronos:MenuPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.titan.TitanPlugin");
