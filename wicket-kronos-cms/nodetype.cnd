@@ -1,0 +1,134 @@
+<kronos = 'http://kronos.com'>
+<nt = 'http://www.jcp.org/jcr/nt/1.0'>
+<mix = 'http://www.jcp.org/jcr/mix/1.0'>
+
+[kronos:User] > nt:base, mix:referenceable
+-kronos:username (STRING) mandatory primary
+-kronos:fullname (STRING)
+-kronos:email (STRING) mandatory
+-kronos:password (STRING) mandatory
+-kronos:lastvisit (DATE) 
+-kronos:roles (REFERENCE)  
+
+[kronos:Role] > nt:base, mix:referenceable
+-kronos:name (STRING) mandatory primary
+-kronos:description (STRING)
+
+[kronos:Plugin] > nt:base
+-kronos:canonicalpluginname (STRING) mandatory
+
+[kronos:PluginInstance] > nt:base, mix:referenceable
+-kronos:name (STRING) mandatory primary
+-kronos:published (BOOLEAN) = 'false' mandatory autocreated
+-kronos:order (LONG) = '1'  mandatory autocreated
+-kronos:position (LONG) mandatory 
+-kronos:pluginType (STRING) mandatory
+
+[kronos:MenuPlugin] > kronos:PluginInstance
+-kronos:isHorizontal (BOOLEAN) = 'false' mandatory autocreated
+
+[kronos:Configuration] > nt:base
+
+[kronos:Menuitem] > nt:base, mix:referenceable
+-kronos:menuitemname (STRING) mandatory primary
+-kronos:linkType(STRING) mandatory
+-kronos:link (STRING) 
+-kronos:isAdmin (BOOLEAN)
+-kronos:IDType (STRING)
+-kronos:ID (STRING)
+
+[kronos:Menu] > nt:base, mix:referenceable
+-kronos:menuname (STRING) mandatory primary
++kronos:menuitem(kronos:Menuitem) = kronos:Menuitem multiple
+
+[kronos:Menus] > nt:base, mix:referenceable
++kronos:menu(kronos:Menu) = kronos:Menu multiple
+
+//===================================================== Admin menu
+
+[kronos:AdminSubMenuItem] > nt:base
+-kronos:name (STRING) mandatory primary
+-kronos:IDType (STRING) mandatory
+-kronos:ID (STRING) mandatory
+
+[kronos:AdminMenuItem] > nt:base
+-kronos:name (STRING) mandatory
+-kronos:ID (STRING) mandatory
+-kronos:IDType (STRING)
++kronos:adminsubmenuitem(kronos:AdminSubMenuItem) = kronos:AdminSubMenuItem multiple
+
+[kronos:AdminMenu] > nt:base, mix:referenceable
++kronos:adminmenuitem(kronos:AdminMenuItem) = kronos:AdminMenuItem multiple
+
+//===================================================== End of Admin menu
+[kronos:ContentPlugin] > nt:base, mix:referenceable
++*
+
+[kronos:Images] > nt:base
++*(nt:file) = nt:file multiple
+
+[kronos:Content] > nt:base, mix:referenceable
++kronos:plugin(kronos:ContentPlugin) = kronos:ContentPlugin multiple
++kronos:images(kronos:Images) = kronos:Images 
+
+[kronos:Users] > nt:base
++kronos:user(kronos:User) = kronos:User multiple
+
+[kronos:Roles] > nt:base
++kronos:role(kronos:Role) = kronos:Role multiple
+
+[kronos:Plugins] > nt:base
++kronos:plugin(kronos:Plugin) = kronos:Plugin multiple
+
+[kronos:PluginInstantiations] > nt:base
++kronos:plugininstance(kronos:PluginInstance) = kronos:PluginInstance multiple
+
+[kronos:AdminMenus] > nt:base
++kronos:adminmenu(kronos:AdminMenu) = kronos:AdminMenu multiple
+
+[kronos:Cms] > nt:base
++kronos:configuration(kronos:Configuration) = kronos:Configuration 
++kronos:plugininstantiations(kronos:PluginInstantiations)	= kronos:PluginInstantiations
++kronos:users(kronos:Users) = kronos:Users
++kronos:roles(kronos:Roles) = kronos:Roles
++kronos:menus(kronos:Menus) = kronos:Menus
++kronos:content(kronos:Content) = kronos:Content 
++kronos:adminmenus(kronos:AdminMenus) = kronos:AdminMenus
++kronos:plugins(kronos:Plugins) = kronos:Plugins
+
+//===================================================== Blog plugin
+
+[kronos:Comment] > nt:base, mix:referenceable
+-kronos:text (STRING) mandatory
+-kronos:author (STRING) mandatory
+-kronos:date (DATE) mandatory
+
+[kronos:Comments] > nt:base
++kronos:comment(kronos:Comment) = kronos:Comment multiple
+
+[kronos:BlogPost] > nt:base, mix:referenceable
+-kronos:pluginname (STRING) mandatory 
+-kronos:date (DATE) mandatory
+-kronos:title (STRING) mandatory primary
+-kronos:text (STRING) mandatory
+-kronos:author (STRING) mandatory
++kronos:comments (kronos:Comments) = kronos:Comments
+
+[kronos:BlogPostings] > nt:base
++kronos:blogpost(kronos:BlogPost) = kronos:BlogPost multiple
+
+//===================================================== ToDo plugin
+
+[kronos:ToDoItem] > nt:base, mix:referenceable
+-kronos:pluginname (STRING) mandatory
+-kronos:title (STRING) mandatory
+-kronos:subject (STRING) mandatory
+-kronos:content (STRING) mandatory 
+-kronos:done (BOOLEAN) mandatory
+-kronos:date (DATE)
+
+[kronos:ToDoItems] > nt:base
++kronos:todoitem(kronos:ToDoItem) = kronos:ToDoItem multiple
+
+[kronos:UnfinishedToDoPlugin] > kronos:PluginInstance
+-kronos:plugincontentname (STRING) mandatory
