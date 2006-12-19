@@ -5,13 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.Workspace;
-import javax.jcr.query.Query;
-import javax.jcr.query.QueryManager;
-import javax.jcr.query.QueryResult;
 
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
@@ -112,18 +107,14 @@ public class BannerPlugin extends IPlugin {
 					}
 				}
 				image = destination.toByteArray();
-				/*
-				 * Create a BannerImageResource with the byteArray as a
-				 * parameter
-				 */
+				
+				/* Create a BannerImageResource with the byteArray as a */
 				resource = new BannerImageResource(image);
-			
 		}
 		catch (RepositoryException e)
 		{
 			e.printStackTrace();
 		}
-		
 		return resource;
 	}
 	
@@ -132,5 +123,4 @@ public class BannerPlugin extends IPlugin {
 	{
 		return false;
 	}
-
 }

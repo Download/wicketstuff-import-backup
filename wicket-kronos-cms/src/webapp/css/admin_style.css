@@ -20,7 +20,6 @@ body {
 
 .configuration {
 	clear: both;
-	height: 88%;
 	background-color: #C0C0C0;
 }
 
@@ -35,10 +34,9 @@ body {
 .footer {
 	height: 20px;
 	background-color: #FFFFFF;
-	vertical-align: bottom;
 	border-style: solid;
 	border-color: #A8A8A8;
-	border-width: 2px 0px 0px 0px;
+	border-width: 2px 0px 2px 0px;
 	text-align: center;
 }
 
@@ -75,7 +73,8 @@ form {
 	border: solid black 1px;
 	width: 80%;
 	padding: 25px;
-	background-color: #F0F0F0;	
+	background-color: #F0F0F0;
+	margin: 25px;	
 }
 
 table.noborder td input {

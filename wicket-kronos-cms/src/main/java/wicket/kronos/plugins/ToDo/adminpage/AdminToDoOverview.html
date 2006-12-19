@@ -1,28 +1,36 @@
 <html>
 	<wicket:extend>
-	<h2>List of ToDo items</h2>
-	<form wicket:id="todoform">
-		<table>
-			<tr>
-				<th>Title</th>
-				<th>Subject</th>
-				<th>Content</th>
-				<th>Done</th>
-				<th>Date</th>
-			</tr>
-			<tr wicket:id="todoRepeater">
-				<td><a wicket:id="titlelink"><div wicket:id="title"></div></a> </td>
-				<td wicket:id="subject"> </td>
-				<td wicket:id="content"> </td>
-				<td> <input type="checkbox" wicket:id="done"/> </td>
-				<td wicket:id="date"> </td>
-			</tr>
-		</table>
-		<table class="noborder">
-			<tr>
-				<td><input type="submit" value="New Item" /></td>
-			</tr>
-		</table>
-	</form>
+		<form wicket:id="todoform">
+			<h2>List of ToDo items</h2>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Subject</th>
+					<th>Content</th>
+					<th>Done</th>
+					<th>Date</th>
+				</tr>
+				<tr wicket:id="todoRepeater">
+					<td>
+						<a wicket:id="titlelink">
+							<div wicket:id="title"></div>
+						</a> 
+					</td>
+					<td wicket:id="subject"> </td>
+					<td wicket:id="content"> </td>
+					<td> 
+						<input type="checkbox" wicket:id="done"/> 
+					</td>
+					<td wicket:id="date"> </td>
+				</tr>
+			</table>
+			<table class="noborder">
+				<tr>
+					<td>
+						<input type="submit" value="New Item" />
+					</td>
+				</tr>
+			</table>
+		</form>
 	</wicket:extend>
 </html>
