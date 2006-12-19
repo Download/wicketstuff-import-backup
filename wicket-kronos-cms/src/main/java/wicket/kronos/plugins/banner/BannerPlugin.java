@@ -73,19 +73,9 @@ public class BannerPlugin extends IPlugin {
 
 		try
 		{
-			Workspace ws = jcrSession.getWorkspace();
-			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery(
-					"//kronos:content/kronos:plugin/kronos:banner[@kronos:pluginname='"
-							+ pluginName + "']", Query.XPATH);
-
-			QueryResult result = q.execute();
-			NodeIterator it = result.getNodes();
-
-			if (it.hasNext())
-			{
-				Node bannerNode = it.nextNode();
-				Node imageNode = bannerNode.getProperty("kronos:image")
+			
+				Node bannerNode = jcrSession.getNodeByUUID(pluginUUID);
+				Node imageNode = bannerNode.getProperty("kronos:bannerimage")
 						.getNode();
 				imageUUID = imageNode.getUUID();
 				InputStream input = imageNode.getNode("jcr:content")
@@ -127,7 +117,7 @@ public class BannerPlugin extends IPlugin {
 				 * parameter
 				 */
 				resource = new BannerImageResource(image);
-			}
+			
 		}
 		catch (RepositoryException e)
 		{

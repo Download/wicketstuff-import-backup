@@ -22,6 +22,7 @@ public class AdminPanel extends Panel {
 	protected PluginProperties properties;
 	protected String oldPluginName;
 	private String myPluginType = null;
+	protected String pluginUUID;
 
 	/**
 	 * Default when no plugin is to be configured
@@ -43,6 +44,7 @@ public class AdminPanel extends Panel {
 	public AdminPanel(String wicketId, String pluginUUID)
 	{
 		super(wicketId);
+		this.pluginUUID = pluginUUID;
 		properties = DataProcessor.getPluginProperties(pluginUUID);
 		String tempType = properties.getPluginType();
 		int lastPeriod = tempType.lastIndexOf(".");

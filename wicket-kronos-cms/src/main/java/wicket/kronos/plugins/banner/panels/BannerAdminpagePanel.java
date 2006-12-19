@@ -20,7 +20,6 @@ import wicket.kronos.adminpage.AdminPanel;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.IChoiceRenderer;
-import wicket.markup.html.image.resource.DynamicImageResource;
 import wicket.model.CompoundPropertyModel;
 import wicket.model.IModel;
 
@@ -118,26 +117,13 @@ public class BannerAdminpagePanel extends AdminPanel{
 			imageUUID = dropDown.getModelObjectAsString();
 			
 			Session jcrSession = KronosSession.get().getJCRSession();
-			DynamicImageResource resource = null;
 
 			try
 			{
-				Workspace ws = jcrSession.getWorkspace();
-				QueryManager qm = ws.getQueryManager();
-				Query q = qm.createQuery(
-						"//kronos:content/kronos:plugin/kronos:banner[@kronos:pluginname='"
-								+ properties.getName() + "']", Query.XPATH);
-
-				QueryResult result = q.execute();
-				NodeIterator it = result.getNodes();
-
-				if (it.hasNext())
-				{
-					Node bannerNode = it.nextNode();
-					Node imageNode = jcrSession.getNodeByUUID(imageUUID);
-					
-					bannerNode.setProperty("kronos:image", imageNode);
-				}
+				Node bannerNode = jcrSession.getNodeByUUID(pluginUUID);
+				Node imageNode = jcrSession.getNodeByUUID(imageUUID);
+				
+				bannerNode.setProperty("kronos:bannerimage", imageNode);
 			}
 			catch (RepositoryException e)
 			{

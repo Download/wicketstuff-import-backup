@@ -214,15 +214,16 @@ public final class DataProcessor {
 		try
 		{
 			if(properties.getPluginUUID() == null || properties.getPluginUUID().equals("")) {
+				String nodeType = getNodeType(properties.getPluginType());
 				n = jcrSession.getRootNode()
 					.getNode("kronos:cms")
 						.getNode("kronos:plugininstantiations")
-							.addNode("kronos:plugininstance");
+							.addNode("kronos:plugininstance", nodeType);
 			} else {
 				n = jcrSession.getNodeByUUID(properties.getPluginUUID());
 			}
 			
-			String pluginType = getNodeType(properties.getPluginType());
+			
 			
 			n.setProperty("kronos:name", properties.getName());
 			n.setProperty("kronos:published", properties.getPublished());
@@ -922,9 +923,6 @@ public final class DataProcessor {
 
 		/* Inserting banner content */
 		Node pluginContent = content.addNode("kronos:plugin");
-		Node item = pluginContent.addNode("kronos:banner", "nt:unstructured");
-		item.setProperty("kronos:pluginname", "banner");
-		item.setProperty("kronos:image", fileNode);
 		
 		bannerPlugin.setProperty("kronos:bannerimage", fileNode);
 		
@@ -1180,6 +1178,7 @@ public final class DataProcessor {
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.banner.BannerPlugin");
+		pluginNode.setProperty("kronos:nodetype", "kronos:BannerPlugin");
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.login.LoginPlugin");
@@ -1196,12 +1195,11 @@ public final class DataProcessor {
 
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.unfinishedtodo.UnfinishedToDoItemsPlugin");
+		pluginNode.setProperty("kronos:nodetype", "kronos:UnfinishedToDoPlugin");
 		
 		pluginNode = pluginsNode.addNode("kronos:plugin");
 		pluginNode.setProperty("kronos:canonicalpluginname", "wicket.kronos.plugins.version.VersionPlugin");
 		
-		
-
 		session.save();
 
 	}

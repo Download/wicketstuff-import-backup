@@ -29,7 +29,7 @@
 -kronos:isHorizontal (BOOLEAN) = 'false' mandatory autocreated
 
 [kronos:BannerPlugin] > kronos:PluginInstance
--kronos:bannerimage (REFERENCE) = 'b6bdaeb6-7eda-4fb5-bb90-6ab68a145011' mandatory autocreated
+-kronos:bannerimage (REFERENCE)
 
 [kronos:Configuration] > nt:base
 
