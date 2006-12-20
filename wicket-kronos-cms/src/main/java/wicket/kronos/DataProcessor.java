@@ -1,9 +1,12 @@
 package wicket.kronos;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -94,6 +97,73 @@ public final class DataProcessor {
 			e.printStackTrace();
 		}
 		return plugins;
+	}
+	
+	public static List<CMSImageResource> getImages()
+	{
+		List<CMSImageResource> images = new ArrayList<CMSImageResource>();
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:content/kronos:images/*", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			while (it.hasNext())
+			{
+				Node imageNode = it.nextNode();
+				InputStream input = imageNode.getNode("jcr:content")
+				.getProperty("jcr:data").getStream();
+		
+				/*
+				 * Retrieve the image data from the repository and put it into a
+				 * byteArray
+				 */
+				byte[] image;
+				String imageName = imageNode.getName();
+				ByteArrayOutputStream destination = new ByteArrayOutputStream();
+				try
+				{
+					byte[] buffer = new byte[1024];
+					for (int n = input.read(buffer); n != -1; n = input.read(buffer))
+					{
+						destination.write(buffer, 0, n);
+					}
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				finally
+				{
+					try
+					{
+						input.close();
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				image = destination.toByteArray();
+				/*
+				 * Create a BannerImageResource with the byteArray as a
+				 * parameter
+				 */
+				images.add(new CMSImageResource(image, imageName));
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return images;
 	}
 	
 	public static List getImageNodes()
@@ -298,7 +368,7 @@ public final class DataProcessor {
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugins/kronos:plugin", Query.XPATH);
+			Query q = qm.createQuery("//kronos:plugins/kronos:plugin order by @kronos:canonicalpluginname ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -1161,6 +1231,11 @@ public final class DataProcessor {
 		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
 			adminmenuitem5.setProperty("kronos:name", "Configuration");
 			adminmenuitem5.setProperty("kronos:ID", "#");
+		
+			Node adminsubmenuitem8 = adminmenuitem5.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem8.setProperty("kronos:name", "MediaManager");
+			adminsubmenuitem8.setProperty("kronos:IDType", "MediaManager");
+			adminsubmenuitem8.setProperty("kronos:ID","");
 			
 	//Help menu item with submenu items
 		Node adminmenuitem6 = adminmenu.addNode("kronos:adminmenuitem");

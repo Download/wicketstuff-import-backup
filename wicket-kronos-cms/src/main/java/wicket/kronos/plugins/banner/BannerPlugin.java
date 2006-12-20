@@ -8,6 +8,7 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
+import wicket.kronos.CMSImageResource;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.plugins.banner.panels.BannerAdminpagePanel;
@@ -81,6 +82,7 @@ public class BannerPlugin extends IPlugin {
 				 * byteArray
 				 */
 				byte[] image;
+				String imageName = imageNode.getName();
 				ByteArrayOutputStream destination = new ByteArrayOutputStream();
 				try
 				{
@@ -109,7 +111,7 @@ public class BannerPlugin extends IPlugin {
 				image = destination.toByteArray();
 				
 				/* Create a BannerImageResource with the byteArray as a */
-				resource = new BannerImageResource(image);
+				resource = new CMSImageResource(image, imageName);
 		}
 		catch (RepositoryException e)
 		{

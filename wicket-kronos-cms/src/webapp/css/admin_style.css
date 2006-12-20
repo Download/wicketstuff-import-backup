@@ -123,3 +123,21 @@ a.orderLink{
 a.orderLink img {
 	border: none;
 }
+
+.mediaimage {
+	width: 150px;
+	height: 100px;	
+	border: solid #E9601A 1px;
+	padding: 3px;
+	margin: 5px;
+	float: left;
+}
+
+.mediaimage img{
+	max-width: 100%;
+	max-height: 50%;	
+}
+
+.mediaimage .details{
+	vertical-align: bottom;	
+}

@@ -1,0 +1,36 @@
+<wicket:panel>
+	<form wicket:id="mediamanform">
+		<p>Click on a picture to see the full size picture</p>
+		<div wicket:id="imagelist" class="mediaimage">
+			<div class="image">
+				<a wicket:id="imagelink" class="orderLink">
+					<img wicket:id="image"/>
+				</a>
+			</div>
+			<div class="details">
+				<!-- <label wicket:id="imagesize"> </label>  -->
+				<input type="checkbox" wicket:id="selected" />
+				<label wicket:id="imagelabel"></label>
+			</div>
+		</div>
+		
+		<table class="noborder">
+			<tr><td>
+				<input type="submit" value="Delete"/>
+			</td></tr>
+		</table>
+	</form>
+	
+	<form wicket:id="uploadform">
+		<p>
+	    <label for="upload">File</label>
+	    <input wicket:id="fileInput" id="upload" type="file"/>
+	    </p>
+	    <table class="noborder">
+	    	<tr><td>
+			    <input type="submit" value="Upload!"/>
+			</td></tr>
+		</table>
+	    <span wicket:id="progress">[[ajax upload progressbar]]</span>
+	</form>
+</wicket:panel>

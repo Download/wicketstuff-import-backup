@@ -108,7 +108,7 @@ public class ToDoPlugin extends IPlugin {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugin/kronos:todoitems/kronos:todoitem order by @kronos:done ascending", Query.XPATH);
+					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '"+pluginName+"'] order by @kronos:done ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
