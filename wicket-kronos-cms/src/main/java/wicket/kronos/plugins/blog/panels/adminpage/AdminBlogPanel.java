@@ -36,7 +36,7 @@ public class AdminBlogPanel extends Panel {
 	public AdminBlogPanel(String id, BlogPost blogpost)
 	{
 		super(id);
-		if (blogpost.equals(null))
+		if (blogpost == null)
 		{
 			add(new AdminNewBlogpost("adminblogpanel"));
 		} else

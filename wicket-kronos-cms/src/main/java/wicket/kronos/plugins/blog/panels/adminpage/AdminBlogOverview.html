@@ -1,5 +1,5 @@
 <wicket:extend>
-	<form>
+	<form wicket:id="testForm">
 		<h2>List of all blog posts</h2>
 		<table>
 			<tr>
@@ -16,6 +16,13 @@
 				<td><div wicket:id="datetime">date and time of post</div></td>
 				<td><div wicket:id="author">author of post</div></td>
 				<td><div wicket:id="nrcomments">total nr of post comments</div></td>
+			</tr>
+		</table>
+		<table class="noborder">
+			<tr>
+				<td>
+					<input type="submit" value="New Post"/>
+				</td>
 			</tr>
 		</table>
 	</form>

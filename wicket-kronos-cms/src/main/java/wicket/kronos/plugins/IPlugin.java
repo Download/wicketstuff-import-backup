@@ -18,7 +18,7 @@ public abstract class IPlugin extends Panel {
 
 	protected String pluginUUID = null;
 
-	protected String pluginName = null;
+	protected static String pluginName = null;
 
 	protected Boolean isPublished = false;
 

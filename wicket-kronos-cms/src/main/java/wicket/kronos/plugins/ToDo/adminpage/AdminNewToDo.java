@@ -72,7 +72,8 @@ public class AdminNewToDo extends Panel{
 		{
 			PageParameters param = KronosSession.get().getPageParameters();
 			String todoPluginUUID = param.getString("ID");
-			Session jcrSession = KronosSession.get().getJCRSession();
+			Session jcrSession = ((KronosSession) KronosSession.get())
+			.getJCRSession();
 			
 			try
 			{
@@ -81,7 +82,10 @@ public class AdminNewToDo extends Panel{
 				
 				Node root = jcrSession.getRootNode();
 				Node cms = root.getNode("kronos:cms");
-				Node todoItems = cms.getNode("kronos:content").getNode("kronos:plugin").getNode("kronos:todoitems");
+				Node todoItems = cms.getNode("kronos:content")
+					.getNode("kronos:plugin")
+						.getNode("kronos:todoitems");
+				
 				Node newItem = todoItems.addNode("kronos:todoitem");
 				newItem.setProperty("kronos:pluginname", todoPluginName);
 				newItem.setProperty("kronos:title", titleText.getModelObjectAsString());

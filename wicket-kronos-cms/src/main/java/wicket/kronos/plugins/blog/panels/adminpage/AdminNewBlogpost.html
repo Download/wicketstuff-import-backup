@@ -1,18 +1,20 @@
 <html>
 <wicket:panel>
-	<div wicket:id="inputForm">
-		<label for="datelabel">Date</label>
-		<input type="text" wicket:id="date"> </input> <span
-			wicket:id="datePicker"></span> <br />
-		<br />
-		<label for="titlelabel">Title</label>
-		<input type="text" wicket:id="title"> </input> <br />
-		<br />
-		<label for="authorlabel">Author</label>
-		<input type="text" wicket:id="author"> </input> <br />
-		<br />
-		<label for="textlabel">Blog text</label>
-		<textarea rows="20" cols="50" wicket:id="text"> </textarea> <br />
-	</div>
+	<form wicket:id="inputForm">
+		<h2>New Blogposting</h2>
+			<label for="title">Title:</label>
+			<br/>
+			<input type="text" wicket:id="title" id="title" size="65"> </input> 
+			<br/><br/>
+			<label for="text">Blog text:</label>
+			<br/>
+			<textarea rows="20" cols="50" wicket:id="text" id="text"> </textarea> 
+			<br/>
+			<table class="noborder">
+				<tr><td>
+					<input type="submit" value="Save"> </input>
+				</td></tr>
+			</table>
+	</form>
 </wicket:panel>
 </html>

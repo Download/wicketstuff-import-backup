@@ -13,6 +13,7 @@ import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
+import wicket.PageParameters;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.plugins.blog.panels.BlogPost;
@@ -48,9 +49,21 @@ public class BlogPlugin extends IPlugin {
 		super(isAdmin, pluginUUID, pluginname, ispublished, order,
 				areaposition, pluginType);
 		List<BlogPost> blogposts = this.getBlogPosts();
+		PageParameters param = KronosSession.get().getPageParameters();
+		String action = "";
 		if (isAdmin)
 		{
-			add(new AdminBlogPanel("blogpluginpanel", blogposts, pluginUUID));
+			if(param.containsKey("action"))
+			{
+				action = param.getString("action");
+			}
+			if(action.equalsIgnoreCase("") || action == null)
+			{
+				add(new AdminBlogPanel("blogpluginpanel", blogposts, pluginUUID));
+			} else
+			{
+				add(new AdminBlogPanel("blogpluginpanel", (BlogPost)null));
+			}
 		} else
 		{
 			add(new FrontBlogPanel("blogpluginpanel", blogposts));
@@ -224,7 +237,7 @@ public class BlogPlugin extends IPlugin {
 	 * 
 	 * @param changedBlogPost
 	 */
-	public void saveBlogPost(BlogPost changedBlogPost)
+	public void saveChangedBlogPost(BlogPost changedBlogPost)
 	{
 		Session jcrSession = ((KronosSession) KronosSession.get())
 				.getJCRSession();
@@ -240,6 +253,47 @@ public class BlogPlugin extends IPlugin {
 
 			jcrSession.save();
 
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Save a newly created blogposting to repository
+	 * 
+	 * @param newBlogPost 
+	 */
+	public static void saveNewBlogPost(BlogPost newBlogPost) 
+	{
+		Session jcrSession = ((KronosSession) KronosSession.get())
+		.getJCRSession();
+
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:plugin/kronos:blogpostings",
+					Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+			
+			if(it.hasNext())
+			{
+				Node blogpost = it.nextNode();
+				
+				Node newPost = blogpost.addNode("kronos:blogpost");
+				
+				newPost.setProperty("kronos:pluginname", pluginName);
+				newPost.setProperty("kronos:date", newBlogPost.getDate());
+				newPost.setProperty("kronos:title", newBlogPost.getTitle());
+				newPost.setProperty("kronos:text", newBlogPost.getText());
+				newPost.setProperty("kronos:author", newBlogPost.getAuthor());
+				
+				jcrSession.save();
+			}
 		}
 		catch (RepositoryException e)
 		{
