@@ -36,8 +36,11 @@ public class BannerAdminpagePanel extends AdminPanel{
 	private BannerImageModel model;
 	private List uuidList;
 	private Map nameMap;
+	
 	/**
 	 * @param wicketId
+	 * @param pluginUUID 
+	 * @param imageUUID 
 	 */
 	public BannerAdminpagePanel(String wicketId, String pluginUUID, String imageUUID)
 	{
@@ -88,17 +91,26 @@ public class BannerAdminpagePanel extends AdminPanel{
 	public class BannerAdminForm extends Form{
 
 		/**
-		 * 
+		 * Form for choosing the banner image to be used
 		 */
 		private static final long serialVersionUID = 1L;
 		private DropDownChoice dropDown;
 		
+		/**
+		 * @param wicketId
+		 * @param model
+		 */
 		public BannerAdminForm(String wicketId, IModel model)
 		{
 			super(wicketId, model);
 			
 			add(dropDown = new DropDownChoice("imageUUID", uuidList, new IChoiceRenderer() {
 				
+				/**
+				 * Default serialVersionUUID;
+				 */
+				private static final long serialVersionUID = 1L;
+
 				public String getIdValue(Object object, int arg1)
 				{	
 					return (String)object;
@@ -112,6 +124,7 @@ public class BannerAdminpagePanel extends AdminPanel{
 			}));
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			imageUUID = dropDown.getModelObjectAsString();
@@ -146,16 +159,25 @@ public class BannerAdminpagePanel extends AdminPanel{
 		private static final long serialVersionUID = 1L;
 		private String imageUUID;
 		
+		/**
+		 * @param _imageUUID
+		 */
 		public BannerImageModel(String _imageUUID)
 		{
 			imageUUID = _imageUUID;
 		}
 
+		/**
+		 * @return String imageUUID
+		 */
 		public String getImageUUID()
 		{
 			return imageUUID;
 		}
 
+		/**
+		 * @param imageUUID
+		 */
 		public void setImageUUID(String imageUUID)
 		{
 			this.imageUUID = imageUUID;

@@ -2,18 +2,28 @@
 	<wicket:panel>
 		<form wicket:id="inputForm" id="inputForm">
 			<h2>Edit Blogposting</h2>
-			<label for="title">Title:</label>
-			<br/>
-			<input type="text" wicket:id="title" id="title" size="65"> </input> 
-			<br/><br/>
-			<label for="text">Blog text:</label>
-			<br/>
-			<textarea rows="20" cols="50" wicket:id="text" id="text"> </textarea> 
-			<br/>
 			<table class="noborder">
-				<tr><td>
-					<input type="submit" value="Save"> </input>
-				</td></tr>
+				<tr>
+					<td>
+						<label for="title">Title:</label>
+					</td>
+					<td>
+						<input type="text" wicket:id="title" id="title" size="65"> </input> 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="text">Blog text:</label>
+					</td>
+					<td>
+						<textarea rows="20" cols="50" wicket:id="text" id="text"> </textarea> 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" value="Save"> </input>
+					</td>
+				</tr>
 			</table>
 		</form>
 	</wicket:panel>
