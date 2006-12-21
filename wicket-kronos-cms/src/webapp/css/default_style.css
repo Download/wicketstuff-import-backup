@@ -1,3 +1,19 @@
+body {
+	text-align: center;
+	background-color: #EEEEEE;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+}
+
+.container {
+	width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	border: double #e9601a 1px;
+	background-color: #DDDDDD;
+}
+
 .header {
 	clear: both;
 	margin: 2px;
@@ -30,20 +46,13 @@ img.banner {
 	margin: 2px;
 }
 
-body {
-	text-align: center;
-	background-color: #EEEEEE;
-	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
-	font-size: 10pt;
+a.unfinishedlink {
+	text-decoration: none;
+	display: block;
 }
 
-.container {
-	width: 1024px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: left;
-	border: double #e9601a 1px;
-	background-color: #DDDDDD;
+a.unfinishedlink:hover {
+	background-color: #EEEEEE;
 }
 
 .plugin {
@@ -52,6 +61,7 @@ body {
 	padding: 2px;
 }
 
+/* blogpost plugin mockup */
 .blogpost {
 	border: double #e9601a 1px;
 	margin: 5px 5px 15px 5px;;
@@ -94,11 +104,13 @@ body {
 	border-top: dotted black 1px;
 }
 
+/* helloworld plugin mockup */
 .helloworld {
 	font-size: 125%;
 	font-weight: bold;
 }
 
+/* titan plugin mockup */
 .titan a {
 	text-decoration: none;
 	color: black;
@@ -113,14 +125,4 @@ body {
 
 .titan a:visited {
 	color: black;
-}
-
-
-a.unfinishedlink {
-	text-decoration: none;
-	display: block;
-}
-
-a.unfinishedlink:hover {
-	background-color: #EEEEEE;
 }
