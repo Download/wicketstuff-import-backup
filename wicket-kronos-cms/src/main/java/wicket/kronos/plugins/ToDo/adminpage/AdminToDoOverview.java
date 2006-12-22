@@ -1,21 +1,35 @@
 package wicket.kronos.plugins.ToDo.adminpage;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.jcr.ItemNotFoundException;
+import javax.jcr.Node;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+
 import wicket.PageParameters;
+import wicket.kronos.DataProcessor;
+import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.AdminPanel;
+import wicket.kronos.adminpage.AdminPluginOverview.OverviewForm;
+import wicket.kronos.adminpage.AdminPluginOverview.PluginPropertiesModel;
+import wicket.kronos.plugins.PluginProperties;
 import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.basic.Label;
+import wicket.markup.html.form.Button;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
-import wicket.markup.html.panel.Panel;
+import wicket.model.CompoundPropertyModel;
 import wicket.model.Model;
+import wicket.model.PropertyModel;
 
 /**
  * @author postma
@@ -51,8 +65,8 @@ public class AdminToDoOverview extends AdminPanel{
 		
 		public ToDoForm(String wicketId)
 		{
-			super(wicketId);
-			add(new ListView("todoRepeater", todoItemList)
+			super(wicketId,  new CompoundPropertyModel(new ToDoItemsModel(todoItemList)));
+			final ListView todoList = new ListView("todoRepeater", todoItemList)
 			{
 				/**
 				 * Default serialVersionUID
@@ -68,27 +82,119 @@ public class AdminToDoOverview extends AdminPanel{
 					param.put("IDType", "content");
 					param.put("ID", todoItem.getTodoUUID());
 					
+					item.add(new CheckBox("deletecheck", new PropertyModel(todoItem, "delete")));
 					item.add(new BookmarkablePageLink("titlelink", AdminPage.class, param).add(
 							new Label("title", new Model(todoItem.getTitle()))));
 					item.add(new Label("subject", new Model(todoItem.getSubject())));
 					item.add(new Label("content", new Model(todoItem.getContent())));
-					item.add(new CheckBox("done", new Model(todoItem.getDone())));
+					item.add(new CheckBox("done", new PropertyModel(todoItem, "done")));
 					Date date = todoItem.getDate().getTime();
 					SimpleDateFormat blogDateFormat = new SimpleDateFormat(
 							"dd-MM-yyyy");
 					item.add(new Label("date", blogDateFormat.format(date)));
 				}
+			};
+			
+			add(todoList);
+			
+			add(new Button("newitembutton") 
+			{
+				public void onSubmit()
+				{
+					PageParameters param = new PageParameters();
+					param.add("IDType", "plugin");
+					param.add("ID", todoPluginUUID);
+					param.add("action", "new");
+					
+					setResponsePage(AdminPage.class, param);
+				}				
+			});
+			
+			add(new Button("deletebutton")
+			{
+				public void onSubmit()
+				{
+					List<ToDoItem> todoItems = ((ToDoItemsModel)ToDoForm.this.getModelObject()).getTodoItems();			
+					Iterator todoItemIterator = todoItems.iterator();
+					
+					while(todoItemIterator.hasNext())
+					{
+						ToDoItem todoItem = (ToDoItem)todoItemIterator.next();
+						if(todoItem.isDelete())
+						{
+							DataProcessor.removeContent(todoItem.getTodoUUID());
+						}
+					}
+					
+					PageParameters param = new PageParameters();
+					param.add("IDType", "plugin");
+					param.add("ID", todoPluginUUID);
+					
+					setResponsePage(AdminPage.class, param);
+				}
+			});
+			
+			add(new Button("savebutton")
+			{
+				public void onSubmit()
+				{
+					List<ToDoItem> todoItems = ((ToDoItemsModel)ToDoForm.this.getModelObject()).getTodoItems();
+					Iterator todoItemIterator = todoItems.iterator();
+					
+					Session jcrSession = KronosSession.get().getJCRSession();
+					
+					while(todoItemIterator.hasNext())					{
+						
+						ToDoItem todoItem = (ToDoItem)todoItemIterator.next();
+						
+						try
+						{
+							Node todoItemNode = jcrSession.getNodeByUUID(todoItem.getTodoUUID());
+							todoItemNode.setProperty("kronos:done", todoItem.getDone());
+							jcrSession.save();
+						}
+						catch (ItemNotFoundException e)
+						{
+							e.printStackTrace();
+						}
+						catch (RepositoryException e)
+						{
+							e.printStackTrace();
+						}
+					}
+					
+					PageParameters param = new PageParameters();
+					param.add("IDType", "plugin");
+					param.add("ID", todoPluginUUID);
+					
+					setResponsePage(AdminPage.class, param);
+				}
 			});
 		}
+	}
+	
+	public class ToDoItemsModel implements Serializable{
+		private List<ToDoItem> todoItems;
 		
-		public void onSubmit()
+		public ToDoItemsModel(List<ToDoItem> todoItems)
 		{
-			PageParameters param = new PageParameters();
-			param.add("IDType", "plugin");
-			param.add("ID", todoPluginUUID);
-			param.add("action", "new");
-			
-			setResponsePage(AdminPage.class, param);
+			this.todoItems = todoItems;
+		}
+
+		/**
+		 * @return the todoItems
+		 */
+		public List<ToDoItem> getTodoItems()
+		{
+			return todoItems;
+		}
+
+		/**
+		 * @param todoItems the todoItems to set
+		 */
+		public void setTodoItems(List<ToDoItem> todoItems)
+		{
+			this.todoItems = todoItems;
 		}
 	}
 }

@@ -15,6 +15,7 @@ public class ToDoItem implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private boolean delete;
 	private String todoUUID = null;
 	private String title = null;
 	private String subject = null;
@@ -44,12 +45,29 @@ public class ToDoItem implements Serializable {
 		assert(subject != null);
 		assert(content != null);
 		assert(done != null);
+		this.delete = false;
 		this.todoUUID = todoUUID;
 		this.title = title;
 		this.subject = subject;
 		this.content = content;
 		this.done = done;
 		this.date = date;
+	}
+	
+	/**
+	 * @return the delete
+	 */
+	public boolean isDelete()
+	{
+		return delete;
+	}
+
+	/**
+	 * @param delete the delete to set
+	 */
+	public void setDelete(boolean delete)
+	{
+		this.delete = delete;
 	}
 
 	/**

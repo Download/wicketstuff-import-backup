@@ -97,21 +97,22 @@ public class AdminPluginOverview extends Panel{
 					});
 					
 					item.add(new AjaxLink("decrementLink")
-							{
-								public void onClick(AjaxRequestTarget target)
-								{
-									int oldValue = props.getOrder();
-									int newValue;
-									if(oldValue > 1)		
-										newValue = oldValue-1;
-									else 
-										newValue = oldValue;
-									props.setOrder(newValue);
-									target.addComponent(orderField);
-								}
-							});
+					{
+						public void onClick(AjaxRequestTarget target)
+						{
+							int oldValue = props.getOrder();
+							int newValue;
+							if(oldValue > 1)		
+								newValue = oldValue-1;
+							else 
+								newValue = oldValue;
+							props.setOrder(newValue);
+							target.addComponent(orderField);
+						}
+					});
 					
-					item.add(new DropDownChoice("position", new PropertyModel(props, "position"), AreaLocations.getAreaLocations(), new IChoiceRenderer() {
+					item.add(new DropDownChoice("position", new PropertyModel(props, "position"), AreaLocations.getAreaLocations(), new IChoiceRenderer() 
+					{
 					
 						public String getIdValue(Object object, int arg1)
 						{	
@@ -131,7 +132,8 @@ public class AdminPluginOverview extends Panel{
 				}
 			});
 			
-			add(new Button("deletebutton"){
+			add(new Button("deletebutton")
+			{
 				public void onSubmit()
 				{	
 					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
@@ -149,7 +151,8 @@ public class AdminPluginOverview extends Panel{
 				}
 			});
 			
-			add(new Button("savebutton"){
+			add(new Button("savebutton")
+			{
 				public void onSubmit()
 				{
 					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
@@ -163,15 +166,8 @@ public class AdminPluginOverview extends Panel{
 					}
 					
 					setResponsePage(AdminPage.class);
-				}
-				
-			});
-			
-		}
-		
-		public void onSubmit()
-		{
-			
+				}				
+			});	
 		}
 	}
 	

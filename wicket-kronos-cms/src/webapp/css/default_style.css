@@ -126,3 +126,11 @@ a.unfinishedlink:hover {
 .titan a:visited {
 	color: black;
 }
+
+/* ToDo plugin mockup */
+.todoTopLine {
+	border-top: dotted #e9601a 1px;
+	margin: 0px 5px 0px 5px;
+	padding: 10px;	
+}
+

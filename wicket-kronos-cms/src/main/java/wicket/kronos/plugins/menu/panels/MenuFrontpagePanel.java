@@ -50,31 +50,31 @@ public class MenuFrontpagePanel extends Panel {
 				if (menuItem.getLinkType().equalsIgnoreCase("extern"))
 				{
 					item.add(new ExternalLink("menuItem", menuItem
-									.getLink()).add(new Label("menuItemLabel",
-									menuItem.getName())));
+						.getLink()).add(new Label("menuItemLabel",
+							menuItem.getName())));
 				} else
 				{
 					if (menuItem.getIDType().equalsIgnoreCase("frontpage"))
 					{
 						item.add(new BookmarkablePageLink("menuItem",
-								Frontpage.class, PageParameters.NULL)
+							Frontpage.class, PageParameters.NULL)
 								.add(new Label("menuItemLabel", menuItem
-										.getName())));
+									.getName())));
 					} else 
 					{
 						if (menuItem.getIDType().equalsIgnoreCase("adminpage"))
 						{
 							item.add(new BookmarkablePageLink("menuItem",
-									AdminPage.class, PageParameters.NULL)
+								AdminPage.class, PageParameters.NULL)
 									.add(new Label("menuItemLabel", menuItem
-											.getName())));
+										.getName())));
 						} else
 						{
 							PageParameters param = new PageParameters();
 							param.add("IDType", menuItem.getIDType());
 							param.add("ID", menuItem.getID());
 							item.add(new BookmarkablePageLink("menuItem",
-									Frontpage.class, param).add(new Label(
+								Frontpage.class, param).add(new Label(
 									"menuItemLabel", menuItem.getName())));
 						}
 					}

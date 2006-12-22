@@ -254,11 +254,29 @@ public final class DataProcessor {
 		}
 	}
 	
-	public static void removePluginInstance(String pluginUUID)
+	public static void removeContent(String contentUUID)
 	{	
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try {
-			Node pluginNode = jcrSession.getNodeByUUID(pluginUUID);
+			Node pluginNode = jcrSession.getNodeByUUID(contentUUID);
+			pluginNode.remove();
+			jcrSession.save();
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void removePluginInstance(String contentUUID)
+	{	
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try {
+			Node pluginNode = jcrSession.getNodeByUUID(contentUUID);
 			pluginNode.remove();
 			jcrSession.save();
 		}

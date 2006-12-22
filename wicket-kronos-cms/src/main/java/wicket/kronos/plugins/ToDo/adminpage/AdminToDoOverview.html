@@ -4,6 +4,7 @@
 			<h2>List of ToDo items</h2>
 			<table>
 				<tr>
+					<th>Delete</th>
 					<th>Title</th>
 					<th>Subject</th>
 					<th>Content</th>
@@ -11,6 +12,9 @@
 					<th>Date</th>
 				</tr>
 				<tr wicket:id="todoRepeater">
+					<td> 
+						<input type="checkbox" wicket:id="deletecheck" /> 
+					</td>
 					<td>
 						<a wicket:id="titlelink">
 							<div wicket:id="title"></div>
@@ -27,7 +31,9 @@
 			<table class="noborder">
 				<tr>
 					<td>
-						<input type="submit" value="New Item" />
+						<input type="submit" value="New Item" wicket:id="newitembutton" />
+						<input type="submit" value="Delete" wicket:id="deletebutton" />
+						<input type="submit" value="Save" wicket:id="savebutton" />
 					</td>
 				</tr>
 			</table>
