@@ -117,7 +117,7 @@ public class BlogPlugin extends IPlugin {
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
 					"//kronos:plugin/kronos:blogpostings/kronos:blogpost[@kronos:pluginname = '"
-							+ pluginName + "']", Query.XPATH);
+							+ pluginName + "'] order by @kronos:date descending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();

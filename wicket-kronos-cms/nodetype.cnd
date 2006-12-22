@@ -135,4 +135,4 @@
 +kronos:todoitem(kronos:ToDoItem) = kronos:ToDoItem multiple
 
 [kronos:UnfinishedToDoPlugin] > kronos:PluginInstance
--kronos:plugincontentname (STRING) mandatory
+-kronos:plugincontentname (STRING)

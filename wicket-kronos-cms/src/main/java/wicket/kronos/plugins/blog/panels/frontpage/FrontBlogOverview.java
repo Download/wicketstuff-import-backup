@@ -51,7 +51,7 @@ public class FrontBlogOverview extends Panel {
 					text = text.substring(0, 250);
 					text += ".....";
 				}
-				item.add(new MultiLineLabel("text", text));
+				item.add(new MultiLineLabel("text", text).setEscapeModelStrings(false));
 				Date date = blogpost.getDate().getTime();
 				SimpleDateFormat blogDateFormat = new SimpleDateFormat(
 						"dd-MM-yyyy");

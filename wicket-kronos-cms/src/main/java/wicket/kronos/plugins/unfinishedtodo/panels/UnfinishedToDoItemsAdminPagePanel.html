@@ -1,3 +1,13 @@
 <wicket:extend>
 	<!-- Default settings come here -->
+	<form wicket:id="unfinishedform">
+		<table class="noborder">
+			<tr>
+				<td><label>Name of ToDo plugin:</label></td>
+				<td><select wicket:id="todoname">
+					<option>foo</option>
+				</select></td></tr>
+			<tr><td><input type="submit" value="Save"/></td></tr>
+		</table>
+	</form>
 </wicket:extend>
