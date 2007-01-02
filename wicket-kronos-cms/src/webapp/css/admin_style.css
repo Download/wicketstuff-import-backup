@@ -106,6 +106,7 @@ td input {
 table.noborder{
 	border: none;
 	width: 90%;
+	clear: both;
 }
 
 table.noborder td{
@@ -134,8 +135,8 @@ a.orderLink img {
 }
 
 .mediaimage img{
-	max-width: 100%;
-	max-height: 50%;	
+	max-width: 96%;
+	max-height: 50%;
 }
 
 .mediaimage .details{
