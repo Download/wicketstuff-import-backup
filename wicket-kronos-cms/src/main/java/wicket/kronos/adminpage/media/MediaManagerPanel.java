@@ -1,17 +1,24 @@
 package wicket.kronos.adminpage.media;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.ItemExistsException;
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+import javax.jcr.Workspace;
 import javax.jcr.lock.LockException;
 import javax.jcr.nodetype.ConstraintViolationException;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
 import javax.jcr.version.VersionException;
 
 import sun.net.www.MimeTable;
@@ -23,6 +30,7 @@ import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.media.popup.ImagePopup;
+import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
@@ -34,7 +42,9 @@ import wicket.markup.html.link.PopupSettings;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
+import wicket.model.CompoundPropertyModel;
 import wicket.model.Model;
+import wicket.model.PropertyModel;
 import wicket.util.lang.Bytes;
 
 public class MediaManagerPanel extends Panel{
@@ -61,12 +71,13 @@ public class MediaManagerPanel extends Panel{
 	
 	public class MediaManForm extends Form{
 
-		CheckBox selected; 
+		private CheckBox selected; 
+		private ListView imageList;
 		
 		public MediaManForm(String wicketId)
 		{
-			super(wicketId);
-			ListView imageList = new ListView("imagelist", images){
+			super(wicketId, new CompoundPropertyModel(new MediaModel(images)));
+			imageList = new ListView("imagelist", images){
 
 				@Override
 				protected void populateItem(ListItem item)
@@ -83,7 +94,7 @@ public class MediaManagerPanel extends Panel{
 						}
 					};
 					//TODO Possible to delete images
-					selected = new CheckBox("selected", new Model());
+					selected = new CheckBox("selected", new PropertyModel(image, "selected"));
 					item.add(selected);
 					imageLink.add(new Image("image", image));
 					imageLink.setPopupSettings(popupSettings);
@@ -98,9 +109,66 @@ public class MediaManagerPanel extends Panel{
 		
 		public void onSubmit()
 		{
-			//System.out.println(selected.getModelObjectAsString());
+			MediaModel model = (MediaModel)this.getModelObject();
+			List modelImagelist = model.getImagelist();
+			Iterator i = modelImagelist.iterator();
+			while(i.hasNext())
+			{
+				CMSImageResource image = (CMSImageResource)i.next();
+				if(image.isSelected())
+				{
+					String imageName = image.getImageName();
+					Session jcrSession = KronosSession.get().getJCRSession();
+
+					try
+					{
+						Workspace ws = jcrSession.getWorkspace();
+						QueryManager qm = ws.getQueryManager();
+						Query q = qm.createQuery("//kronos:content/kronos:images/"+ imageName , Query.XPATH);
+
+						QueryResult result = q.execute();
+						NodeIterator it = result.getNodes();
+
+						if(it.hasNext())
+						{
+							Node n = it.nextNode();
+							n.remove();
+							jcrSession.save();
+						}
+					}
+					catch (RepositoryException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+			PageParameters param = new PageParameters();
+			param.add("IDType", "mediamanager");
+			param.add("ID", "");
+			setResponsePage(AdminPage.class, param);
 		}
 	}
+	
+	private class MediaModel implements Serializable
+	{
+		private List imagelist;
+		
+		public MediaModel(List imagelist)
+		{
+			this.imagelist = imagelist;
+		}
+
+		public List getImagelist()
+		{
+			return imagelist;
+		}
+
+		public void setImagelist(List imagelist)
+		{
+			this.imagelist = imagelist;
+		}
+	}
+	
 	
 	/**
 	 * Form for uploads.

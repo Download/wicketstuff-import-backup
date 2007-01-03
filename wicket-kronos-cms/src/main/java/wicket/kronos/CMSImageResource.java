@@ -12,6 +12,7 @@ public class CMSImageResource extends DynamicImageResource {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String imageName = null;
+	private boolean selected = false;
 	private byte[] imageData = null;
 
 	/**
@@ -42,6 +43,16 @@ public class CMSImageResource extends DynamicImageResource {
 	public void setImageData(byte[] imageData)
 	{
 		this.imageData = imageData;
+	}
+
+	public boolean isSelected()
+	{
+		return selected;
+	}
+
+	public void setSelected(boolean selected)
+	{
+		this.selected = selected;
 	}
 
 }

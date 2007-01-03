@@ -16,6 +16,7 @@ import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
 import wicket.kronos.KronosSession;
+import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.AdminPanel;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
@@ -142,7 +143,7 @@ public class BannerAdminpagePanel extends AdminPanel{
 			{
 				e.printStackTrace();
 			}
-			
+			setResponsePage(AdminPage.class);
 		}		
 	}
 	
