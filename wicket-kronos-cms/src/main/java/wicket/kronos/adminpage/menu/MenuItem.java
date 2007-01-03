@@ -12,8 +12,6 @@ import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
-import wicket.AttributeModifier;
-import wicket.Component;
 import wicket.PageParameters;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
@@ -24,7 +22,6 @@ import wicket.markup.html.link.ExternalLink;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
-import wicket.model.Model;
 
 /**
  * @author postma
@@ -42,6 +39,8 @@ public class MenuItem extends Panel {
 	/**
 	 * @param wicketId 
 	 * @param name
+	 * @param ID 
+	 * @param IDType 
 	 */
 	public MenuItem(String wicketId, String name, String ID, String IDType) 
 	{
@@ -114,6 +113,10 @@ public class MenuItem extends Panel {
 		return this.name;
 	}
 	
+	/**
+	 * @param menuItemName
+	 * @return List<SubMenuItem>
+	 */
 	public List<SubMenuItem> getSubMenuItems(String menuItemName)
 	{
 		List<SubMenuItem> subMenuItems = new ArrayList<SubMenuItem>();

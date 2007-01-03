@@ -14,6 +14,10 @@ public class LoginAdminPanel extends AdminPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/** 
+	 * @param wicketId
+	 * @param pluginUUID
+	 */
 	public LoginAdminPanel(String wicketId, String pluginUUID)
 	{
 		super(wicketId, pluginUUID);

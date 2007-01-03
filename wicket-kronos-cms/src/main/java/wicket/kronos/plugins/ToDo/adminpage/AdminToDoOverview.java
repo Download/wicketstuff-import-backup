@@ -16,9 +16,6 @@ import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.AdminPanel;
-import wicket.kronos.adminpage.AdminPluginOverview.OverviewForm;
-import wicket.kronos.adminpage.AdminPluginOverview.PluginPropertiesModel;
-import wicket.kronos.plugins.PluginProperties;
 import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Button;
@@ -47,6 +44,7 @@ public class AdminToDoOverview extends AdminPanel{
 	/**
 	 * @param wicketId
 	 * @param todoItemList
+	 * @param todoPluginUUID 
 	 */
 	public AdminToDoOverview(String wicketId, List<ToDoItem> todoItemList, String todoPluginUUID)
 	{
@@ -59,10 +57,15 @@ public class AdminToDoOverview extends AdminPanel{
 	public class ToDoForm extends Form {
 
 		/**
-		 * 
+		 * Default serialVErsionUID
 		 */
 		private static final long serialVersionUID = 1L;
 		
+		/**
+		 * Form that generates an overview of all ToDo items
+		 * 
+		 * @param wicketId
+		 */
 		public ToDoForm(String wicketId)
 		{
 			super(wicketId,  new CompoundPropertyModel(new ToDoItemsModel(todoItemList)));
@@ -99,6 +102,7 @@ public class AdminToDoOverview extends AdminPanel{
 			
 			add(new Button("newitembutton") 
 			{
+				@Override
 				public void onSubmit()
 				{
 					PageParameters param = new PageParameters();
@@ -112,6 +116,7 @@ public class AdminToDoOverview extends AdminPanel{
 			
 			add(new Button("deletebutton")
 			{
+				@Override
 				public void onSubmit()
 				{
 					List<ToDoItem> todoItems = ((ToDoItemsModel)ToDoForm.this.getModelObject()).getTodoItems();			
@@ -136,6 +141,7 @@ public class AdminToDoOverview extends AdminPanel{
 			
 			add(new Button("savebutton")
 			{
+				@Override
 				public void onSubmit()
 				{
 					List<ToDoItem> todoItems = ((ToDoItemsModel)ToDoForm.this.getModelObject()).getTodoItems();
@@ -173,9 +179,22 @@ public class AdminToDoOverview extends AdminPanel{
 		}
 	}
 	
+	/**
+	 * @author postma
+	 *
+	 * Model for setting and getting a @see List of todo items
+	 */
 	public class ToDoItemsModel implements Serializable{
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		private List<ToDoItem> todoItems;
 		
+		/**
+		 * @param todoItems
+		 */
 		public ToDoItemsModel(List<ToDoItem> todoItems)
 		{
 			this.todoItems = todoItems;

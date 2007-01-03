@@ -64,6 +64,9 @@ public final class AreaLocations {
 		return areaname;
 	}
 	
+	/**
+	 * @return List list with arealocations
+	 */
 	@SuppressWarnings("unchecked")
 	public static List getAreaLocations()
 	{
