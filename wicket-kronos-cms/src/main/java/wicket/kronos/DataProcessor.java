@@ -99,6 +99,9 @@ public final class DataProcessor {
 		return plugins;
 	}
 	
+	/**
+	 * @return List<CMSImageResource>
+	 */
 	public static List<CMSImageResource> getImages()
 	{
 		List<CMSImageResource> images = new ArrayList<CMSImageResource>();
@@ -166,6 +169,9 @@ public final class DataProcessor {
 		return images;
 	}
 	
+	/**
+	 * @return List
+	 */
 	public static List getImageNodes()
 	{
 		List<Node> imageNodes = new ArrayList<Node>();
@@ -254,6 +260,9 @@ public final class DataProcessor {
 		}
 	}
 	
+	/**
+	 * @param contentUUID
+	 */
 	public static void removeContent(String contentUUID)
 	{	
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -272,6 +281,9 @@ public final class DataProcessor {
 		}
 	}
 	
+	/**
+	 * @param contentUUID
+	 */
 	public static void removePluginInstance(String contentUUID)
 	{	
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -346,6 +358,79 @@ public final class DataProcessor {
 		}
 	}
 	
+	/**
+	 * Store a new external menu item in the repository
+	 * 
+	 * @param name
+	 * @param link
+	 */
+	public static void saveNewExternalMenuItem(String menuName, String name, String link)
+	{
+				
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try {
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:cms/kronos:menus/kronos:menu[@kronos:menuname = '" + menuName + "']", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+			if (it.hasNext())
+			{
+				Node menu = it.nextNode();
+			
+				Node menuItem = menu.addNode("kronos:menuitem");
+				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:linkType", "external");
+				menuItem.setProperty("kronos:link", link);
+				jcrSession.save();
+			}
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void saveNewInternalMenuItem(String menuName, String name, String IDType, String ID)
+	{
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try {
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:cms/kronos:menus/kronos:menu[@kronos:menuname = '" + menuName + "']", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+			if (it.hasNext())
+			{
+				Node menu = it.nextNode();
+				Node menuItem = menu.addNode("kronos:menuitem");
+				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:linkType", "internal");
+				menuItem.setProperty("kronos:IDType", IDType);
+				menuItem.setProperty("kronos:ID", ID);
+				jcrSession.save();
+			}
+		}
+		catch (ItemNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @param canonicalPluginName
+	 * @return String
+	 */
 	public static String getNodeType(String canonicalPluginName)
 	{
 		String nodeType = "";
@@ -571,6 +656,75 @@ public final class DataProcessor {
 	}
 
 	/**
+	 * Retreive all plugin Id's from the repository
+	 * 
+	 * @return List<String>
+	 */
+	public static List<String> getPluginIdentities()
+	{
+		List<String> pluginIdentities = new ArrayList<String>();
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//kronos:cms/kronos:plugininstantiations/kronos:plugininstance", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			while (it.hasNext())
+			{
+				Node n = it.nextNode();
+				
+				String pluginId = n.getUUID();
+				pluginIdentities.add(pluginId);
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return pluginIdentities;
+	}
+	
+	/**
+	 * Retrieve a list with all content identities
+	 * @return List<String>
+	 */
+	public static List<String> getContentIdentities()
+	{
+		List<String> contentIdentities = new ArrayList<String>();
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm.createQuery("//element(*, kronos:Content)", Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+
+			while (it.hasNext())
+			{
+				Node n = it.nextNode();
+				
+				String pluginId = n.getUUID();
+				contentIdentities.add(pluginId);
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return contentIdentities;
+	}
+	
+	/**
 	 * Retrieves all the users from the repository
 	 * 
 	 * @return List<User>
@@ -661,13 +815,6 @@ public final class DataProcessor {
 						.getDate();
 				Node roleNode = n.getProperty("kronos:roles").getNode();
 				String password = n.getProperty("kronos:password").getString();
-				/*
-				 * for (int i=0; i<=rolevalues.length; i++) { Value value =
-				 * rolevalues[i]; Node roleNode =
-				 * jcrSession.getNodeByUUID(value.getString()); String role =
-				 * roleNode.getProperty("kronos:name").getString(); roles[i] =
-				 * role; }
-				 */
 				String role = roleNode.getProperty("kronos:name").getString();
 				roles[0] = role;
 				Roles userroles = new Roles(roles);
@@ -907,19 +1054,19 @@ public final class DataProcessor {
 
 		Node menuItem = menu.addNode("kronos:menuitem");
 		menuItem.setProperty("kronos:menuitemname", "Home");
-		menuItem.setProperty("kronos:linkType", "intern");
+		menuItem.setProperty("kronos:linkType", "internal");
 		menuItem.setProperty("kronos:isAdmin", false);
 		menuItem.setProperty("kronos:IDType", "frontpage");
 		
 		menuItem = menu.addNode("kronos:menuitem");
 		menuItem.setProperty("kronos:menuitemname", "Admin");
-		menuItem.setProperty("kronos:linkType", "intern");
+		menuItem.setProperty("kronos:linkType", "internal");
 		menuItem.setProperty("kronos:isAdmin", false);
 		menuItem.setProperty("kronos:IDType", "adminpage");
 
 		menuItem = menu.addNode("kronos:menuitem");
 		menuItem.setProperty("kronos:menuitemname", "Tweakers");
-		menuItem.setProperty("kronos:linkType", "extern");
+		menuItem.setProperty("kronos:linkType", "external");
 		menuItem.setProperty("kronos:link", "http://www.tweakers.net");
 
 		Node plugins = cms.addNode("kronos:plugininstantiations");
@@ -963,7 +1110,7 @@ public final class DataProcessor {
 
 		Node menuItem2 = menu.addNode("kronos:menuitem");
 		menuItem2.setProperty("kronos:menuitemname", "HelloCenter 1");
-		menuItem2.setProperty("kronos:linkType", "intern");
+		menuItem2.setProperty("kronos:linkType", "internal");
 		menuItem2.setProperty("kronos:isAdmin", false);
 		menuItem2.setProperty("kronos:IDType", "plugin");
 		menuItem2.setProperty("kronos:ID", plugin.getUUID());
@@ -978,7 +1125,7 @@ public final class DataProcessor {
 
 		Node menuItem3 = menu.addNode("kronos:menuitem");
 		menuItem3.setProperty("kronos:menuitemname", "Blog");
-		menuItem3.setProperty("kronos:linkType", "intern");
+		menuItem3.setProperty("kronos:linkType", "internal");
 		menuItem3.setProperty("kronos:isAdmin", false);
 		menuItem3.setProperty("kronos:IDType", "plugin");
 		menuItem3.setProperty("kronos:ID", blogPlugin.getUUID());
@@ -1051,7 +1198,7 @@ public final class DataProcessor {
 		Calendar date = new GregorianCalendar();
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode.setProperty("kronos:title", "The standard Lorem Ipsum passage");
+		blogNode.setProperty("kronos:name", "The standard Lorem Ipsum passage");
 		blogNode.setProperty("kronos:text",
 			"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 		blogNode.setProperty("kronos:author", "minime");
@@ -1065,7 +1212,7 @@ public final class DataProcessor {
 
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode.setProperty("kronos:title", "de Finibus Bonorum et Malorum");
+		blogNode.setProperty("kronos:name", "de Finibus Bonorum et Malorum");
 		blogNode.setProperty("kronos:text",
 				"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?");
 		blogNode.setProperty("kronos:author", "minime");
@@ -1084,7 +1231,7 @@ public final class DataProcessor {
 
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode.setProperty("kronos:title", "Introduction of V");
+		blogNode.setProperty("kronos:name", "Introduction of V");
 		blogNode
 				.setProperty(
 						"kronos:text",
@@ -1100,7 +1247,7 @@ public final class DataProcessor {
 
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode.setProperty("kronos:title", "Why are you here?");
+		blogNode.setProperty("kronos:name", "Why are you here?");
 		blogNode
 				.setProperty(
 						"kronos:text",
@@ -1122,7 +1269,7 @@ public final class DataProcessor {
 
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
-		blogNode.setProperty("kronos:title", "Big lorem Ipsum");
+		blogNode.setProperty("kronos:name", "Big lorem Ipsum");
 		blogNode
 				.setProperty(
 						"kronos:text",
@@ -1145,7 +1292,7 @@ public final class DataProcessor {
 		Node todoItems = pluginContent.addNode("kronos:todoitems", "kronos:ToDoItems");
 		Node todoItem = todoItems.addNode("kronos:todoitem");
 		todoItem.setProperty("kronos:pluginname", "ToDo");
-		todoItem.setProperty("kronos:title", "Threaded discussions");
+		todoItem.setProperty("kronos:name", "Threaded discussions");
 		todoItem.setProperty("kronos:subject", "Blog comments can be threads");
 		todoItem.setProperty("kronos:content", "Comments that are posted on a blog item, can be handled as threaded discussions");
 		todoItem.setProperty("kronos:done", false);
@@ -1153,7 +1300,7 @@ public final class DataProcessor {
 		
 		todoItem = todoItems.addNode("kronos:todoitem");
 		todoItem.setProperty("kronos:pluginname", "ToDo");
-		todoItem.setProperty("kronos:title", "Place Repeater in Form");
+		todoItem.setProperty("kronos:name", "Place Repeater in Form");
 		todoItem.setProperty("kronos:subject", "Repeaters should be placed on a Form");
 		todoItem.setProperty("kronos:content", "Repeaters are currently place on a Panel, which should be Forms, so they can be adjusted");
 		todoItem.setProperty("kronos:done", true);
@@ -1161,7 +1308,7 @@ public final class DataProcessor {
 		
 		todoItem = todoItems.addNode("kronos:todoitem");
 		todoItem.setProperty("kronos:pluginname", "ToDo");
-		todoItem.setProperty("kronos:title", "Authorization");
+		todoItem.setProperty("kronos:name", "Authorization");
 		todoItem.setProperty("kronos:subject", "Authorization must be implemented");
 		todoItem.setProperty("kronos:content", "The authorization must be implemented for the entire CMS. This will include all the plugins");
 		todoItem.setProperty("kronos:done", false);
@@ -1170,7 +1317,7 @@ public final class DataProcessor {
 		//add menu item
 		Node menuItem4 = menu.addNode("kronos:menuitem");
 		menuItem4.setProperty("kronos:menuitemname", "ToDo");
-		menuItem4.setProperty("kronos:linkType", "intern");
+		menuItem4.setProperty("kronos:linkType", "internal");
 		menuItem4.setProperty("kronos:isAdmin", false);
 		menuItem4.setProperty("kronos:IDType", "plugin");
 		menuItem4.setProperty("kronos:ID", todoPlugin.getUUID());
@@ -1225,40 +1372,35 @@ public final class DataProcessor {
 			adminsubmenuitem5.setProperty("kronos:name", "Roles");
 			adminsubmenuitem5.setProperty("kronos:IDType", "adminpage");
 			adminsubmenuitem5.setProperty("kronos:ID", adminmenu.getUUID());
-	
-	//Menu menu item with submenu items		
-		Node adminmenuitem3 = adminmenu.addNode("kronos:adminmenuitem");
-			adminmenuitem3.setProperty("kronos:name", "Menu");
-			adminmenuitem3.setProperty("kronos:ID", "#");
 			
 	//Plugins menu item with submenu items
-		Node adminmenuitem4 = adminmenu.addNode("kronos:adminmenuitem");
-			adminmenuitem4.setProperty("kronos:name", "Plugins");
-			adminmenuitem4.setProperty("kronos:ID", "#");
+		Node adminmenuitem3 = adminmenu.addNode("kronos:adminmenuitem");
+			adminmenuitem3.setProperty("kronos:name", "Plugins");
+			adminmenuitem3.setProperty("kronos:ID", "#");
 			
-		Node adminsubmenuitem6 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+		Node adminsubmenuitem6 = adminmenuitem3.addNode("kronos:adminsubmenuitem");
 			adminsubmenuitem6.setProperty("kronos:name", "Upload JAR");
 			adminsubmenuitem6.setProperty("kronos:IDType", "AdminPluginUpload");
 			adminsubmenuitem6.setProperty("kronos:ID", "");
-		Node adminsubmenuitem7 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+		Node adminsubmenuitem7 = adminmenuitem3.addNode("kronos:adminsubmenuitem");
 			adminsubmenuitem7.setProperty("kronos:name", "Add Instance");
 			adminsubmenuitem7.setProperty("kronos:IDType", "AdminNewPlugin");
 			adminsubmenuitem7.setProperty("kronos:ID","");
 			
 	//Configuration menu item with submenu items
-		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
-			adminmenuitem5.setProperty("kronos:name", "Configuration");
-			adminmenuitem5.setProperty("kronos:ID", "#");
+		Node adminmenuitem4 = adminmenu.addNode("kronos:adminmenuitem");
+			adminmenuitem4.setProperty("kronos:name", "Configuration");
+			adminmenuitem4.setProperty("kronos:ID", "#");
 		
-			Node adminsubmenuitem8 = adminmenuitem5.addNode("kronos:adminsubmenuitem");
+			Node adminsubmenuitem8 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
 			adminsubmenuitem8.setProperty("kronos:name", "MediaManager");
 			adminsubmenuitem8.setProperty("kronos:IDType", "MediaManager");
 			adminsubmenuitem8.setProperty("kronos:ID","");
 			
 	//Help menu item with submenu items
-		Node adminmenuitem6 = adminmenu.addNode("kronos:adminmenuitem");
-			adminmenuitem6.setProperty("kronos:name", "Help");
-			adminmenuitem6.setProperty("kronos:ID", "#");
+		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
+			adminmenuitem5.setProperty("kronos:name", "Help");
+			adminmenuitem5.setProperty("kronos:ID", "#");
 		
 /* End of admin menu test */
 			

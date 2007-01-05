@@ -173,7 +173,7 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 				Node n = it.nextNode();
 				
 				String todoUUID = n.getUUID();
-				String title = n.getProperty("kronos:title").getString();
+				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();

@@ -29,9 +29,9 @@ public class FrontToDoPanel extends Panel {
 	/**
 	 * @param wicketId
 	 */
-	public FrontToDoPanel(String wicketId)
-	{
-		super(wicketId);
-		add(new FrontNewToDo("fronttodopanel"));
-	}
+//	public FrontToDoPanel(String wicketId)
+//	{
+//		super(wicketId);
+//		add(new FrontNewToDo("fronttodopanel"));
+//	}
 }

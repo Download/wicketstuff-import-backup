@@ -47,12 +47,12 @@ public class MenuFrontpagePanel extends Panel {
 			public void populateItem(ListItem item)
 			{
 				MenuItem menuItem = (MenuItem) item.getModelObject();
-				if (menuItem.getLinkType().equalsIgnoreCase("extern"))
+				if (menuItem.getLinkType().equalsIgnoreCase("external"))
 				{
 					item.add(new ExternalLink("menuItem", menuItem
 						.getLink()).add(new Label("menuItemLabel",
 							menuItem.getName())));
-				} else
+				} else if(menuItem.getLinkType().equalsIgnoreCase("internal"))
 				{
 					if (menuItem.getIDType().equalsIgnoreCase("frontpage"))
 					{

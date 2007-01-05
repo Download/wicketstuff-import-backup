@@ -101,7 +101,7 @@ public class AdminNewToDo extends Panel{
 					
 					Node newItem = todoItems.addNode("kronos:todoitem");
 					newItem.setProperty("kronos:pluginname", todoPluginName);
-					newItem.setProperty("kronos:title", titleText.getModelObjectAsString());
+					newItem.setProperty("kronos:name", titleText.getModelObjectAsString());
 					newItem.setProperty("kronos:subject", subjectText.getModelObjectAsString());
 					newItem.setProperty("kronos:content", contentText.getModelObjectAsString());
 					newItem.setProperty("kronos:done", (Boolean)doneCheck.getModelObject());

@@ -33,13 +33,26 @@
 
 [kronos:Configuration] > nt:base
 
-[kronos:Menuitem] > nt:base, mix:referenceable
+[kronos:Images] > nt:base
++*(nt:file) = nt:file multiple
+
+[kronos:Link] > nt:base, mix:referenceable
 -kronos:menuitemname (STRING) mandatory primary
 -kronos:linkType(STRING) mandatory
 -kronos:link (STRING) 
--kronos:isAdmin (BOOLEAN)
+-kronos:isAdmin (BOOLEAN) = 'false' autocreated
 -kronos:IDType (STRING)
 -kronos:ID (STRING)
+
+[kronos:Links] > nt:base
++kronos:link(kronos:Link) = kronos:Link multiple
+
+[kronos:Content] > nt:base, mix:referenceable
+-kronos:name (STRING)
++kronos:links(kronos:Links) = kronos:Links 
++kronos:images(kronos:Images) = kronos:Images
+
+[kronos:Menuitem] > kronos:Link
 
 [kronos:Menu] > nt:base, mix:referenceable
 -kronos:menuname (STRING) mandatory primary
@@ -66,12 +79,9 @@
 
 //===================================================== End of Admin menu
 [kronos:ContentPlugin] > nt:base, mix:referenceable
-+*
++* 
 
-[kronos:Images] > nt:base
-+*(nt:file) = nt:file multiple
-
-[kronos:Content] > nt:base, mix:referenceable
+[kronos:ContentSpace] > nt:base, mix:referenceable
 +kronos:plugin(kronos:ContentPlugin) = kronos:ContentPlugin multiple
 +kronos:images(kronos:Images) = kronos:Images 
 
@@ -96,7 +106,7 @@
 +kronos:users(kronos:Users) = kronos:Users
 +kronos:roles(kronos:Roles) = kronos:Roles
 +kronos:menus(kronos:Menus) = kronos:Menus
-+kronos:content(kronos:Content) = kronos:Content 
++kronos:content(kronos:ContentSpace) = kronos:ContentSpace 
 +kronos:adminmenus(kronos:AdminMenus) = kronos:AdminMenus
 +kronos:plugins(kronos:Plugins) = kronos:Plugins
 
@@ -110,10 +120,9 @@
 [kronos:Comments] > nt:base
 +kronos:comment(kronos:Comment) = kronos:Comment multiple
 
-[kronos:BlogPost] > nt:base, mix:referenceable
+[kronos:BlogPost] > kronos:Content
 -kronos:pluginname (STRING) mandatory 
 -kronos:date (DATE) mandatory
--kronos:title (STRING) mandatory primary
 -kronos:text (STRING) mandatory
 -kronos:author (STRING) mandatory
 +kronos:comments (kronos:Comments) = kronos:Comments
@@ -123,9 +132,8 @@
 
 //===================================================== ToDo plugin
 
-[kronos:ToDoItem] > nt:base, mix:referenceable
+[kronos:ToDoItem] > kronos:Content
 -kronos:pluginname (STRING) mandatory
--kronos:title (STRING) mandatory
 -kronos:subject (STRING) mandatory
 -kronos:content (STRING) mandatory 
 -kronos:done (BOOLEAN) mandatory

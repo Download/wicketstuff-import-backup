@@ -128,7 +128,7 @@ public class BlogPlugin extends IPlugin {
 
 				String postUUID = n.getUUID();
 				Calendar date = n.getProperty("kronos:date").getDate();
-				String title = n.getProperty("kronos:title").getString();
+				String title = n.getProperty("kronos:name").getString();
 				String text = n.getProperty("kronos:text").getString();
 				String author = n.getProperty("kronos:author").getString();
 				
@@ -214,7 +214,7 @@ public class BlogPlugin extends IPlugin {
 
 			String postUUID = n.getUUID();
 			Calendar date = n.getProperty("kronos:date").getDate();
-			String title = n.getProperty("kronos:title").getString();
+			String title = n.getProperty("kronos:name").getString();
 			String text = n.getProperty("kronos:text").getString();
 			String author = n.getProperty("kronos:author").getString();
 			
@@ -288,7 +288,7 @@ public class BlogPlugin extends IPlugin {
 				
 				newPost.setProperty("kronos:pluginname", pluginName);
 				newPost.setProperty("kronos:date", newBlogPost.getDate());
-				newPost.setProperty("kronos:title", newBlogPost.getTitle());
+				newPost.setProperty("kronos:name", newBlogPost.getTitle());
 				newPost.setProperty("kronos:text", newBlogPost.getText());
 				newPost.setProperty("kronos:author", newBlogPost.getAuthor());
 				

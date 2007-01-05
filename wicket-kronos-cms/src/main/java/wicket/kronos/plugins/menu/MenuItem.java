@@ -15,6 +15,8 @@ public class MenuItem implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private boolean remove;
+	
 	private String name;
 
 	private String linkType;
@@ -33,12 +35,29 @@ public class MenuItem implements Serializable {
 	 */
 	public MenuItem()
 	{
+		this.remove = false;
 		this.name = null;
 		this.linkType = null;
 		this.link = null;
 		this.isAdmin = false;
 		this.IDType = null;
 		this.ID = null;
+	}
+
+	/**
+	 * @return the remove
+	 */
+	public boolean isRemove()
+	{
+		return remove;
+	}
+
+	/**
+	 * @param remove the remove to set
+	 */
+	public void setRemove(boolean remove)
+	{
+		this.remove = remove;
 	}
 
 	/**

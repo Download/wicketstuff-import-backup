@@ -10,10 +10,31 @@
 					<input wicket:id="isHorizontal" type="checkbox" id="isHorizontal" /> 
 				</td>
 			</tr>
-			
+		</table>
+		<table>
+			<tr>
+				<th>Delete</th>
+				<th>Menuname</th>
+			</tr>
+			<tr wicket:id="menuNameRepeater">
+				<td class="center">
+					<input wicket:id="remove" type="checkbox"/> 
+				</td>
+				<td>
+					<label wicket:id="menuItemLabel">Name of menu item</label>
+				</td>
+			</tr>
+		</table>
+		<table class="noborder">
 			<tr>
 				<td>
-					<input type="submit" value="Save" />
+					<input wicket:id="save" type="submit" value="Save" />
+					<input wicket:id="delete" type="submit" value="Delete" />
+				</td>
+				<td>
+					<label>Add an new menu item.</label>
+					<input wicket:id="internal" type="submit" value="Internal" />
+					<input wicket:id="external" type="submit" value="External" />
 				</td>
 			</tr>
 		</table>

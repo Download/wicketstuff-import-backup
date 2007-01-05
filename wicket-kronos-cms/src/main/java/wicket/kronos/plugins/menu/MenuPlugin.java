@@ -13,8 +13,11 @@ import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
-import wicket.kronos.plugins.IPlugin;
+import wicket.PageParameters;
 import wicket.kronos.KronosSession;
+import wicket.kronos.plugins.IPlugin;
+import wicket.kronos.plugins.menu.panels.AdminNewExternalMenuItem;
+import wicket.kronos.plugins.menu.panels.AdminNewInternalMenuItem;
 import wicket.kronos.plugins.menu.panels.MenuAdminpagePanel;
 import wicket.kronos.plugins.menu.panels.MenuFrontpagePanel;
 
@@ -70,7 +73,20 @@ public class MenuPlugin extends IPlugin {
 		}
 		if(isAdmin)
 		{
-			add(new MenuAdminpagePanel("panel", this.pluginUUID, isHorizontal));
+			PageParameters param = KronosSession.get().getPageParameters();
+			if(param.containsKey("action"))
+			{
+				if(((String)param.get("action")).equalsIgnoreCase("newInternal"))
+				{
+					add(new AdminNewInternalMenuItem("panel", pluginname));
+				} else if(((String)param.get("action")).equalsIgnoreCase("newExternal"))
+				{
+					add(new AdminNewExternalMenuItem("panel", pluginname));
+				}
+			} else
+			{
+				add(new MenuAdminpagePanel("panel", this.getMenuItems(), this.pluginUUID, isHorizontal));
+			}
 		} else {
 			add(new MenuFrontpagePanel("panel", this.getMenuItems(), isHorizontal));
 		}
@@ -114,7 +130,7 @@ public class MenuPlugin extends IPlugin {
 				MenuItem item = new MenuItem();
 				item.setName(menuItemName);
 				item.setLinkType(linkType);
-				if (linkType.equalsIgnoreCase("intern"))
+				if (linkType.equalsIgnoreCase("internal"))
 				{
 					boolean isAdmin = n.getProperty("kronos:isAdmin")
 							.getBoolean();
@@ -126,7 +142,7 @@ public class MenuPlugin extends IPlugin {
 					}
 					item.setIDType(IDType);
 					item.setIsAdmin(isAdmin);
-				} else if (linkType.equalsIgnoreCase("extern"))
+				} else if (linkType.equalsIgnoreCase("external"))
 				{
 					String link = n.getProperty("kronos:link").getString();
 					item.setLink(link);

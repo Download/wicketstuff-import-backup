@@ -4,7 +4,7 @@
 
 [kronos:ToDo] > nt:base, mix:referenceable
 -kronos:pluginname (STRING) mandatory
--kronos:title STRING mandatory
+-kronos:name STRING mandatory
 -kronos:subject STRING mandatory
 -kronos:content STRING mandatory 
 -kronos:done BOOLEAN mandatory

@@ -75,7 +75,7 @@ public class AdminBlogEdit extends Panel {
 			try
 			{
 				blogNode = jcrSession.getNodeByUUID(blogPost.getPostUUID());
-				blogNode.setProperty("kronos:title", model.getTitle());
+				blogNode.setProperty("kronos:name", model.getTitle());
 				blogNode.setProperty("kronos:text", model.getText());
 				blogNode.setProperty("kronos:date", new GregorianCalendar());
 			}

@@ -85,7 +85,7 @@ public class ToDoPlugin extends IPlugin {
 			add(new AdminToDoPanel("todoplugin", todoItem));
 		} else
 		{
-			add(new FrontToDoPanel("todoplugin"));
+			add(new FrontToDoPanel("todoplugin", this.getToDoItems()));
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class ToDoPlugin extends IPlugin {
 				Node n = it.nextNode();
 				
 				String todoUUID = n.getUUID();
-				String title = n.getProperty("kronos:title").getString();
+				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();
@@ -163,7 +163,7 @@ public class ToDoPlugin extends IPlugin {
 				Node n = it.nextNode();
 				
 				String todoUUID = n.getUUID();
-				String title = n.getProperty("kronos:title").getString();
+				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();
@@ -196,7 +196,7 @@ public class ToDoPlugin extends IPlugin {
 		{
 			Node n = jcrSession.getNodeByUUID(contentUUID);
 			
-			String title = n.getProperty("kronos:title").getString();
+			String title = n.getProperty("kronos:name").getString();
 			String subject = n.getProperty("kronos:subject").getString();
 			String description = n.getProperty("kronos:content").getString();
 			Boolean done = n.getProperty("kronos:done").getBoolean();

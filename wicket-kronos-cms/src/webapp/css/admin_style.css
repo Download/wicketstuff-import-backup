@@ -40,14 +40,6 @@ body {
 	text-align: center;
 }
 
-td a:hover{
-	background-color: #E0E0E0;
-}
-
-td a{
-	display:block;	
-}
-
 table{
 	border: inset black 1px;
 }
@@ -60,13 +52,14 @@ th{
 td {
 	border: inset black 1px;	
 }
-
 td.center {
 	text-align: center;	
 }
-
-td.center{
-	text-align: center;	
+td a{
+	display:block;	
+}
+td a:hover{
+	background-color: #E0E0E0;
 }
 
 form {
@@ -77,21 +70,27 @@ form {
 	margin: 25px;	
 }
 
+table.noborder{
+	border: none;
+	width: 90%;
+	clear: both;
+}
+table.noborder td{
+	border: none;
+	width: 20%;
+}
 table.noborder td input {
 	padding: 4px;
 	margin: 4px;
 }
-
 table.noborder td textarea {
 	padding: 4px;
 	margin: 4px;
 }
-
 table.noborder td div {
 	padding: 4px;
 	margin: 4px;
 }
-
 table.noborder td select {
 	padding: 4px;
 	margin: 4px;
@@ -103,16 +102,6 @@ td input {
 	margin: 0;
 }
 
-table.noborder{
-	border: none;
-	width: 90%;
-	clear: both;
-}
-
-table.noborder td{
-	border: none;
-	width: 20%;
-}
 a.orderLink{
 	padding: 0;
 	margin: 3px;

@@ -5,7 +5,7 @@
 [kronos:BlogPost] > nt:base, mix:referenceable
 -kronos:pluginname (STRING) mandatory
 -kronos:date (DATE) mandatory
--kronos:title (STRING) mandatory primary
+-kronos:name (STRING) mandatory primary
 -kronos:text (STRING) mandatory
 -kronos:author (STRING) mandatory
 +kronos:comments (kronos:Comments) 

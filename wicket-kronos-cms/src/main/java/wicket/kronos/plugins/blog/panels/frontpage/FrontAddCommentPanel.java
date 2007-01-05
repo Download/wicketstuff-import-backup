@@ -83,7 +83,7 @@ public class FrontAddCommentPanel extends Panel {
 				qm = ws.getQueryManager();
 
 				Query q = qm.createQuery(
-						"//kronos:blogpostings/kronos:blogpost[@kronos:title='"
+						"//kronos:blogpostings/kronos:blogpost[@kronos:name='"
 								+ postTitle + "']", Query.XPATH);
 
 				QueryResult result = q.execute();

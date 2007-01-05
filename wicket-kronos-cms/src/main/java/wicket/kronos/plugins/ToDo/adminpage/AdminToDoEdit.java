@@ -69,7 +69,7 @@ public class AdminToDoEdit extends Panel {
 			try
 			{
 				Node todoItemNode = jcrSession.getNodeByUUID(item.getTodoUUID());
-				todoItemNode.setProperty("kronos:title", item.getTitle());
+				todoItemNode.setProperty("kronos:name", item.getTitle());
 				todoItemNode.setProperty("kronos:subject", item.getSubject());
 				todoItemNode.setProperty("kronos:content", item.getContent());
 				todoItemNode.setProperty("kronos:done", item.getDone());
