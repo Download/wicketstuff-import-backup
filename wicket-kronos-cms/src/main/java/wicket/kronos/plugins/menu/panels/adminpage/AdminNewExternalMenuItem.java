@@ -1,4 +1,4 @@
-package wicket.kronos.plugins.menu.panels;
+package wicket.kronos.plugins.menu.panels.adminpage;
 
 import java.io.Serializable;
 

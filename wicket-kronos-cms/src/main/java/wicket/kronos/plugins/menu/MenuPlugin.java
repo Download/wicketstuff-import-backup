@@ -16,10 +16,10 @@ import javax.jcr.query.QueryResult;
 import wicket.PageParameters;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
-import wicket.kronos.plugins.menu.panels.AdminNewExternalMenuItem;
-import wicket.kronos.plugins.menu.panels.AdminNewInternalMenuItem;
-import wicket.kronos.plugins.menu.panels.MenuAdminpagePanel;
-import wicket.kronos.plugins.menu.panels.MenuFrontpagePanel;
+import wicket.kronos.plugins.menu.panels.adminpage.AdminNewExternalMenuItem;
+import wicket.kronos.plugins.menu.panels.adminpage.AdminNewInternalMenuItem;
+import wicket.kronos.plugins.menu.panels.adminpage.MenuAdminpagePanel;
+import wicket.kronos.plugins.menu.panels.frontpage.MenuFrontpagePanel;
 
 /**
  * This plugin is used to create menubars. It collects all the data from the

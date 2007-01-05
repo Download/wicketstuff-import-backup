@@ -1,4 +1,4 @@
-package wicket.kronos.plugins.menu.panels;
+package wicket.kronos.plugins.menu.panels.adminpage;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -83,6 +83,21 @@ public class MenuAdminpagePanel extends AdminPanel {
 					MenuItem menuItem = (MenuItem) item.getModelObject();
 					item.add(new CheckBox("remove", new PropertyModel(menuItem, "remove")));
 					item.add(new Label("menuItemLabel", menuItem.getName()));
+					item.add(new Label("menuItemLinkType", menuItem.getLinkType()));
+					if (menuItem.getLinkType().equalsIgnoreCase("internal"))
+					{
+						if (menuItem.getIDType().equalsIgnoreCase("plugin"))
+						{
+							item.add(new Label("menuItemLink", 
+									getDisplayName(menuItem.getID())));
+						} else
+						{
+							item.add(new Label("menuItemLink", menuItem.getIDType()));
+						}
+					}else
+					{					
+						item.add(new Label("menuItemLink", menuItem.getLink()));
+					}					
 				}
 			});
 			
@@ -193,6 +208,27 @@ public class MenuAdminpagePanel extends AdminPanel {
 					setResponsePage(AdminPage.class, param);
 				}
 			});
+		}
+		
+		public String getDisplayName(String itemUUID)
+		{
+			String name = null;
+			Session jcrSession = KronosSession.get().getJCRSession();
+			Node node;
+			try
+			{
+				node = jcrSession.getNodeByUUID(itemUUID);
+				name = node.getProperty("kronos:name").getString();
+			}
+			catch (ItemNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch (RepositoryException e)
+			{
+				e.printStackTrace();
+			}
+			return name;
 		}
 	}
 	

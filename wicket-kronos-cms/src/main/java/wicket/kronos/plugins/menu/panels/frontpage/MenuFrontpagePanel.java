@@ -1,4 +1,4 @@
-package wicket.kronos.plugins.menu.panels;
+package wicket.kronos.plugins.menu.panels.frontpage;
 
 import java.util.List;
 
