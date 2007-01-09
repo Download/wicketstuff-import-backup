@@ -1,0 +1,147 @@
+body{
+	font: 70%/1.4em Verdana,sans-serif;
+	color: #333;
+	background: #B0B0B0 url('../img/back2.gif') repeat;
+	text-align: center;
+}
+a:link, a:visited, a:active{
+	color: #333;
+}
+a:hover{
+	text-decoration: none;
+}
+.container{
+	width: 760px;
+	margin: 0 auto;
+	text-align: left;
+	
+}
+.wrap_top{
+	background:  url('../img/tab_top_bg2.gif') top center no-repeat;
+	height: 5px;
+}
+.main{
+	background: #fff;
+	margin: 0;
+	overflow: hidden;
+}
+.header{
+	padding: 10px 0px 10px 0px;
+	background-position: 50% 100%;
+	clear: both;
+}
+.header img{
+	max-width: 100%;	
+}
+.left{
+	width: 160px;
+	padding: 10px 10px 10px 0;
+	float: right;
+}
+.center{
+	margin: 5px 0 0 0;
+	width: 540px;
+	padding: 0 20px 20px 20px;
+	float: left;
+	background:  url('../img/content_sep.png') repeat-y;
+	background-position: 98.5% 0;
+}
+.right{
+	clear: right;
+	width: 160px;
+	padding: 10px 10px 10px 0;
+	float: right;
+}
+.footer{
+	clear: both;
+	text-align: right;
+	background: #ddd;
+	padding: 10px;
+	font-size: 8px;
+	color: #333;
+}
+.plugin {
+	/*border: dashed #e9601a 1px;*/
+	margin: 6px 2px 6px 2px;
+	padding: 2px;
+}
+
+/* blogpost plugin mockup */
+.blogpost {
+	margin: 5px 5px 15px 5px;
+	padding: 5px;
+	border-bottom: #ddd 1px solid;
+	text-align: justify;
+}
+.blogpost a {
+	font-size: 80%;
+}
+.blogpost .title {
+	margin: 25px 0 0 0;
+	font-size: 13px;
+	font-weight: bold;
+	color: #000;
+}
+.blogpost .date {
+	font-size: 75%;
+	margin-right: 10px;
+	text-align: right;
+}
+.blogpost .author {
+	letter-spacing: 1px;
+	font-size: 9px;
+	color: #000;
+	text-align: right;
+}
+.blogpost div.commenttext {
+	border-top: dotted black 1px;
+}
+/* helloworld plugin mockup */
+.helloworld {
+	font-size: 125%;
+	font-weight: bold;
+}
+/* titan plugin mockup */
+.titan a {
+	text-decoration: none;
+	color: black;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+	font-style: italic;
+}
+.titan div {
+	background-color: #eee;
+}
+/* todo plugin mockup */
+.todoitem{
+	border-bottom: #ddd 1px solid;
+}
+a.menuItem {
+	color: black;
+	display: block;
+}
+ul.menuItems {
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+li.menuItemsHorizontal {
+	float: left;
+	display: inline;
+}
+li.menuItemsHorizontal a {
+	margin: 0 10px;
+	font-weight:bold;
+	font-size: 11px;
+	text-align: center;
+}
+.menu {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.floatfix{
+	width: 100%;
+	clear: both;
+}

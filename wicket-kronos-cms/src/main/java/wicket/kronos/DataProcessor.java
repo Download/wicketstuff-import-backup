@@ -998,6 +998,8 @@ public final class DataProcessor {
 
 		Node root = session.getRootNode();
 		Node cms = root.addNode("kronos:cms", "kronos:Cms");
+		
+		Node configuration = cms.addNode("kronos:configuration");
 
 		Node roles = cms.addNode("kronos:roles");
 		Node role = roles.addNode("kronos:role");
@@ -1396,6 +1398,11 @@ public final class DataProcessor {
 			adminsubmenuitem8.setProperty("kronos:name", "MediaManager");
 			adminsubmenuitem8.setProperty("kronos:IDType", "MediaManager");
 			adminsubmenuitem8.setProperty("kronos:ID","");
+			
+			Node adminsubmenuitem9 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+			adminsubmenuitem9.setProperty("kronos:name", "Template Chooser");
+			adminsubmenuitem9.setProperty("kronos:IDType", "templatechooser");
+			adminsubmenuitem9.setProperty("kronos:ID","");
 			
 	//Help menu item with submenu items
 		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");

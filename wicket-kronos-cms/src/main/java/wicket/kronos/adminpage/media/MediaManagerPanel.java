@@ -124,7 +124,7 @@ public class MediaManagerPanel extends Panel{
 					{
 						Workspace ws = jcrSession.getWorkspace();
 						QueryManager qm = ws.getQueryManager();
-						Query q = qm.createQuery("//kronos:content/kronos:images/"+ imageName , Query.XPATH);
+						Query q = qm.createQuery("//kronos:content/kronos:images/"+ imageName +"" , Query.XPATH);
 
 						QueryResult result = q.execute();
 						NodeIterator it = result.getNodes();

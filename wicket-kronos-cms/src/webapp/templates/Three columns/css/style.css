@@ -1,49 +1,57 @@
 body {
-	text-align: center;
-	background-color: #EEEEEE;
+	background-color: #FFFFFF;
 	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
 	font-size: 10pt;
 }
 
 .container {
 	width: 1024px;
-	margin-left: auto;
-	margin-right: auto;
 	text-align: left;
-	border: double #e9601a 1px;
-	background-color: #DDDDDD;
+	border: double LightGrey 1px;
+	background-color: #FFFFFF;
 }
 
 .header {
 	clear: both;
-	margin: 2px;
+	text-align: center;
 }
 
 img.banner {
 	width: 100%;
 }
 
+.wrap_top{
+	background:  url('../img/top_bg.gif') top center no-repeat;
+}
 .left {
-	float: left;
-	width: 20%;
+	border-right: dotted grey 1px;
+	position: absolute;
+	width: 200px;
 	margin: 2px;
+	padding-left: 2px;
+	left: 610px;
 }
 
 .center {
+	
 	float: left;
-	width: 59%;
+	width: 600px;
 	margin: 2px;
+	border-right: dotted grey 1px;
 }
 
 .right {
-	width: 19%;
-	float: left;
+	
+	position: relative;
+	width: 200px;
 	margin: 2px;
+	top: 0px;
+	float: right;
 }
 
 .footer {
 	clear: both;
-	margin: 2px;
+	border-top: dotted Grey 1px;
 }
 
 a.unfinishedlink {
@@ -55,15 +63,17 @@ a.unfinishedlink:hover {
 	background-color: #EEEEEE;
 }
 
+a.unfinishedlink:visited {
+	color: blue;
+}
+
 .plugin {
-	border: dashed #e9601a 1px;
-	margin: 6px 2px 6px 2px;
-	padding: 2px;
 }
 
 /* blogpost plugin mockup */
 .blogpost {
-	border: double #e9601a 1px;
+	background:  url('../img/n2.gif') repeat-x;
+	border: solid LightGrey 0px 1px 1px 1px;
 	margin: 5px 5px 15px 5px;;
 	padding: 5px;
 }
@@ -120,7 +130,7 @@ a.unfinishedlink:hover {
 }
 
 .titan a:hover div {
-	background-color: #F07a2b;
+	background:  url('../img/n4.gif') repeat-x;
 }
 
 .titan a:visited {
@@ -133,4 +143,46 @@ a.unfinishedlink:hover {
 	margin: 0px 5px 0px 5px;
 	padding: 10px;	
 }
+a.menuItem {
+	background: #fff url('../img/n2.gif') repeat-x;
+	color: black;
+	text-decoration: none;
+	display: block;
+	padding: 0.4em 0;
+}
 
+a.menuItem:hover {
+	background-color: #EEEEEE;
+	color: #e9601a;
+}
+
+ul.menuItems {
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+li.menuItemsHorizontal {
+	float: left;
+}
+
+li.menuItemsHorizontal a {
+	width: 100px;
+	text-align: center;
+	background: #fff url('../img/n4.gif') repeat-x;
+	padding: 1.1em 1.4em 0.6em 1.4em;
+}
+li.menuItemsHorizontal a:hover {
+	background-color: #a9a9a9;
+	color: #e9601a;
+}
+.menu {
+	width: 100%;
+	background: #fff url('../img/n4.gif') repeat-x;
+}
+
+.floatfix{
+	width: 100%;
+	clear: both;	
+}

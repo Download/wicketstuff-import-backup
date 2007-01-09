@@ -121,6 +121,11 @@ a.orderLink img {
 	padding: 3px;
 	margin: 5px;
 	float: left;
+	overflow: hidden;
+}
+
+.mediaimage input{
+	display: block;
 }
 
 .mediaimage img{

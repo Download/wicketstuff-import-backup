@@ -32,6 +32,7 @@
 -kronos:bannerimage (REFERENCE)
 
 [kronos:Configuration] > nt:base
+-kronos:activetemplate (STRING) = 'default' autocreated
 
 [kronos:Images] > nt:base
 +*(nt:file) = nt:file multiple

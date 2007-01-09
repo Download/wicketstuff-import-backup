@@ -1,0 +1,170 @@
+body {
+	text-align: center;
+	background-color: #EEEEEE;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+}
+
+.container {
+	width: 1024px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	border: double #e9601a 1px;
+	background-color: #DDDDDD;
+}
+
+.header {
+	clear: both;
+	margin: 2px;
+}
+
+img.banner {
+	width: 100%;
+}
+
+.left {
+	float: left;
+	width: 20%;
+	margin: 2px;
+}
+
+.center {
+	float: left;
+	width: 59%;
+	margin: 2px;
+}
+
+.right {
+	width: 19%;
+	float: left;
+	margin: 2px;
+}
+
+.footer {
+	clear: both;
+	margin: 2px;
+}
+
+a.unfinishedlink {
+	text-decoration: none;
+	display: block;
+}
+
+a.unfinishedlink:hover {
+	background-color: #EEEEEE;
+}
+
+.plugin {
+	border: dashed #e9601a 1px;
+	margin: 6px 2px 6px 2px;
+	padding: 2px;
+}
+
+/* blogpost plugin mockup */
+.blogpost {
+	border: double #e9601a 1px;
+	margin: 5px 5px 15px 5px;;
+	padding: 5px;
+}
+
+.blogpost a {
+	color: #E9601A;
+	font-size: 80%;
+}
+
+.blogpost .title {
+	font-size: 150%;
+	font-family: "lucida console";
+	font-style: italic;
+	color: #4169E1;
+}
+
+.blogpost .text p:first-letter {
+	font-family: cursive;
+	font-family: "lucida console";
+	font-size: 150%;
+	font-weight: bold;
+	color: #4169E1;
+}
+
+.blogpost .date {
+	font-size: 75%;
+	float: left;
+	margin-right: 10px;
+}
+
+.blogpost .author {
+	font-style: italic;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.blogpost div.commenttext {
+	border-top: dotted black 1px;
+}
+
+/* helloworld plugin mockup */
+.helloworld {
+	font-size: 125%;
+	font-weight: bold;
+}
+
+/* titan plugin mockup */
+.titan a {
+	text-decoration: none;
+	color: black;
+	font-family: 'Lucida Sans', 'Helvetica', 'Sans-serif', 'sans';
+	font-size: 10pt;
+	font-style: italic;
+}
+
+.titan a:hover div {
+	background-color: #F07a2b;
+}
+
+.titan a:visited {
+	color: black;
+}
+
+/* ToDo plugin mockup */
+.todoTopLine {
+	border-bottom: dotted #e9601a 1px;
+	margin: 0px 5px 0px 5px;
+	padding: 10px;	
+}
+a.menuItem {
+	background-color: #e9601a;
+	color: black;
+	text-decoration: none;
+	display: block;
+}
+
+a.menuItem:hover {
+	background-color: #a9a9a9;
+	color: #e9601a;
+}
+
+ul.menuItems {
+	width: 100%;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+li.menuItemsHorizontal {
+	float: left;
+}
+
+li.menuItemsHorizontal a {
+	width: 100px;
+	text-align: center;
+}
+
+.menu {
+	width: 100%;
+}
+.floatfix{
+	width: 100%;
+	clear: both;	
+}
