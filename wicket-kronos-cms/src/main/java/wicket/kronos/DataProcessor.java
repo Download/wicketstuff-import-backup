@@ -170,6 +170,8 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Retreive a list of image nodes from repository
+	 * 
 	 * @return List
 	 */
 	public static List getImageNodes()
@@ -202,6 +204,7 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Retreive the propertie from the repository of a certain plugin
 	 * 
 	 * @param pluginUUID
 	 * @return PluginProperties
@@ -240,6 +243,13 @@ public final class DataProcessor {
 		return properties;
 	}
 	
+	/**
+	 * When uploading a new plugin, at first this method stores the 
+	 * canonical plugin name. Later this can be used to create a new
+	 * plugin instance.
+	 * 
+	 * @param canonicalPluginname
+	 */
 	public static void savePlugin(String canonicalPluginname) 
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -261,6 +271,8 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Remove the content that corresponds with the contentUUID
+	 * 
 	 * @param contentUUID
 	 */
 	public static void removeContent(String contentUUID)
@@ -282,13 +294,15 @@ public final class DataProcessor {
 	}
 	
 	/**
-	 * @param contentUUID
+	 * Removes the plugin instance that belongs to the pluginUUID 
+	 * 
+	 * @param pluginUUID  
 	 */
-	public static void removePluginInstance(String contentUUID)
+	public static void removePluginInstance(String pluginUUID)
 	{	
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try {
-			Node pluginNode = jcrSession.getNodeByUUID(contentUUID);
+			Node pluginNode = jcrSession.getNodeByUUID(pluginUUID);
 			pluginNode.remove();
 			jcrSession.save();
 		}
@@ -303,8 +317,11 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Save new plugin or saves changed plugin properties
+	 * of an existing plugin (when oldPluginName is provided).
 	 * 
 	 * @param properties
+	 * @param oldPluginName 
 	 */
 	public static void savePluginProperties(PluginProperties properties, String oldPluginName)
 	{
@@ -322,8 +339,6 @@ public final class DataProcessor {
 			} else {
 				n = jcrSession.getNodeByUUID(properties.getPluginUUID());
 			}
-			
-			
 			
 			n.setProperty("kronos:name", properties.getName());
 			n.setProperty("kronos:published", properties.getPublished());
@@ -361,6 +376,7 @@ public final class DataProcessor {
 	/**
 	 * Store a new external menu item in the repository
 	 * 
+	 * @param menuName 
 	 * @param name
 	 * @param link
 	 */
@@ -396,6 +412,14 @@ public final class DataProcessor {
 		}
 	}
 	
+	/**
+	 * Store a new internal menu item in the repository
+	 * 
+	 * @param menuName
+	 * @param name
+	 * @param IDType
+	 * @param ID
+	 */
 	public static void saveNewInternalMenuItem(String menuName, String name, String IDType, String ID)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -461,6 +485,11 @@ public final class DataProcessor {
 	}
 	
 	
+	/**
+	 * Retreive list of available plugin types from repository
+	 * 
+	 * @return List
+	 */
 	public static List getPluginTypes() 
 	{
 		List<String> pluginTypes = new ArrayList<String>();
@@ -1234,10 +1263,8 @@ public final class DataProcessor {
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
 		blogNode.setProperty("kronos:name", "Introduction of V");
-		blogNode
-				.setProperty(
-						"kronos:text",
-						"Voilà! In view, a humble vaudevillian veteran, cast vicariously as both victim and villain by the vicissitudes of fate. This visage, no mere veneer of vanity, is a vestige of the vox populi, now vacant, vanished. However, this valorous visitation of a bygone vexation stands vivified, and has vowed to vanquish these venal and virulent vermin vanguarding vice and vouchsafing the violently vicious and voracious violation of volition. The only verdict is vengeance; a vendetta held as a votive, not in vain, for the value and veracity of such shall one day vindicate the vigilant and the virtuous. Verily, this vichyssoise of verbiage veers most verbose, so let me simply add that it's my very good honor to meet you and you may call me V");
+		blogNode.setProperty("kronos:text",
+			"Voilà! In view, a humble vaudevillian veteran, cast vicariously as both victim and villain by the vicissitudes of fate. This visage, no mere veneer of vanity, is a vestige of the vox populi, now vacant, vanished. However, this valorous visitation of a bygone vexation stands vivified, and has vowed to vanquish these venal and virulent vermin vanguarding vice and vouchsafing the violently vicious and voracious violation of volition. The only verdict is vengeance; a vendetta held as a votive, not in vain, for the value and veracity of such shall one day vindicate the vigilant and the virtuous. Verily, this vichyssoise of verbiage veers most verbose, so let me simply add that it's my very good honor to meet you and you may call me V");
 		blogNode.setProperty("kronos:author", "V");
 		comments = blogNode.addNode("kronos:comments");
 		comment = comments.addNode("kronos:comment");
@@ -1250,10 +1277,8 @@ public final class DataProcessor {
 		blogNode.setProperty("kronos:pluginname", "blog");
 		blogNode.setProperty("kronos:date", date);
 		blogNode.setProperty("kronos:name", "Why are you here?");
-		blogNode
-				.setProperty(
-						"kronos:text",
-						"Your life is the sum of a remainder of an unbalanced equation inherent to the programming of the matrix. You are the eventuality of an anomaly, which despite my sincerest efforts I have been unable to eliminate from what is otherwise a harmony of mathematical precision. While it remains a burden assiduously avoided, it is not unexpected, and thus not beyond a measure of control. Which has led you, inexorably, here.");
+		blogNode.setProperty("kronos:text",
+			"Your life is the sum of a remainder of an unbalanced equation inherent to the programming of the matrix. You are the eventuality of an anomaly, which despite my sincerest efforts I have been unable to eliminate from what is otherwise a harmony of mathematical precision. While it remains a burden assiduously avoided, it is not unexpected, and thus not beyond a measure of control. Which has led you, inexorably, here.");
 		blogNode.setProperty("kronos:author", "The architect");
 		comments = blogNode.addNode("kronos:comments");
 		comment = comments.addNode("kronos:comment");
@@ -1333,8 +1358,6 @@ public final class DataProcessor {
 		todoPlugin.setProperty("kronos:plugincontentname", "ToDo");
 		todoPlugin.setProperty("kronos:pluginType",
 				"wicket.kronos.plugins.unfinishedtodo.UnfinishedToDoItemsPlugin");
-		
-		//TODO add admin tests for ToDo plugin
 		
 /* End of ToDo plugin test */
 		

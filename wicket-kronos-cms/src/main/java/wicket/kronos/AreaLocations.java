@@ -68,9 +68,9 @@ public final class AreaLocations {
 	 * @return List list with arealocations
 	 */
 	@SuppressWarnings("unchecked")
-	public static List getAreaLocations()
+	public static List<Integer> getAreaLocations()
 	{
-		List locations = new ArrayList();
+		List<Integer> locations = new ArrayList<Integer>();
 		
 		locations.add(new Integer(0));
 		locations.add(new Integer(1));

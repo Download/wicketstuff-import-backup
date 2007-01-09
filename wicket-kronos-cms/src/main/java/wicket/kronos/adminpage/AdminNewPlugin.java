@@ -1,17 +1,13 @@
 package wicket.kronos.adminpage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.jcr.ItemNotFoundException;
-import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.PluginProperties;
-import wicket.kronos.plugins.ToDo.ToDoItem;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
@@ -32,6 +28,7 @@ public class AdminNewPlugin extends Panel{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 */
 	public AdminNewPlugin(String wicketId)
@@ -40,8 +37,20 @@ public class AdminNewPlugin extends Panel{
 		add(new AdminNewPluginForm("newpluginform"));		
 	}
 	
+	/** 
+	 * @author postma
+	 */
 	public class AdminNewPluginForm extends Form{
 		
+		/**
+		 * Default serialVersionUUID
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Constructor.
+		 * @param wicketId
+		 */
 		public AdminNewPluginForm(String wicketId)
 		{
 			super(wicketId, new CompoundPropertyModel(new PluginProperties()));
@@ -82,6 +91,7 @@ public class AdminNewPlugin extends Panel{
 			}));
 		}
 		
+		@Override
 		public void onSubmit() 
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
