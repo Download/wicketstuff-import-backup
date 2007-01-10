@@ -33,6 +33,7 @@
 
 [kronos:Configuration] > nt:base
 -kronos:activetemplate (STRING) = 'default' autocreated
+-kronos:pagetitle (STRING) = 'Kronos CMS Frontpage' autocreated
 
 [kronos:Images] > nt:base
 +*(nt:file) = nt:file multiple

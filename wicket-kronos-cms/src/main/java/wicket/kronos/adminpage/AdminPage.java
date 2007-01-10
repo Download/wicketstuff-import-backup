@@ -5,12 +5,10 @@ import wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosPage;
 import wicket.kronos.KronosSession;
+import wicket.kronos.adminpage.config.ConfigPanel;
 import wicket.kronos.adminpage.media.MediaManagerPanel;
 import wicket.kronos.adminpage.menu.AdminMenu;
-import wicket.kronos.adminpage.templatechooser.TemplateChooserPanel;
-import wicket.kronos.frontpage.Frontpage;
 import wicket.kronos.plugins.IPlugin;
-import wicket.markup.html.link.BookmarkablePageLink;
 
 /**
  * @author postma
@@ -50,7 +48,7 @@ public class AdminPage extends KronosPage {
 		} else if(pageParameters.getString("IDType").equalsIgnoreCase("mediamanager")) {
 			add(new MediaManagerPanel("plugin"));
 		} else if(pageParameters.getString("IDType").equalsIgnoreCase("templatechooser")) {
-			add(new TemplateChooserPanel("plugin"));
+			add(new ConfigPanel("plugin"));
 		} else 
 		{
 			KronosSession currentsession = KronosSession.get();

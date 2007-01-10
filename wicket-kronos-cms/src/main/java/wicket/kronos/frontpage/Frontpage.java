@@ -17,6 +17,7 @@ import wicket.kronos.KronosPage;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.markup.html.WebComponent;
+import wicket.markup.html.basic.Label;
 import wicket.markup.html.resources.StyleSheetReference;
 import wicket.model.IModel;
 import wicket.model.Model;
@@ -31,6 +32,7 @@ public class Frontpage extends KronosPage {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String templateName;
+	private String pageTitle;
 
 	/**
 	 * The constructor of Frontpage accepts a PageParameters object as a
@@ -46,6 +48,7 @@ public class Frontpage extends KronosPage {
 		{
 			Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode("kronos:configuration");
 			templateName = configuration.getProperty("kronos:activetemplate").getString();
+			pageTitle = configuration.getProperty("kronos:pagetitle").getString();
 		}
 		catch (PathNotFoundException e1)
 		{
@@ -55,7 +58,7 @@ public class Frontpage extends KronosPage {
 		{
 			e1.printStackTrace();
 		}
-		
+		add(new Label("title", pageTitle));
 		WebComponent c = new WebComponent( "css" );
 		  IModel model = new Model()
 		  {
