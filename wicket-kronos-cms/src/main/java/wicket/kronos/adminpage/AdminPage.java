@@ -47,7 +47,7 @@ public class AdminPage extends KronosPage {
 			add(new AdminPluginUpload("plugin"));
 		} else if(pageParameters.getString("IDType").equalsIgnoreCase("mediamanager")) {
 			add(new MediaManagerPanel("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("templatechooser")) {
+		} else if(pageParameters.getString("IDType").equalsIgnoreCase("config")) {
 			add(new ConfigPanel("plugin"));
 		} else 
 		{

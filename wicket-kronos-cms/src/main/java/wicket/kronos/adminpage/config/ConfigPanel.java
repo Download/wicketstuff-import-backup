@@ -1,7 +1,6 @@
 package wicket.kronos.adminpage.config;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
+import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.Model;
 
@@ -27,7 +27,7 @@ public class ConfigPanel extends Panel{
 	public ConfigPanel(String wicketId)
 	{
 		super(wicketId);
-		add(new ConfigForm("templateForm"));
+		add(new ConfigForm("configForm"));
 	}
 	
 	private class ConfigForm extends Form{
@@ -37,6 +37,7 @@ public class ConfigPanel extends Panel{
 		 */
 		private static final long serialVersionUID = 1L;
 		private DropDownChoice templateChoice = null;
+		private TextField titleField = null;
 		List templateList = new ArrayList();
 		
 		public ConfigForm(String wicketId)
@@ -58,10 +59,12 @@ public class ConfigPanel extends Panel{
 			
 			Session jcrSession = KronosSession.get().getJCRSession();
 			String templateName = null;
+			String pageTitle = null;
 			try
 			{
 				Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode("kronos:configuration");
 				templateName = configuration.getProperty("kronos:activetemplate").getString();
+				pageTitle = configuration.getProperty("kronos:pagetitle").getString();
 			}
 			catch (PathNotFoundException e1)
 			{
@@ -72,6 +75,9 @@ public class ConfigPanel extends Panel{
 				e1.printStackTrace();
 			}
 			
+			titleField = new TextField("title", new Model());
+			titleField.setModelObject(pageTitle);
+			add(titleField);
 			
 			templateChoice = new DropDownChoice("templates", new Model(), templateList);
 			templateChoice.setModelObject(templateName);
@@ -81,6 +87,7 @@ public class ConfigPanel extends Panel{
 		public void onSubmit()
 		{
 			String templateName = templateChoice.getModelObjectAsString();
+			String pageTitle = titleField.getModelObjectAsString();
 			
 			Session jcrSession = KronosSession.get().getJCRSession();
 
@@ -90,6 +97,7 @@ public class ConfigPanel extends Panel{
 				Node configuration = root.getNode("kronos:cms").getNode("kronos:configuration");
 				
 				configuration.setProperty("kronos:activetemplate", templateName);
+				configuration.setProperty("kronos:pagetitle", pageTitle);
 				jcrSession.save();
 				setResponsePage(AdminPage.class);
 			}
