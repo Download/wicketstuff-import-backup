@@ -61,7 +61,6 @@ li:hover ul, li.over ul {
 	float: right;
 }
 
-
 /* fixing internet explorer problems */
 * html ul li { 
 	float: left; 
