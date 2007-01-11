@@ -103,6 +103,7 @@ public class MenuPlugin extends IPlugin {
 	 * 
 	 * @return List<MenuItem>
 	 */
+	@SuppressWarnings("boxing")
 	public List<MenuItem> getMenuItems()
 	{
 		List<MenuItem> menuItems = new ArrayList<MenuItem>();

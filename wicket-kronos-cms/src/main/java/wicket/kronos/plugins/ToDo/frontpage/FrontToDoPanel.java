@@ -17,6 +17,7 @@ public class FrontToDoPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 * @param todoItems 
 	 */
@@ -25,13 +26,4 @@ public class FrontToDoPanel extends Panel {
 		super(wicketId);
 		add(new FrontToDoOverview("fronttodopanel", todoItems));
 	}
-	
-	/**
-	 * @param wicketId
-	 */
-//	public FrontToDoPanel(String wicketId)
-//	{
-//		super(wicketId);
-//		add(new FrontNewToDo("fronttodopanel"));
-//	}
 }

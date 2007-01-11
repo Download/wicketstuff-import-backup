@@ -159,11 +159,17 @@ public class MenuItem implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
+	/**
+	 * @return order
+	 */
 	public int getOrder()
 	{
 		return order;
 	}
 
+	/**
+	 * @param order
+	 */
 	public void setOrder(int order)
 	{
 		this.order = order;

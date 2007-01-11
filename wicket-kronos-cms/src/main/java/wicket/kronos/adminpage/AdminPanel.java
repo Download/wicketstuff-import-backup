@@ -11,7 +11,6 @@ import wicket.markup.html.form.IChoiceRenderer;
 import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
-import wicket.model.PropertyModel;
 
 /**
  * @author postma
@@ -25,7 +24,7 @@ public class AdminPanel extends Panel {
 	protected String pluginUUID;
 
 	/**
-	 * Default when no plugin is to be configured
+	 * Default constructor when no plugin is to be configured
 	 * @param wicketId 
 	 */
 	public AdminPanel(String wicketId)
@@ -39,7 +38,7 @@ public class AdminPanel extends Panel {
 	 * Constructor when a specific plugin is to be configured
 	 * 
 	 * @param wicketId
-	 * @param pluginId
+	 * @param pluginUUID
 	 */
 	public AdminPanel(String wicketId, String pluginUUID)
 	{
@@ -58,12 +57,14 @@ public class AdminPanel extends Panel {
 	 *
 	 */
 	public class AdminForm extends Form {
+		
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 
 		/**
+		 * Constructor.
 		 * @param id
 		 */
 		public AdminForm(String id)
@@ -93,6 +94,7 @@ public class AdminPanel extends Panel {
 			}));
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			DataProcessor.savePluginProperties(properties, oldPluginName);

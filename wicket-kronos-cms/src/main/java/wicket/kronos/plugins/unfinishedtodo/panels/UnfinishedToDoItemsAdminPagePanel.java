@@ -33,6 +33,11 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 	private static final long serialVersionUID = 1L;
 	private String pluginUUID;
 
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 * @param pluginUUID
+	 */
 	public UnfinishedToDoItemsAdminPagePanel(String wicketId, String pluginUUID)
 	{
 		super(wicketId, pluginUUID);
@@ -41,6 +46,11 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 		add(new UnfinishedForm("unfinishedform", names));
 	}
 	
+	/**
+	 * Retreive a list with todoplugin names
+	 * 
+	 * @return todoplugin names
+	 */
 	private List<String> getTodoPluginNames()
 	{
 		List<String> todoNames = new ArrayList<String>();
@@ -71,6 +81,11 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 		return todoNames;
 	}
 	
+	/**
+	 * Change the name of the todo plugin
+	 * 
+	 * @param name
+	 */
 	private void saveTodoPluginName(String name)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -99,6 +114,11 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 		private static final long serialVersionUID = 1L;
 		private DropDownChoice todoName;
 		
+		/**
+		 * Constructor.
+		 * @param wicketId
+		 * @param names
+		 */
 		public UnfinishedForm(String wicketId, List<String> names)
 		{
 			super(wicketId);
@@ -106,6 +126,7 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 			add(todoName);
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			saveTodoPluginName(todoName.getModelObjectAsString());

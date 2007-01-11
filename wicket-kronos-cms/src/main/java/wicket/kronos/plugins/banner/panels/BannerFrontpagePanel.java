@@ -10,11 +10,12 @@ import wicket.markup.html.panel.Panel;
 public class BannerFrontpagePanel extends Panel {
 
 	/**
-	 * Default serial UID
+	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Constructor.
 	 * @param id
 	 * @param img
 	 */
@@ -25,5 +26,4 @@ public class BannerFrontpagePanel extends Panel {
 		Image bannerImg = new Image("bannerImage", img);
 		add(bannerImg);
 	}
-
 }

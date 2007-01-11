@@ -16,6 +16,7 @@ public class ImagePopup extends WebPage{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Constructor.
 	 * @param image
 	 */
 	public ImagePopup(CMSImageResource image)

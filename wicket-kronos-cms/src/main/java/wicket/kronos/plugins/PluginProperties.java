@@ -2,11 +2,8 @@ package wicket.kronos.plugins;
 
 import java.io.Serializable;
 
-import wicket.model.Model;
-
 /**
- * @author postma
- *
+ * @author postma *
  */
 public class PluginProperties implements Serializable{
 	
@@ -44,6 +41,7 @@ public class PluginProperties implements Serializable{
 	}
 	
 	/**
+	 * Constructor.
 	 * @param pluginUUID
 	 * @param name
 	 * @param published

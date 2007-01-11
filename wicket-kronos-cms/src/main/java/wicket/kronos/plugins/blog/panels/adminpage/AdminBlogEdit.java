@@ -38,8 +38,6 @@ public class AdminBlogEdit extends Panel {
 	 * 
 	 * @param id
 	 * @param blogPost
-	 * @param contentUUID
-	 * @param blogposts
 	 */
 	public AdminBlogEdit(String id, BlogPost blogPost)
 	{
@@ -67,6 +65,7 @@ public class AdminBlogEdit extends Panel {
 			add(new TextArea("text"));
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
@@ -92,13 +91,13 @@ public class AdminBlogEdit extends Panel {
 		}
 	}
 
-	private void createMenu()
+	/*private void createMenu()
 	{
 		add(new Link("savepost") {
 			
 			/**
 			 * Default serialVersionUID
-			 */
+			 
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -110,6 +109,6 @@ public class AdminBlogEdit extends Panel {
 				blogPost.setText(changedModel.getText());
 			}
 		}.add(new Image("save", "Save.png")));
-		/* ToDo: add all other necessary menu items */
-	}
+		/* ToDo: add all other necessary menu items 
+	}*/
 }

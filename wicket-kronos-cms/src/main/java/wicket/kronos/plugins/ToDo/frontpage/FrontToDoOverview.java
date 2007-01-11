@@ -25,6 +25,7 @@ public class FrontToDoOverview extends Panel{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 * @param todoItemList
 	 */
@@ -34,11 +35,6 @@ public class FrontToDoOverview extends Panel{
 		
 		add(new ListView("todoRepeater", todoItemList)
 		{
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected void populateItem(ListItem item)
 			{

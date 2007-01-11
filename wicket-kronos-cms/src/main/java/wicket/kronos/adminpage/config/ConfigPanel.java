@@ -17,6 +17,10 @@ import wicket.markup.html.form.TextField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.Model;
 
+/**
+ * @author postma
+ *
+ */
 public class ConfigPanel extends Panel{
 
 	/**
@@ -24,6 +28,10 @@ public class ConfigPanel extends Panel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 */
 	public ConfigPanel(String wicketId)
 	{
 		super(wicketId);
@@ -38,8 +46,12 @@ public class ConfigPanel extends Panel{
 		private static final long serialVersionUID = 1L;
 		private DropDownChoice templateChoice = null;
 		private TextField titleField = null;
-		List templateList = new ArrayList();
+		List<String> templateList = new ArrayList<String>();
 		
+		/**
+		 * Constructor.
+		 * @param wicketId
+		 */
 		public ConfigForm(String wicketId)
 		{
 			super(wicketId);
@@ -84,6 +96,7 @@ public class ConfigPanel extends Panel{
 			add(templateChoice);
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			String templateName = templateChoice.getModelObjectAsString();

@@ -42,6 +42,7 @@ public class AdminToDoOverview extends AdminPanel{
 	private String todoPluginUUID;
 	
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 * @param todoItemList
 	 * @param todoPluginUUID 
@@ -54,6 +55,10 @@ public class AdminToDoOverview extends AdminPanel{
 		add(new ToDoForm("todoform"));
 	}	
 	
+	/**
+	 * @author postma
+	 *
+	 */
 	public class ToDoForm extends Form {
 
 		/**

@@ -19,7 +19,7 @@ import wicket.markup.html.panel.Panel;
 public class FrontBlogpost extends Panel {
 
 	/**
-	 * 
+	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 

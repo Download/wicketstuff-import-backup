@@ -22,6 +22,7 @@ public class Comment implements Serializable {
 	private Calendar date = null;
 
 	/**
+	 * Constructor.
 	 * @param commentUUID
 	 * @param text
 	 * @param author
@@ -48,7 +49,6 @@ public class Comment implements Serializable {
 
 	/**
 	 * @param commentUUID
-	 *            the commentUUID to set
 	 */
 	public void setCommentUUID(String commentUUID)
 	{
@@ -65,7 +65,6 @@ public class Comment implements Serializable {
 
 	/**
 	 * @param author
-	 *            the author to set
 	 */
 	public void setAuthor(String author)
 	{
@@ -82,7 +81,6 @@ public class Comment implements Serializable {
 
 	/**
 	 * @param date
-	 *            the date to set
 	 */
 	public void setDate(Calendar date)
 	{
@@ -99,11 +97,9 @@ public class Comment implements Serializable {
 
 	/**
 	 * @param text
-	 *            the text to set
 	 */
 	public void setText(String text)
 	{
 		this.text = text;
 	}
-
 }

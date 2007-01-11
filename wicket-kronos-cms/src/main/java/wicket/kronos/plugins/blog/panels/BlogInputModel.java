@@ -72,7 +72,6 @@ public class BlogInputModel implements Serializable {
 
 	/**
 	 * @param date
-	 *            the date to set
 	 */
 	public void setDate(Calendar date)
 	{
@@ -89,7 +88,6 @@ public class BlogInputModel implements Serializable {
 
 	/**
 	 * @param title
-	 *            the title to set
 	 */
 	public void setTitle(String title)
 	{
@@ -106,7 +104,6 @@ public class BlogInputModel implements Serializable {
 
 	/**
 	 * @param author
-	 *            the author to set
 	 */
 	public void setAuthor(String author)
 	{
@@ -123,7 +120,6 @@ public class BlogInputModel implements Serializable {
 
 	/**
 	 * @param text
-	 *            the text to set
 	 */
 	public void setText(String text)
 	{

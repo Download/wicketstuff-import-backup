@@ -15,8 +15,9 @@ public class HelloWorldAdminpagePanel extends AdminPanel{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * 
+	 * Constructor.
 	 * @param wicketId
+	 * @param pluginUUID 
 	 */
 	public HelloWorldAdminpagePanel(String wicketId, String pluginUUID)
 	{

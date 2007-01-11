@@ -17,12 +17,13 @@ public class loggedInUserPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param arg0
+	 * Constructor.
+	 * @param wicketId
 	 * @param username
 	 */
-	public loggedInUserPanel(String arg0, String username)
+	public loggedInUserPanel(String wicketId, String username)
 	{
-		super(arg0);
+		super(wicketId);
 		add(new Label("nameLabel", username));
 		add(new signOutForm("signOutForm"));
 	}
@@ -30,11 +31,12 @@ public class loggedInUserPanel extends Panel {
 	class signOutForm extends Form {
 
 		/**
-		 * 
+		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 
 		/**
+		 * Constructor.
 		 * @param id
 		 */
 		public signOutForm(String id)

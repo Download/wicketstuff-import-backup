@@ -30,7 +30,6 @@ import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.media.popup.ImagePopup;
-import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
@@ -43,18 +42,25 @@ import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
-import wicket.model.Model;
 import wicket.model.PropertyModel;
 import wicket.util.lang.Bytes;
 
+/**
+ * @author postma
+ *
+ */
 public class MediaManagerPanel extends Panel{
 
 	/**
-	 * 
+	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	private List images = null;
+	private List<CMSImageResource> images = null;
 
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 */
 	public MediaManagerPanel(String wicketId)
 	{
 		super(wicketId);
@@ -69,11 +75,23 @@ public class MediaManagerPanel extends Panel{
 	}
 	
 	
+	/**
+	 * @author postma
+	 *
+	 */
 	public class MediaManForm extends Form{
 
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 		private CheckBox selected; 
 		private ListView imageList;
 		
+		/**
+		 * Constructor.
+		 * @param wicketId
+		 */
 		public MediaManForm(String wicketId)
 		{
 			super(wicketId, new CompoundPropertyModel(new MediaModel(images)));
@@ -107,6 +125,7 @@ public class MediaManagerPanel extends Panel{
 			
 		}
 		
+		@Override
 		public void onSubmit()
 		{
 			MediaModel model = (MediaModel)this.getModelObject();
@@ -151,19 +170,33 @@ public class MediaManagerPanel extends Panel{
 	
 	private class MediaModel implements Serializable
 	{
-		private List imagelist;
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		private List<CMSImageResource> imagelist;
 		
-		public MediaModel(List imagelist)
+		/**
+		 * Constructor.
+		 * @param imagelist
+		 */
+		public MediaModel(List<CMSImageResource> imagelist)
 		{
 			this.imagelist = imagelist;
 		}
 
-		public List getImagelist()
+		/**
+		 * @return List
+		 */
+		public List<CMSImageResource> getImagelist()
 		{
 			return imagelist;
 		}
 
-		public void setImagelist(List imagelist)
+		/**
+		 * @param imagelist
+		 */
+		public void setImagelist(List<CMSImageResource> imagelist)
 		{
 			this.imagelist = imagelist;
 		}
@@ -175,13 +208,16 @@ public class MediaManagerPanel extends Panel{
 	 */
 	private class UploadForm extends Form
 	{
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 		private FileUploadField fileUploadField;
 
 		/**
 		 * Construct.
 		 * 
-		 * @param name
-		 *            Component name
+		 * @param name Component name
 		 */
 		public UploadForm(String name)
 		{
@@ -200,6 +236,7 @@ public class MediaManagerPanel extends Panel{
 		/**
 		 * @see wicket.markup.html.form.Form#onSubmit()
 		 */
+		@Override
 		protected void onSubmit()
 		{
 			final FileUpload upload = fileUploadField.getFileUpload();

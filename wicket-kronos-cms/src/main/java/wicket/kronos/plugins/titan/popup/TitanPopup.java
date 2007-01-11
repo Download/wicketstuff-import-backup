@@ -12,7 +12,7 @@ import wicket.markup.html.link.PopupCloseLink;
 public class TitanPopup extends WebPage {
 
 	/**
-	 * 
+	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 

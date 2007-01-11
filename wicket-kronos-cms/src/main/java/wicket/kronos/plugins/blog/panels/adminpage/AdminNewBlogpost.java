@@ -47,6 +47,7 @@ public class AdminNewBlogpost extends Panel {
 	 * @author postma
 	 */
 	private class InputForm extends Form {
+		
 		/**
 		 * Default serialVersionUID
 		 */
@@ -55,6 +56,7 @@ public class AdminNewBlogpost extends Panel {
 		private TextArea text;
 
 		/**
+		 * Constructor.
 		 * @param name
 		 * @param blogPlugin 
 		 */

@@ -31,6 +31,7 @@ public class ToDoPlugin extends IPlugin {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Constructor when no specific content should be displayed
 	 * @param isAdmin
 	 * @param pluginUUID
 	 * @param pluginname
@@ -64,6 +65,7 @@ public class ToDoPlugin extends IPlugin {
 	}
 	
 	/**
+	 * Constructor for a specific content 
 	 * @param isAdmin
 	 * @param pluginUUID
 	 * @param pluginname
@@ -92,7 +94,7 @@ public class ToDoPlugin extends IPlugin {
 	/**
 	 * Retreive all ToDo Items from Repository
 	 * 
-	 * @return List<ToDoItem>
+	 * @return list of todo items
 	 */
 	@SuppressWarnings("boxing")
 	public List<ToDoItem> getToDoItems()
@@ -136,7 +138,7 @@ public class ToDoPlugin extends IPlugin {
 	/**
 	 * Retreive a list with unfinished todo items
 	 * 
-	 * @return List<ToDoItem>
+	 * @return list of todo items
 	 */
 	@SuppressWarnings("boxing")
 	public List<ToDoItem> getUnfinishedToDoItems()
@@ -182,7 +184,7 @@ public class ToDoPlugin extends IPlugin {
 	 * Retreive one specific ToDo Item
 	 * 
 	 * @param contentUUID
-	 * @return List<ToDoItem>
+	 * @return list of todo items
 	 */
 	@SuppressWarnings("boxing")
 	public ToDoItem getToDoItem(String contentUUID)
@@ -244,6 +246,5 @@ public class ToDoPlugin extends IPlugin {
 	public boolean isConfigurable()
 	{
 		return true;
-	}
-	
+	}	
 }

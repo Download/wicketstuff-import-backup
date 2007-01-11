@@ -5,11 +5,9 @@ import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import wicket.extensions.markup.html.datepicker.DatePicker;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.plugins.ToDo.ToDoItem;
-import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;
@@ -62,6 +60,8 @@ public class AdminToDoEdit extends Panel {
 			add(new CheckBox("done"));
 		}
 		
+		@SuppressWarnings("boxing")
+		@Override
 		public void onSubmit()
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();

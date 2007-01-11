@@ -29,12 +29,13 @@ import wicket.model.PropertyModel;
  *
  */
 public class AdminPluginOverview extends Panel{
-	private List<PluginProperties> propertiesList;
+	
 	/**
 	 * Default serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private List<PluginProperties> propertiesList;
+	
 	/**
 	 * @param wicketId
 	 */
@@ -46,7 +47,6 @@ public class AdminPluginOverview extends Panel{
 	}
 	
 	/**
-	 * 
 	 * @author roeloffzen
 	 *
 	 */
@@ -57,6 +57,10 @@ public class AdminPluginOverview extends Panel{
 		 */
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * Constructor.
+		 * @param wicketID
+		 */
 		public OverviewForm(String wicketID)
 		{
 			super(wicketID, new CompoundPropertyModel(new PluginPropertiesModel(propertiesList)));
@@ -67,6 +71,7 @@ public class AdminPluginOverview extends Panel{
 				 */
 				private static final long serialVersionUID = 1L;
 
+				@SuppressWarnings("serial")
 				@Override
 				protected void populateItem(ListItem item)
 				{
@@ -88,6 +93,7 @@ public class AdminPluginOverview extends Panel{
 					
 					item.add(new AjaxLink("incrementLink")
 					{
+						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int newValue = props.getOrder()+1;
@@ -98,6 +104,7 @@ public class AdminPluginOverview extends Panel{
 					
 					item.add(new AjaxLink("decrementLink")
 					{
+						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int oldValue = props.getOrder();
@@ -134,6 +141,7 @@ public class AdminPluginOverview extends Panel{
 			
 			add(new Button("deletebutton")
 			{
+				@Override
 				public void onSubmit()
 				{	
 					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
@@ -153,6 +161,7 @@ public class AdminPluginOverview extends Panel{
 			
 			add(new Button("savebutton")
 			{
+				@Override
 				public void onSubmit()
 				{
 					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
@@ -172,27 +181,36 @@ public class AdminPluginOverview extends Panel{
 	}
 	
 	/**
-	 * 
 	 * @author roeloffzen
 	 *
 	 */
 	public class PluginPropertiesModel implements Serializable{
+		
 		/**
-		 * 
+		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 		private List<PluginProperties> properties;
 		
-		public PluginPropertiesModel(List properties)
+		/**
+		 * @param properties
+		 */
+		public PluginPropertiesModel(List<PluginProperties> properties)
 		{
 			this.properties = properties;
 		}
 
+		/**
+		 * @return list with pluginProperties
+		 */
 		public List<PluginProperties> getProperties()
 		{
 			return properties;
 		}
 
+		/**
+		 * @param properties
+		 */
 		public void setProperties(List<PluginProperties> properties)
 		{
 			this.properties = properties;

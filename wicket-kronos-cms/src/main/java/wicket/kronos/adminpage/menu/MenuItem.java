@@ -37,6 +37,7 @@ public class MenuItem extends Panel {
 	private String name  = null;
 	
 	/**
+	 * Constructor.
 	 * @param wicketId 
 	 * @param name
 	 * @param ID 
@@ -114,6 +115,7 @@ public class MenuItem extends Panel {
 	}
 	
 	/**
+	 * Retreive list with submenu menu items
 	 * @param menuItemName
 	 * @return List<SubMenuItem>
 	 */

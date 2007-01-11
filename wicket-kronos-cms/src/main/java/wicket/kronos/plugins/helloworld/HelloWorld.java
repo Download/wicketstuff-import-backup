@@ -12,6 +12,11 @@ import wicket.markup.html.basic.Label;
 public class HelloWorld extends IPlugin {
 
 	/**
+	 * Default serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Default plugin constructor. Creates a Label with a Hello World text
 	 * 
 	 * @param isAdmin
@@ -35,12 +40,7 @@ public class HelloWorld extends IPlugin {
 			add(new Label("helloworld",
 					"Hello beautiful world how is theigh today?"));
 		}
-	}
-
-	/**
-	 * Default serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
+	}	
 
 	@Override
 	public boolean isConfigurable()

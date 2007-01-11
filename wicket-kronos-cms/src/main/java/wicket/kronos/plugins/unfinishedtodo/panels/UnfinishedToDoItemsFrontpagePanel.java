@@ -11,6 +11,10 @@ import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.Panel;
 
+/**
+ * @author postma
+ *
+ */
 public class UnfinishedToDoItemsFrontpagePanel extends Panel{
 
 	/**
@@ -18,6 +22,12 @@ public class UnfinishedToDoItemsFrontpagePanel extends Panel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 * @param unfinishedToDoItems
+	 * @param toDoPluginUUID
+	 */
 	public UnfinishedToDoItemsFrontpagePanel(String wicketId, List unfinishedToDoItems, final String toDoPluginUUID)
 	{
 		super(wicketId);

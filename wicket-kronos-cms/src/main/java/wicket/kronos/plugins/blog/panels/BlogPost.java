@@ -29,6 +29,7 @@ public class BlogPost implements Serializable {
 	private int nrComments = 0;
 
 	/**
+	 * Constructor.
 	 * @param postUUID
 	 * @param date
 	 * @param title
@@ -63,7 +64,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param postUUID
-	 *            the postUUID to set
 	 */
 	public void setPostUUID(String postUUID)
 	{
@@ -80,7 +80,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param author
-	 *            the author to set
 	 */
 	public void setAuthor(String author)
 	{
@@ -97,7 +96,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param comments
-	 *            the comments to set
 	 */
 	public void setComments(List<Comment> comments)
 	{
@@ -114,7 +112,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param date
-	 *            the date to set
 	 */
 	public void setDate(Calendar date)
 	{
@@ -131,7 +128,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param text
-	 *            the text to set
 	 */
 	public void setText(String text)
 	{
@@ -148,7 +144,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param title
-	 *            the title to set
 	 */
 	public void setTitle(String title)
 	{
@@ -165,7 +160,6 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * @param nrComments
-	 *            the nrComments to set
 	 */
 	public void setNrComments(int nrComments)
 	{

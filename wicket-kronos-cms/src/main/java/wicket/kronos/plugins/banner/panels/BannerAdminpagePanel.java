@@ -29,6 +29,7 @@ import wicket.model.IModel;
  *
  */
 public class BannerAdminpagePanel extends AdminPanel{
+	
 	/**
 	 * Default serialVersionUID
 	 */
@@ -39,6 +40,7 @@ public class BannerAdminpagePanel extends AdminPanel{
 	private Map nameMap;
 	
 	/**
+	 * Cosntructor
 	 * @param wicketId
 	 * @param pluginUUID 
 	 * @param imageUUID 
@@ -98,6 +100,7 @@ public class BannerAdminpagePanel extends AdminPanel{
 		private DropDownChoice dropDown;
 		
 		/**
+		 * Constructor.
 		 * @param wicketId
 		 * @param model
 		 */
@@ -148,14 +151,13 @@ public class BannerAdminpagePanel extends AdminPanel{
 	}
 	
 	/**
-	 * 
 	 * @author roeloffzen
 	 *
 	 */
 	public class BannerImageModel implements Serializable{
 		
 		/**
-		 * 
+		 * Defaul serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 		private String imageUUID;

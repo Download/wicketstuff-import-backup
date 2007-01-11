@@ -18,7 +18,6 @@ import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.markup.html.WebComponent;
 import wicket.markup.html.basic.Label;
-import wicket.markup.html.resources.StyleSheetReference;
 import wicket.model.IModel;
 import wicket.model.Model;
 
@@ -62,15 +61,14 @@ public class Frontpage extends KronosPage {
 		WebComponent c = new WebComponent( "css" );
 		  IModel model = new Model()
 		  {
-		      public Object getObject( Component c )
+		      @Override
+			public Object getObject( Component c )
 		      {	
 		    	  return "templates/"+ templateName + "/css/style.css";
 		      }
 		  };
 		  c.add( new AttributeModifier( "href", model ) );
 		  add( c );
-		
-		//add(new StyleSheetReference("css", getClass(), "templates/"+ templateName + "/css/style.css"));
 		
 		if (pageParameters == null || pageParameters.isEmpty())
 		{

@@ -20,6 +20,7 @@ public class SubMenuItem implements Serializable{
 	private String IDType;
 	
 	/**
+	 * Constructor.
 	 * @param name 
 	 * @param ID 
 	 * @param IDType
@@ -32,7 +33,7 @@ public class SubMenuItem implements Serializable{
 	}
 
 	/**
-	 * @return the iD
+	 * @return the ID
 	 */
 	public String getID()
 	{
@@ -40,7 +41,7 @@ public class SubMenuItem implements Serializable{
 	}
 
 	/**
-	 * @param id the iD to set
+	 * @param id
 	 */
 	public void setID(String id)
 	{
@@ -48,7 +49,7 @@ public class SubMenuItem implements Serializable{
 	}
 
 	/**
-	 * @return the iDType
+	 * @return the IDType
 	 */
 	public String getIDType()
 	{
@@ -56,11 +57,11 @@ public class SubMenuItem implements Serializable{
 	}
 
 	/**
-	 * @param type the iDType to set
+	 * @param idtype
 	 */
-	public void setIDType(String type)
+	public void setIDType(String idtype)
 	{
-		IDType = type;
+		IDType = idtype;
 	}
 
 	/**
@@ -72,12 +73,10 @@ public class SubMenuItem implements Serializable{
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
 	 */
 	public void setName(String name)
 	{
 		this.name = name;
-	}
-	
-	
+	}	
 }

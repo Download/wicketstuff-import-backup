@@ -94,7 +94,6 @@ public class AdminNewPlugin extends Panel{
 		@Override
 		public void onSubmit() 
 		{
-			Session jcrSession = KronosSession.get().getJCRSession();
 			PluginProperties pluginProperties = (PluginProperties)this.getModelObject();
 			
 			DataProcessor.savePluginProperties(pluginProperties, pluginProperties.getName());

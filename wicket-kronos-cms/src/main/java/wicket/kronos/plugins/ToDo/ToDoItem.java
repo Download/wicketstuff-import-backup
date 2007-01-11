@@ -24,7 +24,7 @@ public class ToDoItem implements Serializable {
 	private Calendar date = null;
 	
 	/**
-	 * 
+	 * Constructor.
 	 */
 	public ToDoItem() 
 	{
@@ -32,6 +32,7 @@ public class ToDoItem implements Serializable {
 	}
 	
 	/**
+	 * Constructor for creating a new todo item for which all parameters are known
 	 * @param todoUUID 
 	 * @param title
 	 * @param subject
@@ -63,7 +64,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param delete the delete to set
+	 * @param delete
 	 */
 	public void setDelete(boolean delete)
 	{
@@ -79,7 +80,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param todoUUID the todoUUID to set
+	 * @param todoUUID
 	 */
 	public void setTodoUUID(String todoUUID)
 	{
@@ -95,7 +96,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param content
 	 */
 	public void setContent(String content)
 	{
@@ -111,7 +112,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param date
 	 */
 	public void setDate(Calendar date)
 	{
@@ -127,7 +128,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param done the done to set
+	 * @param done
 	 */
 	public void setDone(Boolean done)
 	{
@@ -143,7 +144,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param subject the subject to set
+	 * @param subject
 	 */
 	public void setSubject(String subject)
 	{
@@ -159,7 +160,7 @@ public class ToDoItem implements Serializable {
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
 	 */
 	public void setTitle(String title)
 	{

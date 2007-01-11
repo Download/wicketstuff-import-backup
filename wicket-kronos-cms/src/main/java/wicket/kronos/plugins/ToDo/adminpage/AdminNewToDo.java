@@ -1,5 +1,7 @@
 package wicket.kronos.plugins.ToDo.adminpage;
 
+import java.util.GregorianCalendar;
+
 import javax.jcr.ItemNotFoundException;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -10,20 +12,14 @@ import javax.jcr.query.Query;
 import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import wicket.PageParameters;
-import wicket.extensions.markup.html.datepicker.DatePicker;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.plugins.ToDo.ToDoItem;
-import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
-import wicket.markup.html.link.Link;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
 import wicket.model.Model;
@@ -40,6 +36,7 @@ public class AdminNewToDo extends Panel{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Constructor.
 	 * @param wicketId 
 	 */
 	public AdminNewToDo(String wicketId)

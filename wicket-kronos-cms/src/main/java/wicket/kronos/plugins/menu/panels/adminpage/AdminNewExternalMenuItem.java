@@ -111,7 +111,7 @@ public class AdminNewExternalMenuItem extends Panel{
 		}
 
 		/**
-		 * @param link the link to set
+		 * @param link
 		 */
 		public void setLink(String link)
 		{
@@ -127,18 +127,24 @@ public class AdminNewExternalMenuItem extends Panel{
 		}
 
 		/**
-		 * @param name the name to set
+		 * @param name
 		 */
 		public void setName(String name)
 		{
 			this.name = name;
 		}
 
+		/**
+		 * @return order
+		 */
 		public int getOrder()
 		{
 			return order;
 		}
 
+		/**
+		 * @param order
+		 */
 		public void setOrder(int order)
 		{
 			this.order = order;

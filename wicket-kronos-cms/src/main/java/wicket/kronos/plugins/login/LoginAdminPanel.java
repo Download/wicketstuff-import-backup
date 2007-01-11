@@ -15,6 +15,7 @@ public class LoginAdminPanel extends AdminPanel{
 	private static final long serialVersionUID = 1L;
 	
 	/** 
+	 * Constructor.
 	 * @param wicketId
 	 * @param pluginUUID
 	 */

@@ -17,8 +17,10 @@ public class AdminToDoPanel extends Panel {
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Constructor for a todo item's overview
 	 * @param wicketId
 	 * @param todoItems 
+	 * @param pluginUUID 
 	 */
 	public AdminToDoPanel(String wicketId, List<ToDoItem> todoItems, String pluginUUID)
 	{
@@ -27,6 +29,9 @@ public class AdminToDoPanel extends Panel {
 	}
 	
 	/**
+	 * Constructor for adding new todo item or
+	 * editing an existing todo item
+	 * 
 	 * @param wicketId
 	 * @param todoItem
 	 */

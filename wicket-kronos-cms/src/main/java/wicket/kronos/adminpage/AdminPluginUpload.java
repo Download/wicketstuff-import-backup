@@ -1,44 +1,39 @@
 package wicket.kronos.adminpage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import wicket.kronos.DataProcessor;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Form;
-import wicket.markup.html.form.TextField;
 import wicket.markup.html.form.upload.FileUpload;
 import wicket.markup.html.form.upload.FileUploadField;
-import wicket.markup.html.link.Link;
-import wicket.markup.html.list.ListItem;
-import wicket.markup.html.list.ListView;
 import wicket.markup.html.panel.FeedbackPanel;
 import wicket.markup.html.panel.Panel;
-import wicket.model.Model;
 import wicket.util.file.Files;
 import wicket.util.file.Folder;
 import wicket.util.lang.Bytes;
 
+/**
+ * @author postma
+ *
+ */
 public class AdminPluginUpload extends Panel {
 	
-	//private String uploadDir = null;
-	
+	/**
+	 * Default serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Folder uploadFolder = null;
 	
-	/** List of files, model for file table. */
-	private List files = new ArrayList();
-
-	/** Reference to listview for easy access. */
-	//private FileListView fileListView;
-	
-	private TextField pluginname = null;
-	
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 */
 	public AdminPluginUpload(String wicketId) 
 	{
 		super(wicketId);
-		//"\\Kronos.src.main.java.wicket.kronos.plugins"
+		
 		this.uploadFolder = new Folder("./src/main/java/wicket/kronos/plugins");
 		
 		//ensuring folder exists
@@ -54,16 +49,6 @@ public class AdminPluginUpload extends Panel {
 		// virtue of that panel being nested in the form.
 		final FileUploadForm simpleUploadForm = new FileUploadForm("simpleUpload");
 		add(simpleUploadForm);	
-	}
-	
-	/**
-	 * Refresh file list.
-	 */
-	private void refreshFiles()
-	{
-		//fileListView.modelChanging();
-		files.clear();
-		files.addAll(Arrays.asList(uploadFolder.listFiles()));
 	}
 
 	/**
@@ -89,17 +74,20 @@ public class AdminPluginUpload extends Panel {
 	 */
 	private class FileUploadForm extends Form
 	{
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 		private FileUploadField fileUploadField;
 
 		/**
-		 * Construct.
+		 * Constructor.
 		 * 
-		 * @param name
-		 *            Component name
+		 * @param wicketId
 		 */
-		public FileUploadForm(String name)
+		public FileUploadForm(String wicketId)
 		{
-			super(name);
+			super(wicketId);
 
 			// set this form to multipart mode (allways needed for uploads!)
 			setMultiPart(true);
@@ -117,6 +105,7 @@ public class AdminPluginUpload extends Panel {
 		/**
 		 * @see wicket.markup.html.form.Form#onSubmit()
 		 */
+		@Override
 		protected void onSubmit()
 		{
 			final FileUpload upload = fileUploadField.getFileUpload();

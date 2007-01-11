@@ -107,6 +107,10 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 		return todoPluginName;
 	}
 	
+	/**
+	 * Retreive the plugin UUID
+	 * @return todoPluginUUID
+	 */
 	public String getToDoPluginUUID()
 	{
 		String todoPluginUUID = null;
@@ -145,6 +149,7 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 	/**
 	 * Retreive a list with unfinished todo items
 	 * 
+	 * @param contentPluginName 
 	 * @return List<ToDoItem>
 	 */
 	@SuppressWarnings("boxing")
@@ -189,7 +194,6 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 	@Override
 	public boolean isConfigurable()
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

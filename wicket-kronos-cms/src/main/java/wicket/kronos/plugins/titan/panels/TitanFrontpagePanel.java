@@ -6,6 +6,10 @@ import wicket.markup.html.link.BookmarkablePageLink;
 import wicket.markup.html.link.PopupSettings;
 import wicket.markup.html.panel.Panel;
 
+/**
+ * @author postma
+ *
+ */
 public class TitanFrontpagePanel extends Panel{
 
 	/**
@@ -13,6 +17,10 @@ public class TitanFrontpagePanel extends Panel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor.
+	 * @param wicketId
+	 */
 	public TitanFrontpagePanel(String wicketId)
 	{
 		super(wicketId);

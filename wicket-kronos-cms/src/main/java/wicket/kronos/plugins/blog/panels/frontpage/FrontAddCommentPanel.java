@@ -36,6 +36,7 @@ public class FrontAddCommentPanel extends Panel {
 	private BlogPost blogpost;
 
 	/**
+	 * Constructor.
 	 * @param id
 	 * @param blogpost
 	 */
@@ -47,6 +48,7 @@ public class FrontAddCommentPanel extends Panel {
 	}
 
 	class CommentForm extends Form {
+		
 		/**
 		 * Default serialVersionUID
 		 */

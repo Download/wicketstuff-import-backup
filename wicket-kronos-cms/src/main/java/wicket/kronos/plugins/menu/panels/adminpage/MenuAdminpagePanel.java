@@ -43,6 +43,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Cosntructor.
 	 * @param wicketId 
 	 * @param menuItems 
 	 * @param pluginUUID 
@@ -95,6 +96,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 					
 					item.add(new AjaxLink("incrementLink")
 					{
+						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int newValue = menuItem.getOrder()+1;
@@ -105,6 +107,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 					
 					item.add(new AjaxLink("decrementLink")
 					{
+						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int oldValue = menuItem.getOrder();
@@ -243,6 +246,12 @@ public class MenuAdminpagePanel extends AdminPanel {
 			});
 		}
 		
+		/**
+		 * Retreive the menuitem name
+		 * 
+		 * @param itemUUID
+		 * @return name
+		 */
 		public String getDisplayName(String itemUUID)
 		{
 			String name = null;
@@ -264,6 +273,11 @@ public class MenuAdminpagePanel extends AdminPanel {
 			return name;
 		}
 		
+		/**
+		 * Save the list of menu items
+		 * 
+		 * @param menuItems
+		 */
 		private void saveMenuItems(List menuItems)
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
@@ -296,10 +310,8 @@ public class MenuAdminpagePanel extends AdminPanel {
 		}
 	}
 	
-	/**
-	 * 
+	/** 
 	 * @author roeloffzen
-	 *
 	 */
 	public class MenuModel implements Serializable{
 		
@@ -311,6 +323,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 		private boolean isHorizontal;
 		
 		/**
+		 * Constructor.
 		 * @param menuItems 
 		 * @param isHorizontal
 		 */

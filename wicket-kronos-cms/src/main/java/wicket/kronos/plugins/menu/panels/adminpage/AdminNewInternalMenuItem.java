@@ -10,7 +10,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import wicket.Component;
-import wicket.PageParameters;
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import wicket.kronos.DataProcessor;
@@ -38,6 +37,7 @@ public class AdminNewInternalMenuItem extends Panel{
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 * @param menuName 
 	 */
@@ -195,7 +195,7 @@ public class AdminNewInternalMenuItem extends Panel{
 
 
 		/**
-		 * @param id the id to set
+		 * @param id
 		 */
 		public void setId(String id)
 		{
@@ -213,7 +213,7 @@ public class AdminNewInternalMenuItem extends Panel{
 
 
 		/**
-		 * @param idtype the idtypes to set
+		 * @param idtype
 		 */
 		public void setIdtype(String idtype)
 		{
@@ -231,28 +231,40 @@ public class AdminNewInternalMenuItem extends Panel{
 
 
 		/**
-		 * @param linkname the linkname to set
+		 * @param linkname
 		 */
 		public void setLinkname(String linkname)
 		{
 			this.linkname = linkname;
 		}
 
+		/**
+		 * @return the link
+		 */
 		public String getLink()
 		{
 			return link;
 		}
 
+		/**
+		 * @param link
+		 */
 		public void setLink(String link)
 		{
 			this.link = link;
 		}
 
+		/**
+		 * @return order
+		 */
 		public int getOrder()
 		{
 			return order;
 		}
 
+		/**
+		 * @param order
+		 */
 		public void setOrder(int order)
 		{
 			this.order = order;
