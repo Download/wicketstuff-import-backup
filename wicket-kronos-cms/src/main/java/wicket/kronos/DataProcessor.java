@@ -1423,8 +1423,8 @@ public final class DataProcessor {
 			adminsubmenuitem8.setProperty("kronos:ID","");
 			
 			Node adminsubmenuitem9 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
-			adminsubmenuitem9.setProperty("kronos:name", "Template Chooser");
-			adminsubmenuitem9.setProperty("kronos:IDType", "templatechooser");
+			adminsubmenuitem9.setProperty("kronos:name", "Global Configuration");
+			adminsubmenuitem9.setProperty("kronos:IDType", "config");
 			adminsubmenuitem9.setProperty("kronos:ID","");
 			
 	//Help menu item with submenu items
