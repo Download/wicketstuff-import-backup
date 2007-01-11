@@ -54,12 +54,12 @@ public class ToDoPlugin extends IPlugin {
 			}
 			if(action.equalsIgnoreCase("") || action == null)
 			{
-				add(new AdminToDoPanel("todoplugin", todoItems, pluginUUID));
+				add(new AdminToDoPanel("todo", todoItems, pluginUUID));
 			} else {	
-				add(new AdminToDoPanel("todoplugin", (ToDoItem)null));
+				add(new AdminToDoPanel("todo", (ToDoItem)null));
 			}
 		}else {
-			add(new FrontToDoPanel("todoplugin", todoItems));
+			add(new FrontToDoPanel("todo", todoItems));
 		}
 	}
 	
@@ -82,10 +82,10 @@ public class ToDoPlugin extends IPlugin {
 		ToDoItem todoItem = (ToDoItem) this.getToDoItem(contentUUID);
 		if (isAdmin)
 		{
-			add(new AdminToDoPanel("todoplugin", todoItem));
+			add(new AdminToDoPanel("todo", todoItem));
 		} else
 		{
-			add(new FrontToDoPanel("todoplugin", this.getToDoItems()));
+			add(new FrontToDoPanel("todo", this.getToDoItems()));
 		}
 	}
 	

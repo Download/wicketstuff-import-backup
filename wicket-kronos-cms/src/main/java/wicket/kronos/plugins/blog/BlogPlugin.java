@@ -59,14 +59,14 @@ public class BlogPlugin extends IPlugin {
 			}
 			if(action.equalsIgnoreCase("") || action == null)
 			{
-				add(new AdminBlogPanel("blogpluginpanel", blogposts, pluginUUID));
+				add(new AdminBlogPanel("blogplugin", blogposts, pluginUUID));
 			} else
 			{
-				add(new AdminBlogPanel("blogpluginpanel", (BlogPost)null));
+				add(new AdminBlogPanel("blogplugin", (BlogPost)null));
 			}
 		} else
 		{
-			add(new FrontBlogPanel("blogpluginpanel", blogposts));
+			add(new FrontBlogPanel("blogplugin", blogposts));
 		}
 	}
 
@@ -91,10 +91,10 @@ public class BlogPlugin extends IPlugin {
 		BlogPost blogpost = this.getBlogPost(contentUUID);
 		if (isAdmin)
 		{
-			add(new AdminBlogPanel("blogpluginpanel", blogpost));
+			add(new AdminBlogPanel("blogplugin", blogpost));
 		} else
 		{
-			add(new FrontBlogPanel("blogpluginpanel", blogpost));
+			add(new FrontBlogPanel("blogplugin", blogpost));
 		}
 	}
 

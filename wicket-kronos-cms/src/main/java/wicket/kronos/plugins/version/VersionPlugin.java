@@ -33,9 +33,9 @@ public class VersionPlugin extends IPlugin {
 				areaposition, pluginType);
 		if(isAdmin)
 		{
-			add(new VersionAdminPanel("versionpanel", pluginUUID));
+			add(new VersionAdminPanel("version", pluginUUID));
 		} else {
-			add(new VersionFrontpagePanel("versionpanel"));
+			add(new VersionFrontpagePanel("version"));
 		}
 	}
 

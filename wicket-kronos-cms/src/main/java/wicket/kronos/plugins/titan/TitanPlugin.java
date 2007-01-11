@@ -1,12 +1,8 @@
 package wicket.kronos.plugins.titan;
 
-import wicket.PageMap;
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.plugins.titan.panels.TitanAdminPanel;
 import wicket.kronos.plugins.titan.panels.TitanFrontpagePanel;
-import wicket.kronos.plugins.titan.popup.TitanPopup;
-import wicket.markup.html.link.BookmarkablePageLink;
-import wicket.markup.html.link.PopupSettings;
 
 /**
  * @author postma
@@ -38,9 +34,9 @@ public class TitanPlugin extends IPlugin {
 				areaposition, pluginType);
 		if(isAdmin)
 		{
-			add(new TitanAdminPanel("titanpanel", pluginUUID));
+			add(new TitanAdminPanel("titan", pluginUUID));
 		} else {
-			add(new TitanFrontpagePanel("titanpanel"));
+			add(new TitanFrontpagePanel("titan"));
 		}
 	}
 

@@ -37,15 +37,15 @@ public class LoginPlugin extends IPlugin {
 				areaposition, pluginType);
 		if(isAdmin)
 		{
-			add(new LoginAdminPanel("signInPanel", pluginUUID));
+			add(new LoginAdminPanel("signin", pluginUUID));
 		}else {
 			if (KronosSession.get().isSignedIn())
 			{
 				User user = KronosSession.get().getSignedInUser();
-				add(new loggedInUserPanel("signInPanel", user.getName()));
+				add(new loggedInUserPanel("signin", user.getName()));
 			} else
 			{
-				add(new SignInPanel("signInPanel"));
+				add(new SignInPanel("signin"));
 			}
 		}
 	}

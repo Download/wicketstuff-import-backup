@@ -78,17 +78,17 @@ public class MenuPlugin extends IPlugin {
 			{
 				if(((String)param.get("action")).equalsIgnoreCase("newInternal"))
 				{
-					add(new AdminNewInternalMenuItem("panel", pluginname));
+					add(new AdminNewInternalMenuItem("menu", pluginname));
 				} else if(((String)param.get("action")).equalsIgnoreCase("newExternal"))
 				{
-					add(new AdminNewExternalMenuItem("panel", pluginname));
+					add(new AdminNewExternalMenuItem("menu", pluginname));
 				}
 			} else
 			{
-				add(new MenuAdminpagePanel("panel", this.getMenuItems(), this.pluginUUID, isHorizontal));
+				add(new MenuAdminpagePanel("menu", this.getMenuItems(), this.pluginUUID, isHorizontal));
 			}
 		} else {
-			add(new MenuFrontpagePanel("panel", this.getMenuItems(), isHorizontal));
+			add(new MenuFrontpagePanel("menu", this.getMenuItems(), isHorizontal));
 		}
 	}
 

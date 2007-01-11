@@ -51,9 +51,9 @@ public class BannerPlugin extends IPlugin {
 		DynamicImageResource resource = this.getImage();
 		if(isAdmin)
 		{
-			add(new BannerAdminpagePanel("panel", pluginUUID, imageUUID));
+			add(new BannerAdminpagePanel("bannerplugin", pluginUUID, imageUUID));
 		} else {
-			add(new BannerFrontpagePanel("panel", resource));
+			add(new BannerFrontpagePanel("bannerplugin", resource));
 		}
 	}
 	

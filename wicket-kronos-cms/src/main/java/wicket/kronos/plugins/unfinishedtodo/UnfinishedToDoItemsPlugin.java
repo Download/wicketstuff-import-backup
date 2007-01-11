@@ -16,8 +16,6 @@ import javax.jcr.query.QueryResult;
 import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.plugins.ToDo.ToDoItem;
-import wicket.kronos.plugins.ToDo.adminpage.AdminToDoPanel;
-import wicket.kronos.plugins.ToDo.frontpage.FrontToDoPanel;
 import wicket.kronos.plugins.unfinishedtodo.panels.UnfinishedToDoItemsAdminPagePanel;
 import wicket.kronos.plugins.unfinishedtodo.panels.UnfinishedToDoItemsFrontpagePanel;
 
@@ -58,9 +56,9 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 		
 		if (isAdmin)
 		{
-			add(new UnfinishedToDoItemsAdminPagePanel("unfinishedtodoplugin", pluginUUID));
+			add(new UnfinishedToDoItemsAdminPagePanel("unfinishedtodo", pluginUUID));
 		}else {
-			add(new UnfinishedToDoItemsFrontpagePanel("unfinishedtodoplugin", unfinishedToDoItems, toDoPluginUUID));
+			add(new UnfinishedToDoItemsFrontpagePanel("unfinishedtodo", unfinishedToDoItems, toDoPluginUUID));
 		}
 	}
 
