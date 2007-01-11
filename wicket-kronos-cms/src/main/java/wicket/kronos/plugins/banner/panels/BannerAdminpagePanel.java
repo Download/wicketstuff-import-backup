@@ -145,6 +145,7 @@ public class BannerAdminpagePanel extends AdminPanel {
 				Node imageNode = jcrSession.getNodeByUUID(imageUUID);
 
 				bannerNode.setProperty("kronos:bannerimage", imageNode);
+				jcrSession.save();
 			}
 			catch (RepositoryException e)
 			{

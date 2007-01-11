@@ -45,6 +45,29 @@ public class Frontpage extends KronosPage {
 	public Frontpage(PageParameters pageParameters)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
+		
+		/*
+		 * Temporary: Generate a XML-File with the entire contents of the repository
+		 */
+		
+		/*try
+		{
+			FileOutputStream out = new FileOutputStream("output.xml");
+			jcrSession.exportDocumentView(jcrSession.getRootNode().getPath(), out, false, false);
+		}
+		catch (PathNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}*/
+		
 		try
 		{
 			Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(
@@ -90,28 +113,6 @@ public class Frontpage extends KronosPage {
 				IPlugin plugin = DataProcessor.getPlugin(false, ID);
 				this.init(plugin.getAreaPosition(), plugin);
 			}
-		}
-
-		/*
-		 * Temporary: Generate a XML-File with the entire contents of the repository
-		 */
-		try
-		{
-			Session session = KronosSession.get().getJCRSession();
-			FileOutputStream out = new FileOutputStream("output.xml");
-			session.exportDocumentView(session.getRootNode().getPath(), out, false, false);
-		}
-		catch (PathNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (RepositoryException e)
-		{
-			e.printStackTrace();
 		}
 	}
 

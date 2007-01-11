@@ -18,6 +18,10 @@ li ul {
     z-index: 10;
 }
 
+li ul li a{
+   border-top: solid #7A7F76 1px;
+}
+
 ul li a {
     display: block;
     text-decoration: none;
@@ -50,7 +54,7 @@ li:hover ul, li.over ul {
 	background-color: #ffffff;
 	border-style: solid;
 	border-color: #A8A8A8;
-	border-width: 2px 0px 0px 0px;
+	border-width: 2px 0px 2px 0px;
 }
 
 #menu_right {

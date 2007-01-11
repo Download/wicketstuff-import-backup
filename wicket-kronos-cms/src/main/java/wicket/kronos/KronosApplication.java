@@ -41,12 +41,12 @@ public class KronosApplication extends AuthenticatedWebApplication {
 		try
 		{
 			this.repository = new TransientRepository();
-			DataProcessor.repositoryStartup();
+			//DataProcessor.repositoryStartup();
 		}
 		catch (IOException e)
 		{
 			throw new RuntimeException(e);
-		}
+		}/*
 		catch (InvalidNodeTypeDefException e)
 		{
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class KronosApplication extends AuthenticatedWebApplication {
 		catch (RepositoryException e)
 		{
 
-		}
+		}*/
 
 		mountBookmarkablePage("/admin", AdminPage.class);
 	}
