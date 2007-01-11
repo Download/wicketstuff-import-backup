@@ -13,5 +13,4 @@ public class RoleCheckingStrategy implements IRoleCheckingStrategy {
 		Roles rolesset = DataProcessor.getRoles();
 		return rolesset.hasAnyRole(userroles);
 	}
-
 }

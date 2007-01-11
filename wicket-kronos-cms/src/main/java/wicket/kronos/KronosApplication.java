@@ -28,6 +28,7 @@ import wicket.kronos.frontpage.Frontpage;
  * @see wicket.kronos.Start#main(String[])
  */
 public class KronosApplication extends AuthenticatedWebApplication {
+	
 	/** Logging */
 	private static final Log log = LogFactory.getLog(KronosApplication.class);
 

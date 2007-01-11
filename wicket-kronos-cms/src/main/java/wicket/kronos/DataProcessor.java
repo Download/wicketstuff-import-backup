@@ -100,6 +100,8 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Retreive the images from the repository
+	 * 
 	 * @return List<CMSImageResource>
 	 */
 	public static List<CMSImageResource> getImages()
@@ -172,9 +174,9 @@ public final class DataProcessor {
 	/**
 	 * Retreive a list of image nodes from repository
 	 * 
-	 * @return List
+	 * @return List<Node>
 	 */
-	public static List getImageNodes()
+	public static List<Node> getImageNodes()
 	{
 		List<Node> imageNodes = new ArrayList<Node>();
 		
@@ -209,6 +211,7 @@ public final class DataProcessor {
 	 * @param pluginUUID
 	 * @return PluginProperties
 	 */
+	@SuppressWarnings("boxing")
 	public static PluginProperties getPluginProperties(String pluginUUID)
 	{
 		PluginProperties properties = null;
@@ -378,6 +381,7 @@ public final class DataProcessor {
 	 * 
 	 * @param menuName 
 	 * @param name
+	 * @param order 
 	 * @param link
 	 */
 	public static void saveNewExternalMenuItem(String menuName, String name, int order, String link)
@@ -431,6 +435,7 @@ public final class DataProcessor {
 	 * 
 	 * @param menuName
 	 * @param name
+	 * @param order 
 	 * @param IDType
 	 * @param ID
 	 */
@@ -481,6 +486,8 @@ public final class DataProcessor {
 	}
 	
 	/**
+	 * Retreive node type which corresponds with the canonicalPluginName
+	 * 
 	 * @param canonicalPluginName
 	 * @return String
 	 */
@@ -517,9 +524,9 @@ public final class DataProcessor {
 	/**
 	 * Retreive list of available plugin types from repository
 	 * 
-	 * @return List
+	 * @return List<String>
 	 */
-	public static List getPluginTypes() 
+	public static List<String> getPluginTypes() 
 	{
 		List<String> pluginTypes = new ArrayList<String>();
 		
@@ -655,6 +662,7 @@ public final class DataProcessor {
 	 * @param contentUUID
 	 * @return IPlugin
 	 */
+	@SuppressWarnings("boxing")
 	public static IPlugin getPluginByContent(boolean isAdmin, String contentUUID)
 	{
 		assert (contentUUID != null);
@@ -750,6 +758,7 @@ public final class DataProcessor {
 	
 	/**
 	 * Retrieve a list with all content identities
+	 * 
 	 * @return List<String>
 	 */
 	public static List<String> getContentIdentities()
@@ -1057,7 +1066,7 @@ public final class DataProcessor {
 		Node root = session.getRootNode();
 		Node cms = root.addNode("kronos:cms", "kronos:Cms");
 		
-		Node configuration = cms.addNode("kronos:configuration");
+		cms.addNode("kronos:configuration");
 
 		Node roles = cms.addNode("kronos:roles");
 		Node role = roles.addNode("kronos:role");
@@ -1392,7 +1401,7 @@ public final class DataProcessor {
 		
 /* Start of admin menu test */
 		
-//		Creating menu structure
+//Creating menu structure
 		Node adminmenus = cms.addNode("kronos:adminmenus");
 		Node adminmenu = adminmenus.addNode("kronos:adminmenu"); 
 		

@@ -16,7 +16,9 @@ public class CMSImageResource extends DynamicImageResource {
 	private byte[] imageData = null;
 
 	/**
+	 * Constructor.
 	 * @param imageData
+	 * @param imageName 
 	 */
 	public CMSImageResource(byte[] imageData, String imageName)
 	{
@@ -30,29 +32,43 @@ public class CMSImageResource extends DynamicImageResource {
 		return imageData;
 	}
 
+	/**
+	 * @return String imageName
+	 */
 	public String getImageName()
 	{
 		return imageName;
 	}
 
+	/**
+	 * @param imageName
+	 */
 	public void setImageName(String imageName)
 	{
 		this.imageName = imageName;
 	}
 
+	/**
+	 * @param imageData
+	 */
 	public void setImageData(byte[] imageData)
 	{
 		this.imageData = imageData;
 	}
 
+	/**
+	 * @return boolean
+	 */
 	public boolean isSelected()
 	{
 		return selected;
 	}
 
+	/**
+	 * @param selected
+	 */
 	public void setSelected(boolean selected)
 	{
 		this.selected = selected;
 	}
-
 }

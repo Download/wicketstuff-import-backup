@@ -39,11 +39,19 @@ import wicket.authorization.strategies.role.Roles;
  */
 public final class KronosSession extends AuthenticatedWebSession {
 
+	/**
+	 * Default serialVersionUID
+	 */
 	private static final long serialVersionUID = 1L;
 
-	/* The JackRabbit Session that is stored */
+	/**
+	 *  The JackRabbit Session that is stored 
+	 */
 	private transient Session jcrSession = null;
 
+	/**
+	 * The page parameters that are stored
+	 */
 	private PageParameters pageParameters = null;
 
 	/**
@@ -164,6 +172,9 @@ public final class KronosSession extends AuthenticatedWebSession {
 		return this.pageParameters;
 	}
 
+	/**
+	 * @return KronosSession
+	 */
 	public static KronosSession get()
 	{
 		return (KronosSession) wicket.Session.get();

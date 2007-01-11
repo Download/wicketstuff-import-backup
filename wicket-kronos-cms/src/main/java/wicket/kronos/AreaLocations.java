@@ -33,9 +33,10 @@ public final class AreaLocations {
 	public static final int FOOTER = 4;
 
 	/**
-	 * @param location
-	 *            number
-	 * @return location string
+	 * Retreive area location name as string 
+	 * 
+	 * @param location as integer
+	 * @return location as string
 	 */
 	public static String getLocationname(int location)
 	{
@@ -65,6 +66,8 @@ public final class AreaLocations {
 	}
 	
 	/**
+	 * Retreive a list with all arealocations ass integers
+	 * 
 	 * @return List list with arealocations
 	 */
 	@SuppressWarnings("unchecked")

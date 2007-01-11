@@ -8,10 +8,11 @@ import wicket.markup.html.WebPage;
  * getKronosSession().
  */
 public abstract class KronosPage extends WebPage {
+	
 	/**
-	 * Get downcast session object for easy access by subclasses
+	 * Get casted session object as KronosSession object
 	 * 
-	 * @return The session
+	 * @return KronosSession
 	 */
 	public KronosSession getKronosSession()
 	{
