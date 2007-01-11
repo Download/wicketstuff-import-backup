@@ -400,6 +400,18 @@ public final class DataProcessor {
 				menuItem.setProperty("kronos:linkType", "external");
 				menuItem.setProperty("kronos:link", link);
 				jcrSession.save();
+			} else {
+				
+				Node root = jcrSession.getRootNode();
+				Node menus = root.getNode("kronos:cms").getNode("kronos:menus");
+				Node menu = menus.addNode("kronos:menu");
+				menu.setProperty("kronos:menuname", menuName);
+				
+				Node menuItem = menu.addNode("kronos:menuitem");
+				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:linkType", "external");
+				menuItem.setProperty("kronos:link", link);
+				jcrSession.save();
 			}
 		}
 		catch (ItemNotFoundException e)
@@ -433,6 +445,19 @@ public final class DataProcessor {
 			if (it.hasNext())
 			{
 				Node menu = it.nextNode();
+				Node menuItem = menu.addNode("kronos:menuitem");
+				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:linkType", "internal");
+				menuItem.setProperty("kronos:IDType", IDType);
+				menuItem.setProperty("kronos:ID", ID);
+				jcrSession.save();
+			} else {
+				
+				Node root = jcrSession.getRootNode();
+				Node menus = root.getNode("kronos:cms").getNode("kronos:menus");
+				Node menu = menus.addNode("kronos:menu");
+				menu.setProperty("kronos:menuname", menuName);
+				
 				Node menuItem = menu.addNode("kronos:menuitem");
 				menuItem.setProperty("kronos:menuitemname", name);
 				menuItem.setProperty("kronos:linkType", "internal");
