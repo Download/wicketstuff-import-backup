@@ -4,9 +4,8 @@ import wicket.kronos.adminpage.AdminPanel;
 
 /**
  * @author postma
- *
  */
-public class TitanAdminPanel extends AdminPanel{
+public class TitanAdminPanel extends AdminPanel {
 
 	/**
 	 * Default serialVersionUID
@@ -15,6 +14,7 @@ public class TitanAdminPanel extends AdminPanel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 * @param pluginUUID
 	 */

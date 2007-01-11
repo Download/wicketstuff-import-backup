@@ -34,7 +34,7 @@ public class FrontBlogOverview extends Panel {
 	{
 		super(id);
 		ListView blogpostsList = new ListView("blogposts", blogposts) {
-			
+
 			/**
 			 * Default serialVersionUID
 			 */
@@ -54,15 +54,13 @@ public class FrontBlogOverview extends Panel {
 				}
 				item.add(new MultiLineLabel("text", text).setEscapeModelStrings(false));
 				Date date = blogpost.getDate().getTime();
-				SimpleDateFormat blogDateFormat = new SimpleDateFormat(
-						"dd-MM-yyyy");
+				SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 				item.add(new Label("date", blogDateFormat.format(date)));
 				item.add(new Label("author", blogpost.getAuthor()));
 				PageParameters param = new PageParameters();
 				param.add("IDType", "content");
 				param.add("ID", blogpost.getPostUUID());
-				item.add(new BookmarkablePageLink("readMoreLink",
-						Frontpage.class, param));
+				item.add(new BookmarkablePageLink("readMoreLink", Frontpage.class, param));
 			}
 		};
 

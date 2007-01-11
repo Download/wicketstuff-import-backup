@@ -3,8 +3,7 @@ package wicket.kronos.plugins.menu;
 import java.io.Serializable;
 
 /**
- * This class is used by the menuPlugin as a as a representation of the
- * menuItems.
+ * This class is used by the menuPlugin as a as a representation of the menuItems.
  * 
  * @author roeloffzen
  */
@@ -16,9 +15,9 @@ public class MenuItem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean remove;
-	
+
 	private int order;
-	
+
 	private String name;
 
 	private String linkType;
@@ -32,8 +31,7 @@ public class MenuItem implements Serializable {
 	private String ID;
 
 	/**
-	 * Basic constructor sets the default values for all the instance variables.
-	 * (Null or false)
+	 * Basic constructor sets the default values for all the instance variables. (Null or false)
 	 */
 	public MenuItem()
 	{
@@ -56,7 +54,8 @@ public class MenuItem implements Serializable {
 	}
 
 	/**
-	 * @param remove the remove to set
+	 * @param remove
+	 *            the remove to set
 	 */
 	public void setRemove(boolean remove)
 	{

@@ -41,9 +41,8 @@ public abstract class IPlugin extends Panel {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public IPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public IPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
 		super("plugin");
 		assert (pluginUUID != null);
@@ -72,12 +71,10 @@ public abstract class IPlugin extends Panel {
 	 * @param pluginType
 	 * @param contentUUID
 	 */
-	public IPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType, String contentUUID)
+	public IPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType, String contentUUID)
 	{
-		this(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition,
-				pluginType);
+		this(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		this.contentUUID = contentUUID;
 	}
 
@@ -183,8 +180,8 @@ public abstract class IPlugin extends Panel {
 	public abstract boolean isConfigurable();
 
 	/**
-	 * Default save method to save the data in the repository Plugins with more
-	 * options should override this method
+	 * Default save method to save the data in the repository Plugins with more options should
+	 * override this method
 	 */
 	public void save()
 	{

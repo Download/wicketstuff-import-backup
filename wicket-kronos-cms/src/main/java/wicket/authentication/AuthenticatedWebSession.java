@@ -23,9 +23,8 @@ import wicket.authorization.strategies.role.Roles;
 import wicket.protocol.http.WebSession;
 
 /**
- * Basic authenticated web session. Subclasses must provide a method that
- * authenticates the session based on a username and password, and a method
- * implementation that gets the Roles
+ * Basic authenticated web session. Subclasses must provide a method that authenticates the session
+ * based on a username and password, and a method implementation that gets the Roles
  * 
  * @author Jonathan Locke
  */

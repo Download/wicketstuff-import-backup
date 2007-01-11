@@ -15,7 +15,7 @@ public class HelloWorld extends IPlugin {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Default plugin constructor. Creates a Label with a Hello World text
 	 * 
@@ -27,20 +27,18 @@ public class HelloWorld extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public HelloWorld(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public HelloWorld(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
-		if(isAdmin)
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
+		if (isAdmin)
 		{
 			add(new HelloWorldAdminpagePanel("helloworld", pluginUUID));
-		} else {
-			add(new Label("helloworld",
-					"Hello beautiful world how is theigh today?"));
+		} else
+		{
+			add(new Label("helloworld", "Hello beautiful world how is theigh today?"));
 		}
-	}	
+	}
 
 	@Override
 	public boolean isConfigurable()

@@ -15,8 +15,8 @@ public class TitanPlugin extends IPlugin {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * This class only supports a constructor without specific contentUUID. Only
-	 * adds a link that will trigger a popup
+	 * This class only supports a constructor without specific contentUUID. Only adds a link that
+	 * will trigger a popup
 	 * 
 	 * @param isAdmin
 	 * @param pluginUUID
@@ -26,16 +26,15 @@ public class TitanPlugin extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public TitanPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public TitanPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
-		if(isAdmin)
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
+		if (isAdmin)
 		{
 			add(new TitanAdminPanel("titan", pluginUUID));
-		} else {
+		} else
+		{
 			add(new TitanFrontpagePanel("titan"));
 		}
 	}

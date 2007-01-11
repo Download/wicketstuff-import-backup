@@ -32,8 +32,8 @@ import wicket.authentication.User;
 import wicket.authorization.strategies.role.Roles;
 
 /**
- * Subclass of WebSession for KronosApplication to allow easy and typesafe
- * access to session properties.
+ * Subclass of WebSession for KronosApplication to allow easy and typesafe access to session
+ * properties.
  * 
  * @author Jonathan Locke
  */
@@ -45,7 +45,7 @@ public final class KronosSession extends AuthenticatedWebSession {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 *  The JackRabbit Session that is stored 
+	 * The JackRabbit Session that is stored
 	 */
 	private transient Session jcrSession = null;
 
@@ -142,10 +142,8 @@ public final class KronosSession extends AuthenticatedWebSession {
 		{
 			try
 			{
-				this.jcrSession = KronosApplication.get().getRepository()
-						.login(
-								new SimpleCredentials("userid", ""
-										.toCharArray()));
+				this.jcrSession = KronosApplication.get().getRepository().login(
+						new SimpleCredentials("userid", "".toCharArray()));
 
 			}
 			catch (RepositoryException e)

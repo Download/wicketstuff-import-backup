@@ -32,8 +32,7 @@ public class RoleAuthorizationStrategy extends CompoundAuthorizationStrategy {
 	 * @param roleCheckingStrategy
 	 *            the role checking strategy
 	 */
-	public RoleAuthorizationStrategy(
-			final IRoleCheckingStrategy roleCheckingStrategy)
+	public RoleAuthorizationStrategy(final IRoleCheckingStrategy roleCheckingStrategy)
 	{
 		add(new AnnotationsRoleAuthorizationStrategy(roleCheckingStrategy));
 		add(new MetaDataRoleAuthorizationStrategy(roleCheckingStrategy));

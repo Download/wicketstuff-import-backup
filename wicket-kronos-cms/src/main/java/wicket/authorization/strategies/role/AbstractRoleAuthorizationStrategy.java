@@ -25,8 +25,7 @@ import wicket.authorization.IAuthorizationStrategy;
  * 
  * @author Eelco Hillenius
  */
-public abstract class AbstractRoleAuthorizationStrategy implements
-		IAuthorizationStrategy {
+public abstract class AbstractRoleAuthorizationStrategy implements IAuthorizationStrategy {
 	/** Role checking strategy. */
 	private final IRoleCheckingStrategy roleCheckingStrategy;
 
@@ -36,13 +35,11 @@ public abstract class AbstractRoleAuthorizationStrategy implements
 	 * @param roleCheckingStrategy
 	 *            the authorizer delegate
 	 */
-	public AbstractRoleAuthorizationStrategy(
-			IRoleCheckingStrategy roleCheckingStrategy)
+	public AbstractRoleAuthorizationStrategy(IRoleCheckingStrategy roleCheckingStrategy)
 	{
 		if (roleCheckingStrategy == null)
 		{
-			throw new IllegalArgumentException(
-					"roleCheckingStrategy must be not null");
+			throw new IllegalArgumentException("roleCheckingStrategy must be not null");
 		}
 		this.roleCheckingStrategy = roleCheckingStrategy;
 	}

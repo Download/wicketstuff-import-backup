@@ -18,14 +18,19 @@ import wicket.model.CompoundPropertyModel;
 public class AdminPanel extends Panel {
 
 	private static final long serialVersionUID = 1L;
+
 	protected PluginProperties properties;
+
 	protected String oldPluginName;
+
 	private String myPluginType = null;
+
 	protected String pluginUUID;
 
 	/**
 	 * Default constructor when no plugin is to be configured
-	 * @param wicketId 
+	 * 
+	 * @param wicketId
 	 */
 	public AdminPanel(String wicketId)
 	{
@@ -47,17 +52,16 @@ public class AdminPanel extends Panel {
 		properties = DataProcessor.getPluginProperties(pluginUUID);
 		String tempType = properties.getPluginType();
 		int lastPeriod = tempType.lastIndexOf(".");
-		myPluginType = tempType.substring(lastPeriod+1);
+		myPluginType = tempType.substring(lastPeriod + 1);
 		oldPluginName = properties.getName();
 		add(new AdminForm("adminpanelform"));
 	}
 
 	/**
 	 * @author postma
-	 *
 	 */
 	public class AdminForm extends Form {
-		
+
 		/**
 		 * Default serialVersionUID
 		 */
@@ -65,35 +69,38 @@ public class AdminPanel extends Panel {
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param id
 		 */
 		public AdminForm(String id)
 		{
 			super(id, new CompoundPropertyModel(properties));
 
-			/*List pluginType = Arrays.asList(new String[] {"HelloWorld", "Blog",
-					"Menu"});*/
+			/*
+			 * List pluginType = Arrays.asList(new String[] {"HelloWorld", "Blog", "Menu"});
+			 */
 
 			add(new TextField("name"));
 			add(new CheckBox("published"));
 			add(new Label("pluginType", myPluginType));
 			add(new TextField("order"));
-			add(new DropDownChoice("position", AreaLocations.getAreaLocations(), new IChoiceRenderer() {
-				
-				public String getIdValue(Object object, int arg1)
-				{	
-					return ((Integer)object).toString();
-				}
-			
-				public Object getDisplayValue(Object object)
-				{
-					int value = ((Integer)object).intValue();
-					return AreaLocations.getLocationname(value);
-				}
-				
-			}));
+			add(new DropDownChoice("position", AreaLocations.getAreaLocations(),
+					new IChoiceRenderer() {
+
+						public String getIdValue(Object object, int arg1)
+						{
+							return ((Integer) object).toString();
+						}
+
+						public Object getDisplayValue(Object object)
+						{
+							int value = ((Integer) object).intValue();
+							return AreaLocations.getLocationname(value);
+						}
+
+					}));
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{

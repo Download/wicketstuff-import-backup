@@ -34,7 +34,7 @@ public class FrontBlogpost extends Panel {
 		super(id);
 
 		add(new Label("title", blogpost.getTitle()));
-		add(new MultiLineLabel("text", blogpost.getText()).setEscapeModelStrings(false) );
+		add(new MultiLineLabel("text", blogpost.getText()).setEscapeModelStrings(false));
 		Date date = blogpost.getDate().getTime();
 		SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -73,8 +73,7 @@ public class FrontBlogpost extends Panel {
 
 				item.add(new MultiLineLabel("commenttext", comment.getText()));
 				Date date = comment.getDate().getTime();
-				SimpleDateFormat blogDateFormat = new SimpleDateFormat(
-						"dd-MM-yyyy");
+				SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 				item.add(new Label("commentdate", blogDateFormat.format(date)));
 				item.add(new Label("commentauthor", comment.getAuthor()));

@@ -26,11 +26,10 @@ import wicket.Component;
 import wicket.authorization.strategies.role.Roles;
 
 /**
- * An internal data structure that maps a given component class to a set of role
- * strings. Permissions can be granted to instantiate a given component class
- * via authorize(Class, Roles roles) and denied via unauthorize(Class, Roles
- * roles). All authorization can be removed for a given class with
- * authorizeAll(Class).
+ * An internal data structure that maps a given component class to a set of role strings.
+ * Permissions can be granted to instantiate a given component class via authorize(Class, Roles
+ * roles) and denied via unauthorize(Class, Roles roles). All authorization can be removed for a
+ * given class with authorizeAll(Class).
  * 
  * @author Eelco Hillenius
  * @author Jonathan Locke
@@ -49,20 +48,17 @@ final class InstantiationPermissions implements Serializable {
 	 * @param rolesToAdd
 	 *            The roles to add
 	 */
-	public final void authorize(
-			final Class<? extends Component> componentClass,
+	public final void authorize(final Class<? extends Component> componentClass,
 			final Roles rolesToAdd)
 	{
 		if (componentClass == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument componentClass cannot be null");
+			throw new IllegalArgumentException("Argument componentClass cannot be null");
 		}
 
 		if (rolesToAdd == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument rolesToadd cannot be null");
+			throw new IllegalArgumentException("Argument rolesToadd cannot be null");
 		}
 
 		Roles roles = rolesForComponentClass.get(componentClass);
@@ -80,13 +76,11 @@ final class InstantiationPermissions implements Serializable {
 	 * @param componentClass
 	 *            The component class
 	 */
-	public final void authorizeAll(
-			final Class<? extends Component> componentClass)
+	public final void authorizeAll(final Class<? extends Component> componentClass)
 	{
 		if (componentClass == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument componentClass cannot be null");
+			throw new IllegalArgumentException("Argument componentClass cannot be null");
 		}
 
 		rolesForComponentClass.remove(componentClass);
@@ -97,16 +91,14 @@ final class InstantiationPermissions implements Serializable {
 	 * 
 	 * @param componentClass
 	 *            the component class
-	 * @return the roles that have a binding with the given component class, or
-	 *         null if no entries are found
+	 * @return the roles that have a binding with the given component class, or null if no entries
+	 *         are found
 	 */
-	public final Roles authorizedRoles(
-			final Class<? extends Component> componentClass)
+	public final Roles authorizedRoles(final Class<? extends Component> componentClass)
 	{
 		if (componentClass == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument componentClass cannot be null");
+			throw new IllegalArgumentException("Argument componentClass cannot be null");
 		}
 
 		return rolesForComponentClass.get(componentClass);
@@ -120,20 +112,17 @@ final class InstantiationPermissions implements Serializable {
 	 * @param rolesToRemove
 	 *            The role to deny
 	 */
-	public final void unauthorize(
-			final Class<? extends Component> componentClass,
+	public final void unauthorize(final Class<? extends Component> componentClass,
 			final Roles rolesToRemove)
 	{
 		if (componentClass == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument componentClass cannot be null");
+			throw new IllegalArgumentException("Argument componentClass cannot be null");
 		}
 
 		if (rolesToRemove == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument rolesToRemove cannot be null");
+			throw new IllegalArgumentException("Argument rolesToRemove cannot be null");
 		}
 
 		final Roles roles = rolesForComponentClass.get(componentClass);

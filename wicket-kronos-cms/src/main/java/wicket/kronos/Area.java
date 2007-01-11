@@ -24,6 +24,7 @@ public class Area extends Panel {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param areaId
 	 */
 	public Area(int areaId)
@@ -48,6 +49,7 @@ public class Area extends Panel {
 
 	/**
 	 * Construcor.
+	 * 
 	 * @param areaId
 	 * @param plugin
 	 */

@@ -19,9 +19,8 @@ import wicket.model.Model;
 
 /**
  * @author postma
- *
  */
-public class ConfigPanel extends Panel{
+public class ConfigPanel extends Panel {
 
 	/**
 	 * Default serialVersionUID
@@ -30,6 +29,7 @@ public class ConfigPanel extends Panel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
 	public ConfigPanel(String wicketId)
@@ -37,44 +37,48 @@ public class ConfigPanel extends Panel{
 		super(wicketId);
 		add(new ConfigForm("configForm"));
 	}
-	
-	private class ConfigForm extends Form{
+
+	private class ConfigForm extends Form {
 
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private DropDownChoice templateChoice = null;
+
 		private TextField titleField = null;
+
 		List<String> templateList = new ArrayList<String>();
-		
+
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketId
 		 */
 		public ConfigForm(String wicketId)
 		{
 			super(wicketId);
-			
+
 			File pathFile = new File("");
 			File file = new File(pathFile.getAbsoluteFile() + "/src/webapp/templates");
 			File[] files = file.listFiles();
-			for(int i = 0; i < files.length; i++)
+			for (int i = 0; i < files.length; i++)
 			{
 				File theFile = files[i];
-				if(theFile.isDirectory())
+				if (theFile.isDirectory())
 				{
-					if(!theFile.getName().startsWith("."))
-						templateList.add(theFile.getName());
+					if (!theFile.getName().startsWith(".")) templateList.add(theFile.getName());
 				}
 			}
-			
+
 			Session jcrSession = KronosSession.get().getJCRSession();
 			String templateName = null;
 			String pageTitle = null;
 			try
 			{
-				Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode("kronos:configuration");
+				Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(
+						"kronos:configuration");
 				templateName = configuration.getProperty("kronos:activetemplate").getString();
 				pageTitle = configuration.getProperty("kronos:pagetitle").getString();
 			}
@@ -86,29 +90,29 @@ public class ConfigPanel extends Panel{
 			{
 				e1.printStackTrace();
 			}
-			
+
 			titleField = new TextField("title", new Model());
 			titleField.setModelObject(pageTitle);
 			add(titleField);
-			
+
 			templateChoice = new DropDownChoice("templates", new Model(), templateList);
 			templateChoice.setModelObject(templateName);
 			add(templateChoice);
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{
 			String templateName = templateChoice.getModelObjectAsString();
 			String pageTitle = titleField.getModelObjectAsString();
-			
+
 			Session jcrSession = KronosSession.get().getJCRSession();
 
 			try
 			{
 				Node root = jcrSession.getRootNode();
 				Node configuration = root.getNode("kronos:cms").getNode("kronos:configuration");
-				
+
 				configuration.setProperty("kronos:activetemplate", templateName);
 				configuration.setProperty("kronos:pagetitle", pageTitle);
 				jcrSession.save();

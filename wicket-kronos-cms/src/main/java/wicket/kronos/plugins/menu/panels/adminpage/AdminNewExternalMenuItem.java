@@ -11,13 +11,12 @@ import wicket.markup.html.panel.Panel;
 import wicket.model.PropertyModel;
 
 /**
- * Creation of an new external menu item 
+ * Creation of an new external menu item
  * 
  * @author postma
- *
  */
-public class AdminNewExternalMenuItem extends Panel{
-	
+public class AdminNewExternalMenuItem extends Panel {
+
 	/**
 	 * Default serialVersionUID
 	 */
@@ -25,30 +24,31 @@ public class AdminNewExternalMenuItem extends Panel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
-	 * @param menuName 
+	 * @param menuName
 	 */
 	public AdminNewExternalMenuItem(String wicketId, String menuName)
 	{
 		super(wicketId);
 		add(new ExternalMenuItemForm("externalMenuitemForm", menuName));
 	}
-	
+
 	/**
 	 * @author postma
-	 *
 	 */
-	public class ExternalMenuItemForm extends Form{
-		
+	public class ExternalMenuItemForm extends Form {
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Constructor. 
+		 * Constructor.
+		 * 
 		 * @param wicketId
-		 * @param menuName 
+		 * @param menuName
 		 */
 		public ExternalMenuItemForm(String wicketId, final String menuName)
 		{
@@ -57,14 +57,13 @@ public class AdminNewExternalMenuItem extends Panel{
 			add(new TextField("order", new PropertyModel(nemim, "order")));
 			add(new TextField("linkname", new PropertyModel(nemim, "name")));
 			add(new TextField("externallink", new PropertyModel(nemim, "link")));
-			
-			//TODO check to make sure supplied link is valid
-			
-			add(new Button("saveMenuItem")
-			{
+
+			// TODO check to make sure supplied link is valid
+
+			add(new Button("saveMenuItem") {
 				@Override
 				public void onSubmit()
-				{				
+				{
 					String linkname = nemim.getName();
 					String externallink = nemim.getLink();
 					int order = nemim.getOrder();
@@ -74,24 +73,25 @@ public class AdminNewExternalMenuItem extends Panel{
 			});
 		}
 	}
-	
+
 	/**
 	 * Model for a new external menu item
 	 * 
 	 * @author postma
-	 *
 	 */
-	public class NewExternalMenuItemModel implements Serializable{
-		
+	public class NewExternalMenuItemModel implements Serializable {
+
 		/**
 		 * Default serialVErsionUID
 		 */
 		private static final long serialVersionUID = 1L;
-		
+
 		String name;
+
 		String link;
+
 		int order;
-		
+
 		/**
 		 * Constructor.
 		 */

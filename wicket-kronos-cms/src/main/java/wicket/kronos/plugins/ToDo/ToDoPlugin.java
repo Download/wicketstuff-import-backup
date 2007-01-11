@@ -21,7 +21,6 @@ import wicket.kronos.plugins.ToDo.frontpage.FrontToDoPanel;
 
 /**
  * @author postma
- *
  */
 public class ToDoPlugin extends IPlugin {
 
@@ -32,6 +31,7 @@ public class ToDoPlugin extends IPlugin {
 
 	/**
 	 * Constructor when no specific content should be displayed
+	 * 
 	 * @param isAdmin
 	 * @param pluginUUID
 	 * @param pluginname
@@ -40,32 +40,36 @@ public class ToDoPlugin extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public ToDoPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished, Integer order, Integer areaposition, String pluginType)
+	public ToDoPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		List<ToDoItem> todoItems = this.getToDoItems();
-		
+
 		if (isAdmin)
 		{
 			PageParameters param = KronosSession.get().getPageParameters();
 			String action = "";
-			if(param.containsKey("action"))
+			if (param.containsKey("action"))
 			{
 				action = param.getString("action");
 			}
-			if(action.equalsIgnoreCase("") || action == null)
+			if (action.equalsIgnoreCase("") || action == null)
 			{
 				add(new AdminToDoPanel("todo", todoItems, pluginUUID));
-			} else {	
-				add(new AdminToDoPanel("todo", (ToDoItem)null));
+			} else
+			{
+				add(new AdminToDoPanel("todo", (ToDoItem) null));
 			}
-		}else {
+		} else
+		{
 			add(new FrontToDoPanel("todo", todoItems));
 		}
 	}
-	
+
 	/**
-	 * Constructor for a specific content 
+	 * Constructor for a specific content
+	 * 
 	 * @param isAdmin
 	 * @param pluginUUID
 	 * @param pluginname
@@ -75,12 +79,10 @@ public class ToDoPlugin extends IPlugin {
 	 * @param pluginType
 	 * @param contentUUID
 	 */
-	public ToDoPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType, String contentUUID)
+	public ToDoPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType, String contentUUID)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		ToDoItem todoItem = (ToDoItem) this.getToDoItem(contentUUID);
 		if (isAdmin)
 		{
@@ -90,7 +92,7 @@ public class ToDoPlugin extends IPlugin {
 			add(new FrontToDoPanel("todo", this.getToDoItems()));
 		}
 	}
-	
+
 	/**
 	 * Retreive all ToDo Items from Repository
 	 * 
@@ -102,15 +104,15 @@ public class ToDoPlugin extends IPlugin {
 		List<ToDoItem> todoItems = new ArrayList<ToDoItem>();
 		ToDoItem todoItem = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '"+pluginName+"'] order by @kronos:done ascending", Query.XPATH);
+					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '"
+							+ pluginName + "'] order by @kronos:done ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -118,23 +120,25 @@ public class ToDoPlugin extends IPlugin {
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-				
+
 				String todoUUID = n.getUUID();
 				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();
 				Calendar date = n.getProperty("kronos:date").getDate();
-				
+
 				todoItem = new ToDoItem(todoUUID, title, subject, description, done, date);
 				todoItems.add(todoItem);
 			}
-		} catch(RepositoryException e) {
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
 		}
 		return todoItems;
 	}
-	
+
 	/**
 	 * Retreive a list with unfinished todo items
 	 * 
@@ -146,15 +150,14 @@ public class ToDoPlugin extends IPlugin {
 		List<ToDoItem> todoItems = new ArrayList<ToDoItem>();
 		ToDoItem todoItem = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '" 
+					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '"
 							+ this.pluginName + "' @kronos:done='false']", Query.XPATH);
 
 			QueryResult result = q.execute();
@@ -163,23 +166,25 @@ public class ToDoPlugin extends IPlugin {
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-				
+
 				String todoUUID = n.getUUID();
 				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();
 				Calendar date = n.getProperty("kronos:date").getDate();
-				
+
 				todoItem = new ToDoItem(todoUUID, title, subject, description, done, date);
 				todoItems.add(todoItem);
 			}
-		} catch(RepositoryException e) {
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
 		}
 		return todoItems;
 	}
-	
+
 	/**
 	 * Retreive one specific ToDo Item
 	 * 
@@ -191,27 +196,28 @@ public class ToDoPlugin extends IPlugin {
 	{
 		ToDoItem todoItem = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Node n = jcrSession.getNodeByUUID(contentUUID);
-			
+
 			String title = n.getProperty("kronos:name").getString();
 			String subject = n.getProperty("kronos:subject").getString();
 			String description = n.getProperty("kronos:content").getString();
 			Boolean done = n.getProperty("kronos:done").getBoolean();
 			Calendar date = n.getProperty("kronos:date").getDate();
-			
+
 			todoItem = new ToDoItem(contentUUID, title, subject, description, done, date);
-			
-		} catch(RepositoryException e) {
+
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
 		}
 		return todoItem;
 	}
-				
+
 	/**
 	 * Store a new or changed ToDo Item to the Repository
 	 * 
@@ -220,8 +226,7 @@ public class ToDoPlugin extends IPlugin {
 	@SuppressWarnings("boxing")
 	public void saveToDoItem(ToDoItem changedToDoItem)
 	{
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
@@ -241,10 +246,10 @@ public class ToDoPlugin extends IPlugin {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public boolean isConfigurable()
 	{
 		return true;
-	}	
+	}
 }

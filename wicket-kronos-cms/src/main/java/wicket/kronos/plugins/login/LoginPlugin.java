@@ -6,8 +6,8 @@ import wicket.kronos.plugins.IPlugin;
 import wicket.kronos.KronosSession;
 
 /**
- * A simple plugin that uses the signInPanel from the authentication package if
- * no user is logged in and an loggedInUserPanel if a user is logged in.
+ * A simple plugin that uses the signInPanel from the authentication package if no user is logged in
+ * and an loggedInUserPanel if a user is logged in.
  * 
  * @author roeloffzen
  */
@@ -29,16 +29,15 @@ public class LoginPlugin extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public LoginPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public LoginPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
-		if(isAdmin)
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
+		if (isAdmin)
 		{
 			add(new LoginAdminPanel("signin", pluginUUID));
-		}else {
+		} else
+		{
 			if (KronosSession.get().isSignedIn())
 			{
 				User user = KronosSession.get().getSignedInUser();

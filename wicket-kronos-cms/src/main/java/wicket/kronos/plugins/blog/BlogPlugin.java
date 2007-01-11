@@ -42,27 +42,25 @@ public class BlogPlugin extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public BlogPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public BlogPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		List<BlogPost> blogposts = this.getBlogPosts();
 		PageParameters param = KronosSession.get().getPageParameters();
 		String action = "";
 		if (isAdmin)
 		{
-			if(param.containsKey("action"))
+			if (param.containsKey("action"))
 			{
 				action = param.getString("action");
 			}
-			if(action.equalsIgnoreCase("") || action == null)
+			if (action.equalsIgnoreCase("") || action == null)
 			{
 				add(new AdminBlogPanel("blogplugin", blogposts, pluginUUID));
 			} else
 			{
-				add(new AdminBlogPanel("blogplugin", (BlogPost)null));
+				add(new AdminBlogPanel("blogplugin", (BlogPost) null));
 			}
 		} else
 		{
@@ -82,12 +80,10 @@ public class BlogPlugin extends IPlugin {
 	 * @param pluginType
 	 * @param contentUUID
 	 */
-	public BlogPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType, String contentUUID)
+	public BlogPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType, String contentUUID)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		BlogPost blogpost = this.getBlogPost(contentUUID);
 		if (isAdmin)
 		{
@@ -108,8 +104,7 @@ public class BlogPlugin extends IPlugin {
 		List<BlogPost> blogposts = new ArrayList<BlogPost>();
 		BlogPost post = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
@@ -131,12 +126,11 @@ public class BlogPlugin extends IPlugin {
 				String title = n.getProperty("kronos:name").getString();
 				String text = n.getProperty("kronos:text").getString();
 				String author = n.getProperty("kronos:author").getString();
-				
+
 				List<Comment> comments = this.getComments(postUUID);
 				int nrComments = comments.size();
-				
-				post = new BlogPost(postUUID, date, title, text, author,
-						comments, nrComments);
+
+				post = new BlogPost(postUUID, date, title, text, author, comments, nrComments);
 				blogposts.add(post);
 			}
 		}
@@ -149,8 +143,8 @@ public class BlogPlugin extends IPlugin {
 	}
 
 	/**
-	 * Retreive an blogpost it's comments is used by getBlogPost to retreive all
-	 * comments of an blogpost
+	 * Retreive an blogpost it's comments is used by getBlogPost to retreive all comments of an
+	 * blogpost
 	 * 
 	 * @param nrComments
 	 * @return List of Comments
@@ -160,16 +154,14 @@ public class BlogPlugin extends IPlugin {
 		List<Comment> comments = new ArrayList<Comment>();
 		Comment newComment = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:blogpost[@jcr:uuid='"
-					+ blogPostUUID + "']/kronos:comments/kronos:comment",
-					Query.XPATH);
+			Query q = qm.createQuery("//kronos:blogpost[@jcr:uuid='" + blogPostUUID
+					+ "']/kronos:comments/kronos:comment", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -185,7 +177,7 @@ public class BlogPlugin extends IPlugin {
 				newComment = new Comment(commentUUID, text, author, date);
 
 				comments.add(newComment);
-				
+
 			}
 		}
 		catch (RepositoryException e)
@@ -205,8 +197,7 @@ public class BlogPlugin extends IPlugin {
 	{
 		BlogPost blogpost = null;
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
@@ -217,12 +208,11 @@ public class BlogPlugin extends IPlugin {
 			String title = n.getProperty("kronos:name").getString();
 			String text = n.getProperty("kronos:text").getString();
 			String author = n.getProperty("kronos:author").getString();
-			
+
 			List<Comment> comments = this.getComments(postUUID);
 			int nrComments = comments.size();
-			
-			blogpost = new BlogPost(postUUID, date, title, text, author,
-					comments, nrComments);
+
+			blogpost = new BlogPost(postUUID, date, title, text, author, comments, nrComments);
 		}
 		catch (RepositoryException e)
 		{
@@ -239,8 +229,7 @@ public class BlogPlugin extends IPlugin {
 	 */
 	public void saveChangedBlogPost(BlogPost changedBlogPost)
 	{
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
@@ -259,39 +248,37 @@ public class BlogPlugin extends IPlugin {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Save a newly created blogposting to repository
 	 * 
-	 * @param newBlogPost 
+	 * @param newBlogPost
 	 */
-	public static void saveNewBlogPost(BlogPost newBlogPost) 
+	public static void saveNewBlogPost(BlogPost newBlogPost)
 	{
-		Session jcrSession = ((KronosSession) KronosSession.get())
-		.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugin/kronos:blogpostings",
-					Query.XPATH);
+			Query q = qm.createQuery("//kronos:plugin/kronos:blogpostings", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
-			
-			if(it.hasNext())
+
+			if (it.hasNext())
 			{
 				Node blogpost = it.nextNode();
-				
+
 				Node newPost = blogpost.addNode("kronos:blogpost");
-				
+
 				newPost.setProperty("kronos:pluginname", pluginName);
 				newPost.setProperty("kronos:date", newBlogPost.getDate());
 				newPost.setProperty("kronos:name", newBlogPost.getTitle());
 				newPost.setProperty("kronos:text", newBlogPost.getText());
 				newPost.setProperty("kronos:author", newBlogPost.getAuthor());
-				
+
 				jcrSession.save();
 			}
 		}
@@ -308,8 +295,7 @@ public class BlogPlugin extends IPlugin {
 	 */
 	public void saveComment(Comment changedComment)
 	{
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{

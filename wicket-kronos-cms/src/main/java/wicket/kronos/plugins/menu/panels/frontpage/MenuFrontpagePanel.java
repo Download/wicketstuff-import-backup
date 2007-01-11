@@ -29,16 +29,14 @@ public class MenuFrontpagePanel extends Panel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Creates links that are put on the panel. For external typed links an
-	 * ExternalLink is made For internal typed links an BookmarkablePageLink is
-	 * made
+	 * Creates links that are put on the panel. For external typed links an ExternalLink is made For
+	 * internal typed links an BookmarkablePageLink is made
 	 * 
 	 * @param id
 	 * @param menuItems
 	 * @param isHorizontal
 	 */
-	public MenuFrontpagePanel(String id, List<MenuItem> menuItems,
-			final boolean isHorizontal)
+	public MenuFrontpagePanel(String id, List<MenuItem> menuItems, final boolean isHorizontal)
 	{
 		super(id);
 
@@ -49,33 +47,29 @@ public class MenuFrontpagePanel extends Panel {
 				MenuItem menuItem = (MenuItem) item.getModelObject();
 				if (menuItem.getLinkType().equalsIgnoreCase("external"))
 				{
-					item.add(new ExternalLink("menuItem", menuItem
-						.getLink()).add(new Label("menuItemLabel",
-							menuItem.getName())));
-				} else if(menuItem.getLinkType().equalsIgnoreCase("internal"))
+					item.add(new ExternalLink("menuItem", menuItem.getLink()).add(new Label(
+							"menuItemLabel", menuItem.getName())));
+				} else if (menuItem.getLinkType().equalsIgnoreCase("internal"))
 				{
 					if (menuItem.getIDType().equalsIgnoreCase("frontpage"))
 					{
-						item.add(new BookmarkablePageLink("menuItem",
-							Frontpage.class, PageParameters.NULL)
-								.add(new Label("menuItemLabel", menuItem
-									.getName())));
-					} else 
+						item.add(new BookmarkablePageLink("menuItem", Frontpage.class,
+								PageParameters.NULL).add(new Label("menuItemLabel", menuItem
+								.getName())));
+					} else
 					{
 						if (menuItem.getIDType().equalsIgnoreCase("adminpage"))
 						{
-							item.add(new BookmarkablePageLink("menuItem",
-								AdminPage.class, PageParameters.NULL)
-									.add(new Label("menuItemLabel", menuItem
-										.getName())));
+							item.add(new BookmarkablePageLink("menuItem", AdminPage.class,
+									PageParameters.NULL).add(new Label("menuItemLabel", menuItem
+									.getName())));
 						} else
 						{
 							PageParameters param = new PageParameters();
 							param.add("IDType", menuItem.getIDType());
 							param.add("ID", menuItem.getID());
-							item.add(new BookmarkablePageLink("menuItem",
-								Frontpage.class, param).add(new Label(
-									"menuItemLabel", menuItem.getName())));
+							item.add(new BookmarkablePageLink("menuItem", Frontpage.class, param)
+									.add(new Label("menuItemLabel", menuItem.getName())));
 						}
 					}
 				}

@@ -36,8 +36,8 @@ public class User implements Serializable {
 	 *            date, time from january 1st 1970
 	 * @param roles
 	 */
-	public User(String username, String name, String email, String password,
-			Calendar lastVisit, Roles roles)
+	public User(String username, String name, String email, String password, Calendar lastVisit,
+			Roles roles)
 	{
 		assert (username != null);
 		assert (name != null);

@@ -46,10 +46,9 @@ public class SignInPanel extends Panel {
 
 			// Attach textfield components that edit properties map
 			// in lieu of a formal beans model
-			add(username = new TextField("username", new PropertyModel(
-					properties, "username")));
-			add(password = new PasswordTextField("password", new PropertyModel(
-					properties, "password")));
+			add(username = new TextField("username", new PropertyModel(properties, "username")));
+			add(password = new PasswordTextField("password", new PropertyModel(properties,
+					"password")));
 		}
 
 		/**
@@ -66,15 +65,13 @@ public class SignInPanel extends Panel {
 				if (!continueToOriginalDestination())
 				{
 					KronosSession currentSession = KronosSession.get();
-					setResponsePage(new Frontpage(currentSession
-							.getPageParameters()));
+					setResponsePage(new Frontpage(currentSession.getPageParameters()));
 				}
 			} else
 			{
 				// Try the component based localizer first. If not found try the
 				// application localizer. Else use the default
-				error(getLocalizer().getString("signInFailed", this,
-						"Sign in failed"));
+				error(getLocalizer().getString("signInFailed", this, "Sign in failed"));
 			}
 		}
 	}

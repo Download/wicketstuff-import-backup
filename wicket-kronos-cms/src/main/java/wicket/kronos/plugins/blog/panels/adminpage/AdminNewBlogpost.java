@@ -30,7 +30,7 @@ public class AdminNewBlogpost extends Panel {
 	 * Create an inputform for a new blogposting
 	 * 
 	 * @param id
-	 * @param blogPlugin 
+	 * @param blogPlugin
 	 */
 	public AdminNewBlogpost(String id)
 	{
@@ -47,18 +47,21 @@ public class AdminNewBlogpost extends Panel {
 	 * @author postma
 	 */
 	private class InputForm extends Form {
-		
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private TextField title;
+
 		private TextArea text;
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param name
-		 * @param blogPlugin 
+		 * @param blogPlugin
 		 */
 		public InputForm(String name)
 		{
@@ -67,7 +70,7 @@ public class AdminNewBlogpost extends Panel {
 			add(title = new TextField("title", new Model()));
 			add(text = new TextArea("text", new Model()));
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{
@@ -75,15 +78,14 @@ public class AdminNewBlogpost extends Panel {
 			Calendar date = new GregorianCalendar();
 			String title = this.title.getModelObjectAsString();
 			String text = this.text.getModelObjectAsString();
-			//TODO author must be set in jcrSession and read out of it
+			// TODO author must be set in jcrSession and read out of it
 			String author = "todo";
 			List<Comment> comments = null;
 			int nrComments = 0;
-			
-			BlogPlugin.saveNewBlogPost(
-				new BlogPost(postUUID, date, title, text, author,
-					comments, nrComments));
-			
+
+			BlogPlugin.saveNewBlogPost(new BlogPost(postUUID, date, title, text, author, comments,
+					nrComments));
+
 			setResponsePage(AdminPage.class);
 		}
 	}

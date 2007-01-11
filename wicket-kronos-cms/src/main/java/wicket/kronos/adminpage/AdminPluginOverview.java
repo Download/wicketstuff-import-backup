@@ -26,16 +26,16 @@ import wicket.model.PropertyModel;
 
 /**
  * @author postma
- *
  */
-public class AdminPluginOverview extends Panel{
-	
+public class AdminPluginOverview extends Panel {
+
 	/**
 	 * Default serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private List<PluginProperties> propertiesList;
-	
+
 	/**
 	 * @param wicketId
 	 */
@@ -45,10 +45,9 @@ public class AdminPluginOverview extends Panel{
 		propertiesList = DataProcessor.getPluginPropertiesObjects();
 		add(new OverviewForm("overviewForm"));
 	}
-	
+
 	/**
 	 * @author roeloffzen
-	 *
 	 */
 	public class OverviewForm extends Form {
 
@@ -59,13 +58,13 @@ public class AdminPluginOverview extends Panel{
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketID
 		 */
 		public OverviewForm(String wicketID)
 		{
 			super(wicketID, new CompoundPropertyModel(new PluginPropertiesModel(propertiesList)));
-			add(new ListView("properties")
-			{
+			add(new ListView("properties") {
 				/**
 				 * Default serialVersionUID
 				 */
@@ -75,82 +74,81 @@ public class AdminPluginOverview extends Panel{
 				@Override
 				protected void populateItem(ListItem item)
 				{
-					final PluginProperties props = (PluginProperties)item.getModelObject();
+					final PluginProperties props = (PluginProperties) item.getModelObject();
 					final TextField orderField;
-					
+
 					item.add(new CheckBox("selected", new PropertyModel(props, "selected")));
 					PageParameters param = new PageParameters();
 					param.put("IDType", "plugin");
 					param.put("ID", props.getPluginUUID());
-					item.add(new BookmarkablePageLink("nameLink",
-							AdminPage.class, param).add(new Label(
-							"nameLabel", props.getName())));
-					
+					item.add(new BookmarkablePageLink("nameLink", AdminPage.class, param)
+							.add(new Label("nameLabel", props.getName())));
+
 					item.add(new CheckBox("published", new PropertyModel(props, "published")));
-					item.add(orderField = new TextField("order", new PropertyModel(props, "order")));
-					
+					item
+							.add(orderField = new TextField("order", new PropertyModel(props,
+									"order")));
+
 					orderField.setOutputMarkupId(true);
-					
-					item.add(new AjaxLink("incrementLink")
-					{
+
+					item.add(new AjaxLink("incrementLink") {
 						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
-							int newValue = props.getOrder()+1;
+							int newValue = props.getOrder() + 1;
 							props.setOrder(newValue);
 							target.addComponent(orderField);
 						}
 					});
-					
-					item.add(new AjaxLink("decrementLink")
-					{
+
+					item.add(new AjaxLink("decrementLink") {
 						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int oldValue = props.getOrder();
 							int newValue;
-							if(oldValue > 1)		
-								newValue = oldValue-1;
-							else 
+							if (oldValue > 1)
+								newValue = oldValue - 1;
+							else
 								newValue = oldValue;
 							props.setOrder(newValue);
 							target.addComponent(orderField);
 						}
 					});
-					
-					item.add(new DropDownChoice("position", new PropertyModel(props, "position"), AreaLocations.getAreaLocations(), new IChoiceRenderer() 
-					{
-					
-						public String getIdValue(Object object, int arg1)
-						{	
-							return ((Integer)object).toString();
-						}
-					
-						public Object getDisplayValue(Object object)
-						{
-							int value = ((Integer)object).intValue();
-							return AreaLocations.getLocationname(value);
-						}
-						
-					}));
+
+					item.add(new DropDownChoice("position", new PropertyModel(props, "position"),
+							AreaLocations.getAreaLocations(), new IChoiceRenderer() {
+
+								public String getIdValue(Object object, int arg1)
+								{
+									return ((Integer) object).toString();
+								}
+
+								public Object getDisplayValue(Object object)
+								{
+									int value = ((Integer) object).intValue();
+									return AreaLocations.getLocationname(value);
+								}
+
+							}));
 					int lastPeriod = props.getPluginType().lastIndexOf(".");
 					String pluginType = props.getPluginType().substring(lastPeriod + 1);
 					item.add(new Label("pluginType", pluginType));
 				}
 			});
-			
-			add(new Button("deletebutton")
-			{
+
+			add(new Button("deletebutton") {
 				@Override
 				public void onSubmit()
-				{	
-					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
+				{
+					List<PluginProperties> properties = ((PluginPropertiesModel) OverviewForm.this
+							.getModelObject()).getProperties();
 					Iterator pluginIterator = properties.iterator();
-					
-					while(pluginIterator.hasNext())
+
+					while (pluginIterator.hasNext())
 					{
-						PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
-						if(pluginProps.isSelected())
+						PluginProperties pluginProps = (PluginProperties) pluginIterator.next();
+						if (pluginProps.isSelected())
 						{
 							DataProcessor.removePluginInstance(pluginProps.getPluginUUID());
 						}
@@ -158,40 +156,40 @@ public class AdminPluginOverview extends Panel{
 					setResponsePage(AdminPage.class);
 				}
 			});
-			
-			add(new Button("savebutton")
-			{
+
+			add(new Button("savebutton") {
 				@Override
 				public void onSubmit()
 				{
-					List<PluginProperties> properties = ((PluginPropertiesModel)OverviewForm.this.getModelObject()).getProperties();
+					List<PluginProperties> properties = ((PluginPropertiesModel) OverviewForm.this
+							.getModelObject()).getProperties();
 					Iterator pluginIterator = properties.iterator();
-					
-					while(pluginIterator.hasNext())
+
+					while (pluginIterator.hasNext())
 					{
-						PluginProperties pluginProps = (PluginProperties)pluginIterator.next();
-						
+						PluginProperties pluginProps = (PluginProperties) pluginIterator.next();
+
 						DataProcessor.savePluginProperties(pluginProps, pluginProps.getName());
 					}
-					
+
 					setResponsePage(AdminPage.class);
-				}				
-			});	
+				}
+			});
 		}
 	}
-	
+
 	/**
 	 * @author roeloffzen
-	 *
 	 */
-	public class PluginPropertiesModel implements Serializable{
-		
+	public class PluginPropertiesModel implements Serializable {
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private List<PluginProperties> properties;
-		
+
 		/**
 		 * @param properties
 		 */

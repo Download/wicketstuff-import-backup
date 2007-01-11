@@ -115,8 +115,8 @@ public final class Roles extends HashSet<String> implements Serializable {
 	 * 
 	 * @param roles
 	 *            the roles to check
-	 * @return true if it contains all the roles or the provided roles object is
-	 *         null, false otherwise
+	 * @return true if it contains all the roles or the provided roles object is null, false
+	 *         otherwise
 	 */
 	public boolean hasAllRoles(Roles roles)
 	{

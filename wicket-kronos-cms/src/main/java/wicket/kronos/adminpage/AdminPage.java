@@ -19,8 +19,7 @@ public class AdminPage extends KronosPage {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Load Adminpage with default layout, without a plugin enabled for
-	 * configuration.
+	 * Load Adminpage with default layout, without a plugin enabled for configuration.
 	 */
 	public AdminPage()
 	{
@@ -31,7 +30,7 @@ public class AdminPage extends KronosPage {
 	/**
 	 * Load Adminpage with a specific plugin to configure
 	 * 
-	 * @param pageParameters 
+	 * @param pageParameters
 	 */
 	public AdminPage(PageParameters pageParameters)
 	{
@@ -39,17 +38,22 @@ public class AdminPage extends KronosPage {
 		if (pageParameters == null || pageParameters.isEmpty())
 		{
 			add(new AdminPluginOverview("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminpage")) {
+		} else if (pageParameters.getString("IDType").equalsIgnoreCase("adminpage"))
+		{
 			add(new AdminPluginOverview("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminnewplugin")) {
+		} else if (pageParameters.getString("IDType").equalsIgnoreCase("adminnewplugin"))
+		{
 			add(new AdminNewPlugin("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("adminpluginupload")) {
+		} else if (pageParameters.getString("IDType").equalsIgnoreCase("adminpluginupload"))
+		{
 			add(new AdminPluginUpload("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("mediamanager")) {
+		} else if (pageParameters.getString("IDType").equalsIgnoreCase("mediamanager"))
+		{
 			add(new MediaManagerPanel("plugin"));
-		} else if(pageParameters.getString("IDType").equalsIgnoreCase("config")) {
+		} else if (pageParameters.getString("IDType").equalsIgnoreCase("config"))
+		{
 			add(new ConfigPanel("plugin"));
-		} else 
+		} else
 		{
 			KronosSession currentsession = KronosSession.get();
 			currentsession.setPageParameters(pageParameters);

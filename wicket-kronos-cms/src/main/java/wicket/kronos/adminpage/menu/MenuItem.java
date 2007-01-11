@@ -25,58 +25,57 @@ import wicket.markup.html.panel.Panel;
 
 /**
  * @author postma
- *
  */
 public class MenuItem extends Panel {
-	
+
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private String name  = null;
-	
+
+	private String name = null;
+
 	/**
 	 * Constructor.
-	 * @param wicketId 
+	 * 
+	 * @param wicketId
 	 * @param name
-	 * @param ID 
-	 * @param IDType 
+	 * @param ID
+	 * @param IDType
 	 */
-	public MenuItem(String wicketId, String name, String ID, String IDType) 
+	public MenuItem(String wicketId, String name, String ID, String IDType)
 	{
 		super(wicketId);
 		this.name = name;
-		
+
 		PageParameters menulinkParam = new PageParameters();
 		menulinkParam.add("IDType", IDType);
 		menulinkParam.add("ID", ID);
-		
+
 		if (ID.equals("#"))
 		{
-			add(new ExternalLink("menulink", "#")
-				.add(new Label("menulinklabel", name)));
-		} else if(IDType.equalsIgnoreCase("adminpage"))
-		{			
-			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam)
-				.add(new Label("menulinklabel", name)));
-		} else if(IDType.equalsIgnoreCase("adminnewplugin"))
+			add(new ExternalLink("menulink", "#").add(new Label("menulinklabel", name)));
+		} else if (IDType.equalsIgnoreCase("adminpage"))
 		{
-			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam)
-				.add(new Label("menulinklabel", name)));
-		} else if(IDType.equalsIgnoreCase("frontpage"))
+			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam).add(new Label(
+					"menulinklabel", name)));
+		} else if (IDType.equalsIgnoreCase("adminnewplugin"))
+		{
+			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam).add(new Label(
+					"menulinklabel", name)));
+		} else if (IDType.equalsIgnoreCase("frontpage"))
 		{
 			add(new BookmarkablePageLink("menulink", Frontpage.class, PageParameters.NULL)
-				.add(new Label("menulinklabel", name)));
+					.add(new Label("menulinklabel", name)));
 		} else
 		{
 			add(new BookmarkablePageLink("menulink", AdminPage.class, PageParameters.NULL)
-				.add(new Label("menulinklabel", name)));
-		}		 
-		
+					.add(new Label("menulinklabel", name)));
+		}
+
 		List<SubMenuItem> subMenuItems = this.getSubMenuItems(name);
 		ListView subMenuItemsList = new ListView("submenurepeater", subMenuItems) {
-			
+
 			/**
 			 * Default serialVersionUID
 			 */
@@ -92,20 +91,19 @@ public class MenuItem extends Panel {
 				param.add("ID", subMenuItem.getID());
 				if ((subMenuItem.getIDType().equals("frontpage")))
 				{
-					item.add(new BookmarkablePageLink("submenulink",
-							Frontpage.class, PageParameters.NULL).add(
-									new Label("submenulabel", subMenuItem.getName())));
-				}else
+					item.add(new BookmarkablePageLink("submenulink", Frontpage.class,
+							PageParameters.NULL).add(new Label("submenulabel", subMenuItem
+							.getName())));
+				} else
 				{
-					item.add(new BookmarkablePageLink("submenulink",
-							AdminPage.class, param).add(
-									new Label("submenulabel", subMenuItem.getName())));
+					item.add(new BookmarkablePageLink("submenulink", AdminPage.class, param)
+							.add(new Label("submenulabel", subMenuItem.getName())));
 				}
 			}
 		};
 		add(subMenuItemsList);
 	}
-	
+
 	/**
 	 * @return name
 	 */
@@ -113,9 +111,10 @@ public class MenuItem extends Panel {
 	{
 		return this.name;
 	}
-	
+
 	/**
 	 * Retreive list with submenu menu items
+	 * 
 	 * @param menuItemName
 	 * @return List<SubMenuItem>
 	 */
@@ -123,30 +122,30 @@ public class MenuItem extends Panel {
 	{
 		List<SubMenuItem> subMenuItems = new ArrayList<SubMenuItem>();
 		SubMenuItem subMenuItem = null;
-		
-		Session jcrSession = ((KronosSession) KronosSession.get())
-		.getJCRSession();
+
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:cms/kronos:adminmenus/kronos:adminmenu/kronos:adminmenuitem [@kronos:name = '"
-					+ menuItemName + "']/kronos:adminsubmenuitem", Query.XPATH);
-		
+			Query q = qm.createQuery(
+					"//kronos:cms/kronos:adminmenus/kronos:adminmenu/kronos:adminmenuitem [@kronos:name = '"
+							+ menuItemName + "']/kronos:adminsubmenuitem", Query.XPATH);
+
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
-		
+
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-		
+
 				String name = n.getProperty("kronos:name").getString();
 				String ID = n.getProperty("kronos:ID").getString();
 				String IDType = n.getProperty("kronos:IDType").getString();
-				
+
 				subMenuItem = new SubMenuItem(name, ID, IDType);
-				
+
 				subMenuItems.add(subMenuItem);
 			}
 		}
@@ -154,7 +153,7 @@ public class MenuItem extends Panel {
 		{
 			e.printStackTrace();
 		}
-		
+
 		return subMenuItems;
 	}
 }

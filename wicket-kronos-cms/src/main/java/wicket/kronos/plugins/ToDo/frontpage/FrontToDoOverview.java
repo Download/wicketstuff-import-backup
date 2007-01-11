@@ -15,44 +15,42 @@ import wicket.model.Model;
 
 /**
  * @author postma
- *
  */
-public class FrontToDoOverview extends Panel{
+public class FrontToDoOverview extends Panel {
 
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 * @param todoItemList
 	 */
 	public FrontToDoOverview(String wicketId, List<ToDoItem> todoItemList)
 	{
 		super(wicketId);
-		
-		add(new ListView("todoRepeater", todoItemList)
-		{
+
+		add(new ListView("todoRepeater", todoItemList) {
 			@Override
 			protected void populateItem(ListItem item)
 			{
-				ToDoItem todoItem = (ToDoItem)item.getModelObject();
-				
+				ToDoItem todoItem = (ToDoItem) item.getModelObject();
+
 				PageParameters param = new PageParameters();
 				param.put("IDType", "plugin");
 				param.put("ID", todoItem.getTodoUUID());
-				
+
 				item.add(new Label("title", new Model(todoItem.getTitle())));
 				item.add(new Label("subject", new Model(todoItem.getSubject())));
 				item.add(new Label("content", new Model(todoItem.getContent())));
 				item.add(new CheckBox("done", new Model(todoItem.getDone())));
 				Date date = todoItem.getDate().getTime();
-				SimpleDateFormat blogDateFormat = new SimpleDateFormat(
-						"dd-MM-yyyy");
+				SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 				item.add(new Label("date", blogDateFormat.format(date)));
 			}
 		});
-	}	
+	}
 }

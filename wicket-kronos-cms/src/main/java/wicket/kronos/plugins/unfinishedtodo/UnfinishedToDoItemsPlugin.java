@@ -21,7 +21,6 @@ import wicket.kronos.plugins.unfinishedtodo.panels.UnfinishedToDoItemsFrontpageP
 
 /**
  * @author postma
- *
  */
 public class UnfinishedToDoItemsPlugin extends IPlugin {
 
@@ -29,8 +28,11 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private String toDoPluginName;
+
 	private String toDoPluginUUID;
+
 	/**
 	 * Create ToDo plugin with list of unfinished todo items
 	 * 
@@ -41,24 +43,24 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 	 * @param order
 	 * @param areaposition
 	 * @param pluginType
-	 * @param todoPlugin 
+	 * @param todoPlugin
 	 */
-	public UnfinishedToDoItemsPlugin(Boolean isAdmin, String pluginUUID, String pluginname, 
+	public UnfinishedToDoItemsPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
 			Boolean ispublished, Integer order, Integer areaposition, String pluginType)
 	{
 		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 		toDoPluginName = getToDoPluginName();
 		toDoPluginUUID = getToDoPluginUUID();
-		
+
 		List<ToDoItem> unfinishedToDoItems = this.getUnfinishedToDoItems(toDoPluginName);
-		
-		
-		
+
 		if (isAdmin)
 		{
 			add(new UnfinishedToDoItemsAdminPagePanel("unfinishedtodo", pluginUUID));
-		}else {
-			add(new UnfinishedToDoItemsFrontpagePanel("unfinishedtodo", unfinishedToDoItems, toDoPluginUUID));
+		} else
+		{
+			add(new UnfinishedToDoItemsFrontpagePanel("unfinishedtodo", unfinishedToDoItems,
+					toDoPluginUUID));
 		}
 	}
 
@@ -76,57 +78,59 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 	 * @param todoPlugin
 	 */
 	public UnfinishedToDoItemsPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType, String contentUUID)
+			Boolean ispublished, Integer order, Integer areaposition, String pluginType,
+			String contentUUID)
 	{
-		this(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
+		this(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
 	}
 
 	/**
-	 * Retreive the todo plugin name from which we will use the content 
+	 * Retreive the todo plugin name from which we will use the content
 	 * 
-	 * @return todoPluginName 
+	 * @return todoPluginName
 	 */
 	public String getToDoPluginName()
 	{
 		String todoPluginName = null;
-		
+
 		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
-		
+
 		try
 		{
 			Node node = jcrSession.getNodeByUUID(pluginUUID);
-						
+
 			todoPluginName = node.getProperty("kronos:plugincontentname").getString();
-			
-		} catch(RepositoryException e) {
+
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
-		}	
-		
+		}
+
 		return todoPluginName;
 	}
-	
+
 	/**
 	 * Retreive the plugin UUID
+	 * 
 	 * @return todoPluginUUID
 	 */
 	public String getToDoPluginUUID()
 	{
 		String todoPluginUUID = null;
-		
+
 		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
-		
+
 		try
 		{
 			Node node = jcrSession.getNodeByUUID(pluginUUID);
-						
+
 			todoPluginUUID = node.getProperty("kronos:plugincontentname").getString();
-			
+
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugininstantiations/kronos:plugininstance[@kronos:name = '" 
+					"//kronos:plugininstantiations/kronos:plugininstance[@kronos:name = '"
 							+ toDoPluginName + "']", Query.XPATH);
 
 			QueryResult result = q.execute();
@@ -135,21 +139,23 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 			if (it.hasNext())
 			{
 				Node n = it.nextNode();
-				
+
 				todoPluginUUID = n.getUUID();
 			}
-			
-		} catch(RepositoryException e) {
+
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
-		}	
-		
+		}
+
 		return todoPluginUUID;
 	}
-	
+
 	/**
 	 * Retreive a list with unfinished todo items
 	 * 
-	 * @param contentPluginName 
+	 * @param contentPluginName
 	 * @return List<ToDoItem>
 	 */
 	@SuppressWarnings("boxing")
@@ -165,7 +171,7 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '" 
+					"//kronos:plugin/kronos:todoitems/kronos:todoitem[@kronos:pluginname = '"
 							+ contentPluginName + "' and @kronos:done='false']", Query.XPATH);
 
 			QueryResult result = q.execute();
@@ -174,18 +180,20 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-				
+
 				String todoUUID = n.getUUID();
 				String title = n.getProperty("kronos:name").getString();
 				String subject = n.getProperty("kronos:subject").getString();
 				String description = n.getProperty("kronos:content").getString();
 				Boolean done = n.getProperty("kronos:done").getBoolean();
 				Calendar date = n.getProperty("kronos:date").getDate();
-				
+
 				todoItem = new ToDoItem(todoUUID, title, subject, description, done, date);
 				todoItems.add(todoItem);
 			}
-		} catch(RepositoryException e) {
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
 		}
 		return todoItems;

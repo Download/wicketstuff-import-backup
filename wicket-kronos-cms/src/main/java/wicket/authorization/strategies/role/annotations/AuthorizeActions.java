@@ -25,9 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Groups a set (technically an array) of {@link AuthorizeAction}s for
- * authorization. This annotation works on a class level, and can be used like
- * this:
+ * Groups a set (technically an array) of {@link AuthorizeAction}s for authorization. This
+ * annotation works on a class level, and can be used like this:
  * 
  * <pre>
  * // A panel that is only visible for users with role ADMIN

@@ -8,9 +8,8 @@ import wicket.markup.html.panel.Panel;
 
 /**
  * @author postma
- *
  */
-public class TitanFrontpagePanel extends Panel{
+public class TitanFrontpagePanel extends Panel {
 
 	/**
 	 * Default serialVersionUID
@@ -19,15 +18,15 @@ public class TitanFrontpagePanel extends Panel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
 	public TitanFrontpagePanel(String wicketId)
 	{
 		super(wicketId);
-		PopupSettings popupSettings = new PopupSettings(PageMap
-				.forName("popuppagemap")).setHeight(500).setWidth(500);
-		add(new BookmarkablePageLink("popupLink", TitanPopup.class)
-				.setPopupSettings(popupSettings));
+		PopupSettings popupSettings = new PopupSettings(PageMap.forName("popuppagemap")).setHeight(
+				500).setWidth(500);
+		add(new BookmarkablePageLink("popupLink", TitanPopup.class).setPopupSettings(popupSettings));
 	}
 
 }

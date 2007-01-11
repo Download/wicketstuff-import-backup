@@ -26,10 +26,9 @@ import wicket.authorization.Action;
 import wicket.authorization.strategies.role.Roles;
 
 /**
- * For each Action, holds a set of roles that can perform that action. Roles can
- * be granted access to a given action via authorize(Action, String role) and
- * denied access via unauthorize(Action, String role). All permissions can be
- * removed for a given action via authorizeAll(Action).
+ * For each Action, holds a set of roles that can perform that action. Roles can be granted access
+ * to a given action via authorize(Action, String role) and denied access via unauthorize(Action,
+ * String role). All permissions can be removed for a given action via authorizeAll(Action).
  * 
  * @author Eelco Hillenius
  * @author Jonathan Locke
@@ -57,8 +56,7 @@ final class ActionPermissions implements Serializable {
 
 		if (rolesToAdd == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument rolesToAdd cannot be null");
+			throw new IllegalArgumentException("Argument rolesToAdd cannot be null");
 		}
 
 		Roles roles = rolesForAction.get(action);
@@ -120,8 +118,7 @@ final class ActionPermissions implements Serializable {
 
 		if (rolesToRemove == null)
 		{
-			throw new IllegalArgumentException(
-					"Argument rolesToRemove cannot be null");
+			throw new IllegalArgumentException("Argument rolesToRemove cannot be null");
 		}
 
 		Roles roles = rolesForAction.get(action);

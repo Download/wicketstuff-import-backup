@@ -59,18 +59,18 @@ public class AdminBlogEdit extends Panel {
 		 */
 		public InputForm(String name)
 		{
-			super(name, new CompoundPropertyModel(new BlogInputModel(blogPost
-					.getTitle(), blogPost.getText())));
+			super(name, new CompoundPropertyModel(new BlogInputModel(blogPost.getTitle(), blogPost
+					.getText())));
 			add(new TextField("title"));
 			add(new TextArea("text"));
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
 			Node blogNode;
-			BlogInputModel model = (BlogInputModel)this.getModelObject();
+			BlogInputModel model = (BlogInputModel) this.getModelObject();
 			try
 			{
 				blogNode = jcrSession.getNodeByUUID(blogPost.getPostUUID());
@@ -87,28 +87,15 @@ public class AdminBlogEdit extends Panel {
 				e.printStackTrace();
 			}
 			setResponsePage(AdminPage.class);
-			
+
 		}
 	}
 
-	/*private void createMenu()
-	{
-		add(new Link("savepost") {
-			
-			/**
-			 * Default serialVersionUID
-			 
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick()
-			{
-				BlogInputModel changedModel = (BlogInputModel) inputForm
-						.getModelObject();
-				blogPost.setTitle(changedModel.getTitle());
-				blogPost.setText(changedModel.getText());
-			}
-		}.add(new Image("save", "Save.png")));
-		/* ToDo: add all other necessary menu items 
-	}*/
+	/*
+	 * private void createMenu() { add(new Link("savepost") { /** Default serialVersionUID private
+	 * static final long serialVersionUID = 1L; @Override public void onClick() { BlogInputModel
+	 * changedModel = (BlogInputModel) inputForm .getModelObject();
+	 * blogPost.setTitle(changedModel.getTitle()); blogPost.setText(changedModel.getText()); }
+	 * }.add(new Image("save", "Save.png"))); /* ToDo: add all other necessary menu items }
+	 */
 }

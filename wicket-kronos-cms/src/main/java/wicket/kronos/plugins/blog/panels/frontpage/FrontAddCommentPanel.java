@@ -37,6 +37,7 @@ public class FrontAddCommentPanel extends Panel {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param id
 	 * @param blogpost
 	 */
@@ -48,7 +49,7 @@ public class FrontAddCommentPanel extends Panel {
 	}
 
 	class CommentForm extends Form {
-		
+
 		/**
 		 * Default serialVersionUID
 		 */
@@ -84,9 +85,8 @@ public class FrontAddCommentPanel extends Panel {
 				QueryManager qm;
 				qm = ws.getQueryManager();
 
-				Query q = qm.createQuery(
-						"//kronos:blogpostings/kronos:blogpost[@kronos:name='"
-								+ postTitle + "']", Query.XPATH);
+				Query q = qm.createQuery("//kronos:blogpostings/kronos:blogpost[@kronos:name='"
+						+ postTitle + "']", Query.XPATH);
 
 				QueryResult result = q.execute();
 				NodeIterator it = result.getNodes();
@@ -103,8 +103,7 @@ public class FrontAddCommentPanel extends Panel {
 
 					jcrSession.save();
 					KronosSession currentSession = KronosSession.get();
-					setResponsePage(new Frontpage(currentSession
-							.getPageParameters()));
+					setResponsePage(new Frontpage(currentSession.getPageParameters()));
 				}
 
 			}

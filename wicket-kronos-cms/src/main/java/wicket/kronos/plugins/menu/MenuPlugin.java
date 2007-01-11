@@ -22,8 +22,8 @@ import wicket.kronos.plugins.menu.panels.adminpage.MenuAdminpagePanel;
 import wicket.kronos.plugins.menu.panels.frontpage.MenuFrontpagePanel;
 
 /**
- * This plugin is used to create menubars. It collects all the data from the
- * repository and creates a list of links
+ * This plugin is used to create menubars. It collects all the data from the repository and creates
+ * a list of links
  * 
  * @author ted
  */
@@ -47,21 +47,18 @@ public class MenuPlugin extends IPlugin {
 	 * @param areaposition
 	 * @param pluginType
 	 */
-	public MenuPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+	public MenuPlugin(Boolean isAdmin, String pluginUUID, String pluginname, Boolean ispublished,
+			Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
-		
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
+
 		Session jcrSession = KronosSession.get().getJCRSession();
 
 		try
 		{
 			Node pluginNode = jcrSession.getNodeByUUID(pluginUUID);
 
-			isHorizontal = pluginNode.getProperty("kronos:isHorizontal")
-					.getBoolean();
+			isHorizontal = pluginNode.getProperty("kronos:isHorizontal").getBoolean();
 		}
 		catch (ItemNotFoundException e)
 		{
@@ -71,23 +68,25 @@ public class MenuPlugin extends IPlugin {
 		{
 			e.printStackTrace();
 		}
-		if(isAdmin)
+		if (isAdmin)
 		{
 			PageParameters param = KronosSession.get().getPageParameters();
-			if(param.containsKey("action"))
+			if (param.containsKey("action"))
 			{
-				if(((String)param.get("action")).equalsIgnoreCase("newInternal"))
+				if (((String) param.get("action")).equalsIgnoreCase("newInternal"))
 				{
 					add(new AdminNewInternalMenuItem("menu", pluginname));
-				} else if(((String)param.get("action")).equalsIgnoreCase("newExternal"))
+				} else if (((String) param.get("action")).equalsIgnoreCase("newExternal"))
 				{
 					add(new AdminNewExternalMenuItem("menu", pluginname));
 				}
 			} else
 			{
-				add(new MenuAdminpagePanel("menu", this.getMenuItems(), this.pluginUUID, isHorizontal));
+				add(new MenuAdminpagePanel("menu", this.getMenuItems(), this.pluginUUID,
+						isHorizontal));
 			}
-		} else {
+		} else
+		{
 			add(new MenuFrontpagePanel("menu", this.getMenuItems(), isHorizontal));
 		}
 	}
@@ -108,15 +107,14 @@ public class MenuPlugin extends IPlugin {
 	{
 		List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
-		Session jcrSession = ((KronosSession) KronosSession.get())
-				.getJCRSession();
+		Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:menu[@kronos:menuname = '"
-					+ pluginName + "']/kronos:menuitem order by @kronos:order ascending", Query.XPATH);
+			Query q = qm.createQuery("//kronos:menu[@kronos:menuname = '" + pluginName
+					+ "']/kronos:menuitem order by @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -125,8 +123,7 @@ public class MenuPlugin extends IPlugin {
 			{
 				Node n = it.nextNode();
 
-				String menuItemName = n.getProperty("kronos:menuitemname")
-						.getString();
+				String menuItemName = n.getProperty("kronos:menuitemname").getString();
 				String linkType = n.getProperty("kronos:linkType").getString();
 				Long longOrder = n.getProperty("kronos:order").getLong();
 				int order = longOrder.intValue();
@@ -136,10 +133,10 @@ public class MenuPlugin extends IPlugin {
 				item.setOrder(order);
 				if (linkType.equalsIgnoreCase("internal"))
 				{
-					boolean isAdmin = n.getProperty("kronos:isAdmin")
-							.getBoolean();
+					boolean isAdmin = n.getProperty("kronos:isAdmin").getBoolean();
 					String IDType = n.getProperty("kronos:IDType").getString();
-					if (!IDType.equalsIgnoreCase("frontpage") && !IDType.equalsIgnoreCase("adminpage"))
+					if (!IDType.equalsIgnoreCase("frontpage")
+							&& !IDType.equalsIgnoreCase("adminpage"))
 					{
 						String ID = n.getProperty("kronos:ID").getString();
 						item.setID(ID);

@@ -18,30 +18,30 @@ import wicket.model.CompoundPropertyModel;
 
 /**
  * @author postma
- *
  */
-public class AdminNewPlugin extends Panel{
-	
+public class AdminNewPlugin extends Panel {
+
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
 	public AdminNewPlugin(String wicketId)
 	{
 		super(wicketId);
-		add(new AdminNewPluginForm("newpluginform"));		
+		add(new AdminNewPluginForm("newpluginform"));
 	}
-	
-	/** 
+
+	/**
 	 * @author postma
 	 */
-	public class AdminNewPluginForm extends Form{
-		
+	public class AdminNewPluginForm extends Form {
+
 		/**
 		 * Default serialVersionUUID
 		 */
@@ -49,55 +49,57 @@ public class AdminNewPlugin extends Panel{
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketId
 		 */
 		public AdminNewPluginForm(String wicketId)
 		{
 			super(wicketId, new CompoundPropertyModel(new PluginProperties()));
-			
+
 			add(new TextField("name"));
 			add(new CheckBox("published"));
 			add(new TextField("order"));
-			add(new DropDownChoice("position", AreaLocations.getAreaLocations(), new IChoiceRenderer() {
-				
-				public String getIdValue(Object object, int arg1)
-				{	
-					return ((Integer)object).toString();
-				}
-			
-				public Object getDisplayValue(Object object)
-				{
-					int value = ((Integer)object).intValue();
-					return AreaLocations.getLocationname(value);
-				}
-			}));
-			
+			add(new DropDownChoice("position", AreaLocations.getAreaLocations(),
+					new IChoiceRenderer() {
+
+						public String getIdValue(Object object, int arg1)
+						{
+							return ((Integer) object).toString();
+						}
+
+						public Object getDisplayValue(Object object)
+						{
+							int value = ((Integer) object).intValue();
+							return AreaLocations.getLocationname(value);
+						}
+					}));
+
 			List<String> plugintypes = DataProcessor.getPluginTypes();
 			add(new DropDownChoice("pluginType", plugintypes, new IChoiceRenderer() {
-				
+
 				public String getIdValue(Object object, int arg1)
-				{	
-					return (String)object;
+				{
+					return (String) object;
 				}
-			
+
 				public Object getDisplayValue(Object object)
 				{
-					String canonicalName = (String)object;
+					String canonicalName = (String) object;
 					int lastPeriod = canonicalName.lastIndexOf(".");
 					String pluginType = canonicalName.substring(lastPeriod + 1);
 					return pluginType;
 				}
-				
+
 			}));
 		}
-		
+
 		@Override
-		public void onSubmit() 
+		public void onSubmit()
 		{
-			PluginProperties pluginProperties = (PluginProperties)this.getModelObject();
-			
+			PluginProperties pluginProperties = (PluginProperties) this.getModelObject();
+
 			DataProcessor.savePluginProperties(pluginProperties, pluginProperties.getName());
-			
+
 			setResponsePage(AdminPage.class);
 		}
 	}

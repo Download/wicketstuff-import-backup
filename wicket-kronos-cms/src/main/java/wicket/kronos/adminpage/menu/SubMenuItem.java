@@ -2,27 +2,27 @@ package wicket.kronos.adminpage.menu;
 
 import java.io.Serializable;
 
-
-
 /**
  * @author postma
- *
  */
-public class SubMenuItem implements Serializable{
-	
+public class SubMenuItem implements Serializable {
+
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+
 	private String ID;
+
 	private String IDType;
-	
+
 	/**
 	 * Constructor.
-	 * @param name 
-	 * @param ID 
+	 * 
+	 * @param name
+	 * @param ID
 	 * @param IDType
 	 */
 	public SubMenuItem(String name, String ID, String IDType)
@@ -78,5 +78,5 @@ public class SubMenuItem implements Serializable{
 	public void setName(String name)
 	{
 		this.name = name;
-	}	
+	}
 }

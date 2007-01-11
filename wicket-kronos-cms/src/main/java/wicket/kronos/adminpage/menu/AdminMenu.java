@@ -22,7 +22,6 @@ import wicket.model.Model;
 
 /**
  * @author postma
- *
  */
 public class AdminMenu extends Panel {
 
@@ -30,18 +29,19 @@ public class AdminMenu extends Panel {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
 	public AdminMenu(String wicketId)
 	{
 		super(wicketId);
-		
+
 		List<MenuItem> menuItems = this.getMenuItems();
 		ListView menuItemsList = new ListView("menuRepeater", menuItems) {
-			
+
 			/**
 			 * Default serialVersionUID
 			 */
@@ -52,8 +52,8 @@ public class AdminMenu extends Panel {
 			{
 				MenuItem menuItem = (MenuItem) item.getModelObject();
 				item.add(menuItem);
-				
-			/* Scan for Help menu item and place it to the right of the menu bar */	
+
+				/* Scan for Help menu item and place it to the right of the menu bar */
 				if (menuItem.getName().equalsIgnoreCase("Help"))
 				{
 					item.add(new AttributeModifier("id", true, new Model() {
@@ -69,7 +69,7 @@ public class AdminMenu extends Panel {
 		};
 		add(menuItemsList);
 	}
-	
+
 	/**
 	 * Retreive menu items from repository
 	 * 
@@ -86,7 +86,8 @@ public class AdminMenu extends Panel {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery(
-					"//kronos:cms/kronos:adminmenus/kronos:adminmenu/kronos:adminmenuitem", Query.XPATH);
+					"//kronos:cms/kronos:adminmenus/kronos:adminmenu/kronos:adminmenuitem",
+					Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -94,20 +95,22 @@ public class AdminMenu extends Panel {
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-				
+
 				String name = n.getProperty("kronos:name").getString();
 				String ID = n.getProperty("kronos:ID").getString();
 				if (!ID.equalsIgnoreCase("#"))
 				{
 					String IDType = n.getProperty("kronos:IDType").getString();
 					menuItem = new MenuItem("menuitem", name, ID, IDType);
-				} else 
+				} else
 				{
 					menuItem = new MenuItem("menuitem", name, ID, null);
 				}
 				menuItems.add(menuItem);
 			}
-		} catch(RepositoryException e) {
+		}
+		catch (RepositoryException e)
+		{
 			e.printStackTrace();
 		}
 		return menuItems;

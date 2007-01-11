@@ -30,6 +30,7 @@ public class BlogPost implements Serializable {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param postUUID
 	 * @param date
 	 * @param title
@@ -38,8 +39,8 @@ public class BlogPost implements Serializable {
 	 * @param comments
 	 * @param nrComments
 	 */
-	public BlogPost(String postUUID, Calendar date, String title, String text,
-			String author, List<Comment> comments, int nrComments)
+	public BlogPost(String postUUID, Calendar date, String title, String text, String author,
+			List<Comment> comments, int nrComments)
 	{
 		assert (date != null);
 		assert (title != null);

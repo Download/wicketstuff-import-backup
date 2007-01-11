@@ -23,9 +23,9 @@ public class AdminBlogOverview extends AdminPanel {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	List<BlogPost> blogposts;
-	
+
 	private String blogPluginUUID = null;
 
 	/**
@@ -33,7 +33,7 @@ public class AdminBlogOverview extends AdminPanel {
 	 * 
 	 * @param id
 	 * @param blogposts
-	 * @param blogPluginUUID 
+	 * @param blogPluginUUID
 	 */
 	public AdminBlogOverview(String id, List<BlogPost> blogposts, final String blogPluginUUID)
 	{
@@ -41,13 +41,12 @@ public class AdminBlogOverview extends AdminPanel {
 		this.blogPluginUUID = blogPluginUUID;
 		this.blogposts = blogposts;
 		add(new postOverviewForm("testForm"));
-	} 
-	
+	}
+
 	/**
 	 * @author postma
-	 *
 	 */
-	public class postOverviewForm extends Form{
+	public class postOverviewForm extends Form {
 
 		/**
 		 * Default serialVersionUUID
@@ -79,22 +78,19 @@ public class AdminBlogOverview extends AdminPanel {
 					PageParameters param = new PageParameters();
 					param.put("IDType", "content");
 					param.put("ID", post.getPostUUID());
-					item.add(new BookmarkablePageLink("titlelink", AdminPage.class,
-							param)
+					item.add(new BookmarkablePageLink("titlelink", AdminPage.class, param)
 							.add(new Label("titlelinkLabel", post.getTitle())));
 					Date date = post.getDate().getTime();
-					SimpleDateFormat blogDateFormat = new SimpleDateFormat(
-							"dd-MM-yyyy");
+					SimpleDateFormat blogDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 					item.add(new Label("datetime", blogDateFormat.format(date)));
 					item.add(new Label("author", post.getAuthor()));
-					item.add(new Label("nrcomments", String.valueOf(post
-							.getNrComments())));
+					item.add(new Label("nrcomments", String.valueOf(post.getNrComments())));
 					i++;
 				};
 			};
 			add(blogsList);
 		}
-		
+
 		/**
 		 * Activates the inputform for adding a new blogposting
 		 */
@@ -105,8 +101,8 @@ public class AdminBlogOverview extends AdminPanel {
 			newPostParam.add("IDType", "plugin");
 			newPostParam.add("ID", blogPluginUUID);
 			newPostParam.add("action", "new");
-			
+
 			setResponsePage(AdminPage.class, newPostParam);
-		}		
+		}
 	}
 }

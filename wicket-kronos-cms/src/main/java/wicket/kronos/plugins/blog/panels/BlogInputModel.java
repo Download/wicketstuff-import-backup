@@ -53,8 +53,7 @@ public class BlogInputModel implements Serializable {
 	 * @param author
 	 * @param text
 	 */
-	public BlogInputModel(Calendar date, String title, String author,
-			String text)
+	public BlogInputModel(Calendar date, String title, String author, String text)
 	{
 		this.date = date;
 		this.title = title;

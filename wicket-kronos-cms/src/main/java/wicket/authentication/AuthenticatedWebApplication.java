@@ -36,9 +36,8 @@ import wicket.protocol.http.WebApplication;
  * 
  * @author Jonathan Locke
  */
-public abstract class AuthenticatedWebApplication extends WebApplication
-		implements IRoleCheckingStrategy,
-		IUnauthorizedComponentInstantiationListener {
+public abstract class AuthenticatedWebApplication extends WebApplication implements
+		IRoleCheckingStrategy, IUnauthorizedComponentInstantiationListener {
 	/** Subclass of authenticated web session to instantiate */
 	private final Class<? extends AuthenticatedWebSession> webSessionClass;
 
@@ -57,10 +56,8 @@ public abstract class AuthenticatedWebApplication extends WebApplication
 		super.init();
 
 		// Set authorization strategy and unauthorized instantiation listener
-		getSecuritySettings().setAuthorizationStrategy(
-				new RoleAuthorizationStrategy(this));
-		getSecuritySettings().setUnauthorizedComponentInstantiationListener(
-				this);
+		getSecuritySettings().setAuthorizationStrategy(new RoleAuthorizationStrategy(this));
+		getSecuritySettings().setUnauthorizedComponentInstantiationListener(this);
 	}
 
 	/**
@@ -84,8 +81,7 @@ public abstract class AuthenticatedWebApplication extends WebApplication
 			if (!AuthenticatedWebSession.get().isSignedIn())
 			{
 				// Redirect to intercept page to let the user sign in
-				throw new RestartResponseAtInterceptPageException(
-						getSignInPageClass());
+				throw new RestartResponseAtInterceptPageException(getSignInPageClass());
 			} else
 			{
 				onUnauthorizedPage((Page) component);
@@ -110,23 +106,21 @@ public abstract class AuthenticatedWebApplication extends WebApplication
 			{
 				try
 				{
-					return webSessionClass.getDeclaredConstructor(
-							AuthenticatedWebApplication.class).newInstance(
-							AuthenticatedWebApplication.this);
+					return webSessionClass
+							.getDeclaredConstructor(AuthenticatedWebApplication.class).newInstance(
+									AuthenticatedWebApplication.this);
 				}
 				catch (Exception e)
 				{
-					throw new WicketRuntimeException(
-							"Unable to instantiate web session class "
-									+ webSessionClass, e);
+					throw new WicketRuntimeException("Unable to instantiate web session class "
+							+ webSessionClass, e);
 				}
 			}
 		};
 	}
 
 	/**
-	 * @return AuthenticatedWebSession subclass to use in this authenticated web
-	 *         application.
+	 * @return AuthenticatedWebSession subclass to use in this authenticated web application.
 	 */
 	protected abstract Class<? extends AuthenticatedWebSession> getWebSessionClass();
 
@@ -136,9 +130,9 @@ public abstract class AuthenticatedWebApplication extends WebApplication
 	protected abstract Class<? extends WebPage> getSignInPageClass();
 
 	/**
-	 * Called when an AUTHENTICATED user tries to navigate to a page that they
-	 * are not authorized to access. You might want to override this to navigate
-	 * to some explanatory page or to the application's home page.
+	 * Called when an AUTHENTICATED user tries to navigate to a page that they are not authorized to
+	 * access. You might want to override this to navigate to some explanatory page or to the
+	 * application's home page.
 	 * 
 	 * @param page
 	 *            The page

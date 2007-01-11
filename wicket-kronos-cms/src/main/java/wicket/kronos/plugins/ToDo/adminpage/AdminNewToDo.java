@@ -26,18 +26,18 @@ import wicket.model.Model;
 
 /**
  * @author postma
- *
  */
-public class AdminNewToDo extends Panel{
+public class AdminNewToDo extends Panel {
 
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Constructor.
-	 * @param wicketId 
+	 * 
+	 * @param wicketId
 	 */
 	public AdminNewToDo(String wicketId)
 	{
@@ -45,18 +45,22 @@ public class AdminNewToDo extends Panel{
 		InputForm inputForm = new InputForm("adminnewtodo");
 		add(inputForm);
 	}
-	
+
 	private class InputForm extends Form {
-		
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private TextField titleText;
+
 		private TextField subjectText;
+
 		private TextArea contentText;
+
 		private CheckBox doneCheck;
-		
+
 		/**
 		 * @param name
 		 */
@@ -69,44 +73,42 @@ public class AdminNewToDo extends Panel{
 			add(contentText = new TextArea("content", new Model()));
 			add(doneCheck = new CheckBox("done", new Model()));
 		}
-		
+
 		@SuppressWarnings("boxing")
 		@Override
 		public void onSubmit()
 		{
 			PageParameters param = KronosSession.get().getPageParameters();
 			String todoPluginUUID = param.getString("ID");
-			Session jcrSession = ((KronosSession) KronosSession.get())
-			.getJCRSession();
-			
+			Session jcrSession = ((KronosSession) KronosSession.get()).getJCRSession();
+
 			try
 			{
 				Workspace ws = jcrSession.getWorkspace();
 				QueryManager qm = ws.getQueryManager();
-				Query q = qm.createQuery("//kronos:plugin/kronos:todoitems",
-						Query.XPATH);
+				Query q = qm.createQuery("//kronos:plugin/kronos:todoitems", Query.XPATH);
 
 				QueryResult result = q.execute();
 				NodeIterator it = result.getNodes();
-				
-				if(it.hasNext())
+
+				if (it.hasNext())
 				{
 					Node todoItems = it.nextNode();
-				
+
 					Node todoPluginNode = jcrSession.getNodeByUUID(todoPluginUUID);
 					String todoPluginName = todoPluginNode.getProperty("kronos:name").getString();
-					
+
 					Node newItem = todoItems.addNode("kronos:todoitem");
 					newItem.setProperty("kronos:pluginname", todoPluginName);
 					newItem.setProperty("kronos:name", titleText.getModelObjectAsString());
 					newItem.setProperty("kronos:subject", subjectText.getModelObjectAsString());
 					newItem.setProperty("kronos:content", contentText.getModelObjectAsString());
-					newItem.setProperty("kronos:done", (Boolean)doneCheck.getModelObject());
+					newItem.setProperty("kronos:done", (Boolean) doneCheck.getModelObject());
 					GregorianCalendar cal = new GregorianCalendar();
 					newItem.setProperty("kronos:date", cal);
-					
+
 					jcrSession.save();
-					
+
 					setResponsePage(AdminPage.class);
 				}
 			}
@@ -118,7 +120,7 @@ public class AdminNewToDo extends Panel{
 			{
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 }

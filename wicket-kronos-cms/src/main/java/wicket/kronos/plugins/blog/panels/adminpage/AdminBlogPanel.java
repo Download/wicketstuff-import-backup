@@ -20,7 +20,7 @@ public class AdminBlogPanel extends Panel {
 	 * 
 	 * @param id
 	 * @param blogposts
-	 * @param pluginUUID 
+	 * @param pluginUUID
 	 */
 	public AdminBlogPanel(String id, List<BlogPost> blogposts, String pluginUUID)
 	{

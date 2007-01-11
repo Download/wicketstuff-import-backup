@@ -44,111 +44,108 @@ public class MenuAdminpagePanel extends AdminPanel {
 
 	/**
 	 * Cosntructor.
-	 * @param wicketId 
-	 * @param menuItems 
-	 * @param pluginUUID 
-	 * @param isHorizontal 
+	 * 
+	 * @param wicketId
+	 * @param menuItems
+	 * @param pluginUUID
+	 * @param isHorizontal
 	 * @param id
 	 */
-	public MenuAdminpagePanel(String wicketId, List<MenuItem> menuItems, String pluginUUID, boolean isHorizontal)
+	public MenuAdminpagePanel(String wicketId, List<MenuItem> menuItems, String pluginUUID,
+			boolean isHorizontal)
 	{
 		super(wicketId, pluginUUID);
-		add(new MenuAdminForm("menuAdminForm", menuItems, new CompoundPropertyModel(new MenuModel(menuItems, isHorizontal))));
+		add(new MenuAdminForm("menuAdminForm", menuItems, new CompoundPropertyModel(new MenuModel(
+				menuItems, isHorizontal))));
 	}
-	
+
 	/**
-	 * 
 	 * @author roeloffzen
-	 *
 	 */
 	public class MenuAdminForm extends Form {
 
-		
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
-		
+
 		private ListView delMenuItems = null;
 
 		/**
 		 * @param wicketId
-		 * @param menuItems 
+		 * @param menuItems
 		 * @param model
 		 */
 		public MenuAdminForm(String wicketId, List<MenuItem> menuItems, IModel model)
 		{
 			super(wicketId, model);
-			
+
 			add(delMenuItems = new ListView("menuNameRepeater", menuItems) {
 				@Override
 				public void populateItem(ListItem item)
 				{
 					final TextField orderField;
-					
+
 					final MenuItem menuItem = (MenuItem) item.getModelObject();
 					item.add(new CheckBox("remove", new PropertyModel(menuItem, "remove")));
 					item.add(new Label("menuItemLabel", menuItem.getName()));
 					item.add(new Label("menuItemLinkType", menuItem.getLinkType()));
-					
-					item.add(orderField = new TextField("order", new PropertyModel(menuItem, "order")));
+
+					item.add(orderField = new TextField("order", new PropertyModel(menuItem,
+							"order")));
 					orderField.setOutputMarkupId(true);
-					
-					item.add(new AjaxLink("incrementLink")
-					{
+
+					item.add(new AjaxLink("incrementLink") {
 						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
-							int newValue = menuItem.getOrder()+1;
+							int newValue = menuItem.getOrder() + 1;
 							menuItem.setOrder(newValue);
 							target.addComponent(orderField);
 						}
 					});
-					
-					item.add(new AjaxLink("decrementLink")
-					{
+
+					item.add(new AjaxLink("decrementLink") {
 						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
 							int oldValue = menuItem.getOrder();
 							int newValue;
-							if(oldValue > 1)		
-								newValue = oldValue-1;
-							else 
+							if (oldValue > 1)
+								newValue = oldValue - 1;
+							else
 								newValue = oldValue;
 							menuItem.setOrder(newValue);
 							target.addComponent(orderField);
 						}
 					});
-					
+
 					if (menuItem.getLinkType().equalsIgnoreCase("internal"))
 					{
 						if (menuItem.getIDType().equalsIgnoreCase("plugin"))
 						{
-							item.add(new Label("menuItemLink", 
-									getDisplayName(menuItem.getID())));
+							item.add(new Label("menuItemLink", getDisplayName(menuItem.getID())));
 						} else
 						{
 							item.add(new Label("menuItemLink", menuItem.getIDType()));
 						}
-					}else
-					{					
+					} else
+					{
 						item.add(new Label("menuItemLink", menuItem.getLink()));
-					}					
+					}
 				}
 			});
-			
+
 			add(new CheckBox("isHorizontal"));
-			
-			add(new Button("save")
-			{
+
+			add(new Button("save") {
 				@Override
 				public void onSubmit()
 				{
 					Session jcrSession = KronosSession.get().getJCRSession();
-					
-					MenuModel menuModel = (MenuModel)MenuAdminForm.this.getModelObject();
-					
+
+					MenuModel menuModel = (MenuModel) MenuAdminForm.this.getModelObject();
+
 					try
 					{
 						Node menuNode = jcrSession.getNodeByUUID(properties.getPluginUUID());
@@ -166,43 +163,46 @@ public class MenuAdminpagePanel extends AdminPanel {
 					}
 				}
 			});
-			
-			add(new Button("delete")
-			{
+
+			add(new Button("delete") {
 				@Override
 				public void onSubmit()
 				{
 					Session jcrSession = KronosSession.get().getJCRSession();
-					
+
 					Iterator iter = delMenuItems.getList().iterator();
-					while (iter.hasNext()) {
-						MenuItem menuItem = (MenuItem)iter.next();
+					while (iter.hasNext())
+					{
+						MenuItem menuItem = (MenuItem) iter.next();
 						if (menuItem.isRemove())
 						{
 							Workspace ws = jcrSession.getWorkspace();
 							QueryManager qm;
 							try
-							{								
+							{
 								qm = ws.getQueryManager();
-								Query q = qm.createQuery("//kronos:cms/kronos:menus/kronos:menu/kronos:menuitem[@kronos:menuitemname = '" + menuItem.getName() + "']", Query.XPATH);
-								
+								Query q = qm.createQuery(
+										"//kronos:cms/kronos:menus/kronos:menu/kronos:menuitem[@kronos:menuitemname = '"
+												+ menuItem.getName() + "']", Query.XPATH);
+
 								QueryResult result = q.execute();
 								NodeIterator it = result.getNodes();
 								if (it.hasNext())
 								{
-									it.nextNode().remove();									
+									it.nextNode().remove();
 								}
 							}
 							catch (RepositoryException e)
 							{
 								e.printStackTrace();
 							}
-							
+
 						}
 					}
-					try {
+					try
+					{
 						jcrSession.save();
-						
+
 						PageParameters param = new PageParameters();
 						param.add("IDType", "plugin");
 						param.add("ID", properties.getPluginUUID());
@@ -218,9 +218,8 @@ public class MenuAdminpagePanel extends AdminPanel {
 					}
 				}
 			});
-						
-			add(new Button("internal")
-			{
+
+			add(new Button("internal") {
 				@Override
 				public void onSubmit()
 				{
@@ -231,9 +230,8 @@ public class MenuAdminpagePanel extends AdminPanel {
 					setResponsePage(AdminPage.class, param);
 				}
 			});
-			
-			add(new Button("external")
-			{
+
+			add(new Button("external") {
 				@Override
 				public void onSubmit()
 				{
@@ -245,7 +243,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 				}
 			});
 		}
-		
+
 		/**
 		 * Retreive the menuitem name
 		 * 
@@ -272,7 +270,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 			}
 			return name;
 		}
-		
+
 		/**
 		 * Save the list of menu items
 		 * 
@@ -281,50 +279,56 @@ public class MenuAdminpagePanel extends AdminPanel {
 		private void saveMenuItems(List menuItems)
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
-			
+
 			Iterator iter = menuItems.iterator();
-			while (iter.hasNext()) {
-				MenuItem menuItem = (MenuItem)iter.next();
-				
+			while (iter.hasNext())
+			{
+				MenuItem menuItem = (MenuItem) iter.next();
+
 				Workspace ws = jcrSession.getWorkspace();
 				QueryManager qm;
 				try
-				{								
+				{
 					qm = ws.getQueryManager();
-					Query q = qm.createQuery("//kronos:cms/kronos:menus/kronos:menu/kronos:menuitem[@kronos:menuitemname = '" + menuItem.getName() + "']", Query.XPATH);
-					
+					Query q = qm.createQuery(
+							"//kronos:cms/kronos:menus/kronos:menu/kronos:menuitem[@kronos:menuitemname = '"
+									+ menuItem.getName() + "']", Query.XPATH);
+
 					QueryResult result = q.execute();
 					NodeIterator it = result.getNodes();
 					if (it.hasNext())
 					{
 						it.nextNode().setProperty("kronos:order", menuItem.getOrder());
-						
+
 					}
 				}
 				catch (RepositoryException e)
 				{
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
-	
-	/** 
+
+	/**
 	 * @author roeloffzen
 	 */
-	public class MenuModel implements Serializable{
-		
+	public class MenuModel implements Serializable {
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private List<MenuItem> menuItems;
+
 		private boolean isHorizontal;
-		
+
 		/**
 		 * Constructor.
-		 * @param menuItems 
+		 * 
+		 * @param menuItems
 		 * @param isHorizontal
 		 */
 		public MenuModel(List<MenuItem> menuItems, boolean isHorizontal)
@@ -332,7 +336,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 			this.menuItems = menuItems;
 			this.isHorizontal = isHorizontal;
 		}
-	
+
 		/**
 		 * @return the menuItems
 		 */
@@ -340,15 +344,16 @@ public class MenuAdminpagePanel extends AdminPanel {
 		{
 			return menuItems;
 		}
-		
+
 		/**
-		 * @param menuItems the menuItems to set
+		 * @param menuItems
+		 *            the menuItems to set
 		 */
 		public void setMenuItems(List<MenuItem> menuItems)
 		{
 			this.menuItems = menuItems;
 		}
-		
+
 		/**
 		 * @return boolean
 		 */

@@ -17,7 +17,6 @@ import wicket.model.CompoundPropertyModel;
 
 /**
  * @author postma
- *
  */
 public class AdminToDoEdit extends Panel {
 
@@ -25,7 +24,7 @@ public class AdminToDoEdit extends Panel {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private InputForm inputForm = null;
 
 	/**
@@ -35,13 +34,13 @@ public class AdminToDoEdit extends Panel {
 	public AdminToDoEdit(String wicketId, ToDoItem todoItem)
 	{
 		super(wicketId);
-		
+
 		inputForm = new InputForm("admintodoedit", todoItem);
 		add(inputForm);
 	}
 
 	private class InputForm extends Form {
-		
+
 		/**
 		 * Default serialVersionUID
 		 */
@@ -59,13 +58,13 @@ public class AdminToDoEdit extends Panel {
 			add(new TextArea("content"));
 			add(new CheckBox("done"));
 		}
-		
+
 		@SuppressWarnings("boxing")
 		@Override
 		public void onSubmit()
 		{
 			Session jcrSession = KronosSession.get().getJCRSession();
-			ToDoItem item = (ToDoItem)this.getModelObject();
+			ToDoItem item = (ToDoItem) this.getModelObject();
 			try
 			{
 				Node todoItemNode = jcrSession.getNodeByUUID(item.getTodoUUID());
@@ -73,9 +72,9 @@ public class AdminToDoEdit extends Panel {
 				todoItemNode.setProperty("kronos:subject", item.getSubject());
 				todoItemNode.setProperty("kronos:content", item.getContent());
 				todoItemNode.setProperty("kronos:done", item.getDone());
-				
+
 				jcrSession.save();
-				
+
 				setResponsePage(AdminPage.class);
 			}
 			catch (ItemNotFoundException e)

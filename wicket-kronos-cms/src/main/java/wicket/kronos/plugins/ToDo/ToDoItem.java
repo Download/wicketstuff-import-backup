@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 /**
  * @author postma
- *
  */
 @SuppressWarnings("boxing")
 public class ToDoItem implements Serializable {
@@ -14,38 +13,46 @@ public class ToDoItem implements Serializable {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private boolean delete;
+
 	private String todoUUID = null;
+
 	private String title = null;
+
 	private String subject = null;
+
 	private String content = null;
+
 	private Boolean done = false;
+
 	private Calendar date = null;
-	
+
 	/**
 	 * Constructor.
 	 */
-	public ToDoItem() 
+	public ToDoItem()
 	{
-		
+
 	}
-	
+
 	/**
 	 * Constructor for creating a new todo item for which all parameters are known
-	 * @param todoUUID 
+	 * 
+	 * @param todoUUID
 	 * @param title
 	 * @param subject
 	 * @param content
 	 * @param done
 	 * @param date
 	 */
-	public ToDoItem(String todoUUID, String title, String subject, String content, Boolean done, Calendar date) 
+	public ToDoItem(String todoUUID, String title, String subject, String content, Boolean done,
+			Calendar date)
 	{
-		assert(title != null);
-		assert(subject != null);
-		assert(content != null);
-		assert(done != null);
+		assert (title != null);
+		assert (subject != null);
+		assert (content != null);
+		assert (done != null);
 		this.delete = false;
 		this.todoUUID = todoUUID;
 		this.title = title;
@@ -54,7 +61,7 @@ public class ToDoItem implements Serializable {
 		this.done = done;
 		this.date = date;
 	}
-	
+
 	/**
 	 * @return the delete
 	 */
@@ -166,5 +173,5 @@ public class ToDoItem implements Serializable {
 	{
 		this.title = title;
 	}
-	
+
 }

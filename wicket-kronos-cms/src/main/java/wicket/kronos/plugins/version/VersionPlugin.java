@@ -26,15 +26,14 @@ public class VersionPlugin extends IPlugin {
 	 * @param pluginType
 	 */
 	public VersionPlugin(Boolean isAdmin, String pluginUUID, String pluginname,
-			Boolean ispublished, Integer order, Integer areaposition,
-			String pluginType)
+			Boolean ispublished, Integer order, Integer areaposition, String pluginType)
 	{
-		super(isAdmin, pluginUUID, pluginname, ispublished, order,
-				areaposition, pluginType);
-		if(isAdmin)
+		super(isAdmin, pluginUUID, pluginname, ispublished, order, areaposition, pluginType);
+		if (isAdmin)
 		{
 			add(new VersionAdminPanel("version", pluginUUID));
-		} else {
+		} else
+		{
 			add(new VersionFrontpagePanel("version"));
 		}
 	}

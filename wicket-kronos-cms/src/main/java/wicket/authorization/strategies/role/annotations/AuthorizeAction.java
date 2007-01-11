@@ -26,8 +26,7 @@ import java.lang.annotation.Target;
 
 /**
  * A mapping of 1..n roles to an action. This annotions must be embedded in the
- * {@link wicket.authorization.strategies.role.annotations.AuthorizeActions}
- * annotation.
+ * {@link wicket.authorization.strategies.role.annotations.AuthorizeActions} annotation.
  * 
  * @see wicket.authorization.IAuthorizationStrategy
  * @see wicket.authorization.strategies.role.annotations.AnnotationsRoleAuthorizationStrategy
@@ -43,9 +42,8 @@ public @interface AuthorizeAction
 {
 
 	/**
-	 * The action that is allowed. The default actions that are supported by
-	 * Wicket are <code>RENDER</code> and
-	 * <code>ENABLE<code> as defined as constants
+	 * The action that is allowed. The default actions that are supported by Wicket are
+	 * <code>RENDER</code> and <code>ENABLE<code> as defined as constants
 	 * of {@link wicket.Component}.
 	 * 
 	 * @see wicket.Component#RENDER
@@ -58,8 +56,8 @@ public @interface AuthorizeAction
 	/**
 	 * The roles for this action.
 	 * 
-	 * @return the roles for this action. The default is an empty string
-	 *         (annotations do not allow null default values)
+	 * @return the roles for this action. The default is an empty string (annotations do not allow
+	 *         null default values)
 	 */
 	String[] roles() default "";
 }

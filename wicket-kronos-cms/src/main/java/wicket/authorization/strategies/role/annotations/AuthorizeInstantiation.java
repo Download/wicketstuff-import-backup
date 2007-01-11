@@ -41,8 +41,7 @@ public @interface AuthorizeInstantiation
 	/**
 	 * Gets the roles that are allowed to take the action.
 	 * 
-	 * @return the roles that are allowed. Returns a zero length array by
-	 *         default
+	 * @return the roles that are allowed. Returns a zero length array by default
 	 */
 	String[] value() default {};
 }

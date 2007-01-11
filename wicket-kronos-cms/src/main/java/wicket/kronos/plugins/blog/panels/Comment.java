@@ -23,6 +23,7 @@ public class Comment implements Serializable {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param commentUUID
 	 * @param text
 	 * @param author

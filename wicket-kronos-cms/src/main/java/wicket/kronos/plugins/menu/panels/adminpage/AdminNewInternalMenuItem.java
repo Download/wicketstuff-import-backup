@@ -27,9 +27,8 @@ import wicket.model.PropertyModel;
 
 /**
  * @author postma
- *
  */
-public class AdminNewInternalMenuItem extends Panel{
+public class AdminNewInternalMenuItem extends Panel {
 
 	/**
 	 * Default serialVersionUID
@@ -38,21 +37,21 @@ public class AdminNewInternalMenuItem extends Panel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
-	 * @param menuName 
+	 * @param menuName
 	 */
 	public AdminNewInternalMenuItem(String wicketId, String menuName)
 	{
 		super(wicketId);
 		add(new InternalMenuItemForm("newMenuItem", menuName));
 	}
-	
+
 	/**
 	 * @author postma
-	 *
 	 */
-	public class InternalMenuItemForm extends Form{
-		
+	public class InternalMenuItemForm extends Form {
+
 		/**
 		 * Default serialVersionUID
 		 */
@@ -60,86 +59,86 @@ public class AdminNewInternalMenuItem extends Panel{
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketId
-		 * @param menuName 
+		 * @param menuName
 		 */
 		public InternalMenuItemForm(String wicketId, final String menuName)
 		{
 			super(wicketId);
-			
+
 			final NewInternalMenuItemModel nmim = new NewInternalMenuItemModel();
 			final DropDownChoice idtypeChoice;
 			final DropDownChoice idChoice;
 			List<String> idtypeList = new ArrayList<String>();
-				idtypeList.add("plugin");
-				idtypeList.add("content");
-				idtypeList.add("adminpage");
-				idtypeList.add("frontpage");
+			idtypeList.add("plugin");
+			idtypeList.add("content");
+			idtypeList.add("adminpage");
+			idtypeList.add("frontpage");
 			final List<String> idListPlugin = DataProcessor.getPluginIdentities();
 			final List<String> idListContent = DataProcessor.getContentIdentities();
-		
-			final IModel idChoices = new AbstractReadOnlyModel()
-			{
+
+			final IModel idChoices = new AbstractReadOnlyModel() {
 				private List<String> idList = new ArrayList<String>();
+
 				@Override
 				public Object getObject(Component component)
-				{	
-					if(nmim.getIdtype().equalsIgnoreCase("plugin"))
+				{
+					if (nmim.getIdtype().equalsIgnoreCase("plugin"))
 					{
 						idList = idListPlugin;
-					} else if(nmim.getIdtype().equalsIgnoreCase("content"))
+					} else if (nmim.getIdtype().equalsIgnoreCase("content"))
 					{
 						idList = idListContent;
 					}
 					return idList;
 				}
 			};
-			
+
 			add(new TextField("order", new PropertyModel(nmim, "order")));
 			add(new TextField("linkname", new PropertyModel(nmim, "linkname")));
-			add(idtypeChoice = new DropDownChoice("idtype", new PropertyModel(nmim, "idtype"), idtypeList));
-			add(idChoice = new DropDownChoice("id", new PropertyModel(nmim, "id"), idChoices, new IChoiceRenderer()
-			{
-				public String getIdValue(Object object, int arg1)
-				{	
-					return (String)object;
-				}
-			
-				public Object getDisplayValue(Object object)
-				{
-					String name = null;
-					Session jcrSession = KronosSession.get().getJCRSession();
-					Node node;
-					try
-					{
-						node = jcrSession.getNodeByUUID((String)object);
-						name = node.getProperty("kronos:name").getString();
-					}
-					catch (ItemNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (RepositoryException e)
-					{
-						e.printStackTrace();
-					}
-					return name;
-				}
-			}));
-			
-			idtypeChoice.add(new AjaxFormComponentUpdatingBehavior("onchange")
-			{
+			add(idtypeChoice = new DropDownChoice("idtype", new PropertyModel(nmim, "idtype"),
+					idtypeList));
+			add(idChoice = new DropDownChoice("id", new PropertyModel(nmim, "id"), idChoices,
+					new IChoiceRenderer() {
+						public String getIdValue(Object object, int arg1)
+						{
+							return (String) object;
+						}
+
+						public Object getDisplayValue(Object object)
+						{
+							String name = null;
+							Session jcrSession = KronosSession.get().getJCRSession();
+							Node node;
+							try
+							{
+								node = jcrSession.getNodeByUUID((String) object);
+								name = node.getProperty("kronos:name").getString();
+							}
+							catch (ItemNotFoundException e)
+							{
+								e.printStackTrace();
+							}
+							catch (RepositoryException e)
+							{
+								e.printStackTrace();
+							}
+							return name;
+						}
+					}));
+
+			idtypeChoice.add(new AjaxFormComponentUpdatingBehavior("onchange") {
 				@Override
 				protected void onUpdate(AjaxRequestTarget target)
 				{
 					target.addComponent(idChoice);
 				}
 			});
-			
+
 			idChoice.setOutputMarkupId(true);
-			
-			add(new Button("saveMenuItem")
-			{
+
+			add(new Button("saveMenuItem") {
 				@Override
 				public void onSubmit()
 				{
@@ -154,25 +153,29 @@ public class AdminNewInternalMenuItem extends Panel{
 			});
 		}
 	}
-		
+
 	/**
 	 * Model for new internal menu item
 	 * 
 	 * @author postma
-	 *
 	 */
-	public class NewInternalMenuItemModel implements Serializable{
-		
+	public class NewInternalMenuItemModel implements Serializable {
+
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private String linkname;
+
 		private String idtype;
+
 		private String id;
+
 		private String link;
+
 		private int order;
-		
+
 		/**
 		 * Constructor.
 		 */
@@ -193,7 +196,6 @@ public class AdminNewInternalMenuItem extends Panel{
 			return id;
 		}
 
-
 		/**
 		 * @param id
 		 */
@@ -201,7 +203,6 @@ public class AdminNewInternalMenuItem extends Panel{
 		{
 			this.id = id;
 		}
-
 
 		/**
 		 * @return the idtypes
@@ -211,7 +212,6 @@ public class AdminNewInternalMenuItem extends Panel{
 			return idtype;
 		}
 
-
 		/**
 		 * @param idtype
 		 */
@@ -220,7 +220,6 @@ public class AdminNewInternalMenuItem extends Panel{
 			this.idtype = idtype;
 		}
 
-
 		/**
 		 * @return the linkname
 		 */
@@ -228,7 +227,6 @@ public class AdminNewInternalMenuItem extends Panel{
 		{
 			return linkname;
 		}
-
 
 		/**
 		 * @param linkname

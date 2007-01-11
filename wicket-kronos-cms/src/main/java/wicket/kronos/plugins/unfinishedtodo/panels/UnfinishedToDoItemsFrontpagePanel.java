@@ -13,9 +13,8 @@ import wicket.markup.html.panel.Panel;
 
 /**
  * @author postma
- *
  */
-public class UnfinishedToDoItemsFrontpagePanel extends Panel{
+public class UnfinishedToDoItemsFrontpagePanel extends Panel {
 
 	/**
 	 * Default serialVersionUID
@@ -24,29 +23,31 @@ public class UnfinishedToDoItemsFrontpagePanel extends Panel{
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 * @param unfinishedToDoItems
 	 * @param toDoPluginUUID
 	 */
-	public UnfinishedToDoItemsFrontpagePanel(String wicketId, List unfinishedToDoItems, final String toDoPluginUUID)
+	public UnfinishedToDoItemsFrontpagePanel(String wicketId, List unfinishedToDoItems,
+			final String toDoPluginUUID)
 	{
 		super(wicketId);
-		
+
 		BookmarkablePageLink link;
-		
+
 		PageParameters param = new PageParameters();
 		param.add("IDType", "plugin");
 		param.add("ID", toDoPluginUUID);
 		add(link = new BookmarkablePageLink("todolink", Frontpage.class, param));
-		link.add(new ListView("linkrepeater", unfinishedToDoItems){
+		link.add(new ListView("linkrepeater", unfinishedToDoItems) {
 
 			@Override
 			protected void populateItem(ListItem item)
 			{
-				ToDoItem todoItem = (ToDoItem)item.getModelObject();
+				ToDoItem todoItem = (ToDoItem) item.getModelObject();
 				item.add(new Label("todolinklabel", todoItem.getTitle()));
 			}
-			
+
 		});
 	}
 

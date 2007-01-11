@@ -15,40 +15,40 @@ import wicket.util.lang.Bytes;
 
 /**
  * @author postma
- *
  */
 public class AdminPluginUpload extends Panel {
-	
+
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Folder uploadFolder = null;
-	
+
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
-	public AdminPluginUpload(String wicketId) 
+	public AdminPluginUpload(String wicketId)
 	{
 		super(wicketId);
-		
+
 		this.uploadFolder = new Folder("./src/main/java/wicket/kronos/plugins");
-		
-		//ensuring folder exists
+
+		// ensuring folder exists
 		this.uploadFolder.mkdirs();
-		
-		//Create feedback panels
+
+		// Create feedback panels
 		final FeedbackPanel uploadFeedback = new FeedbackPanel("uploadFeedback");
 
 		// Add uploadFeedback to the page itself
 		add(uploadFeedback);
-		
+
 		// Add simple upload form, which is hooked up to its feedback panel by
 		// virtue of that panel being nested in the form.
 		final FileUploadForm simpleUploadForm = new FileUploadForm("simpleUpload");
-		add(simpleUploadForm);	
+		add(simpleUploadForm);
 	}
 
 	/**
@@ -72,12 +72,12 @@ public class AdminPluginUpload extends Panel {
 	/**
 	 * Form for uploads.
 	 */
-	private class FileUploadForm extends Form
-	{
+	private class FileUploadForm extends Form {
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private FileUploadField fileUploadField;
 
 		/**
@@ -91,13 +91,13 @@ public class AdminPluginUpload extends Panel {
 
 			// set this form to multipart mode (allways needed for uploads!)
 			setMultiPart(true);
-			
+
 			// Add one file input field
 			add(fileUploadField = new FileUploadField("fileUpload"));
-			
+
 			// Add folder view
 			add(new Label("dir", uploadFolder.getAbsolutePath()));
-			
+
 			// Set maximum size to 100K for demo purposes
 			setMaxSize(Bytes.kilobytes(100));
 		}

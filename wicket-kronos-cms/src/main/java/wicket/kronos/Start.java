@@ -51,12 +51,10 @@ public class Start {
 		Server jettyServer = null;
 		try
 		{
-			URL jettyConfig = new URL(
-					"file:src/main/resources/jetty-config.xml");
+			URL jettyConfig = new URL("file:src/main/resources/jetty-config.xml");
 			if (jettyConfig == null)
 			{
-				log
-						.fatal("Unable to locate jetty-test-config.xml on the classpath");
+				log.fatal("Unable to locate jetty-test-config.xml on the classpath");
 			}
 			jettyServer = new Server(jettyConfig);
 			jettyServer.start();

@@ -21,9 +21,7 @@ import wicket.markup.html.form.Form;
 import wicket.model.Model;
 
 /**
- * 
  * @author roeloffzen
- *
  */
 public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 
@@ -31,10 +29,12 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private String pluginUUID;
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 * @param pluginUUID
 	 */
@@ -45,7 +45,7 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 		List<String> names = this.getTodoPluginNames();
 		add(new UnfinishedForm("unfinishedform", names));
 	}
-	
+
 	/**
 	 * Retreive a list with todoplugin names
 	 * 
@@ -54,14 +54,17 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 	private List<String> getTodoPluginNames()
 	{
 		List<String> todoNames = new ArrayList<String>();
-		
+
 		Session jcrSession = KronosSession.get().getJCRSession();
 
 		try
 		{
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
-			Query q = qm.createQuery("//kronos:plugininstantiations/kronos:plugininstance[@kronos:pluginType='wicket.kronos.plugins.ToDo.ToDoPlugin'] order by @kronos:name ascending ", Query.XPATH);
+			Query q = qm
+					.createQuery(
+							"//kronos:plugininstantiations/kronos:plugininstance[@kronos:pluginType='wicket.kronos.plugins.ToDo.ToDoPlugin'] order by @kronos:name ascending ",
+							Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -77,10 +80,10 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 		{
 			e.printStackTrace();
 		}
-		
+
 		return todoNames;
 	}
-	
+
 	/**
 	 * Change the name of the todo plugin
 	 * 
@@ -89,7 +92,7 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 	private void saveTodoPluginName(String name)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
-		
+
 		try
 		{
 			Node unfinishedToDoPlugin = jcrSession.getNodeByUUID(pluginUUID);
@@ -105,17 +108,19 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	private class UnfinishedForm extends Form{
+
+	private class UnfinishedForm extends Form {
 
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private DropDownChoice todoName;
-		
+
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketId
 		 * @param names
 		 */
@@ -125,7 +130,7 @@ public class UnfinishedToDoItemsAdminPagePanel extends AdminPanel {
 			todoName = new DropDownChoice("todoname", new Model(), names);
 			add(todoName);
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{

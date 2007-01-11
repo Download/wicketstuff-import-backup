@@ -25,21 +25,18 @@ import wicket.authorization.strategies.role.Roles;
 
 /**
  * Strategy that checks the
- * {@link wicket.authorization.strategies.role.annotations.AuthorizeInstantiation}
- * annotation.
+ * {@link wicket.authorization.strategies.role.annotations.AuthorizeInstantiation} annotation.
  * 
  * @author Eelco Hillenius
  */
-public class AnnotationsRoleAuthorizationStrategy extends
-		AbstractRoleAuthorizationStrategy {
+public class AnnotationsRoleAuthorizationStrategy extends AbstractRoleAuthorizationStrategy {
 	/**
 	 * Construct.
 	 * 
 	 * @param roleCheckingStrategy
 	 *            the authorizer delegate
 	 */
-	public AnnotationsRoleAuthorizationStrategy(
-			final IRoleCheckingStrategy roleCheckingStrategy)
+	public AnnotationsRoleAuthorizationStrategy(final IRoleCheckingStrategy roleCheckingStrategy)
 	{
 		super(roleCheckingStrategy);
 	}
@@ -81,8 +78,7 @@ public class AnnotationsRoleAuthorizationStrategy extends
 	 * @see wicket.authorization.IAuthorizationStrategy#isActionAuthorized(wicket.Component,
 	 *      wicket.authorization.Action)
 	 */
-	public boolean isActionAuthorized(final Component component,
-			final Action action)
+	public boolean isActionAuthorized(final Component component, final Action action)
 	{
 		// Get component's class
 		final Class<? extends Component> componentClass = component.getClass();
@@ -118,8 +114,7 @@ public class AnnotationsRoleAuthorizationStrategy extends
 	 *            The annotations information
 	 * @return False if the action is not authorized
 	 */
-	private boolean check(final Action action,
-			final AuthorizeAction authorizeActionAnnotation)
+	private boolean check(final Action action, final AuthorizeAction authorizeActionAnnotation)
 	{
 		if (authorizeActionAnnotation != null)
 		{

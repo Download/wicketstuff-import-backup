@@ -5,15 +5,15 @@ import java.io.Serializable;
 /**
  * @author postma *
  */
-public class PluginProperties implements Serializable{
-	
+public class PluginProperties implements Serializable {
+
 	/**
 	 * Default serialVersionUUID
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private boolean selected;
-	
+
 	private String pluginUUID;
 
 	private String name;
@@ -39,9 +39,10 @@ public class PluginProperties implements Serializable{
 		position = 0;
 		pluginType = null;
 	}
-	
+
 	/**
 	 * Constructor.
+	 * 
 	 * @param pluginUUID
 	 * @param name
 	 * @param published
@@ -128,7 +129,8 @@ public class PluginProperties implements Serializable{
 	/**
 	 * @return position
 	 */
-	public int getPosition(){
+	public int getPosition()
+	{
 		return position;
 	}
 
@@ -165,7 +167,8 @@ public class PluginProperties implements Serializable{
 	}
 
 	/**
-	 * @param selected the selected to set
+	 * @param selected
+	 *            the selected to set
 	 */
 	public void setSelected(boolean selected)
 	{

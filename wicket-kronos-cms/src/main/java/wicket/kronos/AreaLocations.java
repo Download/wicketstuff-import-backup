@@ -33,9 +33,10 @@ public final class AreaLocations {
 	public static final int FOOTER = 4;
 
 	/**
-	 * Retreive area location name as string 
+	 * Retreive area location name as string
 	 * 
-	 * @param location as integer
+	 * @param location
+	 *            as integer
 	 * @return location as string
 	 */
 	public static String getLocationname(int location)
@@ -64,7 +65,7 @@ public final class AreaLocations {
 		}
 		return areaname;
 	}
-	
+
 	/**
 	 * Retreive a list with all arealocations ass integers
 	 * 
@@ -74,13 +75,13 @@ public final class AreaLocations {
 	public static List<Integer> getAreaLocations()
 	{
 		List<Integer> locations = new ArrayList<Integer>();
-		
+
 		locations.add(new Integer(0));
 		locations.add(new Integer(1));
 		locations.add(new Integer(2));
 		locations.add(new Integer(3));
 		locations.add(new Integer(4));
-		
+
 		return locations;
 	}
 }

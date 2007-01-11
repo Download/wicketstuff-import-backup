@@ -18,6 +18,7 @@ public class loggedInUserPanel extends Panel {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 * @param username
 	 */
@@ -37,6 +38,7 @@ public class loggedInUserPanel extends Panel {
 
 		/**
 		 * Constructor.
+		 * 
 		 * @param id
 		 */
 		public signOutForm(String id)
@@ -51,8 +53,7 @@ public class loggedInUserPanel extends Panel {
 			if (!continueToOriginalDestination())
 			{
 				KronosSession currentSession = KronosSession.get();
-				setResponsePage(new Frontpage(currentSession
-						.getPageParameters()));
+				setResponsePage(new Frontpage(currentSession.getPageParameters()));
 			}
 		}
 	}

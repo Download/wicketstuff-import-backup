@@ -7,7 +7,6 @@ import wicket.markup.html.panel.Panel;
 
 /**
  * @author postma
- *
  */
 public class FrontToDoPanel extends Panel {
 
@@ -18,8 +17,9 @@ public class FrontToDoPanel extends Panel {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
-	 * @param todoItems 
+	 * @param todoItems
 	 */
 	public FrontToDoPanel(String wicketId, List<ToDoItem> todoItems)
 	{

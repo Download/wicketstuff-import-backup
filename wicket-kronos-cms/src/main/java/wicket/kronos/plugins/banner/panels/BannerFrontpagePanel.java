@@ -16,6 +16,7 @@ public class BannerFrontpagePanel extends Panel {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param id
 	 * @param img
 	 */

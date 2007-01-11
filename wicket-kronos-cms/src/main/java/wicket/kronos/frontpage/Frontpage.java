@@ -30,13 +30,15 @@ public class Frontpage extends KronosPage {
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private String templateName;
+
 	private String pageTitle;
 
 	/**
-	 * The constructor of Frontpage accepts a PageParameters object as a
-	 * parameter the PageParameter object can have a parameter combination of
-	 * the String "IDType" with a value and the String "ID" with a value
+	 * The constructor of Frontpage accepts a PageParameters object as a parameter the PageParameter
+	 * object can have a parameter combination of the String "IDType" with a value and the String
+	 * "ID" with a value
 	 * 
 	 * @param pageParameters
 	 */
@@ -45,7 +47,8 @@ public class Frontpage extends KronosPage {
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try
 		{
-			Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode("kronos:configuration");
+			Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(
+					"kronos:configuration");
 			templateName = configuration.getProperty("kronos:activetemplate").getString();
 			pageTitle = configuration.getProperty("kronos:pagetitle").getString();
 		}
@@ -58,18 +61,17 @@ public class Frontpage extends KronosPage {
 			e1.printStackTrace();
 		}
 		add(new Label("title", pageTitle));
-		WebComponent c = new WebComponent( "css" );
-		  IModel model = new Model()
-		  {
-		      @Override
-			public Object getObject( Component c )
-		      {	
-		    	  return "templates/"+ templateName + "/css/style.css";
-		      }
-		  };
-		  c.add( new AttributeModifier( "href", model ) );
-		  add( c );
-		
+		WebComponent c = new WebComponent("css");
+		IModel model = new Model() {
+			@Override
+			public Object getObject(Component c)
+			{
+				return "templates/" + templateName + "/css/style.css";
+			}
+		};
+		c.add(new AttributeModifier("href", model));
+		add(c);
+
 		if (pageParameters == null || pageParameters.isEmpty())
 		{
 			this.init(-1, null);
@@ -91,15 +93,13 @@ public class Frontpage extends KronosPage {
 		}
 
 		/*
-		 * Temporary: Generate a XML-File with the entire contents of the
-		 * repository
+		 * Temporary: Generate a XML-File with the entire contents of the repository
 		 */
 		try
 		{
 			Session session = KronosSession.get().getJCRSession();
 			FileOutputStream out = new FileOutputStream("output.xml");
-			session.exportDocumentView(session.getRootNode().getPath(), out,
-					false, false);
+			session.exportDocumentView(session.getRootNode().getPath(), out, false, false);
 		}
 		catch (PathNotFoundException e)
 		{
@@ -118,8 +118,8 @@ public class Frontpage extends KronosPage {
 	private void init(int changedArea, IPlugin plugin)
 	{
 		/*
-		 * Create all the area objects for this page, the Area objects are being
-		 * initialised with the plugins that reside on the specific area.
+		 * Create all the area objects for this page, the Area objects are being initialised with
+		 * the plugins that reside on the specific area.
 		 */
 		assert (changedArea >= 0);
 		/* area, 0=header, 1=left, 2=center, 3=right, 4=footer */

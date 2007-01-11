@@ -47,18 +47,19 @@ import wicket.util.lang.Bytes;
 
 /**
  * @author postma
- *
  */
-public class MediaManagerPanel extends Panel{
+public class MediaManagerPanel extends Panel {
 
 	/**
 	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private List<CMSImageResource> images = null;
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param wicketId
 	 */
 	public MediaManagerPanel(String wicketId)
@@ -66,52 +67,53 @@ public class MediaManagerPanel extends Panel{
 		super(wicketId);
 		images = DataProcessor.getImages();
 		add(new MediaManForm("mediamanform"));
-		
-		//Add upload form with ajax progress bar
+
+		// Add upload form with ajax progress bar
 		final UploadForm uploadForm = new UploadForm("uploadform");
 		uploadForm.add(new UploadProgressBar("progress", uploadForm));
 		add(uploadForm);
-		
+
 	}
-	
-	
+
 	/**
 	 * @author postma
-	 *
 	 */
-	public class MediaManForm extends Form{
+	public class MediaManForm extends Form {
 
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
-		private CheckBox selected; 
+
+		private CheckBox selected;
+
 		private ListView imageList;
-		
+
 		/**
 		 * Constructor.
+		 * 
 		 * @param wicketId
 		 */
 		public MediaManForm(String wicketId)
 		{
 			super(wicketId, new CompoundPropertyModel(new MediaModel(images)));
-			imageList = new ListView("imagelist", images){
+			imageList = new ListView("imagelist", images) {
 
 				@Override
 				protected void populateItem(ListItem item)
 				{
-					final CMSImageResource image = (CMSImageResource)item.getModelObject();
-					PopupSettings popupSettings = new PopupSettings(PageMap
-							.forName("popuppagemap"), PopupSettings.SCROLLBARS);
-					
-					Link imageLink = new Link("imagelink"){
+					final CMSImageResource image = (CMSImageResource) item.getModelObject();
+					PopupSettings popupSettings = new PopupSettings(
+							PageMap.forName("popuppagemap"), PopupSettings.SCROLLBARS);
+
+					Link imageLink = new Link("imagelink") {
 						@Override
 						public void onClick()
 						{
 							setResponsePage(new ImagePopup(image));
 						}
 					};
-					//TODO Possible to delete images
+					// TODO Possible to delete images
 					selected = new CheckBox("selected", new PropertyModel(image, "selected"));
 					item.add(selected);
 					imageLink.add(new Image("image", image));
@@ -119,22 +121,22 @@ public class MediaManagerPanel extends Panel{
 					item.add(imageLink);
 					item.add(new Label("imagelabel", image.getImageName()));
 				}
-				
+
 			};
 			add(imageList);
-			
+
 		}
-		
+
 		@Override
 		public void onSubmit()
 		{
-			MediaModel model = (MediaModel)this.getModelObject();
+			MediaModel model = (MediaModel) this.getModelObject();
 			List modelImagelist = model.getImagelist();
 			Iterator i = modelImagelist.iterator();
-			while(i.hasNext())
+			while (i.hasNext())
 			{
-				CMSImageResource image = (CMSImageResource)i.next();
-				if(image.isSelected())
+				CMSImageResource image = (CMSImageResource) i.next();
+				if (image.isSelected())
 				{
 					String imageName = image.getImageName();
 					Session jcrSession = KronosSession.get().getJCRSession();
@@ -143,12 +145,13 @@ public class MediaManagerPanel extends Panel{
 					{
 						Workspace ws = jcrSession.getWorkspace();
 						QueryManager qm = ws.getQueryManager();
-						Query q = qm.createQuery("//kronos:content/kronos:images/"+ imageName +"" , Query.XPATH);
+						Query q = qm.createQuery(
+								"//kronos:content/kronos:images/" + imageName + "", Query.XPATH);
 
 						QueryResult result = q.execute();
 						NodeIterator it = result.getNodes();
 
-						if(it.hasNext())
+						if (it.hasNext())
 						{
 							Node n = it.nextNode();
 							n.remove();
@@ -167,17 +170,18 @@ public class MediaManagerPanel extends Panel{
 			setResponsePage(AdminPage.class, param);
 		}
 	}
-	
-	private class MediaModel implements Serializable
-	{
+
+	private class MediaModel implements Serializable {
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private List<CMSImageResource> imagelist;
-		
+
 		/**
 		 * Constructor.
+		 * 
 		 * @param imagelist
 		 */
 		public MediaModel(List<CMSImageResource> imagelist)
@@ -201,23 +205,23 @@ public class MediaManagerPanel extends Panel{
 			this.imagelist = imagelist;
 		}
 	}
-	
-	
+
 	/**
 	 * Form for uploads.
 	 */
-	private class UploadForm extends Form
-	{
+	private class UploadForm extends Form {
 		/**
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
+
 		private FileUploadField fileUploadField;
 
 		/**
 		 * Construct.
 		 * 
-		 * @param name Component name
+		 * @param name
+		 *            Component name
 		 */
 		public UploadForm(String name)
 		{
@@ -246,8 +250,9 @@ public class MediaManagerPanel extends Panel{
 				try
 				{
 					String fileName = upload.getClientFileName();
-					Node imageNode = jcrSession.getRootNode().getNode("kronos:cms").getNode("kronos:content").getNode("kronos:images").addNode(fileName, "nt:file");
-					
+					Node imageNode = jcrSession.getRootNode().getNode("kronos:cms").getNode(
+							"kronos:content").getNode("kronos:images").addNode(fileName, "nt:file");
+
 					MimeTable mt = MimeTable.getDefaultTable();
 					String mimeType = mt.getContentTypeFor(fileName);
 					if (mimeType == null) mimeType = "application/octet-stream";
@@ -259,7 +264,7 @@ public class MediaManagerPanel extends Panel{
 					resNode.setProperty("jcr:data", upload.getInputStream());
 					Calendar lastModified = new GregorianCalendar();
 					resNode.setProperty("jcr:lastModified", lastModified);
-					
+
 					jcrSession.save();
 				}
 				catch (ItemExistsException e)
@@ -289,7 +294,7 @@ public class MediaManagerPanel extends Panel{
 				catch (IOException e)
 				{
 					e.printStackTrace();
-				}				
+				}
 			}
 			PageParameters param = new PageParameters();
 			param.add("IDType", "mediamanager");
