@@ -76,9 +76,9 @@ public final class DataProcessor {
 			while (it.hasNext())
 			{
 				Node n = it.nextNode();
-				String pluginUUID = null;
+				
 				/* Loading the IPlugin extended class */
-				pluginUUID = n.getUUID();
+				String pluginUUID = n.getUUID();
 
 				String name = n.getProperty("kronos:name").getString();
 				Boolean published = n.getProperty("kronos:published").getBoolean();
@@ -299,6 +299,7 @@ public final class DataProcessor {
 	 */
 	public static void removePluginInstance(String pluginUUID)
 	{
+		//TODO also remove the plugin's content
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try
 		{
@@ -804,7 +805,6 @@ public final class DataProcessor {
 	public static List<User> getUsers()
 	{
 		List<User> users = new LinkedList<User>();
-		User newUser = null;
 		String[] roles = new String[] {};
 
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -836,9 +836,8 @@ public final class DataProcessor {
 				}
 
 				Roles userroles = new Roles(roles);
-				newUser = new User(username, name, password, email, lastvisit, userroles);
 
-				users.add(newUser);
+				users.add(new User(username, name, password, email, lastvisit, userroles));
 			}
 		}
 		catch (RepositoryException e)
@@ -1034,9 +1033,7 @@ public final class DataProcessor {
 		// Get the NodeTypeManager from the Workspace.
 		// Note that it must be cast from the generic JCR NodeTypeManager to the
 		// Jackrabbit-specific implementation.
-		NodeTypeManagerImpl ntmgr;
-
-		ntmgr = (NodeTypeManagerImpl) session.getWorkspace().getNodeTypeManager();
+		NodeTypeManagerImpl ntmgr = (NodeTypeManagerImpl) session.getWorkspace().getNodeTypeManager();
 
 		System.out.println("Creating manager");
 
@@ -1045,9 +1042,9 @@ public final class DataProcessor {
 		System.out.println("Retrieving registration");
 
 		// Loop through the prepared NodeTypeDefs
-		for (Iterator i = ntdList.iterator(); i.hasNext();)
+		Iterator i = ntdList.iterator();
+		while(i.hasNext())
 		{
-
 			// Get the NodeTypeDef...
 			NodeTypeDef ntd = (NodeTypeDef) i.next();
 
@@ -1069,7 +1066,7 @@ public final class DataProcessor {
 		Node users = cms.addNode("kronos:users");
 		Node user = users.addNode("kronos:user");
 		user.setProperty("kronos:username", "wicket");
-		user.setProperty("kronos:fullname", "Teddy");
+		user.setProperty("kronos:fullname", "Ted");
 		user.setProperty("kronos:email", "kronos@kronos.com");
 
 		String hashedPassword = null;
@@ -1091,7 +1088,7 @@ public final class DataProcessor {
 
 		user = users.addNode("kronos:user");
 		user.setProperty("kronos:username", "rick");
-		user.setProperty("kronos:fullname", "RICKYYYYYYY");
+		user.setProperty("kronos:fullname", "Rick");
 		user.setProperty("kronos:email", "kronos@kronos.com");
 
 		try

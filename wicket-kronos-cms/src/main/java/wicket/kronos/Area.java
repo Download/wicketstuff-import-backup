@@ -33,10 +33,6 @@ public class Area extends Panel {
 		this.areaId = areaId;
 		this.plugins = DataProcessor.getPlugins(this.areaId);
 		add(new ListView("pluginRepeater", plugins) {
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void populateItem(ListItem item)
@@ -48,7 +44,7 @@ public class Area extends Panel {
 	}
 
 	/**
-	 * Construcor.
+	 * Constructor.
 	 * 
 	 * @param areaId
 	 * @param plugin
@@ -59,17 +55,13 @@ public class Area extends Panel {
 		this.areaId = areaId;
 
 		this.plugins = new ArrayList<IPlugin>();
-		plugins.add(plugin);
+		this.plugins.add(plugin);
 		add(new ListView("pluginRepeater", plugins) {
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
-
+			
 			@Override
 			public void populateItem(ListItem item)
 			{
-				IPlugin plugin = (IPlugin) item.getModelObject();
+				IPlugin plugin = (IPlugin)item.getModelObject();
 				item.add(plugin);
 			}
 		});

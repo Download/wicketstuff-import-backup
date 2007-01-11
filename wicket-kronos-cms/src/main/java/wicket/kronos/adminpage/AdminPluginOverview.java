@@ -37,6 +37,7 @@ public class AdminPluginOverview extends Panel {
 	private List<PluginProperties> propertiesList;
 
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 */
 	public AdminPluginOverview(String wicketId)
@@ -52,7 +53,7 @@ public class AdminPluginOverview extends Panel {
 	public class OverviewForm extends Form {
 
 		/**
-		 * 
+		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 
@@ -65,6 +66,7 @@ public class AdminPluginOverview extends Panel {
 		{
 			super(wicketID, new CompoundPropertyModel(new PluginPropertiesModel(propertiesList)));
 			add(new ListView("properties") {
+				
 				/**
 				 * Default serialVersionUID
 				 */
@@ -85,9 +87,8 @@ public class AdminPluginOverview extends Panel {
 							.add(new Label("nameLabel", props.getName())));
 
 					item.add(new CheckBox("published", new PropertyModel(props, "published")));
-					item
-							.add(orderField = new TextField("order", new PropertyModel(props,
-									"order")));
+					item.add(orderField = new TextField("order", 
+						new PropertyModel(props, "order")));
 
 					orderField.setOutputMarkupId(true);
 
@@ -108,7 +109,7 @@ public class AdminPluginOverview extends Panel {
 							int oldValue = props.getOrder();
 							int newValue;
 							if (oldValue > 1)
-								newValue = oldValue - 1;
+								newValue = oldValue--;
 							else
 								newValue = oldValue;
 							props.setOrder(newValue);
@@ -132,7 +133,7 @@ public class AdminPluginOverview extends Panel {
 
 							}));
 					int lastPeriod = props.getPluginType().lastIndexOf(".");
-					String pluginType = props.getPluginType().substring(lastPeriod + 1);
+					String pluginType = props.getPluginType().substring(lastPeriod++);
 					item.add(new Label("pluginType", pluginType));
 				}
 			});

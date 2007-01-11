@@ -85,10 +85,7 @@ public class MenuItem extends Panel {
 			protected void populateItem(ListItem item)
 			{
 				SubMenuItem subMenuItem = (SubMenuItem) item.getModelObject();
-
-				PageParameters param = new PageParameters();
-				param.add("IDType", subMenuItem.getIDType());
-				param.add("ID", subMenuItem.getID());
+				
 				if ((subMenuItem.getIDType().equals("frontpage")))
 				{
 					item.add(new BookmarkablePageLink("submenulink", Frontpage.class,
@@ -96,6 +93,10 @@ public class MenuItem extends Panel {
 							.getName())));
 				} else
 				{
+					PageParameters param = new PageParameters();
+					param.add("IDType", subMenuItem.getIDType());
+					param.add("ID", subMenuItem.getID());
+					
 					item.add(new BookmarkablePageLink("submenulink", AdminPage.class, param)
 							.add(new Label("submenulabel", subMenuItem.getName())));
 				}
@@ -109,7 +110,7 @@ public class MenuItem extends Panel {
 	 */
 	public String getName()
 	{
-		return this.name;
+		return name;
 	}
 
 	/**

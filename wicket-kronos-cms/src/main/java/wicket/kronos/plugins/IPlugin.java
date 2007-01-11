@@ -199,12 +199,10 @@ public abstract class IPlugin extends Panel {
 		}
 		catch (ItemNotFoundException e)
 		{
-
 			e.printStackTrace();
 		}
 		catch (RepositoryException e)
 		{
-
 			e.printStackTrace();
 		}
 	}
@@ -224,5 +222,4 @@ public abstract class IPlugin extends Panel {
 	{
 		this.contentUUID = contentUUID;
 	}
-
 }

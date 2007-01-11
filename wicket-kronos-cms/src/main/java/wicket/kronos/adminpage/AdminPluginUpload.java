@@ -114,7 +114,7 @@ public class AdminPluginUpload extends Panel {
 				// Create a new file
 				File newFile = new File(uploadFolder, upload.getClientFileName());
 
-				// Check new file, delete if it allready existed
+				// Check new file, delete if it allready exists
 				checkFileExists(newFile);
 				try
 				{

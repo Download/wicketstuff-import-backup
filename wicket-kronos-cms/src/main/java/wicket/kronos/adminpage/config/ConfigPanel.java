@@ -2,6 +2,7 @@ package wicket.kronos.adminpage.config;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jcr.Node;
@@ -60,9 +61,8 @@ public class ConfigPanel extends Panel {
 		{
 			super(wicketId);
 
-			File pathFile = new File("");
-			File file = new File(pathFile.getAbsoluteFile() + "/src/webapp/templates");
-			File[] files = file.listFiles();
+			File file = new File("./src/webapp/templates"); 
+			File[] files = file.listFiles(); 
 			for (int i = 0; i < files.length; i++)
 			{
 				File theFile = files[i];
@@ -82,13 +82,13 @@ public class ConfigPanel extends Panel {
 				templateName = configuration.getProperty("kronos:activetemplate").getString();
 				pageTitle = configuration.getProperty("kronos:pagetitle").getString();
 			}
-			catch (PathNotFoundException e1)
+			catch (PathNotFoundException pnfe)
 			{
-				e1.printStackTrace();
+				pnfe.printStackTrace();
 			}
-			catch (RepositoryException e1)
+			catch (RepositoryException re)
 			{
-				e1.printStackTrace();
+				re.printStackTrace();
 			}
 
 			titleField = new TextField("title", new Model());

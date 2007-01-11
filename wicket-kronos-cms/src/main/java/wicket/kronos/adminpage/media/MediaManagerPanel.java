@@ -72,7 +72,6 @@ public class MediaManagerPanel extends Panel {
 		final UploadForm uploadForm = new UploadForm("uploadform");
 		uploadForm.add(new UploadProgressBar("progress", uploadForm));
 		add(uploadForm);
-
 	}
 
 	/**
@@ -113,7 +112,7 @@ public class MediaManagerPanel extends Panel {
 							setResponsePage(new ImagePopup(image));
 						}
 					};
-					// TODO Possible to delete images
+					// TODO Option for deleting images
 					selected = new CheckBox("selected", new PropertyModel(image, "selected"));
 					item.add(selected);
 					imageLink.add(new Image("image", image));

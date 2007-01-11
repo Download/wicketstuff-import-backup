@@ -60,8 +60,7 @@ public class AdminMenu extends Panel {
 						@Override
 						public Object getObject(final Component component)
 						{
-							String cssClass = "menu_right";
-							return cssClass;
+							return "menu_right";
 						}
 					}));
 				}

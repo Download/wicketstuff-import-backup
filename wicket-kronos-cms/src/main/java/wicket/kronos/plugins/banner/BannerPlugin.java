@@ -77,7 +77,6 @@ public class BannerPlugin extends IPlugin {
 			/*
 			 * Retrieve the image data from the repository and put it into a byteArray
 			 */
-			byte[] image;
 			String imageName = imageNode.getName();
 			ByteArrayOutputStream destination = new ByteArrayOutputStream();
 			try
@@ -103,7 +102,7 @@ public class BannerPlugin extends IPlugin {
 					e.printStackTrace();
 				}
 			}
-			image = destination.toByteArray();
+			byte[] image = destination.toByteArray();
 
 			/* Create a BannerImageResource with the byteArray as a */
 			resource = new CMSImageResource(image, imageName);

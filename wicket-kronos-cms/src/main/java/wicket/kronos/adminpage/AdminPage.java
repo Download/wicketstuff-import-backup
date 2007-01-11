@@ -16,6 +16,9 @@ import wicket.kronos.plugins.IPlugin;
 @AuthorizeInstantiation("ADMIN")
 public class AdminPage extends KronosPage {
 
+	/**
+	 * Default serialVersionUID
+	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -2,11 +2,8 @@ package wicket.kronos.adminpage;
 
 import java.util.List;
 
-import javax.jcr.Session;
-
 import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
-import wicket.kronos.KronosSession;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.DropDownChoice;
@@ -86,8 +83,7 @@ public class AdminNewPlugin extends Panel {
 				{
 					String canonicalName = (String) object;
 					int lastPeriod = canonicalName.lastIndexOf(".");
-					String pluginType = canonicalName.substring(lastPeriod + 1);
-					return pluginType;
+					return canonicalName.substring(lastPeriod + 1);
 				}
 
 			}));

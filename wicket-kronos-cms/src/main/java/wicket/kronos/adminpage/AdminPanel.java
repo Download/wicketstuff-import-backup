@@ -17,6 +17,9 @@ import wicket.model.CompoundPropertyModel;
  */
 public class AdminPanel extends Panel {
 
+	/**
+	 * Default serialVersionUID
+	 */
 	private static final long serialVersionUID = 1L;
 
 	protected PluginProperties properties;
@@ -76,29 +79,25 @@ public class AdminPanel extends Panel {
 		{
 			super(id, new CompoundPropertyModel(properties));
 
-			/*
-			 * List pluginType = Arrays.asList(new String[] {"HelloWorld", "Blog", "Menu"});
-			 */
-
 			add(new TextField("name"));
 			add(new CheckBox("published"));
 			add(new Label("pluginType", myPluginType));
 			add(new TextField("order"));
 			add(new DropDownChoice("position", AreaLocations.getAreaLocations(),
-					new IChoiceRenderer() {
+				new IChoiceRenderer() {
 
-						public String getIdValue(Object object, int arg1)
-						{
-							return ((Integer) object).toString();
-						}
+					public String getIdValue(Object object, int arg1)
+					{
+						return ((Integer) object).toString();
+					}
 
-						public Object getDisplayValue(Object object)
-						{
-							int value = ((Integer) object).intValue();
-							return AreaLocations.getLocationname(value);
-						}
+					public Object getDisplayValue(Object object)
+					{
+						int value = ((Integer) object).intValue();
+						return AreaLocations.getLocationname(value);
+					}
 
-					}));
+				}));
 		}
 
 		@Override
