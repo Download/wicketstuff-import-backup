@@ -73,6 +73,8 @@ public class AdminNewInternalMenuItem extends Panel{
 			List<String> idtypeList = new ArrayList<String>();
 				idtypeList.add("plugin");
 				idtypeList.add("content");
+				idtypeList.add("adminpage");
+				idtypeList.add("frontpage");
 			final List<String> idListPlugin = DataProcessor.getPluginIdentities();
 			final List<String> idListContent = DataProcessor.getContentIdentities();
 		
@@ -93,6 +95,7 @@ public class AdminNewInternalMenuItem extends Panel{
 				}
 			};
 			
+			add(new TextField("order", new PropertyModel(nmim, "order")));
 			add(new TextField("linkname", new PropertyModel(nmim, "linkname")));
 			add(idtypeChoice = new DropDownChoice("idtype", new PropertyModel(nmim, "idtype"), idtypeList));
 			add(idChoice = new DropDownChoice("id", new PropertyModel(nmim, "id"), idChoices, new IChoiceRenderer()
@@ -143,7 +146,8 @@ public class AdminNewInternalMenuItem extends Panel{
 					String name = nmim.getLinkname();
 					String IDType = nmim.getIdtype();
 					String ID = nmim.getId();
-					DataProcessor.saveNewInternalMenuItem(menuName, name, IDType, ID);
+					int order = nmim.getOrder();
+					DataProcessor.saveNewInternalMenuItem(menuName, name, order, IDType, ID);
 
 					setResponsePage(AdminPage.class);
 				}
@@ -163,10 +167,11 @@ public class AdminNewInternalMenuItem extends Panel{
 		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
-		String linkname;
-		String idtype;
-		String id;
-		String link;		
+		private String linkname;
+		private String idtype;
+		private String id;
+		private String link;
+		private int order;
 		
 		/**
 		 * Constructor.
@@ -177,6 +182,7 @@ public class AdminNewInternalMenuItem extends Panel{
 			idtype = "";
 			id = null;
 			link = null;
+			order = 1;
 		}
 
 		/**
@@ -230,6 +236,26 @@ public class AdminNewInternalMenuItem extends Panel{
 		public void setLinkname(String linkname)
 		{
 			this.linkname = linkname;
+		}
+
+		public String getLink()
+		{
+			return link;
+		}
+
+		public void setLink(String link)
+		{
+			this.link = link;
+		}
+
+		public int getOrder()
+		{
+			return order;
+		}
+
+		public void setOrder(int order)
+		{
+			this.order = order;
 		}
 	}
 }

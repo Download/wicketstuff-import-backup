@@ -54,6 +54,7 @@ public class AdminNewExternalMenuItem extends Panel{
 		{
 			super(wicketId);
 			final NewExternalMenuItemModel nemim = new NewExternalMenuItemModel();
+			add(new TextField("order", new PropertyModel(nemim, "order")));
 			add(new TextField("linkname", new PropertyModel(nemim, "name")));
 			add(new TextField("externallink", new PropertyModel(nemim, "link")));
 			
@@ -66,7 +67,8 @@ public class AdminNewExternalMenuItem extends Panel{
 				{				
 					String linkname = nemim.getName();
 					String externallink = nemim.getLink();
-					DataProcessor.saveNewExternalMenuItem(menuName, linkname, externallink);
+					int order = nemim.getOrder();
+					DataProcessor.saveNewExternalMenuItem(menuName, linkname, order, externallink);
 					setResponsePage(AdminPage.class);
 				}
 			});
@@ -88,6 +90,7 @@ public class AdminNewExternalMenuItem extends Panel{
 		
 		String name;
 		String link;
+		int order;
 		
 		/**
 		 * Constructor.
@@ -96,6 +99,7 @@ public class AdminNewExternalMenuItem extends Panel{
 		{
 			name = null;
 			link = null;
+			order = 1;
 		}
 
 		/**
@@ -128,6 +132,16 @@ public class AdminNewExternalMenuItem extends Panel{
 		public void setName(String name)
 		{
 			this.name = name;
+		}
+
+		public int getOrder()
+		{
+			return order;
+		}
+
+		public void setOrder(int order)
+		{
+			this.order = order;
 		}
 	}
 }

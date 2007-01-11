@@ -115,7 +115,7 @@ public class MenuPlugin extends IPlugin {
 			Workspace ws = jcrSession.getWorkspace();
 			QueryManager qm = ws.getQueryManager();
 			Query q = qm.createQuery("//kronos:menu[@kronos:menuname = '"
-					+ pluginName + "']/kronos:menuitem", Query.XPATH);
+					+ pluginName + "']/kronos:menuitem order by @kronos:order ascending", Query.XPATH);
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
@@ -127,9 +127,12 @@ public class MenuPlugin extends IPlugin {
 				String menuItemName = n.getProperty("kronos:menuitemname")
 						.getString();
 				String linkType = n.getProperty("kronos:linkType").getString();
+				Long longOrder = n.getProperty("kronos:order").getLong();
+				int order = longOrder.intValue();
 				MenuItem item = new MenuItem();
 				item.setName(menuItemName);
 				item.setLinkType(linkType);
+				item.setOrder(order);
 				if (linkType.equalsIgnoreCase("internal"))
 				{
 					boolean isAdmin = n.getProperty("kronos:isAdmin")

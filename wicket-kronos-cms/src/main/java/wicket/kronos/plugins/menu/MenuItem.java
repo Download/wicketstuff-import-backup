@@ -17,6 +17,8 @@ public class MenuItem implements Serializable {
 
 	private boolean remove;
 	
+	private int order;
+	
 	private String name;
 
 	private String linkType;
@@ -42,6 +44,7 @@ public class MenuItem implements Serializable {
 		this.isAdmin = false;
 		this.IDType = null;
 		this.ID = null;
+		this.order = 1;
 	}
 
 	/**
@@ -154,6 +157,16 @@ public class MenuItem implements Serializable {
 	public void setIsAdmin(boolean isAdmin)
 	{
 		this.isAdmin = isAdmin;
+	}
+
+	public int getOrder()
+	{
+		return order;
+	}
+
+	public void setOrder(int order)
+	{
+		this.order = order;
 	}
 
 }

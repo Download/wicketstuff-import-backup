@@ -55,6 +55,7 @@
 +kronos:images(kronos:Images) = kronos:Images
 
 [kronos:Menuitem] > kronos:Link
+-kronos:order (LONG) = '1' mandatory autocreated
 
 [kronos:Menu] > nt:base, mix:referenceable
 -kronos:menuname (STRING) mandatory primary

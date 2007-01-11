@@ -15,6 +15,7 @@
 			<tr>
 				<th>Delete</th>
 				<th>Menuname</th>
+				<th>Order</th>
 				<th>Linktype</th>
 				<th>Link</th>
 			</tr>
@@ -24,6 +25,11 @@
 				</td>
 				<td>
 					<label wicket:id="menuItemLabel">Name of menu item</label>
+				</td>
+				<td class="center"> 
+					<a href="#" wicket:id="incrementLink" class="orderLink"><img src="./uparrow.png" alt="up"/></a>
+					<a href="#" wicket:id="decrementLink" class="orderLink"><img src="./downarrow.png" alt="down"/></a>
+					<input type="text" wicket:id="order" size="1" class="orderLink"/>
 				</td>
 				<td>
 					<label wicket:id="menuItemLinkType">Linktype of menu item</label>

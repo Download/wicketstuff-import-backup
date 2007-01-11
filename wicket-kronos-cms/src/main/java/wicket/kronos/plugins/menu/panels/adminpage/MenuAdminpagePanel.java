@@ -15,6 +15,8 @@ import javax.jcr.query.QueryManager;
 import javax.jcr.query.QueryResult;
 
 import wicket.PageParameters;
+import wicket.ajax.AjaxRequestTarget;
+import wicket.ajax.markup.html.AjaxLink;
 import wicket.kronos.KronosSession;
 import wicket.kronos.adminpage.AdminPage;
 import wicket.kronos.adminpage.AdminPanel;
@@ -23,6 +25,7 @@ import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.Button;
 import wicket.markup.html.form.CheckBox;
 import wicket.markup.html.form.Form;
+import wicket.markup.html.form.TextField;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
 import wicket.model.CompoundPropertyModel;
@@ -80,10 +83,41 @@ public class MenuAdminpagePanel extends AdminPanel {
 				@Override
 				public void populateItem(ListItem item)
 				{
-					MenuItem menuItem = (MenuItem) item.getModelObject();
+					final TextField orderField;
+					
+					final MenuItem menuItem = (MenuItem) item.getModelObject();
 					item.add(new CheckBox("remove", new PropertyModel(menuItem, "remove")));
 					item.add(new Label("menuItemLabel", menuItem.getName()));
 					item.add(new Label("menuItemLinkType", menuItem.getLinkType()));
+					
+					item.add(orderField = new TextField("order", new PropertyModel(menuItem, "order")));
+					orderField.setOutputMarkupId(true);
+					
+					item.add(new AjaxLink("incrementLink")
+					{
+						public void onClick(AjaxRequestTarget target)
+						{
+							int newValue = menuItem.getOrder()+1;
+							menuItem.setOrder(newValue);
+							target.addComponent(orderField);
+						}
+					});
+					
+					item.add(new AjaxLink("decrementLink")
+					{
+						public void onClick(AjaxRequestTarget target)
+						{
+							int oldValue = menuItem.getOrder();
+							int newValue;
+							if(oldValue > 1)		
+								newValue = oldValue-1;
+							else 
+								newValue = oldValue;
+							menuItem.setOrder(newValue);
+							target.addComponent(orderField);
+						}
+					});
+					
 					if (menuItem.getLinkType().equalsIgnoreCase("internal"))
 					{
 						if (menuItem.getIDType().equalsIgnoreCase("plugin"))
@@ -116,6 +150,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 					{
 						Node menuNode = jcrSession.getNodeByUUID(properties.getPluginUUID());
 						menuNode.setProperty("kronos:isHorizontal", menuModel.isHorizontal());
+						saveMenuItems(menuModel.getMenuItems());
 						jcrSession.save();
 					}
 					catch (ItemNotFoundException e)
@@ -139,8 +174,6 @@ public class MenuAdminpagePanel extends AdminPanel {
 					Iterator iter = delMenuItems.getList().iterator();
 					while (iter.hasNext()) {
 						MenuItem menuItem = (MenuItem)iter.next();
-						System.out.println("Menuitem \"" + menuItem.getName() + 
-								"\" remove: " + menuItem.isRemove());
 						if (menuItem.isRemove())
 						{
 							Workspace ws = jcrSession.getWorkspace();
@@ -229,6 +262,37 @@ public class MenuAdminpagePanel extends AdminPanel {
 				e.printStackTrace();
 			}
 			return name;
+		}
+		
+		private void saveMenuItems(List menuItems)
+		{
+			Session jcrSession = KronosSession.get().getJCRSession();
+			
+			Iterator iter = menuItems.iterator();
+			while (iter.hasNext()) {
+				MenuItem menuItem = (MenuItem)iter.next();
+				
+				Workspace ws = jcrSession.getWorkspace();
+				QueryManager qm;
+				try
+				{								
+					qm = ws.getQueryManager();
+					Query q = qm.createQuery("//kronos:cms/kronos:menus/kronos:menu/kronos:menuitem[@kronos:menuitemname = '" + menuItem.getName() + "']", Query.XPATH);
+					
+					QueryResult result = q.execute();
+					NodeIterator it = result.getNodes();
+					if (it.hasNext())
+					{
+						it.nextNode().setProperty("kronos:order", menuItem.getOrder());
+						
+					}
+				}
+				catch (RepositoryException e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
 		}
 	}
 	

@@ -380,7 +380,7 @@ public final class DataProcessor {
 	 * @param name
 	 * @param link
 	 */
-	public static void saveNewExternalMenuItem(String menuName, String name, String link)
+	public static void saveNewExternalMenuItem(String menuName, String name, int order, String link)
 	{
 				
 		Session jcrSession = KronosSession.get().getJCRSession();
@@ -397,6 +397,7 @@ public final class DataProcessor {
 			
 				Node menuItem = menu.addNode("kronos:menuitem");
 				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:order", order);
 				menuItem.setProperty("kronos:linkType", "external");
 				menuItem.setProperty("kronos:link", link);
 				jcrSession.save();
@@ -409,6 +410,7 @@ public final class DataProcessor {
 				
 				Node menuItem = menu.addNode("kronos:menuitem");
 				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:order", order);
 				menuItem.setProperty("kronos:linkType", "external");
 				menuItem.setProperty("kronos:link", link);
 				jcrSession.save();
@@ -432,7 +434,7 @@ public final class DataProcessor {
 	 * @param IDType
 	 * @param ID
 	 */
-	public static void saveNewInternalMenuItem(String menuName, String name, String IDType, String ID)
+	public static void saveNewInternalMenuItem(String menuName, String name, int order, String IDType, String ID)
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try {
@@ -447,6 +449,7 @@ public final class DataProcessor {
 				Node menu = it.nextNode();
 				Node menuItem = menu.addNode("kronos:menuitem");
 				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:order", order);
 				menuItem.setProperty("kronos:linkType", "internal");
 				menuItem.setProperty("kronos:IDType", IDType);
 				menuItem.setProperty("kronos:ID", ID);
@@ -460,6 +463,7 @@ public final class DataProcessor {
 				
 				Node menuItem = menu.addNode("kronos:menuitem");
 				menuItem.setProperty("kronos:menuitemname", name);
+				menuItem.setProperty("kronos:order", order);
 				menuItem.setProperty("kronos:linkType", "internal");
 				menuItem.setProperty("kronos:IDType", IDType);
 				menuItem.setProperty("kronos:ID", ID);
