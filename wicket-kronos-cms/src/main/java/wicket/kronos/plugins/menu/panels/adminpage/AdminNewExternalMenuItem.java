@@ -1,6 +1,11 @@
 package wicket.kronos.plugins.menu.panels.adminpage;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 import wicket.kronos.DataProcessor;
 import wicket.kronos.adminpage.AdminPage;
@@ -66,11 +71,51 @@ public class AdminNewExternalMenuItem extends Panel {
 				{
 					String linkname = nemim.getName();
 					String externallink = nemim.getLink();
-					int order = nemim.getOrder();
-					DataProcessor.saveNewExternalMenuItem(menuName, linkname, order, externallink);
-					setResponsePage(AdminPage.class);
+					if(checkUrl(externallink))
+					{
+						int order = nemim.getOrder();
+						DataProcessor.saveNewExternalMenuItem(menuName, linkname, order, externallink);
+						setResponsePage(AdminPage.class);
+					} else {
+						info("The URL is not Valid");
+					}
 				}
 			});
+		}
+		
+		private boolean checkUrl(String urlToCheck)
+		{
+			boolean result = false;
+
+	        if (!urlToCheck.substring(0, 7).equals("http://")) {
+	            urlToCheck = "http://" + urlToCheck;
+	        }
+
+	        try {
+
+	            URL url = new URL(urlToCheck);
+	            URLConnection connection = url.openConnection();
+
+	            if (connection instanceof HttpURLConnection) {
+
+	                HttpURLConnection httpConnection = (HttpURLConnection) connection;
+	                httpConnection.connect();
+
+	                int response = httpConnection.getResponseCode();
+	                if (response >= 200 && response < 400) {
+	                    result = true;
+	                }
+	                InputStream is = httpConnection.getInputStream();
+	                byte[] buffer = new byte[256];
+	                while (is.read(buffer) != -1) {
+
+	                }
+	                is.close();
+	            }
+	        } catch (IOException e) {
+	            result = false;
+	        }
+	        return result;
 		}
 	}
 

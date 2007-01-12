@@ -257,6 +257,7 @@ public final class DataProcessor {
 			Node plugin = root.getNode("kronos:cms").getNode("kronos:plugins").getNode(
 					"kronos:plugin");
 			plugin.setProperty("kronos:canonicalpluginname", canonicalPluginname);
+			jcrSession.save();
 		}
 		catch (ItemNotFoundException e)
 		{

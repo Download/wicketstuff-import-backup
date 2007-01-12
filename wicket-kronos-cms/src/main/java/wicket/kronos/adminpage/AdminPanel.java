@@ -9,6 +9,7 @@ import wicket.markup.html.form.DropDownChoice;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.IChoiceRenderer;
 import wicket.markup.html.form.TextField;
+import wicket.markup.html.panel.FeedbackPanel;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
 
@@ -39,6 +40,8 @@ public class AdminPanel extends Panel {
 	{
 		super(wicketId);
 		properties = new PluginProperties();
+		final FeedbackPanel feedback = new FeedbackPanel("feedback");
+		add(feedback);
 		add(new AdminForm("adminpanelform"));
 	}
 
@@ -57,6 +60,8 @@ public class AdminPanel extends Panel {
 		int lastPeriod = tempType.lastIndexOf(".");
 		myPluginType = tempType.substring(lastPeriod + 1);
 		oldPluginName = properties.getName();
+		final FeedbackPanel feedback = new FeedbackPanel("feedback");
+		add(feedback);
 		add(new AdminForm("adminpanelform"));
 	}
 
