@@ -3,19 +3,20 @@ body {
 	height: 800px;
 	padding: 0;
 	margin: 0;
-	color: #E9601A;
-	background-color: #C0C0C0;
+	color: #534CE0;
+	background-color: #FFFFFF;
 	font-family: garamond;
 }
 
 .container {
-	height: 100%;
+	background-color: #C0C0C0;
 }
 
 /* div style definitions*/
 .header {
-	height: 100px;
 	background-color: #C0C0C0;
+	margin: 0;
+	padding: 0;
 }
 
 .configuration {
@@ -32,8 +33,8 @@ body {
 }
 
 .footer {
-	height: 20px;
 	background-color: #FFFFFF;
+	color: navy;
 	border-style: solid;
 	border-color: #A8A8A8;
 	border-width: 2px 0px 2px 0px;
@@ -117,7 +118,7 @@ a.orderLink img {
 .mediaimage {
 	width: 150px;
 	height: 100px;	
-	border: solid #E9601A 1px;
+	border: solid #534CE0 1px;
 	padding: 3px;
 	margin: 5px;
 	float: left;

@@ -33,8 +33,8 @@ ul li a {
 }
 
 ul li a:hover { 
-	color: red; 
-	background: #7A7F76;
+	color: #534CE0; 
+	background: #9ca198;
 }
 
 li:hover ul { 
