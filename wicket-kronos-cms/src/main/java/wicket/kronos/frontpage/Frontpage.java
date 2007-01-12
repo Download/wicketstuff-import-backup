@@ -107,7 +107,7 @@ public class Frontpage extends KronosPage {
 			if (IDType.equalsIgnoreCase("content"))
 			{
 				IPlugin plugin = DataProcessor.getPluginByContent(false, ID);
-				this.init(plugin.getAreaPosition(), plugin);
+				this.init(plugin.getAreaPosition(), DataProcessor.getPluginByContent(false, ID));
 			} else
 			{
 				IPlugin plugin = DataProcessor.getPlugin(false, ID);
@@ -124,7 +124,7 @@ public class Frontpage extends KronosPage {
 		 */
 		assert (changedArea >= 0);
 		/* area, 0=header, 1=left, 2=center, 3=right, 4=footer */
-		Area area = null;
+		Area area;
 		for (int areaCounter = 0; areaCounter <= 4; areaCounter++)
 		{
 			if (changedArea != areaCounter)

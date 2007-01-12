@@ -33,7 +33,7 @@ public class MenuItem extends Panel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String name = null;
+	private String name;
 
 	/**
 	 * Constructor.
@@ -53,25 +53,19 @@ public class MenuItem extends Panel {
 		menulinkParam.add("ID", ID);
 
 		if (ID.equals("#"))
-		{
 			add(new ExternalLink("menulink", "#").add(new Label("menulinklabel", name)));
-		} else if (IDType.equalsIgnoreCase("adminpage"))
-		{
+		else if (IDType.equalsIgnoreCase("adminpage"))
 			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam).add(new Label(
 					"menulinklabel", name)));
-		} else if (IDType.equalsIgnoreCase("adminnewplugin"))
-		{
+		else if (IDType.equalsIgnoreCase("adminnewplugin"))
 			add(new BookmarkablePageLink("menulink", AdminPage.class, menulinkParam).add(new Label(
 					"menulinklabel", name)));
-		} else if (IDType.equalsIgnoreCase("frontpage"))
-		{
+		else if (IDType.equalsIgnoreCase("frontpage"))
 			add(new BookmarkablePageLink("menulink", Frontpage.class, PageParameters.NULL)
 					.add(new Label("menulinklabel", name)));
-		} else
-		{
+		else
 			add(new BookmarkablePageLink("menulink", AdminPage.class, PageParameters.NULL)
 					.add(new Label("menulinklabel", name)));
-		}
 
 		List<SubMenuItem> subMenuItems = this.getSubMenuItems(name);
 		ListView subMenuItemsList = new ListView("submenurepeater", subMenuItems) {

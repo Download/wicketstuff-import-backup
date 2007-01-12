@@ -35,11 +35,6 @@ public class FrontBlogOverview extends Panel {
 		super(id);
 		ListView blogpostsList = new ListView("blogposts", blogposts) {
 
-			/**
-			 * Default serialVersionUID
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected void populateItem(ListItem item)
 			{

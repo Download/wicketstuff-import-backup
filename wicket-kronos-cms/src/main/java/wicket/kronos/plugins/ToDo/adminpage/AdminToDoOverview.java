@@ -63,7 +63,7 @@ public class AdminToDoOverview extends AdminPanel {
 	public class ToDoForm extends Form {
 
 		/**
-		 * Default serialVErsionUID
+		 * Default serialVersionUID
 		 */
 		private static final long serialVersionUID = 1L;
 
@@ -76,10 +76,6 @@ public class AdminToDoOverview extends AdminPanel {
 		{
 			super(wicketId, new CompoundPropertyModel(new ToDoItemsModel(todoItemList)));
 			final ListView todoList = new ListView("todoRepeater", todoItemList) {
-				/**
-				 * Default serialVersionUID
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				protected void populateItem(ListItem item)
@@ -188,10 +184,6 @@ public class AdminToDoOverview extends AdminPanel {
 	 * @see List of todo items
 	 */
 	public class ToDoItemsModel implements Serializable {
-		/**
-		 * Default serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
 
 		private List<ToDoItem> todoItems;
 
@@ -213,7 +205,6 @@ public class AdminToDoOverview extends AdminPanel {
 
 		/**
 		 * @param todoItems
-		 *            the todoItems to set
 		 */
 		public void setTodoItems(List<ToDoItem> todoItems)
 		{

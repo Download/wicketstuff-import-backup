@@ -14,8 +14,6 @@ import wicket.kronos.plugins.blog.panels.BlogPost;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.TextArea;
 import wicket.markup.html.form.TextField;
-import wicket.markup.html.image.Image;
-import wicket.markup.html.link.Link;
 import wicket.markup.html.panel.Panel;
 import wicket.model.CompoundPropertyModel;
 
@@ -90,12 +88,4 @@ public class AdminBlogEdit extends Panel {
 
 		}
 	}
-
-	/*
-	 * private void createMenu() { add(new Link("savepost") { /** Default serialVersionUID private
-	 * static final long serialVersionUID = 1L; @Override public void onClick() { BlogInputModel
-	 * changedModel = (BlogInputModel) inputForm .getModelObject();
-	 * blogPost.setTitle(changedModel.getTitle()); blogPost.setText(changedModel.getText()); }
-	 * }.add(new Image("save", "Save.png"))); /* ToDo: add all other necessary menu items }
-	 */
 }

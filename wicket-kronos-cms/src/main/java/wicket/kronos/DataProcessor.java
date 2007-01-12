@@ -72,21 +72,30 @@ public final class DataProcessor {
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
-
+			
+			Node n;
+			String pluginUUID;
+			String name;
+			Boolean published;
+			Long order;
+			Integer intOrder;
+			Long position;
+			Integer intPosition;
+			String pluginType;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
+				n = it.nextNode();
 				
 				/* Loading the IPlugin extended class */
-				String pluginUUID = n.getUUID();
+				pluginUUID = n.getUUID();
 
-				String name = n.getProperty("kronos:name").getString();
-				Boolean published = n.getProperty("kronos:published").getBoolean();
-				Long order = n.getProperty("kronos:order").getLong();
-				Integer intOrder = order.intValue();
-				Long position = n.getProperty("kronos:position").getLong();
-				Integer intPosition = position.intValue();
-				String pluginType = n.getProperty("kronos:pluginType").getString();
+				name = n.getProperty("kronos:name").getString();
+				published = n.getProperty("kronos:published").getBoolean();
+				order = n.getProperty("kronos:order").getLong();
+				intOrder = order.intValue();
+				position = n.getProperty("kronos:position").getLong();
+				intPosition = position.intValue();
+				pluginType = n.getProperty("kronos:pluginType").getString();
 
 				plugins.add(new PluginProperties(pluginUUID, name, published, intOrder,
 						intPosition, pluginType));
@@ -118,22 +127,29 @@ public final class DataProcessor {
 
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
-
+			
+			Node imageNode;
+			InputStream input;
+			byte[] image;
+			String imageName;
+			ByteArrayOutputStream destination;
+			byte[] buffer;
+			
 			while (it.hasNext())
 			{
-				Node imageNode = it.nextNode();
-				InputStream input = imageNode.getNode("jcr:content").getProperty("jcr:data")
+				imageNode = it.nextNode();
+				input = imageNode.getNode("jcr:content").getProperty("jcr:data")
 						.getStream();
 
 				/*
 				 * Retrieve the image data from the repository and put it into a byteArray
 				 */
-				byte[] image;
-				String imageName = imageNode.getName();
-				ByteArrayOutputStream destination = new ByteArrayOutputStream();
+				
+				imageName = imageNode.getName();
+				destination = new ByteArrayOutputStream();
 				try
 				{
-					byte[] buffer = new byte[1024];
+					buffer = new byte[1024];
 					for (int n = input.read(buffer); n != -1; n = input.read(buffer))
 					{
 						destination.write(buffer, 0, n);
@@ -189,9 +205,10 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;			
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
+				n = it.nextNode();
 				imageNodes.add(n);
 			}
 		}
@@ -216,10 +233,9 @@ public final class DataProcessor {
 
 		Session jcrSession = KronosSession.get().getJCRSession();
 
-		Node n;
 		try
 		{
-			n = jcrSession.getNodeByUUID(pluginUUID);
+			Node n = jcrSession.getNodeByUUID(pluginUUID);
 			String name = n.getProperty("kronos:name").getString();
 			Boolean published = n.getProperty("kronos:published").getBoolean();
 			Long order = n.getProperty("kronos:order").getLong();
@@ -552,10 +568,12 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
+			String pluginType;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
-				String pluginType = n.getProperty("kronos:canonicalpluginname").getString();
+				n = it.nextNode();
+				pluginType = n.getProperty("kronos:canonicalpluginname").getString();
 
 				pluginTypes.add(pluginType);
 			}
@@ -595,20 +613,28 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
+			String pluginUUID;
+			String name;
+			Boolean published;
+			Long order;
+			Integer intOrder;
+			Long position;
+			Integer intPosition;
+			String pluginType;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
-				String pluginUUID = null;
+				n = it.nextNode();
 				/* Loading the IPlugin extended class */
 				pluginUUID = n.getUUID();
 
-				String name = n.getProperty("kronos:name").getString();
-				Boolean published = n.getProperty("kronos:published").getBoolean();
-				Long order = n.getProperty("kronos:order").getLong();
-				Integer intOrder = order.intValue();
-				Long position = n.getProperty("kronos:position").getLong();
-				Integer intPosition = position.intValue();
-				String pluginType = n.getProperty("kronos:pluginType").getString();
+				name = n.getProperty("kronos:name").getString();
+				published = n.getProperty("kronos:published").getBoolean();
+				order = n.getProperty("kronos:order").getLong();
+				intOrder = order.intValue();
+				position = n.getProperty("kronos:position").getLong();
+				intPosition = position.intValue();
+				pluginType = n.getProperty("kronos:pluginType").getString();
 
 				plugins.add(getPluginObject(isAdmin, pluginUUID, name, published, intOrder,
 						intPosition, pluginType));
@@ -712,7 +738,6 @@ public final class DataProcessor {
 				plugin = getPluginObject(isAdmin, pluginUUID, name, published, intOrder,
 						intPosition, pluginType, contentUUID);
 			}
-
 		}
 		catch (ItemNotFoundException e)
 		{
@@ -722,9 +747,7 @@ public final class DataProcessor {
 		{
 			e.printStackTrace();
 		}
-
 		return plugin;
-
 	}
 
 	/**
@@ -747,19 +770,18 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
+				n = it.nextNode();
 
-				String pluginId = n.getUUID();
-				pluginIdentities.add(pluginId);
+				pluginIdentities.add(n.getUUID());
 			}
 		}
 		catch (RepositoryException e)
 		{
 			e.printStackTrace();
 		}
-
 		return pluginIdentities;
 	}
 
@@ -782,19 +804,18 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
+				n = it.nextNode();
 
-				String pluginId = n.getUUID();
-				contentIdentities.add(pluginId);
+				contentIdentities.add(n.getUUID());
 			}
 		}
 		catch (RepositoryException e)
 		{
 			e.printStackTrace();
 		}
-
 		return contentIdentities;
 	}
 
@@ -806,7 +827,6 @@ public final class DataProcessor {
 	public static List<User> getUsers()
 	{
 		List<User> users = new LinkedList<User>();
-		String[] roles = new String[] {};
 
 		Session jcrSession = KronosSession.get().getJCRSession();
 		try
@@ -818,25 +838,37 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
+			String username;
+			String name;
+			String email;
+			Calendar lastvisit;
+			Value[] rolevalues;
+			String password;
+			Value value;
+			Node roleNode;
+			String[] roles = new String[] {};
+			Roles userroles;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
-
-				String username = n.getProperty("kronos:username").getString();
-				String name = n.getProperty("kronos:fullname").getString();
-				String email = n.getProperty("kronos:email").getString();
-				Calendar lastvisit = n.getProperty("kronos:lastvisit").getDate();
-				Value[] rolevalues = n.getProperty("kronos:roles").getValues();
-				String password = n.getProperty("kronos:password").getString();
+				n = it.nextNode();
+				
+				username = n.getProperty("kronos:username").getString();
+				name = n.getProperty("kronos:fullname").getString();
+				email = n.getProperty("kronos:email").getString();
+				lastvisit = n.getProperty("kronos:lastvisit").getDate();
+				rolevalues = n.getProperty("kronos:roles").getValues();
+				password = n.getProperty("kronos:password").getString();
+				
+				roles = new String[] {};
 				for (int i = 0; i <= rolevalues.length; i++)
 				{
-					Value value = rolevalues[i];
-					Node roleNode = jcrSession.getNodeByUUID(value.getString());
-					String role = roleNode.getProperty("kronos:name").getString();
-					roles[i] = role;
+					value = rolevalues[i];
+					roleNode = jcrSession.getNodeByUUID(value.getString());
+					roles[i] = roleNode.getProperty("kronos:name").getString();
 				}
 
-				Roles userroles = new Roles(roles);
+				userroles = new Roles(roles);
 
 				users.add(new User(username, name, password, email, lastvisit, userroles));
 			}
@@ -915,12 +947,12 @@ public final class DataProcessor {
 			QueryResult result = q.execute();
 			NodeIterator it = result.getNodes();
 
+			Node n;
 			while (it.hasNext())
 			{
-				Node n = it.nextNode();
+				n = it.nextNode();
 
-				String name = n.getProperty("kronos:name").getString();
-				roles.add(name);
+				roles.add(n.getProperty("kronos:name").getString());
 			}
 		}
 		catch (RepositoryException e)

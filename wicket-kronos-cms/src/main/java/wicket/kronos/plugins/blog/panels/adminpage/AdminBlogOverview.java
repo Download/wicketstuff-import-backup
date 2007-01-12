@@ -62,11 +62,6 @@ public class AdminBlogOverview extends AdminPanel {
 		{
 			super(wicketId);
 			ListView blogsList = new ListView("blogposts", blogposts) {
-				/**
-				 * Default serialVersionUID
-				 */
-				private static final long serialVersionUID = 1L;
-
 				int i = 1;
 
 				/* Create a ListItem for every BlogPost from List<BlogPost> */

@@ -14,21 +14,21 @@ import wicket.markup.html.panel.Panel;
 @SuppressWarnings("boxing")
 public abstract class IPlugin extends Panel {
 
-	protected Boolean isAdmin = false;
+	protected Boolean isAdmin;
 
-	protected String pluginUUID = null;
+	protected String pluginUUID;
 
-	protected static String pluginName = null;
+	protected static String pluginName;
 
-	protected Boolean isPublished = false;
+	protected Boolean isPublished;
 
-	protected Integer order = -1;
+	protected Integer order;
 
-	protected Integer areaPosition = -1;
+	protected Integer areaPosition;
 
-	protected String pluginType = null;
+	protected String pluginType;
 
-	protected String contentUUID = null;
+	protected String contentUUID;
 
 	/**
 	 * Constructor without specific contentUUID
@@ -103,7 +103,7 @@ public abstract class IPlugin extends Panel {
 	}
 
 	/**
-	 * Sets the isPublished variable to false.
+	 * Sets the isPublished variable to true.
 	 */
 	public void publish()
 	{

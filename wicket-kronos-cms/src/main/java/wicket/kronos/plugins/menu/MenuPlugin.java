@@ -138,15 +138,13 @@ public class MenuPlugin extends IPlugin {
 					if (!IDType.equalsIgnoreCase("frontpage")
 							&& !IDType.equalsIgnoreCase("adminpage"))
 					{
-						String ID = n.getProperty("kronos:ID").getString();
-						item.setID(ID);
+						item.setID(n.getProperty("kronos:ID").getString());
 					}
 					item.setIDType(IDType);
 					item.setIsAdmin(isAdmin);
 				} else if (linkType.equalsIgnoreCase("external"))
 				{
-					String link = n.getProperty("kronos:link").getString();
-					item.setLink(link);
+					item.setLink(n.getProperty("kronos:link").getString());
 				}
 
 				menuItems.add(item);

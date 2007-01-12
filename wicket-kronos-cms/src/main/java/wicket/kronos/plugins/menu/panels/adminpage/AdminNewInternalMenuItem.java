@@ -85,12 +85,10 @@ public class AdminNewInternalMenuItem extends Panel {
 				public Object getObject(Component component)
 				{
 					if (nmim.getIdtype().equalsIgnoreCase("plugin"))
-					{
 						idList = idListPlugin;
-					} else if (nmim.getIdtype().equalsIgnoreCase("content"))
-					{
+					else if (nmim.getIdtype().equalsIgnoreCase("content"))
 						idList = idListContent;
-					}
+					
 					return idList;
 				}
 			};
@@ -160,11 +158,6 @@ public class AdminNewInternalMenuItem extends Panel {
 	 * @author postma
 	 */
 	public class NewInternalMenuItemModel implements Serializable {
-
-		/**
-		 * Default serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
 
 		private String linkname;
 

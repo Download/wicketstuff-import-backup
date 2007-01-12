@@ -82,8 +82,7 @@ public class FrontAddCommentPanel extends Panel {
 			try
 			{
 				Workspace ws = jcrSession.getWorkspace();
-				QueryManager qm;
-				qm = ws.getQueryManager();
+				QueryManager qm = ws.getQueryManager();
 
 				Query q = qm.createQuery("//kronos:blogpostings/kronos:blogpost[@kronos:name='"
 						+ postTitle + "']", Query.XPATH);

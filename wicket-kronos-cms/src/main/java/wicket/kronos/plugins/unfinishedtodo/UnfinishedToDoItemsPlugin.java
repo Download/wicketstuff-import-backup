@@ -55,13 +55,10 @@ public class UnfinishedToDoItemsPlugin extends IPlugin {
 		List<ToDoItem> unfinishedToDoItems = this.getUnfinishedToDoItems(toDoPluginName);
 
 		if (isAdmin)
-		{
 			add(new UnfinishedToDoItemsAdminPagePanel("unfinishedtodo", pluginUUID));
-		} else
-		{
+		else
 			add(new UnfinishedToDoItemsFrontpagePanel("unfinishedtodo", unfinishedToDoItems,
 					toDoPluginUUID));
-		}
 	}
 
 	/**

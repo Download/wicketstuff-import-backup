@@ -46,9 +46,9 @@ public class ConfigPanel extends Panel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private DropDownChoice templateChoice = null;
+		private DropDownChoice templateChoice;
 
-		private TextField titleField = null;
+		private TextField titleField;
 
 		List<String> templateList = new ArrayList<String>();
 
@@ -73,8 +73,8 @@ public class ConfigPanel extends Panel {
 			}
 
 			Session jcrSession = KronosSession.get().getJCRSession();
-			String templateName = null;
-			String pageTitle = null;
+			String templateName;
+			String pageTitle;
 			try
 			{
 				Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(

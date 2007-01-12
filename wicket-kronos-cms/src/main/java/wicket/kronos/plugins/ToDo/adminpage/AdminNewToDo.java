@@ -42,8 +42,7 @@ public class AdminNewToDo extends Panel {
 	public AdminNewToDo(String wicketId)
 	{
 		super(wicketId);
-		InputForm inputForm = new InputForm("adminnewtodo");
-		add(inputForm);
+		add(new InputForm("adminnewtodo"));
 	}
 
 	private class InputForm extends Form {

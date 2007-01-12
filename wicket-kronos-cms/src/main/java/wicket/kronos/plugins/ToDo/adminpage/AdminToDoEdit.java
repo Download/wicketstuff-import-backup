@@ -28,6 +28,7 @@ public class AdminToDoEdit extends Panel {
 	private InputForm inputForm = null;
 
 	/**
+	 * Constructor.
 	 * @param wicketId
 	 * @param todoItem
 	 */

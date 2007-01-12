@@ -27,7 +27,7 @@ public class AdminPanel extends Panel {
 
 	protected String oldPluginName;
 
-	private String myPluginType = null;
+	private String myPluginType;
 
 	protected String pluginUUID;
 

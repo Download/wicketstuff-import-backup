@@ -21,7 +21,5 @@ public class HelloWorldAdminpagePanel extends AdminPanel {
 	public HelloWorldAdminpagePanel(String wicketId, String pluginUUID)
 	{
 		super(wicketId, pluginUUID);
-
 	}
-
 }

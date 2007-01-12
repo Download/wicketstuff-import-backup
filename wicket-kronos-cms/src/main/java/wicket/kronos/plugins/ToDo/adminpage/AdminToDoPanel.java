@@ -38,11 +38,8 @@ public class AdminToDoPanel extends Panel {
 	{
 		super(wicketId);
 		if (todoItem == null)
-		{
 			add(new AdminNewToDo("admintodopanel"));
-		} else
-		{
+		else
 			add(new AdminToDoEdit("admintodopanel", todoItem));
-		}
 	}
 }

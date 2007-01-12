@@ -81,6 +81,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 			super(wicketId, model);
 
 			add(delMenuItems = new ListView("menuNameRepeater", menuItems) {
+				
 				@Override
 				public void populateItem(ListItem item)
 				{
@@ -96,6 +97,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 					orderField.setOutputMarkupId(true);
 
 					item.add(new AjaxLink("incrementLink") {
+						
 						@Override
 						public void onClick(AjaxRequestTarget target)
 						{
@@ -299,7 +301,6 @@ public class MenuAdminpagePanel extends AdminPanel {
 					if (it.hasNext())
 					{
 						it.nextNode().setProperty("kronos:order", menuItem.getOrder());
-
 					}
 				}
 				catch (RepositoryException e)
@@ -315,11 +316,6 @@ public class MenuAdminpagePanel extends AdminPanel {
 	 * @author roeloffzen
 	 */
 	public class MenuModel implements Serializable {
-
-		/**
-		 * Default serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
 
 		private List<MenuItem> menuItems;
 
@@ -347,7 +343,6 @@ public class MenuAdminpagePanel extends AdminPanel {
 
 		/**
 		 * @param menuItems
-		 *            the menuItems to set
 		 */
 		public void setMenuItems(List<MenuItem> menuItems)
 		{

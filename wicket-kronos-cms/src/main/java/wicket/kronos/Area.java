@@ -18,12 +18,12 @@ public class Area extends Panel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private int areaId = 0;
+	private int areaId;
 
-	private List<IPlugin> plugins = null;
+	private List<IPlugin> plugins;
 
 	/**
-	 * Constructor.
+	 * Constructor creates a area with a collection of plugins.
 	 * 
 	 * @param areaId
 	 */
@@ -37,14 +37,13 @@ public class Area extends Panel {
 			@Override
 			public void populateItem(ListItem item)
 			{
-				IPlugin plugin = (IPlugin) item.getModelObject();
-				item.add(plugin);
+				item.add((IPlugin) item.getModelObject());
 			}
 		});
 	}
 
 	/**
-	 * Constructor.
+	 * Constructor creates a area with just one plugin.
 	 * 
 	 * @param areaId
 	 * @param plugin
@@ -61,8 +60,7 @@ public class Area extends Panel {
 			@Override
 			public void populateItem(ListItem item)
 			{
-				IPlugin plugin = (IPlugin)item.getModelObject();
-				item.add(plugin);
+				item.add((IPlugin)item.getModelObject());
 			}
 		});
 	}

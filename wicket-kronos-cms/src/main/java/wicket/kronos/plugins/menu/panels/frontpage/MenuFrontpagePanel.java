@@ -74,11 +74,7 @@ public class MenuFrontpagePanel extends Panel {
 					}
 				}
 				item.add(new AttributeModifier("class", true, new Model() {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
-
+					
 					@Override
 					public Object getObject(final Component component)
 					{

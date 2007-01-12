@@ -12,11 +12,11 @@ public class CMSImageResource extends DynamicImageResource {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String imageName = null;
+	private String imageName;
 
 	private boolean selected = false;
 
-	private byte[] imageData = null;
+	private byte[] imageData;
 
 	/**
 	 * Constructor.

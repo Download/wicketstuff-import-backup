@@ -37,8 +37,6 @@ public class AdminNewBlogpost extends Panel {
 		super(id);
 
 		add(new InputForm("inputForm"));
-		/* ToDo: nieuwe blogpost opslaan */
-
 	}
 
 	/**

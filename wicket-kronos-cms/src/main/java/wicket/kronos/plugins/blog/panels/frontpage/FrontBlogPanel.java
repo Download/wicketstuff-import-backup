@@ -24,7 +24,6 @@ public class FrontBlogPanel extends Panel {
 	public FrontBlogPanel(String id, List<BlogPost> blogposts)
 	{
 		super(id);
-
 		add(new FrontBlogOverview("frontblogpanel", blogposts));
 	}
 
