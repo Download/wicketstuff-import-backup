@@ -89,7 +89,7 @@ public class Frontpage extends KronosPage {
 			@Override
 			public Object getObject(Component c)
 			{
-				return "templates/" + templateName + "/css/style.css";
+				return "/kronos/./templates/" + templateName + "/css/style.css";
 			}
 		};
 		c.add(new AttributeModifier("href", model));

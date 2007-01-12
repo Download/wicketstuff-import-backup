@@ -133,7 +133,7 @@ public class AdminPluginOverview extends Panel {
 
 							}));
 					int lastPeriod = props.getPluginType().lastIndexOf(".");
-					String pluginType = props.getPluginType().substring(lastPeriod++);
+					String pluginType = props.getPluginType().substring(++lastPeriod);
 					item.add(new Label("pluginType", pluginType));
 				}
 			});
