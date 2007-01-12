@@ -1450,15 +1450,15 @@ public final class DataProcessor {
 		adminmenuitem4.setProperty("kronos:name", "Configuration");
 		adminmenuitem4.setProperty("kronos:ID", "#");
 
-		Node adminsubmenuitem8 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
-		adminsubmenuitem8.setProperty("kronos:name", "MediaManager");
-		adminsubmenuitem8.setProperty("kronos:IDType", "MediaManager");
-		adminsubmenuitem8.setProperty("kronos:ID", "");
-
 		Node adminsubmenuitem9 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
 		adminsubmenuitem9.setProperty("kronos:name", "Global Configuration");
 		adminsubmenuitem9.setProperty("kronos:IDType", "config");
 		adminsubmenuitem9.setProperty("kronos:ID", "");
+		
+		Node adminsubmenuitem8 = adminmenuitem4.addNode("kronos:adminsubmenuitem");
+		adminsubmenuitem8.setProperty("kronos:name", "MediaManager");
+		adminsubmenuitem8.setProperty("kronos:IDType", "MediaManager");
+		adminsubmenuitem8.setProperty("kronos:ID", "");
 
 		// Help menu item with submenu items
 		Node adminmenuitem5 = adminmenu.addNode("kronos:adminmenuitem");
