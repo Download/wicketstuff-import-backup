@@ -143,7 +143,7 @@ public class AdminNewExternalMenuItem extends Panel {
 		public NewExternalMenuItemModel()
 		{
 			name = null;
-			link = null;
+			link = "http://";
 			order = 1;
 		}
 

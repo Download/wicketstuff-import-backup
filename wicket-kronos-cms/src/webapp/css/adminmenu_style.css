@@ -10,6 +10,7 @@ ul li {
     z-index: 10;
     float: left;
     width: 100px;
+    padding: 8px 0px 4px 0px;
 }
 
 li ul {
@@ -17,32 +18,35 @@ li ul {
     display: none;
     z-index: 10;
 }
+li ul li{
+	padding: 0;	
+}
 
 li ul li a{
    border-top: solid #7A7F76 1px;
+   background: #FFFEFC;
+   height: auto;
 }
 
 ul li a {
     display: block;
     text-decoration: none;
     color: navy;
-    background: #ffffff;
     padding: 5px;
     border-bottom: 0;
     z-index: 10;
+    height: 50px;
 }
 
 ul li a:hover { 
 	color: #534CE0; 
-	background: #9ca198;
-}
-
-li:hover ul { 
-	display: block;
+	text-decoration: underline;
 }
 
 li:hover ul, li.over ul {
 	display: block;
+	z-index: 100;
+	top: 43px;
 }
 
 .floatfix { 
@@ -51,10 +55,11 @@ li:hover ul, li.over ul {
 
 .menu {
 	width: 100%;
-	background-color: #ffffff;
+	background: url(../img/button_bg.jpg);
 	border-style: solid;
-	border-color: #A8A8A8;
-	border-width: 2px 0px 2px 0px;
+	border-color: #FFC37F;
+	border-width: 0px 0px 0px 0px;
+	height: 50px;
 }
 
 #menu_right {

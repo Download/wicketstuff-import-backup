@@ -1435,7 +1435,7 @@ public final class DataProcessor {
 		// Home menu item with submenu items
 		Node adminmenuitem1 = adminmenu.addNode("kronos:adminmenuitem");
 		adminmenuitem1.setProperty("kronos:name", "Home");
-		adminmenuitem1.setProperty("kronos:IDType", "frontpage");
+		adminmenuitem1.setProperty("kronos:IDType", "adminpage");
 		adminmenuitem1.setProperty("kronos:ID", adminmenu.getUUID());
 		Node adminsubmenuitem1 = adminmenuitem1.addNode("kronos:adminsubmenuitem");
 		adminsubmenuitem1.setProperty("kronos:name", "Home");

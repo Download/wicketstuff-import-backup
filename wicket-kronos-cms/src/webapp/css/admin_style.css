@@ -1,44 +1,45 @@
 body {
 	width: 100%;
-	height: 800px;
+	min-height: 800px;
 	padding: 0;
 	margin: 0;
-	color: #534CE0;
-	background-color: #FFFFFF;
+	color: #392210;
 	font-family: garamond;
+	background: white;
 }
 
 .container {
-	background-color: #C0C0C0;
+	background-color: #8D4E22;
 }
 
 /* div style definitions*/
 .header {
-	background-color: #C0C0C0;
+	background: url(../img/bg.png) repeat-x;
 	margin: 0;
 	padding: 0;
+	text-align: center;
 }
 
 .configuration {
 	clear: both;
-	background-color: #C0C0C0;
+	background-color: #8D4E22;
+	min-height: 500px;
 }
 
 .configmenu {
 	height: 36px;
-	background-color: #C0C0C0;
+	background-color: #5D86BA;
 	border-style: solid;
 	border-color: #A8A8A8;
 	border-width: 2px 0px 2px 0px;
+	margin: 5px 0px 5px 0px;
 }
 
 .footer {
-	background-color: #FFFFFF;
-	color: navy;
-	border-style: solid;
-	border-color: #A8A8A8;
-	border-width: 2px 0px 2px 0px;
+	background: white url(../img/footer_bg.png) repeat-x;
+	color: #392210;
 	text-align: center;
+	padding: 5px;
 }
 
 table{
@@ -118,7 +119,7 @@ a.orderLink img {
 .mediaimage {
 	width: 150px;
 	height: 100px;	
-	border: solid #534CE0 1px;
+	border: solid #E16D1A 1px;
 	padding: 3px;
 	margin: 5px;
 	float: left;

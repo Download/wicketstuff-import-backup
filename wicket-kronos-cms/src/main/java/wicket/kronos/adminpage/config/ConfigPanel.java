@@ -73,8 +73,8 @@ public class ConfigPanel extends Panel {
 			}
 
 			Session jcrSession = KronosSession.get().getJCRSession();
-			String templateName;
-			String pageTitle;
+			String templateName = null;
+			String pageTitle = null;
 			try
 			{
 				Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(
