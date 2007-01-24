@@ -9,8 +9,8 @@ ul li {
     position: relative;
     z-index: 10;
     float: left;
-    width: 100px;
-    padding: 8px 0px 4px 0px;
+    width: auto;
+    margin-right: 10px;
 }
 
 li ul {
@@ -20,56 +20,60 @@ li ul {
 }
 li ul li{
 	padding: 0;	
+	width: 120px;
 }
 
 li ul li a{
-   border-top: solid #7A7F76 1px;
-   background: #FFFEFC;
+   background: #494949;
    height: auto;
 }
 
 ul li a {
     display: block;
     text-decoration: none;
-    color: navy;
-    padding: 5px;
+    color: #D1D3D7;
+    padding: 1px 0px 4px 5px;
     border-bottom: 0;
     z-index: 10;
-    height: 50px;
+    height: 23px;
 }
 
 ul li a:hover { 
-	color: #534CE0; 
-	text-decoration: underline;
+	color: white; 
+	text-decoration: none;
 }
 
 li:hover ul, li.over ul {
 	display: block;
 	z-index: 100;
-	top: 43px;
+	top: 23px;
 }
 
-.floatfix { 
-	clear: both; 
-} 
+
 
 .menu {
 	width: 100%;
-	background: url(../img/button_bg.jpg);
-	border-style: solid;
-	border-color: #FFC37F;
-	border-width: 0px 0px 0px 0px;
-	height: 50px;
+	background: white url(../img/menu_back.png) repeat-x;
+	height: 23px;
+	font-weight: bold;
+	font-size: 0.8em;
+	padding-left: 10px;
+	padding-top: 2px;
 }
 
 #menu_right {
 	float: right;
+	padding-right: 10px;
 }
 
 /* fixing internet explorer problems */
 * html ul li { 
 	float: left; 
-	height: 1%; 
+	width: 10px;	
+}
+
+* html li ul li {
+	width: 120px;
 }
 
 * html .floatfix{
@@ -77,6 +81,6 @@ li:hover ul, li.over ul {
 }
 
 * html ul li a { 
-	height: 1%; 
+	
 }
 

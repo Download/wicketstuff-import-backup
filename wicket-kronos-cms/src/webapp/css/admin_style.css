@@ -1,20 +1,18 @@
 body {
 	width: 100%;
-	min-height: 800px;
 	padding: 0;
 	margin: 0;
-	color: #392210;
-	font-family: garamond;
-	background: white;
+	font-family: tahoma;
+	background: #5D7AA8;
 }
 
 .container {
-	background-color: #8D4E22;
+	background-color: white;
 }
 
 /* div style definitions*/
 .header {
-	background: url(../img/bg.png) repeat-x;
+	background: #5D7AA8;
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -22,68 +20,87 @@ body {
 
 .configuration {
 	clear: both;
-	background-color: #8D4E22;
-	min-height: 500px;
-}
-
-.configmenu {
-	height: 36px;
-	background-color: #5D86BA;
-	border-style: solid;
-	border-color: #A8A8A8;
-	border-width: 2px 0px 2px 0px;
-	margin: 5px 0px 5px 0px;
+	background-color: white;
+	font-family: garamond;
 }
 
 .footer {
-	background: white url(../img/footer_bg.png) repeat-x;
-	color: #392210;
+	background: white url(../img/footer_back.png) repeat-x;
+	color: #D1D3D7;
 	text-align: center;
-	padding-top: 8px;
+	height: 16px;
+	vertical-align: bottom;
+	font-size: 0.70em;
+	padding-top: 1px;
 }
 
 table{
-	border: inset black 1px;
+	border: inset #AAA 1px;
+	border-collapse: collapse;
+	font-family: verdana,helvetica,arial,sans-serif;
+	margin-top: 20px;
 }
-
 th{
 	text-align: left;
-	border: inset black 1px;
+	background: #88B3EF;
+	font-size: 0.80em;
+	border: inset #AAA 1px;
+	padding: 0px 5px 0px 5px;
 }
-
 td {
-	border: inset black 1px;	
+	border: inset #AAA 1px;	
+	font-size: 0.70em;
+	padding: 0px 5px 0px 5px;
 }
 td.center {
 	text-align: center;	
 }
+
 td a{
-	display:block;	
+	display: block;	
+	color: black;
+	text-decoration: underline;
 }
 td a:hover{
-	background-color: #E0E0E0;
+	text-decoration: none;
+}
+td input {
+	padding: 0;
+	margin: 0;
+	font-size: 0.80em;
+}
+td select {
+	font-size: 0.80em;
+	width: 100%;
 }
 
 form {
-	border: solid black 1px;
+	border: solid #ddd 1px;
 	width: 80%;
-	padding: 25px;
-	background-color: #F0F0F0;
-	margin: 25px;	
+	padding: 15px;
+	background-color: white;
+	margin: 15px;
+}
+form h2 {
+	font-size: 1.00em;
+	font-family: arial;
+	padding: 0px;
+	margin: 1px;
 }
 
-table.noborder{
+table.noborder {
 	border: none;
 	width: 90%;
 	clear: both;
 }
-table.noborder td{
+table.noborder td {
 	border: none;
 	width: 20%;
 }
 table.noborder td input {
 	padding: 4px;
 	margin: 4px;
+	font-size: 0.80em;
 }
 table.noborder td textarea {
 	padding: 4px;
@@ -96,12 +113,11 @@ table.noborder td div {
 table.noborder td select {
 	padding: 4px;
 	margin: 4px;
-	width: 220px;
+	width: 20em;
+	font-size: 0.80em;
 }
-
-td input {
-	padding: 0;
-	margin: 0;
+table.noborder input [type="submit"] {
+	margin-top: 20px;
 }
 
 a.orderLink{
@@ -111,7 +127,6 @@ a.orderLink{
 	text-decoration: none;
 	border: none;
 }
-
 a.orderLink img {
 	border: none;
 }
@@ -125,16 +140,18 @@ a.orderLink img {
 	float: left;
 	overflow: hidden;
 }
-
 .mediaimage input{
 	display: block;
 }
-
 .mediaimage img{
 	max-width: 96%;
 	max-height: 50%;
 }
-
 .mediaimage .details{
 	vertical-align: bottom;	
+}
+
+* html .mediaimage img{
+	width: 96%;
+	height: 50%;
 }

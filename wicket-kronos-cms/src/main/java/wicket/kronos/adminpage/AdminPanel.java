@@ -84,6 +84,7 @@ public class AdminPanel extends Panel {
 		{
 			super(id, new CompoundPropertyModel(properties));
 
+			add(new Label("settingslabel", "Settings for " + myPluginType));
 			add(new TextField("name"));
 			add(new CheckBox("published"));
 			add(new Label("pluginType", myPluginType));

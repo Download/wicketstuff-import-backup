@@ -2,7 +2,7 @@
 <wicket:panel>
 	
 	<form wicket:id="adminpanelform">
-		<h2>Settings for Plugin</h2>
+		<h2><label wicket:id="settingslabel"> </label></h2>
 		<table class="noborder">
 			<tr>
 				<td><label for="name">Pluginname:</label> </td>
@@ -14,7 +14,7 @@
 			</tr>
 			<tr>
 				<td><label for="order">Order: </label> </td> 
-				<td><input wicket:id="order" type = "text" id="order" size="30"/> </td>
+				<td><input wicket:id="order" type="text" id="order" size="30"/> </td>
 			</tr>
 			<tr>
 				<td><label for="position">Position:</label> </td>
@@ -25,8 +25,10 @@
 	 		</tr>
 	 		<tr>
 				<td><label for="pluginType">Plugintype:</label> </td>
-				<td> <label wicket:id="pluginType"> </label></td>
-			</tr>	
+				<td><label wicket:id="pluginType"> </label></td>
+			</tr>
+		</table>
+		<table class="noborder">	
 			<tr>
 				<td><input type="submit" value="Save"/> </td>
 			</tr>
