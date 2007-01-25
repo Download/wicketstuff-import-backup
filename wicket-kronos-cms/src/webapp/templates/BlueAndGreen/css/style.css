@@ -1,0 +1,261 @@
+/***** Page *****/
+
+body
+{
+	background:#636958;
+	color:#333;
+	font:70% Verdana,Tahoma,Arial,sans-serif;
+	margin:0;
+	padding:0;
+}
+
+body a{
+	color: #28ac2f;	
+}
+
+body a:visited 
+{
+	text-decoration:none;
+	border:0;	
+}
+
+.left 
+{
+	float:left;
+	padding:0;
+	text-align:left;
+	font-size:1em;
+	font-weight:normal;
+	width: 150px;
+	
+}
+
+.titan a{
+	color: black;	
+	display: block;
+	border: hidden 1px #28ac2f;
+	text-decoration: none;
+}
+
+.titan a:hover {
+	border: solid 1px #90D604;
+	background: #F0FFD1;
+}
+
+.unfinishedlink{
+	color: black;	
+	display: block;
+	text-decoration: none;
+}
+
+.unfinishedlink:hover {
+	border: solid 1px #28ac2f;
+	background: #F0FFD1;
+}
+
+.right
+{
+	display:inline;
+	float:right;
+	text-align:center;
+	padding:0;
+	font-size:1em;
+	font-weight:normal;
+	width: 150px;
+}
+
+/***** main *****/
+
+.main
+{
+	background:#f5f5f5;
+	border-left:5px solid #53584A;
+	border-right:5px solid #53584A;
+	color:#000;
+	margin:0 auto;
+	padding:0;
+	width:740px;
+}
+
+/***** Top *****/
+
+.header
+{
+	border-bottom: solid white 2px;
+	color:#fff;
+	margin:0;
+	padding:0;
+}
+
+.header img{
+	width: 100%;	
+	height: 250px;
+	padding: 0;
+	margin: 0;
+}
+
+/***** Navigation *****/
+
+.menu ul,.menu li
+{
+	margin:0;
+	padding:0;
+}
+
+.menu
+{
+	
+	color:#fff;
+	font-size:1em;
+	
+	line-height:2em;
+}
+
+.menuItemsVertical
+{
+	list-style:none;
+}
+
+.menuItemsVertical a
+{
+	color:#000;
+	text-decoration:none;
+	font-size:1em;
+	display:block;
+	padding:8px 20px;
+	
+}
+
+* html .menuItemsVertical a {width:1%;}
+
+.menuItemsVertical .selected,.menuItemsVertical a:hover
+{
+	background:#28ac2f;
+	color:#fff;
+	text-decoration:none;
+}
+
+.menuItemsHorizontal
+{
+	list-style:none;
+}
+
+.menuItemsHorizontal a
+{
+	background:inherit;
+	color:#fff;
+	display:block;
+	font-weight:bold;
+	padding:0 15px;
+	text-decoration:none;
+	text-transform:uppercase;
+}
+
+* html .menuItemsHorizontal a {width:1%;}
+
+.menuItemsHorizontal .selected,.menuItemsHorizontal a:hover
+{
+	background:#28ac2f;
+	color:#fff;
+	text-decoration:none;
+}
+
+.signInForm input[type="text"], .signInForm input[type="password"]  
+{
+	width: 125px;	
+}
+
+/***** Content *****/
+
+.center
+{
+	background:#fff;
+	float:left;
+	padding:15px 10px;
+	width:418px;
+	border: solid #ddd;
+	border-width: 0 1px;
+	color:#000;
+}
+
+.floatfix{
+	clear: both;	
+}
+
+.center p
+{
+	margin:10px 5px;
+	padding-left:10px;
+	padding-right:10px;
+	background:inherit;
+	color:inherit;
+}
+
+.center a
+{
+	text-decoration:none;
+}
+
+.center a:hover
+{
+	text-decoration:underline;
+}
+
+/***** HelloWorld *****/
+.helloworld{
+	 font-size: 1.5em;
+	 margin: 10px 0;
+}
+
+/***** Blogpost *****/
+
+.blogpost{
+	margin: 20px 0;
+}
+
+.blogpost .title{
+	font-size: 1.5em;
+	display: block;
+	background: #28ac2f;
+	color: white;
+	font-style: italic;
+}
+
+.blogpost div.commenttext {
+	border-top: dotted #28ac2f 1px;
+}
+
+.todoitem 
+{
+	border-bottom: dashed #28ac2f 1px;	
+	margin-bottom: 35px;
+}
+
+.todoitem h4 
+{
+ 	background: #28ac2f;
+ 	color: white;	
+}
+/***** Footer *****/
+
+.footer
+{
+	background:#28ac2f;
+	clear:both;
+	color:#fff;
+	font-size:.75em;
+	padding:0 0 5px 0;
+	text-align:center;
+}
+
+.footer a
+{
+	background:inherit;
+	color:#fff;
+	text-decoration:none;
+}
+
+.footer a:hover
+{
+	text-decoration:underline;
+}
