@@ -29,6 +29,7 @@ public class Area extends Panel {
 	 */
 	public Area(int areaId)
 	{
+		
 		super(AreaLocations.getLocationname(areaId));
 		this.areaId = areaId;
 		this.plugins = DataProcessor.getPlugins(this.areaId);
