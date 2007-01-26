@@ -46,7 +46,9 @@ public class Frontpage extends KronosPage {
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
 	
+		//TODO
 		/*
+		 *
 		 * Temporary: Generate a XML-File with the entire contents of the
 		 * repository
 		 */
