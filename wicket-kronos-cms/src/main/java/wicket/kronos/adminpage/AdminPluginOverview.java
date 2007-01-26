@@ -109,7 +109,7 @@ public class AdminPluginOverview extends Panel {
 							int oldValue = props.getOrder();
 							int newValue;
 							if (oldValue > 1)
-								newValue = oldValue--;
+								newValue = --oldValue;
 							else
 								newValue = oldValue;
 							props.setOrder(newValue);
