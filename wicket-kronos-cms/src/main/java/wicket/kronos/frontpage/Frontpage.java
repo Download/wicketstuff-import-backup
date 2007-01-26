@@ -46,6 +46,30 @@ public class Frontpage extends KronosPage {
 	{
 		Session jcrSession = KronosSession.get().getJCRSession();
 	
+		/*
+		 * Temporary: Generate a XML-File with the entire contents of the
+		 * repository
+		 */
+		/*try
+		{
+			Session session = KronosSession.get().getJCRSession();
+			FileOutputStream out = new FileOutputStream("output.xml");
+			session.exportDocumentView(session.getRootNode().getPath(), out,
+					false, false);
+		}
+		catch (PathNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}*/
+		
 		try
 		{
 			Node configuration = jcrSession.getRootNode().getNode("kronos:cms").getNode(
