@@ -107,7 +107,43 @@ public final class DataProcessor {
 		}
 		return plugins;
 	}
+	
+	/**
+	 * Check if the pluginname already exists
+	 * 
+	 * @param pluginName
+	 * @return boolean exists
+	 */
+	public static boolean pluginNameExists(String pluginName)
+	{
+		boolean exists = false;
+		
+		Session jcrSession = KronosSession.get().getJCRSession();
 
+		try
+		{
+			Workspace ws = jcrSession.getWorkspace();
+			QueryManager qm = ws.getQueryManager();
+			Query q = qm
+					.createQuery(
+							"//kronos:plugininstantiations/kronos:plugininstance[@kronos:name = '" + pluginName +  "']",
+							Query.XPATH);
+
+			QueryResult result = q.execute();
+			NodeIterator it = result.getNodes();
+			if(it.hasNext())
+			{
+				exists = true;
+			}
+		}
+		catch (RepositoryException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return exists;
+	}
+	
 	/**
 	 * Retreive the images from the repository
 	 * 

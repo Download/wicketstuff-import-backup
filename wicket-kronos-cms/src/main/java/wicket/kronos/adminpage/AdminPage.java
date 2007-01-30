@@ -9,6 +9,7 @@ import wicket.kronos.adminpage.config.ConfigPanel;
 import wicket.kronos.adminpage.media.MediaManagerPanel;
 import wicket.kronos.adminpage.menu.AdminMenu;
 import wicket.kronos.plugins.IPlugin;
+import wicket.markup.html.panel.FeedbackPanel;
 
 /**
  * @author postma
@@ -26,6 +27,8 @@ public class AdminPage extends KronosPage {
 	 */
 	public AdminPage()
 	{
+		FeedbackPanel feedback = new FeedbackPanel("feedback");
+		add(feedback);
 		add(new AdminPluginOverview("plugin"));
 		add(new AdminMenu("menu"));
 	}
@@ -37,6 +40,8 @@ public class AdminPage extends KronosPage {
 	 */
 	public AdminPage(PageParameters pageParameters)
 	{
+		FeedbackPanel feedback = new FeedbackPanel("feedback");
+		add(feedback);
 		add(new AdminMenu("menu"));
 		if (pageParameters == null || pageParameters.isEmpty())
 		{

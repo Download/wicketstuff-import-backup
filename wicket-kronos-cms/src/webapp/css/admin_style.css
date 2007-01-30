@@ -24,6 +24,12 @@ body {
 	font-family: garamond;
 }
 
+.feedback{
+	display: block;
+	z-index: 1;
+	width: 100%;	
+}
+
 .footer {
 	background: white url(../img/footer_back.png) repeat-x;
 	color: #D1D3D7;
@@ -54,6 +60,7 @@ td {
 }
 td.center {
 	text-align: center;	
+	padding: 0;
 }
 
 td a{

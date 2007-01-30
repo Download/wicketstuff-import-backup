@@ -108,9 +108,14 @@ public class AdminPanel extends Panel {
 
 		@Override
 		public void onSubmit()
-		{
-			DataProcessor.savePluginProperties(properties, oldPluginName);
-			setResponsePage(AdminPage.class);
+		{	
+			if(!DataProcessor.pluginNameExists(properties.getName()))
+			{
+				DataProcessor.savePluginProperties(properties, oldPluginName);
+				setResponsePage(AdminPage.class);
+			} else {
+				error("The pluginname already exists, please choose another");
+			}
 		}
 	}
 }

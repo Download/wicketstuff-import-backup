@@ -93,10 +93,15 @@ public class AdminNewPlugin extends Panel {
 		public void onSubmit()
 		{
 			PluginProperties pluginProperties = (PluginProperties) this.getModelObject();
+			
+			if(!DataProcessor.pluginNameExists(pluginProperties.getName()))
+			{
+				DataProcessor.savePluginProperties(pluginProperties, pluginProperties.getName());
 
-			DataProcessor.savePluginProperties(pluginProperties, pluginProperties.getName());
-
-			setResponsePage(AdminPage.class);
+				setResponsePage(AdminPage.class);
+			} else {
+				error("The pluginname already exists, please choose another");
+			}
 		}
 	}
 }
