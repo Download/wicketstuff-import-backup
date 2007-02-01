@@ -1,8 +1,5 @@
 package wicket.kronos.frontpage;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
@@ -11,7 +8,6 @@ import javax.jcr.Session;
 import wicket.AttributeModifier;
 import wicket.Component;
 import wicket.PageParameters;
-import wicket.kronos.Area;
 import wicket.kronos.DataProcessor;
 import wicket.kronos.KronosPage;
 import wicket.kronos.KronosSession;

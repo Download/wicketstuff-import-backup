@@ -1,4 +1,4 @@
-package wicket.kronos;
+package wicket.kronos.frontpage;
 
 import java.util.ArrayList;
 import java.util.List;

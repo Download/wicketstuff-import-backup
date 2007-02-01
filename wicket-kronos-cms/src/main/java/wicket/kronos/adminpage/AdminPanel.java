@@ -1,7 +1,7 @@
 package wicket.kronos.adminpage;
 
-import wicket.kronos.AreaLocations;
 import wicket.kronos.DataProcessor;
+import wicket.kronos.frontpage.AreaLocations;
 import wicket.kronos.plugins.PluginProperties;
 import wicket.markup.html.basic.Label;
 import wicket.markup.html.form.CheckBox;

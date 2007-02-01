@@ -1,4 +1,4 @@
-package wicket.kronos;
+package wicket.kronos.frontpage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,14 @@ import java.util.List;
 import wicket.markup.html.panel.Panel;
 import wicket.markup.html.list.ListItem;
 import wicket.markup.html.list.ListView;
+import wicket.kronos.DataProcessor;
 import wicket.kronos.plugins.IPlugin;
 
 /**
  * @author postma
  */
 public class Area extends Panel {
- 
+
 	/**
 	 * Default serialVersionUID
 	 */
