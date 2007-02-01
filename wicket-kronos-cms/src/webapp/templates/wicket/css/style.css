@@ -40,7 +40,7 @@ img.banner {
 
 .center {
 	overflow: auto;
-	background: url(../images/content.png) repeat-x;
+	background: url(../images/content.png) repeat;
 	float: left;
 	margin: 20px 0px 20px 0px;
 	/*padding: 2px;*/
@@ -66,6 +66,7 @@ img.banner {
 	width: 800px;
 	height: 51px;
 	border: 2px grey solid;
+	font-size: 0.85em;
 }
 
 .plugin {
@@ -185,7 +186,7 @@ li.menuItemsHorizontal {
 	float: left;
 }
 li.menuItemsHorizontal a {
-	width: 100px;
+	width: 120px;
 	text-align: center;
 }
 

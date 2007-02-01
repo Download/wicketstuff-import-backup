@@ -12,7 +12,7 @@ import wicket.kronos.plugins.IPlugin;
  * @author postma
  */
 public class Area extends Panel {
-
+ 
 	/**
 	 * Default serialVersionUID
 	 */

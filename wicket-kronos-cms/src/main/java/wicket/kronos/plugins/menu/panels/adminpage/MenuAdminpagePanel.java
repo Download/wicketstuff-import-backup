@@ -154,6 +154,7 @@ public class MenuAdminpagePanel extends AdminPanel {
 						menuNode.setProperty("kronos:isHorizontal", menuModel.isHorizontal());
 						saveMenuItems(menuModel.getMenuItems());
 						jcrSession.save();
+						setResponsePage(AdminPage.class);
 					}
 					catch (ItemNotFoundException e)
 					{

@@ -138,25 +138,27 @@ body a:visited
 .menuItemsHorizontal
 {
 	list-style:none;
+	float: left;
+	
 }
 
 .menuItemsHorizontal a
 {
-	background:inherit;
-	color:#fff;
-	display:block;
-	font-weight:bold;
-	padding:0 15px;
+	color:#FFF;
+	background:#28ac2f;
+	width: 120px;
 	text-decoration:none;
-	text-transform:uppercase;
+	font-size:1em;
+	display:block;
+	padding: 0px 10px;
 }
 
 * html .menuItemsHorizontal a {width:1%;}
 
 .menuItemsHorizontal .selected,.menuItemsHorizontal a:hover
 {
-	background:#28ac2f;
-	color:#fff;
+	background:transparent;
+	color:#000;
 	text-decoration:none;
 }
 

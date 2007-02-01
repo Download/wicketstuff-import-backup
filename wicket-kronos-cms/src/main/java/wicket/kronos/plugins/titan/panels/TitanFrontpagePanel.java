@@ -25,8 +25,7 @@ public class TitanFrontpagePanel extends Panel {
 	{
 		super(wicketId);
 		PopupSettings popupSettings = new PopupSettings(PageMap.forName("popuppagemap")).setHeight(
-				500).setWidth(500);
+				650).setWidth(500);
 		add(new BookmarkablePageLink("popupLink", TitanPopup.class).setPopupSettings(popupSettings));
 	}
-
 }

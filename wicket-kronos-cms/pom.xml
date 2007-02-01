@@ -7,8 +7,8 @@
 		<groupId>wicket</groupId>
 		<artifactId>wicket-parent</artifactId>
 		<version>1.2.3</version>
-	</parent>
-
+	</parent> 
+  
 	<artifactId>wicket-kronos</artifactId>
 	<packaging>war</packaging>
 	<name>Wicket Kronos</name>
