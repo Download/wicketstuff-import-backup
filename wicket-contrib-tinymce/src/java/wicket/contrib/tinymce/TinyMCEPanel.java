@@ -17,13 +17,9 @@
  */
 package wicket.contrib.tinymce;
 
-import java.util.regex.Pattern;
-
-import wicket.Application;
 import wicket.contrib.tinymce.settings.TinyMCESettings;
 import wicket.markup.ComponentTag;
 import wicket.markup.MarkupStream;
-import wicket.markup.html.PackageResource;
 import wicket.markup.html.WebComponent;
 import wicket.markup.html.panel.Panel;
 import wicket.markup.html.resources.JavaScriptReference;
