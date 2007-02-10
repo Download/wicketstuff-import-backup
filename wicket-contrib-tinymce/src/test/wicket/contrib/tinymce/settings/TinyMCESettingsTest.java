@@ -155,20 +155,11 @@ public class TinyMCESettingsTest extends TestCase
 	public testExactMode()
 	{
 		Component c1 = new TextArea();
-		Component c2 = new TextArea();
-		c2.setOutputMarkupId(true);
 		
 		TinyMCESettings settings = new TinyMCESettings(Mode.exact);
-		try
-		{
-			settings.addComponent(c1);
-			fail();
-		}
-		catch (IllegalArgumentException e)
-		{
-			assertTrue(true);
-		}
 		settings.addComponent(c2);
 		String js = settings.toJavaScript();
+		//TODO implemnet me
+		assertNotNull(js);
 	}
 }

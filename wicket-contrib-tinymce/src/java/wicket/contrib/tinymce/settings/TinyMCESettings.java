@@ -32,6 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import wicket.Component;
+import wicket.markup.html.form.TextArea;
 
 /**
  * Settings class for TinyMCE editor. User can add/remove buttons,
@@ -225,13 +226,13 @@ public class TinyMCESettings implements Serializable
 	 * Enable tinymce area only for added components. This works in tinymce
 	 * exact mode.
 	 * 
-	 * @param component
-	 *            the component to enable tinymce for
+	 * @param textarea
+	 *            the textarea to enable tinymce for
 	 */
-	public void addComponent(Component component)
+	public void addComponent(TextArea textarea)
 	{
-		component.setOutputMarkupId(true);
-		components.add(component);
+		textarea.setOutputMarkupId(true);
+		components.add(textarea);
 	}
 
 	// used in testing
