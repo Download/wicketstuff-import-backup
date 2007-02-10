@@ -61,7 +61,7 @@ public class TinyMCESettings implements Serializable
 	private List controls;
 
 	private Set disabledButtons;
-	private Set /* <Component> */components;
+	private Set /* <TextArea> */textareas;
 
 
 	/**
@@ -110,7 +110,7 @@ public class TinyMCESettings implements Serializable
 		this.controls = new LinkedList();
 		this.plugins = new ListOrderedSet();
 		this.disabledButtons = new ListOrderedSet();
-		this.components = new ListOrderedSet();
+		this.textareas = new ListOrderedSet();
 	}
 
 	/**
@@ -229,10 +229,10 @@ public class TinyMCESettings implements Serializable
 	 * @param textarea
 	 *            the textarea to enable tinymce for
 	 */
-	public void addComponent(TextArea textarea)
+	public void enableTextArea(TextArea textarea)
 	{
 		textarea.setOutputMarkupId(true);
-		components.add(textarea);
+		textareas.add(textarea);
 	}
 
 	// used in testing
@@ -250,10 +250,10 @@ public class TinyMCESettings implements Serializable
 		buffer.append("\n\tmode : ").append("\"").append(mode.getName()).append("\"");
 		if (isExactMode())
 		{
-			if (components.size() > 0)
+			if (textareas.size() > 0)
 			{
 				buffer.append(",\n\telements : \"");
-				Iterator iterator = components.iterator();
+				Iterator iterator = textareas.iterator();
 				while (iterator.hasNext())
 				{
 					Component component = (Component)iterator.next();
@@ -587,7 +587,7 @@ public class TinyMCESettings implements Serializable
 
 		public static final Mode textareas = new Mode("textareas");
 		/**
-		 * @see TinyMCESettings#addComponent(Component)
+		 * @see TinyMCESettings#enableTextArea(Component)
 		 */
 		public static final Mode exact = new Mode("exact");
 
