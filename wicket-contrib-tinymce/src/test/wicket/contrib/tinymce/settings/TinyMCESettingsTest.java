@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 import wicket.Component;
+import wicket.contrib.tinymce.settings.Plugin;
 import wicket.contrib.tinymce.settings.SavePlugin;
 import wicket.contrib.tinymce.settings.DateTimePlugin;
 import wicket.contrib.tinymce.settings.TinyMCESettings;
@@ -139,6 +140,8 @@ public class TinyMCESettingsTest extends TestCase
 	{
 		Plugin plugin = new Plugin("mockplugin")
 		{
+			private static final long serialVersionUID = 1L;
+
 			protected void definePluginExtensions(StringBuffer buffer)
 			{
 				buffer.append("alert('Hello Mock World');");
@@ -152,14 +155,15 @@ public class TinyMCESettingsTest extends TestCase
 		assertEquals("alert('Hello Mock World');", javascript);
 	}
 
-	public testExactMode()
+	public void testExactMode()
 	{
-		Component c1 = new TextArea();
-		
+		TextArea textArea = new TextArea("ta");
+
 		TinyMCESettings settings = new TinyMCESettings(Mode.exact);
-		settings.addComponent(c2);
+		settings.enableTextArea(textArea);
 		String js = settings.toJavaScript();
-		//TODO implemnet me
+
+		// TODO implemnet me
 		assertNotNull(js);
 	}
 }
