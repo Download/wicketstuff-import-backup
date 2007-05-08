@@ -18,6 +18,8 @@
  */
 package wicket.contrib.examples.gmap;
 
+import wicket.ajax.AjaxRequestTarget;
+import wicket.ajax.markup.html.AjaxLink;
 import wicket.contrib.examples.WicketExamplePage;
 import wicket.contrib.gmap.GMap;
 import wicket.contrib.gmap.GMapPanel;
@@ -34,7 +36,7 @@ public class HomePage extends WicketExamplePage
     public HomePage()
     {
         // add gmap
-        GMap gmap = new GMap(new GPoint(10, 30), 15);
+        final GMap gmap = new GMap(new GPoint(10, 30), 15);
         gmap.setTypeControl(true);
         gmap.setSmallMapControl(true);
 
@@ -46,7 +48,18 @@ public class HomePage extends WicketExamplePage
         GMarker wicket = new GMarker(new GPoint(-78.7073f, 35.7512f), new InfoPanel("gmarkerInfo"));
         gmap.addOverlay(wicket);
 
-        add(new GMapPanel("gmap", gmap, 800, 600, LOCALHOST_8080_WICKET_CONTRIB_GMAP_EXAMPLES_KEY));
+        final GMapPanel gmapPanel = new GMapPanel("gmap", gmap, 800, 600, LOCALHOST_8080_WICKET_CONTRIB_GMAP_EXAMPLES_KEY);
+		add(gmapPanel);
+        
+        add(new AjaxLink("ajax") {
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				gmap.addOverlay(new GMarker(new GPoint(-10.1872f, 50.2765f), new Label("gmarkerInfo", "uraaaaaaa")));
+				target.addComponent(gmapPanel);
+				target.appendJavascript("initGMap();");
+			}
+        });
     }
 
     //pay attention at webapp deploy context, we need a different key for each deploy context

@@ -88,6 +88,7 @@ public class GMapPanel extends Panel
 	public GMapPanel(String id, GMap gmap, int width, int height, String gmapKey)
 	{
 		super(id);
+		setOutputMarkupId(true);
 
 		add(new GMapScript("script", GMAP_URL + gmapKey));
 		add(new GMapContainer(gmap));

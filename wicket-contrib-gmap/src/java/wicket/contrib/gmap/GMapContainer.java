@@ -1,35 +1,48 @@
 package wicket.contrib.gmap;
 
+import java.util.List;
+
+import wicket.Component;
 import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.list.Loop;
-
-import java.util.List;
+import wicket.model.AbstractReadOnlyModel;
+import wicket.model.IModel;
 
 /**
  * @author Iulian-Corneliu Costan
  */
 class GMapContainer extends WebMarkupContainer
 {
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Construct.
-     * @param gmap
-     */
-    public GMapContainer(final GMap gmap)
-    {
-        super(ID);
-        final List<Overlay> overlays = gmap.getOverlays();
+	/**
+	 * Construct.
+	 * 
+	 * @param gmap
+	 */
+	public GMapContainer(final GMap gmap)
+	{
+		super(ID);
+		final List<Overlay> overlays = gmap.getOverlays();
 
-        add(new GMapComponent(gmap));
-        add(new Loop("gmarkersLoop", overlays.size())
-        {
-            protected void populateItem(LoopItem item)
-            {
-                Overlay gmarker = overlays.get(item.getIteration());
-                item.add(new GMarkerContainer((GMarker) gmarker));
-            }
-        });
-    }
+		add(new GMapComponent(gmap));
+		IModel model = new AbstractReadOnlyModel()
+		{
+			@Override
+			public Object getObject(Component component)
+			{
+				return overlays.size();
+			}
+		};
+		add(new Loop("gmarkersLoop", model)
+		{
+			protected void populateItem(LoopItem item)
+			{
+				Overlay gmarker = overlays.get(item.getIteration());
+				item.add(new GMarkerContainer((GMarker)gmarker));
+			}
+		});
+	}
 
-    public static final String ID = "gmapContainer";
+	public static final String ID = "gmapContainer";
 }
