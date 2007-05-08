@@ -5,7 +5,7 @@
     <groupId>wicket-stuff</groupId>
     <artifactId>wicket-contrib-gmap-examples</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2</version>
     <name>Wicket Contrib GMap Examples</name>
     <description>Examples gmap component.</description>
     <inceptionYear>2004</inceptionYear>
