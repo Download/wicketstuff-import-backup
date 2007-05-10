@@ -35,16 +35,35 @@ class GMapComponent extends JavaScriptComponent
 	private String gmapDefinition()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("var map = map ? map : new GMap(document.getElementById(\"map\"));\n");
-		if (gmap.isSmallMapControl())
+		buffer.append("var map = map ? map : new GMap2(document.getElementById(\"map\"));\n");
+		if (gmap.isLargeMapControl())
 		{
-			buffer.append("map.addControl(new GSmallMapControl());\n");
+			buffer.append("map.addControl(new GLargeMapControl());\n");
 		}
 		if (gmap.isTypeControl())
 		{
 			buffer.append("map.addControl(new GMapTypeControl());\n");
 		}
-		buffer.append("map.centerAndZoom(").append(gmap.getCenter().toString()).append(", ")
+		if (gmap.isScaleControl())
+		{
+			buffer.append("map.addControl(new GScaleControl());\n");
+
+
+		}
+		if (gmap.isOverviewMapControl())
+		{
+			buffer.append("map.addControl(new GOverviewMapControl());\n");
+		}
+		if (gmap.isSmallMapControl())
+		{
+			buffer.append("map.addControl(new GSmallMapControl());\n");
+		}
+		if (gmap.isSmallZoomControl())
+		{
+			buffer.append("map.addControl(new GSmallZoomControl());\n");
+		}
+		
+		buffer.append("map.setCenter(").append(gmap.getCenter().toString()).append(", ")
 				.append(gmap.getZoomLevel()).append(");\n");
 		return buffer.toString();
 	}

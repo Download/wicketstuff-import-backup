@@ -27,11 +27,27 @@ public class GMarker extends Overlay
 	 * 
 	 * @param point
 	 *            the point on the map where this marker will be anchored
-	 * @see GPoint
+	 * @see GLatLng
 	 */
-	public GMarker(GPoint point)
+	public GMarker(GLatLng point)
 	{
 		this(point, new WebComponent("gmarkerInfo"));
+	}
+
+	/**
+	 * Creates an empty marker, only the default icon will be displayed and no
+	 * onClick event handler will be attached.
+	 * 
+	 * @param point
+	 *            the point on the map where this marker will be anchored
+	 * @param gIcon
+	 *            custom GIcon
+	 * @see GLatLng
+	 */
+	public GMarker(GLatLng point, GIcon gIcon)
+	{
+		this(point, new WebComponent("gmarkerInfo"));
+		this.icon = gIcon;
 	}
 
 	/**
@@ -42,12 +58,31 @@ public class GMarker extends Overlay
 	 *            the point on the map where this marker will be anchored
 	 * @param component
 	 *            wicket component that needs to be rendered
-	 * @see GPoint
+	 * @see GLatLng
 	 */
-	public GMarker(GPoint point, Component component)
+	public GMarker(GLatLng point, Component component)
 	{
 		super(point);
 		this.component = component;
+	}
+
+	/**
+	 * Creates an marker that will have an onClick event attached. When user
+	 * clicks on this marker, wicket <code>component</code> will be rendered.
+	 * 
+	 * @param point
+	 *            the point on the map where this marker will be anchored
+	 * @param component
+	 *            wicket component that needs to be rendered
+	 * @param gIcon 
+	 * 			 custom GIcon
+	 * @see GLatLng
+	 */
+	public GMarker(GLatLng point, Component component, GIcon gIcon)
+	{
+		super(point);
+		this.component = component;
+		this.icon= gIcon;
 	}
 
 	/**

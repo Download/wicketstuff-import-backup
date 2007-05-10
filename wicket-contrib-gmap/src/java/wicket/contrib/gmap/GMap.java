@@ -22,23 +22,93 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the main Maps API's GMap object. 
- * First create an instance of this class by specifying center and zoomLevel 
- * after that you can add overlayes that needs to be displayed. 
+ * This class represents the main Maps API's GMap object. First create an
+ * instance of this class by specifying center and zoomLevel after that you can
+ * add overlayes that needs to be displayed.
  * 
  * @see Overlay
  * 
- * @author Iulian-Corneliu Costan
+ * @author Iulian-Corneliu Costan, Nino Martinez Wael
+ * 
  */
 public class GMap implements Serializable
 {
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
 
-	private GPoint center;
+	private GLatLng center;
 	private int zoomLevel;
 	private List<Overlay> overlays = new ArrayList<Overlay>();
 	private boolean typeControl;
 	private boolean smallMapControl;
+	private boolean largeMapControl;
+	private boolean smallZoomControl;
+	private boolean scaleControl;
+	private boolean overviewMapControl;
+
+
+	public boolean isLargeMapControl()
+	{
+		return largeMapControl;
+	}
+
+	/**
+	 * display GLargeMapControl - a large pan/zoom control used on Google Maps.
+	 * Appears in the top left corner of the map.
+	 * 
+	 * @param largeMapControl
+	 */
+	public void setLargeMapControl(boolean largeMapControl)
+	{
+		this.largeMapControl = largeMapControl;
+	}
+
+	public boolean isOverviewMapControl()
+	{
+		return overviewMapControl;
+	}
+
+	/**
+	 * display GOverviewMapControl - a collapsible overview map in the corner of
+	 * the screen
+	 * 
+	 * @param overviewMapControl
+	 */
+	public void setOverviewMapControl(boolean overviewMapControl)
+	{
+		this.overviewMapControl = overviewMapControl;
+	}
+
+	public boolean isScaleControl()
+	{
+		return scaleControl;
+	}
+
+	/**
+	 * display GScaleControl - a map scale
+	 * 
+	 * @param scaleControl
+	 */
+	public void setScaleControl(boolean scaleControl)
+	{
+		this.scaleControl = scaleControl;
+	}
+
+	public boolean isSmallZoomControl()
+	{
+		return smallZoomControl;
+	}
+
+	/**
+	 * display GSmallZoomControl - a small zoom control (no panning controls)
+	 * used in the small map blowup windows used to display driving directions
+	 * steps on Google Maps.
+	 * 
+	 * @param smallZoomControl
+	 */
+	public void setSmallZoomControl(boolean smallZoomControl)
+	{
+		this.smallZoomControl = smallZoomControl;
+	}
 
 	/**
 	 * Create GMap component
@@ -48,7 +118,7 @@ public class GMap implements Serializable
 	 * @param zoomLevel
 	 *            only values between 1 and 15 are allowed.
 	 */
-	public GMap(GPoint center, int zoomLevel)
+	public GMap(GLatLng center, int zoomLevel)
 	{
 		if (center == null)
 		{
@@ -115,7 +185,7 @@ public class GMap implements Serializable
 		return smallMapControl;
 	}
 
-	public GPoint getCenter()
+	public GLatLng getCenter()
 	{
 		return center;
 	}

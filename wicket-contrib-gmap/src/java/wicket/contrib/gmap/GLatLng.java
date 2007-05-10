@@ -21,46 +21,34 @@ package wicket.contrib.gmap;
 import java.io.Serializable;
 
 /**
+ * Represents an Maps API's GPoint that contains x and y coordinates.
+ *
  * @author Iulian-Corneliu Costan
  */
-public abstract class Overlay implements Serializable
+public class GLatLng implements Serializable
 {
 
-    private GLatLng point;
+    private float longitude;
+    private float latitude;
 
-    Overlay(GLatLng point)
+    public GLatLng(float longitude, float latitude)
     {
-        if (point == null)
-        {
-            new IllegalArgumentException("point cannot be null");
-        }
-        this.point = point;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    /**
-     * Get the name of the JavaScript function that will be called in order to create this overlay.
-     *
-     * @return name of JavaScript function
-     */
-    public abstract String getFactoryMethod();
-
-    public GLatLng getPoint()
+    public float getLongitude()
     {
-        return point;
+        return longitude;
     }
 
-    public String getPointAsString()
+    public float getLatitude()
     {
-        return point.toString();
+        return latitude;
     }
 
-    /**
-     * Each overlay on the map has to be unique.
-     *
-     * @return unique ID for each overlay
-     */
-    protected String getOverlayId()
+    public String toString()
     {
-        return JSUtil.longitudeAsString(point) + JSUtil.latitudeAsString(point);
+        return "new GLatLng(" + latitude + ", " + longitude + ")";
     }
 }
