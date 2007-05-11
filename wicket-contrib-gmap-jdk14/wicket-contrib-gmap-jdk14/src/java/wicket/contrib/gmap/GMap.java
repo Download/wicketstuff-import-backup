@@ -116,7 +116,7 @@ public class GMap implements Serializable
 	 * @param center
 	 *            of the gmap
 	 * @param zoomLevel
-	 *            only values between 1 and 15 are allowed.
+	 *            only values between 1 and 18 are allowed.
 	 */
 	public GMap(GLatLng center, int zoomLevel)
 	{
@@ -124,9 +124,9 @@ public class GMap implements Serializable
 		{
 			throw new IllegalArgumentException("map's center point cannot be null");
 		}
-		if (zoomLevel < 0 || zoomLevel > 15)
+		if (zoomLevel < 0 || zoomLevel > 18)
 		{
-			throw new IllegalArgumentException("zoomLevel must be 1 < zoomLevel < 15 ");
+			throw new IllegalArgumentException("zoomLevel must be 1 < zoomLevel < 18 ");
 		}
 		this.center = center;
 		this.zoomLevel = zoomLevel;

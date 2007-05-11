@@ -34,7 +34,7 @@ import wicket.model.PropertyModel;
  * 
  * @see GMap
  * 
- * @author Iulian-Corneliu Costan
+ * @author Iulian-Corneliu Costan, Nino Martinez Wael
  */
 public class GMapPanel extends Panel
 {
