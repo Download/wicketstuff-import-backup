@@ -34,11 +34,11 @@ class JSUtil
 
 	public static String longitudeAsString(GLatLng point)
 	{
-		String string = Float.toString(point.getLongitude());
+		String string = Float.toString(point.getLongtitude());
 		string = string.replace('.', '_');
 
 		string = string.replace('-', 'n');
-		log.error(string);
+		log.debug(string);
 		return string;
 	}
 
@@ -48,7 +48,7 @@ class JSUtil
 		string = string.replace('.', '_');
 
 		string = string.replace('-', 'n');
-		log.error(string);
+		log.debug(string);
 		return string;
 	}
 

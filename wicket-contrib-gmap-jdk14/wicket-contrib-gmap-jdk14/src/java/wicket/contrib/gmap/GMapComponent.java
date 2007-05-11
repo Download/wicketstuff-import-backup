@@ -69,6 +69,18 @@ class GMapComponent extends JavaScriptComponent
 
 		buffer.append("map.setCenter(").append(gmap.getCenter().toString()).append(", ").append(
 				gmap.getZoomLevel()).append(");\n");
+		// Below registers when the user stoped moving the map, need to update
+		// some values
+		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
+				+ "var center = map.getCenter();\n"
+				+ "document.getElementById(\"latitude\").value=center.lat();\n"
+				+ "document.getElementById(\"longtitude\").value=center.lng();\n"
+				+ "document.getElementById(\"zoomLevel\").value=map.getZoom();\n"
+				+ "document.getElementById(\"gmap_ajaxFormSubmit\").onclick();\n" +
+
+				"});\n");
+
+
 		return buffer.toString();
 	}
 

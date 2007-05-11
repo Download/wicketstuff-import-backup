@@ -17,7 +17,12 @@
  */
 package wicket.contrib.gmap;
 
+import wicket.ajax.AjaxRequestTarget;
+import wicket.ajax.markup.html.form.AjaxSubmitLink;
+import wicket.markup.html.form.Form;
+import wicket.markup.html.form.HiddenField;
 import wicket.markup.html.panel.Panel;
+import wicket.model.PropertyModel;
 
 /**
  * A reusable wicket component for <a href="http://maps.google.com">Google Maps</a>.
@@ -92,6 +97,23 @@ public class GMapPanel extends Panel
 		add(new GMapScript("script", GMAP_URL + gmapKey));
 		add(new GMapContainer(gmap));
 		add(new Map("map", width, height));
+		
+		// add form that contains center and zoomlevel
+		Form gmapUpdatingForm = new Form("gmapUpdatingForm");
+
+		gmapUpdatingForm.add(new HiddenField("latitude", new PropertyModel(gmap.getCenter(),
+				"latitude")));
+		gmapUpdatingForm.add(new HiddenField("longtitude", new PropertyModel(gmap.getCenter(),
+				"longtitude")));
+		gmapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gmap, "zoomLevel")));
+		gmapUpdatingForm.setOutputMarkupId(true);
+		add(gmapUpdatingForm);
+		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxFormSubmit", gmapUpdatingForm){
+		protected void onSubmit(AjaxRequestTarget arg0, Form arg1)
+		{
+		}};
+		add(ajaxSubmitLink);
+
 	}
 
 	// gmap url

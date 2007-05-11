@@ -1,24 +1,29 @@
 <html xmlns:wicket>
 <head>
-    <wicket:head>
-        <script wicket:id="script">gmap script import</script>
-    </wicket:head>
+<wicket:head>
+	<script wicket:id="script">gmap script import</script>
+</wicket:head>
 </head>
 
-<body onload="initGMap();">
+<body onload="initGMap();" onunload="GUnload()">
 <wicket:panel>
-    <span wicket:id="gmapContainer">
-        <script wicket:id="gmapComponent">gmap</script>
+	<form wicket:id="gmapUpdatingForm"><input type="hidden"
+		wicket:id="latitude" name="latitude" id="latitude"> <input
+		type="hidden" wicket:id="longtitude" name="longtitude" id="longtitude">
+	<input type="hidden" name="zoomlevel" id="zoomLevel"
+		wicket:id="zoomLevel"></form>
+	<a wicket:id="ajaxFormSubmit" name="ajaxFormSubmit" id="ajaxFormSubmit"
+		style="display: none;"></a>
 
-        <span wicket:id="gmarkersLoop">
-            <div wicket:id="gmarkerContainer" style="display: none;">
-                <script wicket:id="gmarkerComponent">javascript</script>
-                <span wicket:id="gmarkerInfo">user's component</span>
-            </div>
-        </span>
-    </span>
+	<span wicket:id="gmapContainer"> <script
+		wicket:id="gmapComponent">gmap</script> <span wicket:id="gmarkersLoop">
+	<div wicket:id="gmarkerContainer" style="display: none;"><script
+		wicket:id="gmarkerComponent">javascript</script> <span
+		wicket:id="gmarkerInfo">user's component</span></div>
+	</span> </span>
 
-    <div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>
+	<div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>
+
 </wicket:panel>
 </body>
 </html>

@@ -18,7 +18,9 @@
  */
 package wicket.contrib.gmap;
 
-public class GSize
+import java.io.Serializable;
+
+public class GSize implements Serializable
 {
 	
 	private int x;

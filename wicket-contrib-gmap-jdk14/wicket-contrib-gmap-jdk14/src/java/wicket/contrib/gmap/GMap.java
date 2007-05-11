@@ -194,4 +194,9 @@ public class GMap implements Serializable
 	{
 		return zoomLevel;
 	}
+
+	public void setZoomLevel(int zoomLevel)
+	{
+		this.zoomLevel = zoomLevel;
+	}
 }
