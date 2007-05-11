@@ -20,9 +20,8 @@ package wicket.contrib.gmap;
 import java.io.Serializable;
 
 /**
- * Represents an Maps API's GPoint that contains x and y coordinates.
- * 
- * @author Iulian-Corneliu Costan
+ * Represents Googles GLatLng class contains Geo location stored in latitude and longtitude
+ * @author Nino Martinez Wael
  */
 public class GLatLng implements Serializable
 {

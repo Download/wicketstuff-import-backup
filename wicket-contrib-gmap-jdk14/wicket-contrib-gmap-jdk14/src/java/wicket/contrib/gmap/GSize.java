@@ -20,36 +20,49 @@ package wicket.contrib.gmap;
 
 import java.io.Serializable;
 
+/**
+ * A GSize is the size in pixels of a rectangular area of the map. The size
+ * object has two parameters, width and height. Width is a difference in the
+ * x-coordinate; height is a difference in the y-coordinate, of points.
+ * 
+ * @author Nino Martinez Wael
+ */
 public class GSize implements Serializable
 {
-	
-	private int x;
-	private int y;
+
+	private int width;
+	private int height;
+
 	public String toString()
 	{
-		return "new GSize("+x+", "+y+")";
+		return "new GSize(" + width + ", " + height + ")";
 	}
-	public int getX()
+
+	public int getWidth()
 	{
-		return x;
+		return width;
 	}
-	public void setX(int x)
+
+	public void setWidth(int width)
 	{
-		this.x = x;
+		this.width = width;
 	}
-	public int getY()
+
+	public int getHeight()
 	{
-		return y;
+		return height;
 	}
-	public void setY(int y)
+
+	public void setHeight(int y)
 	{
-		this.y = y;
+		this.height = y;
 	}
-	public GSize(int x, int y)
+
+	public GSize(int width, int height)
 	{
 		super();
-		this.x = x;
-		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 
 }
