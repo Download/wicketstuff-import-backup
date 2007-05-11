@@ -76,9 +76,21 @@ class GMapComponent extends JavaScriptComponent
 				+ "document.getElementById(\"latitude\").value=center.lat();\n"
 				+ "document.getElementById(\"longtitude\").value=center.lng();\n"
 				+ "document.getElementById(\"zoomLevel\").value=map.getZoom();\n"
-				+ "document.getElementById(\"gmap_ajaxFormSubmit\").onclick();\n" +
+				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
 				"});\n");
+		
+		// is gmap is in insert model this must be added for the notifier form to be submitted on click
+		if(gmap.isInsertMode())
+		{
+			buffer.append("GEvent.addListener(map, \"click\", function (marker, point) {\n"
+					+ "if(marker){}\n"
+					+ "else{\n"
+					+ "document.getElementById(\"clickNotifierLatitude\").value=point.lat();\n"
+					+ "document.getElementById(\"clickNotifierLongtitude\").value=point.lng();\n"
+					+ "document.getElementById(\"gmap_ajaxGMapClickNotifierFormSubmit\").onclick();\n" +
+			"}});\n");
+		}
 
 
 		return buffer.toString();

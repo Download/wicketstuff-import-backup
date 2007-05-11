@@ -29,7 +29,7 @@ public class GLatLng implements Serializable
 	private float longtitude;
 	private float latitude;
 
-	public GLatLng(float longtitude, float latitude)
+	public GLatLng(float latitude,float longtitude)
 	{
 		this.longtitude = longtitude;
 		this.latitude = latitude;

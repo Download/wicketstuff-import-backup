@@ -35,7 +35,7 @@ public class GMarker extends Overlay
 	}
 
 	/**
-	 * Creates an empty marker, only the default icon will be displayed and no
+	 * Creates an empty marker, only the custom icon will be displayed and no
 	 * onClick event handler will be attached.
 	 * 
 	 * @param point
