@@ -38,6 +38,7 @@ public class GMap implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private GLatLng center;
+	private GLatLngBounds bounds=new GLatLngBounds();
 	private boolean insertMode;
 	private IModel insertModel;
 	private boolean largeMapControl;
@@ -232,5 +233,10 @@ public class GMap implements Serializable
 	public void setZoomLevel(int zoomLevel)
 	{
 		this.zoomLevel = zoomLevel;
+	}
+
+	public GLatLngBounds getBounds()
+	{
+		return bounds;
 	}
 }

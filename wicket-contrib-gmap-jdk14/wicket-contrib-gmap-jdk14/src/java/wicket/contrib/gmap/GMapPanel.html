@@ -8,16 +8,25 @@
 <body onload="initGMap();" onunload="GUnload()">
 <wicket:panel>
 	<form wicket:id="gmapUpdatingForm"><input type="hidden"
-		wicket:id="latitude" name="latitude" id="latitude"> <input
-		type="hidden" wicket:id="longtitude" name="longtitude" id="longtitude">
+		wicket:id="latitudeCenter" name="latitudeCenter" id="latitudeCenter"> <input
+		type="hidden" wicket:id="longtitudeCenter" name="longtitudeCenter" id="longtitudeCenter">
+		
+		<input type="hidden"
+			wicket:id="latitudeSW" name="latitudeSW" id="latitudeSW"> <input
+			type="hidden" wicket:id="longtitudeSW" name="longtitudeSW" id="longtitudeSW">
+			<input type="hidden"
+				wicket:id="latitudeNE" name="latitudeNE" id="latitudeNE"> <input
+				type="hidden" wicket:id="longtitudeNE" name="longtitudeNE" id="longtitudeNE">
+		
+		
 	<input type="hidden" name="zoomlevel" id="zoomLevel"
 		wicket:id="zoomLevel"></form>
 	<a wicket:id="ajaxGMapUpdatingFormSubmit" name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
 		style="display: none;"></a>
 
 		<form wicket:id="gMapClickNotifierForm"><input type="hidden"
-			wicket:id="latitude" name="clickNotifierLatitude" id="clickNotifierLatitude"> <input
-			type="hidden" wicket:id="longtitude" name="clickNotifierLongtitude" id="clickNotifierLongtitude">
+			wicket:id="latitudeCenter" name="clickNotifierLatitude" id="clickNotifierLatitude"> <input
+			type="hidden" wicket:id="longtitudeCenter" name="clickNotifierLongtitude" id="clickNotifierLongtitude">
 		</form>
 		<a wicket:id="ajaxGMapClickNotifierFormSubmit" name="ajaxGMapClickNotifierFormSubmit" id="ajaxGMapClickNotifierFormSubmit"
 			style="display: none;"></a>

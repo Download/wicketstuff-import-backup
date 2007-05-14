@@ -104,10 +104,21 @@ public class GMapPanel extends Panel
 		// add form that contains center and zoomlevel
 		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
 
-		gMapUpdatingForm.add(new HiddenField("latitude", new PropertyModel(gMap.getCenter(),
+		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
 				"latitude")));
-		gMapUpdatingForm.add(new HiddenField("longtitude", new PropertyModel(gMap.getCenter(),
-				"longtitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
+				gMap.getCenter(), "longtitude")));
+
+		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
+				.getSouthWest(), "latitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeSW", new PropertyModel(gMap.getBounds()
+				.getSouthWest(), "longtitude")));
+		gMapUpdatingForm.add(new HiddenField("latitudeNE", new PropertyModel(gMap.getBounds()
+				.getNorthEast(), "latitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeNE", new PropertyModel(gMap.getBounds()
+				.getNorthEast(), "longtitude")));
+
+
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
 		gMapUpdatingForm.setOutputMarkupId(true);
 		add(gMapUpdatingForm);
@@ -127,10 +138,11 @@ public class GMapPanel extends Panel
 		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm");
 
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
-		gmapClickNotifierForm.add(new HiddenField("latitude", new PropertyModel(clickLatLng,
+		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
 				"latitude")));
-		gmapClickNotifierForm.add(new HiddenField("longtitude", new PropertyModel(clickLatLng,
-				"longtitude")));
+		gmapClickNotifierForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
+				clickLatLng, "longtitude")));
+
 		gmapClickNotifierForm.setOutputMarkupId(true);
 		add(gmapClickNotifierForm);
 		if (!gMap.isInsertMode())

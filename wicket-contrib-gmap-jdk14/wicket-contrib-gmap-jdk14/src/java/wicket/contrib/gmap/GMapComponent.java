@@ -70,11 +70,21 @@ class GMapComponent extends JavaScriptComponent
 		buffer.append("map.setCenter(").append(gmap.getCenter().toString()).append(", ").append(
 				gmap.getZoomLevel()).append(");\n");
 		// Below registers when the user stoped moving the map, need to update
-		// some values
+		// some values, center and bounds
 		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
 				+ "var center = map.getCenter();\n"
-				+ "document.getElementById(\"latitude\").value=center.lat();\n"
-				+ "document.getElementById(\"longtitude\").value=center.lng();\n"
+				+ "var sW = map.getBounds().getSouthWest();\n"
+				+ "var nE = map.getBounds().getNorthEast();\n"
+//set center
+				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
+				+ "document.getElementById(\"longtitudeCenter\").value=center.lng();\n"
+//set SW bound 
+				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
+				+ "document.getElementById(\"longtitudeSW\").value=sW.lng();\n"
+//set NE bound
+				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
+				+ "document.getElementById(\"longtitudeNE\").value=nE.lng();\n"
+
 				+ "document.getElementById(\"zoomLevel\").value=map.getZoom();\n"
 				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
