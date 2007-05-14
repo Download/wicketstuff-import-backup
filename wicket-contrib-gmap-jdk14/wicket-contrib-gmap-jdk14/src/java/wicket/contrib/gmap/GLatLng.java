@@ -20,27 +20,29 @@ package wicket.contrib.gmap;
 import java.io.Serializable;
 
 /**
- * Represents Googles GLatLng class contains Geo location stored in latitude and longtitude
+ * Represents Googles GLatLng class contains Geo location stored in latitude and
+ * longtitude
+ * 
  * @author Nino Martinez Wael
  */
 public class GLatLng implements Serializable
 {
 
-	private float longtitude;
-	private float latitude;
+	private double longtitude;
+	private double latitude;
 
-	public GLatLng(float latitude,float longtitude)
+	public GLatLng(double latitude, double longtitude)
 	{
 		this.longtitude = longtitude;
 		this.latitude = latitude;
 	}
 
-	public float getLongtitude()
+	public double getLongtitude()
 	{
 		return longtitude;
 	}
 
-	public float getLatitude()
+	public double getLatitude()
 	{
 		return latitude;
 	}
@@ -50,12 +52,12 @@ public class GLatLng implements Serializable
 		return "new GLatLng(" + latitude + ", " + longtitude + ")";
 	}
 
-	public void setLatitude(float latitude)
+	public void setLatitude(double latitude)
 	{
 		this.latitude = latitude;
 	}
 
-	public void setLongtitude(float longtitude)
+	public void setLongtitude(double longtitude)
 	{
 		this.longtitude = longtitude;
 	}

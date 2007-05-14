@@ -65,18 +65,41 @@ class GMarkerComponent extends JavaScriptComponent
 				+ icon.getShadowSize().toString() + ";\n" + "icon.iconAnchor = "
 				+ icon.getAnchor().toString() + ";\n" + "icon.infoWindowAnchor = "
 				+ icon.getInfoWindowAncor().toString() + "\n";
+		String customIconPartTwo = "";
+		if (gmarker.getToolTip().length() > 0)
+		{
+			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
+					+ ",{icon:icon, title:'" + gmarker.getToolTip() + "'});" + "\n"
+					+ getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
+		}
+		else
+		{
+			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
+					+ ",icon);" + "\n" + getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
 
-		return JSUtil.createFunction(gmarker.getFactoryMethod(), customIcon
-				+ "var marker = new GMarker(" + gmarker.getPointAsString() + ",icon);" + "\n"
-				+ getOnClickHandler() + "\n" + "GEvent.addListener(marker, \"click\", onClick);"
-				+ "\n" + "return marker;");
+		}
+
+		return JSUtil.createFunction(gmarker.getFactoryMethod(), customIcon + customIconPartTwo);
 	}
 
 	private String createMarkerDefaultIcon()
 	{
+		if (gmarker.getToolTip().length() > 0)
+		{
+			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
+					+ gmarker.getPointAsString() + ",{title:'" + gmarker.getToolTip() + "'});" + "\n"
+					+ getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
+
+		}
+
 		return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
 				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n"
 				+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
+
+
 	}
 
 	private String getOnClickHandler()
