@@ -96,7 +96,7 @@ public class GMapPanel extends Panel
 	{
 		super(id);
 		setOutputMarkupId(true);
-
+		add(new GMapAjaxBehavior());
 		add(new GMapScript("script", GMAP_URL + gmapKey));
 		add(new GMapContainer(gMap));
 		add(new Map("map", width, height));
@@ -125,6 +125,11 @@ public class GMapPanel extends Panel
 		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
 				gMapUpdatingForm)
 		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected void onSubmit(AjaxRequestTarget arg0, Form arg1)
 			{
 			}
@@ -174,8 +179,6 @@ public class GMapPanel extends Panel
 		{
 			ajaxClickNotifierSubmitLink.setVisible(false);
 		}
-
-
 	}
 
 	// gmap url

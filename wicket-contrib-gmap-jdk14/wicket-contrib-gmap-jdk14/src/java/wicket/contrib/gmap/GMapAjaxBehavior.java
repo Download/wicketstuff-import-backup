@@ -1,13 +1,8 @@
-package wicket.contrib.gmap;
+	package wicket.contrib.gmap;
 
-import wicket.Component;
-import wicket.RequestCycle;
 import wicket.Response;
 import wicket.ajax.AbstractDefaultAjaxBehavior;
 import wicket.ajax.AjaxRequestTarget;
-import wicket.response.StringResponse;
-import wicket.util.resource.IResourceStream;
-import wicket.util.resource.StringBufferResourceStream;
 
 /**
  * @author Iulian-Corneliu Costan
