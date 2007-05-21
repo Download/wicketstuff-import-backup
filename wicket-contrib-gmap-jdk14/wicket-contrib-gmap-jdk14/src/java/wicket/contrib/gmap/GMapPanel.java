@@ -130,8 +130,17 @@ public class GMapPanel extends Panel
 			 */
 			private static final long serialVersionUID = 1L;
 
-			protected void onSubmit(AjaxRequestTarget arg0, Form arg1)
+			protected void onSubmit(AjaxRequestTarget target, Form arg1)
 			{
+				// only notify dragEnd in dragEnd mode
+				if (gMap.isDragEndMode())
+				{
+					// notify dragEnd model
+					gMap.getDragEndModel().setObject(this, null);
+					target.addComponent(gMapPanel);
+					target.appendJavascript("initGMap();");
+
+				}
 			}
 		};
 		add(ajaxSubmitLink);
@@ -164,19 +173,24 @@ public class GMapPanel extends Panel
 
 			protected void onSubmit(AjaxRequestTarget target, Form arg1)
 			{
-				// setting to new GLatlng inorder to prevent reference (this
-				// would cause all latlngs to be updated)
-				GLatLng gLatLng = new GLatLng(clickLatLng.getLatitude(), clickLatLng
-						.getLongtitude());
-				gMap.getInsertModel().setObject(this, gLatLng);
-				target.addComponent(gMapPanel);
-				target.appendJavascript("initGMap();");
-
+				// only notify when in update insert mode
+				if (gMap.isInsertMode())
+				{
+					// setting to new GLatlng inorder to prevent reference (this
+					// would cause all latlngs to be updated)
+					GLatLng gLatLng = new GLatLng(clickLatLng.getLatitude(), clickLatLng
+							.getLongtitude());
+					gMap.getInsertModel().setObject(this, gLatLng);
+				    target.addComponent(gMapPanel);
+					target.appendJavascript("initGMap();");
+				}
 			}
 		};
 		add(ajaxClickNotifierSubmitLink);
 		if (!gMap.isInsertMode())
 		{
+			// if no insertmode we do not need this to be accessable, might give
+			// an javascript error? If the event are registered?
 			ajaxClickNotifierSubmitLink.setVisible(false);
 		}
 	}

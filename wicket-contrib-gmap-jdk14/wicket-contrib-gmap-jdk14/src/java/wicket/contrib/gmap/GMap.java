@@ -38,9 +38,11 @@ public class GMap implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	private GLatLng center;
-	private GLatLngBounds bounds=new GLatLngBounds();
-	private boolean insertMode;
+	private GLatLngBounds bounds = new GLatLngBounds();
+	private boolean insertMode = false;
 	private IModel insertModel;
+	private IModel dragEndModel;
+	private boolean dragEndMode;
 	private boolean largeMapControl;
 	private List overlays = new ArrayList();
 	private boolean overviewMapControl;
@@ -238,5 +240,33 @@ public class GMap implements Serializable
 	public GLatLngBounds getBounds()
 	{
 		return bounds;
+	}
+
+	public IModel getDragEndModel()
+	{
+		return dragEndModel;
+	}
+
+	public void setDragEndModel(IModel moveEndModel)
+	{
+		if (moveEndModel != null)
+		{
+			this.dragEndMode = true;
+		}
+		else
+		{
+			this.dragEndMode = false;
+		}
+		this.dragEndModel = moveEndModel;
+	}
+
+	public void setInsertModel(IModel insertModel)
+	{
+		this.insertModel = insertModel;
+	}
+
+	public boolean isDragEndMode()
+	{
+		return dragEndMode;
 	}
 }

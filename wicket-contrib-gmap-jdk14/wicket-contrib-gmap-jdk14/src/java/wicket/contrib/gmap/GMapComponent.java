@@ -71,7 +71,7 @@ class GMapComponent extends JavaScriptComponent
 				gmap.getZoomLevel()).append(");\n");
 		// Below registers when the user stoped moving the map, need to update
 		// some values, center and bounds
-		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
+		buffer.append("GEvent.addListener(map, \"dragend\", function () {\n"
 				+ "var center = map.getCenter();\n"
 				+ "var sW = map.getBounds().getSouthWest();\n"
 				+ "var nE = map.getBounds().getNorthEast();\n"
