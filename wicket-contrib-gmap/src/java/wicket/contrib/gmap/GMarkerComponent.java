@@ -66,7 +66,7 @@ class GMarkerComponent extends JavaScriptComponent
 				+ icon.getAnchor().toString() + ";\n" + "icon.infoWindowAnchor = "
 				+ icon.getInfoWindowAncor().toString() + "\n";
 		String customIconPartTwo = "";
-		if (gmarker.getToolTip() == null && gmarker.getToolTip().length() > 0)
+		if (gmarker.getToolTip() != null && gmarker.getToolTip().length() > 0)
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
 					+ ",{icon:icon, title:'" + gmarker.getToolTip() + "'});" + "\n"
