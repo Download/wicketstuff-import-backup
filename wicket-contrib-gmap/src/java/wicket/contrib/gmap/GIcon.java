@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * todo to be implemented
  * 
- * @author Iulian-Corneliu COSTAN
+ * @author Iulian-Corneliu COSTAN, Nino Martinez Wael
  */
 public class GIcon implements Serializable
 {

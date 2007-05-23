@@ -20,6 +20,7 @@ public class GMarker extends Overlay
 
 	private Component component;
 	private GIcon icon;
+	private String toolTip="";
 
 	/**
 	 * Creates an empty marker, only the default icon will be displayed and no
@@ -35,7 +36,7 @@ public class GMarker extends Overlay
 	}
 
 	/**
-	 * Creates an empty marker, only the default icon will be displayed and no
+	 * Creates an empty marker, only the custom icon will be displayed and no
 	 * onClick event handler will be attached.
 	 * 
 	 * @param point
@@ -104,5 +105,25 @@ public class GMarker extends Overlay
 	public String getFactoryMethod()
 	{
 		return "createMarker" + getOverlayId();
+	}
+
+	public GIcon getIcon()
+	{
+		return icon;
+	}
+
+	public void setIcon(GIcon icon)
+	{
+		this.icon = icon;
+	}
+
+	public String getToolTip()
+	{
+		return toolTip;
+	}
+
+	public void setToolTip(String toolTip)
+	{
+		this.toolTip = toolTip;
 	}
 }

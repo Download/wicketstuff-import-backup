@@ -1,24 +1,45 @@
 <html xmlns:wicket>
 <head>
-    <wicket:head>
-        <script wicket:id="script">gmap script import</script>
-    </wicket:head>
+<wicket:head>
+	<script wicket:id="script">gmap script import</script>
+</wicket:head>
 </head>
 
-<body onload="initGMap();">
+<body onload="initGMap();" onunload="GUnload();">
 <wicket:panel>
-    <span wicket:id="gmapContainer">
-        <script wicket:id="gmapComponent">gmap</script>
+	<form wicket:id="gmapUpdatingForm"><input type="hidden"
+		wicket:id="latitudeCenter" name="latitudeCenter" id="latitudeCenter"> <input
+		type="hidden" wicket:id="longtitudeCenter" name="longtitudeCenter" id="longtitudeCenter">
+		
+		<input type="hidden"
+			wicket:id="latitudeSW" name="latitudeSW" id="latitudeSW"> <input
+			type="hidden" wicket:id="longtitudeSW" name="longtitudeSW" id="longtitudeSW">
+			<input type="hidden"
+				wicket:id="latitudeNE" name="latitudeNE" id="latitudeNE"> <input
+				type="hidden" wicket:id="longtitudeNE" name="longtitudeNE" id="longtitudeNE">
+		
+		
+	<input type="hidden" name="zoomlevel" id="zoomLevel"
+		wicket:id="zoomLevel"></form>
+	<a wicket:id="ajaxGMapUpdatingFormSubmit" name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
+		style="display: none;"></a>
 
-        <span wicket:id="gmarkersLoop">
-            <div wicket:id="gmarkerContainer" style="display: none;">
-                <script wicket:id="gmarkerComponent">javascript</script>
-                <span wicket:id="gmarkerInfo">user's component</span>
-            </div>
-        </span>
-    </span>
+		<form wicket:id="gMapClickNotifierForm"><input type="hidden"
+			wicket:id="latitudeCenter" name="clickNotifierLatitude" id="clickNotifierLatitude"> <input
+			type="hidden" wicket:id="longtitudeCenter" name="clickNotifierLongtitude" id="clickNotifierLongtitude">
+		</form>
+		<a wicket:id="ajaxGMapClickNotifierFormSubmit" name="ajaxGMapClickNotifierFormSubmit" id="ajaxGMapClickNotifierFormSubmit"
+			style="display: none;"></a>
 
-    <div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>
+	<span wicket:id="gmapContainer"> <script
+		wicket:id="gmapComponent">gmap</script> <span wicket:id="gmarkersLoop">
+	<div wicket:id="gmarkerContainer" style="display: none;"><script
+		wicket:id="gmarkerComponent">javascript</script> <span
+		wicket:id="gmarkerInfo">user's component</span></div>
+	</span> </span>
+
+	<div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>
+
 </wicket:panel>
 </body>
 </html>

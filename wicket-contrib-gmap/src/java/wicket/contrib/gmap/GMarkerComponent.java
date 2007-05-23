@@ -44,16 +44,62 @@ class GMarkerComponent extends JavaScriptComponent
 	public String onJavaScriptComponentTagBody()
 	{
 		StringBuffer buffer = new StringBuffer("\n");
-		buffer.append(createMarker() + "\n");
+		if (gmarker.getIcon() != null)
+		{
+			buffer.append(createMarkerCustomIcon() + "\n");
+		}
+		else
+		{
+			buffer.append(createMarkerDefaultIcon() + "\n");
+		}
 		buffer.append(createInfoFunction() + "\n");
 		return buffer.toString();
 	}
 
-	private String createMarker()
+	private String createMarkerCustomIcon()
 	{
+		GIcon icon = gmarker.getIcon();
+		String customIcon = "var icon = new GIcon();\n" + "icon.image = \"" + icon.getImage()
+				+ "\";\n" + "icon.shadow = \"" + icon.getShadow() + "\";\n" + "icon.iconSize = "
+				+ icon.getIconSize().toString() + ";\n" + "icon.shadowSize = "
+				+ icon.getShadowSize().toString() + ";\n" + "icon.iconAnchor = "
+				+ icon.getAnchor().toString() + ";\n" + "icon.infoWindowAnchor = "
+				+ icon.getInfoWindowAncor().toString() + "\n";
+		String customIconPartTwo = "";
+		if (gmarker.getToolTip() == null && gmarker.getToolTip().length() > 0)
+		{
+			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
+					+ ",{icon:icon, title:'" + gmarker.getToolTip() + "'});" + "\n"
+					+ getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
+		}
+		else
+		{
+			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
+					+ ",icon);" + "\n" + getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
+
+		}
+
+		return JSUtil.createFunction(gmarker.getFactoryMethod(), customIcon + customIconPartTwo);
+	}
+
+	private String createMarkerDefaultIcon()
+	{
+		if (gmarker.getToolTip().length() > 0)
+		{
+			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
+					+ gmarker.getPointAsString() + ",{title:'" + gmarker.getToolTip() + "'});"
+					+ "\n" + getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
+
+		}
+
 		return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
 				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n"
 				+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
+
+
 	}
 
 	private String getOnClickHandler()

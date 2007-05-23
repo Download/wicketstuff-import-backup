@@ -23,22 +23,22 @@ class GMapContainer extends WebMarkupContainer
 	public GMapContainer(final GMap gmap)
 	{
 		super(ID);
-		final List<Overlay> overlays = gmap.getOverlays();
+		final List overlays = gmap.getOverlays();
 
 		add(new GMapComponent(gmap));
 		IModel model = new AbstractReadOnlyModel()
 		{
-			@Override
 			public Object getObject(Component component)
 			{
-				return overlays.size();
+				
+				return new Integer(overlays.size());
 			}
 		};
 		add(new Loop("gmarkersLoop", model)
 		{
 			protected void populateItem(LoopItem item)
 			{
-				Overlay gmarker = overlays.get(item.getIteration());
+				Overlay gmarker =(Overlay) overlays.get(item.getIteration());
 				item.add(new GMarkerContainer((GMarker)gmarker));
 			}
 		});

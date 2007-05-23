@@ -17,8 +17,15 @@
  */
 package wicket.contrib.gmap;
 
-import wicket.markup.html.form.persistence.IValuePersister;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import wicket.ajax.AjaxRequestTarget;
+import wicket.ajax.markup.html.form.AjaxSubmitLink;
+import wicket.markup.html.form.Form;
+import wicket.markup.html.form.HiddenField;
 import wicket.markup.html.panel.Panel;
+import wicket.model.PropertyModel;
 
 /**
  * A reusable wicket component for <a href="http://maps.google.com">Google Maps</a>.
@@ -30,16 +37,19 @@ import wicket.markup.html.panel.Panel;
  * 
  * @see GMap
  * 
- * @author Iulian-Corneliu Costan
+ * @author Iulian-Corneliu Costan, Nino Martinez Wael
  */
 public class GMapPanel extends Panel
 {
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
+	private final GMapPanel gMapPanel;
+	private static final Log log = LogFactory.getLog(GMapPanel.class);
 
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
-	 * {GMapPanel.GMAP_DEFAULT_KEY} key. Make sure that deployment context of your
-	 * application is <a href="http://localhost/gmap/">http://localhost/gmap/</a>
+	 * {GMapPanel.GMAP_DEFAULT_KEY} key. Make sure that deployment context of
+	 * your application is <a
+	 * href="http://localhost/gmap/">http://localhost/gmap/</a>
 	 * 
 	 * @param id
 	 *            wicket component id
@@ -52,8 +62,9 @@ public class GMapPanel extends Panel
 	}
 
 	/**
-	 * Creates GMapPanel component using default {@link GMapPanel.GMAP_DEFAULT_KEY} key.
-	 * Make sure that deployment context of your application is <a
+	 * Creates GMapPanel component using default
+	 * {@link GMapPanel.GMAP_DEFAULT_KEY} key. Make sure that deployment context
+	 * of your application is <a
 	 * href="http://localhost/gmap">http://localhost/gmap/</a>
 	 * 
 	 * @param id
@@ -75,7 +86,7 @@ public class GMapPanel extends Panel
 	 * 
 	 * @param id
 	 *            wicket component id
-	 * @param gmap
+	 * @param gMap
 	 *            a GMap object
 	 * @param width
 	 *            map width in px
@@ -85,14 +96,111 @@ public class GMapPanel extends Panel
 	 *            key generated for your site, you can get it from <a
 	 *            href="http://www.google.com/apis/maps/signup.html">here</a>
 	 */
-	public GMapPanel(String id, GMap gmap, int width, int height, String gmapKey)
+	public GMapPanel(String id, final GMap gMap, int width, int height, String gmapKey)
 	{
 		super(id);
 		setOutputMarkupId(true);
-
+		add(new GMapAjaxBehavior());
 		add(new GMapScript("script", GMAP_URL + gmapKey));
-		add(new GMapContainer(gmap));
+		add(new GMapContainer(gMap));
 		add(new Map("map", width, height));
+
+		// add form that contains center and zoomlevel
+		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
+
+		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
+				"latitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
+				gMap.getCenter(), "longtitude")));
+
+		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
+				.getSouthWest(), "latitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeSW", new PropertyModel(gMap.getBounds()
+				.getSouthWest(), "longtitude")));
+		gMapUpdatingForm.add(new HiddenField("latitudeNE", new PropertyModel(gMap.getBounds()
+				.getNorthEast(), "latitude")));
+		gMapUpdatingForm.add(new HiddenField("longtitudeNE", new PropertyModel(gMap.getBounds()
+				.getNorthEast(), "longtitude")));
+
+
+		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
+		gMapUpdatingForm.setOutputMarkupId(true);
+		add(gMapUpdatingForm);
+		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
+				gMapUpdatingForm)
+		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			protected void onSubmit(AjaxRequestTarget target, Form arg1)
+			{
+				// only notify dragEnd in dragEnd mode
+				if (gMap.isDragEndMode())
+				{
+					log.debug("got notified dragEnd");
+					log.debug("Zoom Level are:"+gMap.getZoomLevel());
+					// notify dragEnd model
+					gMap.getDragEndModel().setObject(this, null);
+					// is this needed?
+					target.addComponent(gMapPanel);
+					target.appendJavascript("initGMap();");
+
+				}
+			}
+		};
+		add(ajaxSubmitLink);
+
+		// add click notifier form that contains center
+
+		// we might want to change the way that this is implemented
+		gMapPanel = this;
+		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm");
+
+		final GLatLng clickLatLng = new GLatLng(0f, 0f);
+		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
+				"latitude")));
+		gmapClickNotifierForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
+				clickLatLng, "longtitude")));
+
+		gmapClickNotifierForm.setOutputMarkupId(true);
+		add(gmapClickNotifierForm);
+		if (!gMap.isInsertMode())
+		{
+			gmapClickNotifierForm.setVisible(false);
+		}
+		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
+				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)
+		{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			protected void onSubmit(AjaxRequestTarget target, Form arg1)
+			{
+				// only notify when in update insert mode
+				if (gMap.isInsertMode())
+				{
+					log.debug("got notified InsertMode");
+					// setting to new GLatlng inorder to prevent reference (this
+					// would cause all latlngs to be updated)
+					GLatLng gLatLng = new GLatLng(clickLatLng.getLatitude(), clickLatLng
+							.getLongtitude());
+					gMap.getInsertModel().setObject(this, gLatLng);
+					target.addComponent(gMapPanel);
+					target.appendJavascript("initGMap();");
+				}
+			}
+		};
+		add(ajaxClickNotifierSubmitLink);
+		if (!gMap.isInsertMode())
+		{
+			// if no insertmode we do not need this to be accessable, might give
+			// an javascript error? If the event are registered?
+			ajaxClickNotifierSubmitLink.setVisible(false);
+		}
 	}
 
 	// gmap url
