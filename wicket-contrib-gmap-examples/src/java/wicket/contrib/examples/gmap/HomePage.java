@@ -58,6 +58,11 @@ public class HomePage extends WicketExamplePage {
 		gmapPanel.setGMapClickListener(new GMapClickListener() {
 
 			public void onClick(AjaxRequestTarget target, GLatLng gLatLng) {
+
+				// click handler, basically you can do whatever you want here,
+				// save in db, push over the wire, etc
+				// as an example new marker is displaed in gmap
+
 				GMarker marker = new GMarker(gLatLng, new Label("gmarkerInfo",
 						"new market at " + gLatLng.getLatitude() + ":"
 								+ gLatLng.getLongtitude()));
