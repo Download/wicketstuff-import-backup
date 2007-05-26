@@ -31,19 +31,29 @@ public class GLatLngBounds implements Serializable
 	private GLatLng southWest;
 	private GLatLng northEast;
 
+	/**
+	 * Construct.
+	 */
+	public GLatLngBounds()
+	{
+		this(new GLatLng(0, 0), new GLatLng(0, 0));
+	}
+
+	/**
+	 * Construct.
+	 * 
+	 * @param sw
+	 * @param ne
+	 */
 	public GLatLngBounds(GLatLng sw, GLatLng ne)
 	{
 		this.southWest = sw;
 		this.northEast = ne;
 	}
 
-	public GLatLngBounds()
-	{
-		southWest = new GLatLng(0, 0);
-		northEast = new GLatLng(0, 0);
-
-	}
-
+	/**
+	 * @return
+	 */
 	public GLatLng getNorthEast()
 	{
 		return northEast;
@@ -54,26 +64,42 @@ public class GLatLngBounds implements Serializable
 		this.northEast = ne;
 	}
 
+	/**
+	 * @return
+	 */
 	public GLatLng getSouthWest()
 	{
 		return southWest;
 	}
 
+	/**
+	 * @param sw
+	 */
 	public void setSouthWest(GLatLng sw)
 	{
 		this.southWest = sw;
 	}
 
+	/**
+	 * @return
+	 */
 	public GLatLng getNorthWest()
 	{
 		return new GLatLng(southWest.getLatitude(), northEast.getLongtitude());
 	}
 
+	/**
+	 * @return
+	 */
 	public GLatLng getSouthEast()
 	{
 		return new GLatLng(northEast.getLatitude(), southWest.getLongtitude());
 	}
 
+	/**
+	 * @param b
+	 * @return true
+	 */
 	public boolean containsBounds(GLatLngBounds b)
 	{
 		boolean ret = false;
@@ -86,6 +112,10 @@ public class GLatLngBounds implements Serializable
 		return ret;
 	}
 
+	/**
+	 * @param other
+	 * @return true if given coordinates are inside
+	 */
 	public boolean includes(GLatLng other)
 	{
 		final double delta = 0.0000001;

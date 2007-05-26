@@ -10,7 +10,9 @@ import org.apache.commons.logging.LogFactory;
  */
 class GMapComponent extends JavaScriptComponent
 {
+	private static final long serialVersionUID = -3145330681596539743L;
 	private static final Log log = LogFactory.getLog(GMapComponent.class);
+	
 	private GMap gmap;
 
 	public GMapComponent(GMap gmap)
@@ -54,8 +56,6 @@ class GMapComponent extends JavaScriptComponent
 		if (gmap.isScaleControl())
 		{
 			buffer.append("map.addControl(new GScaleControl());\n");
-
-
 		}
 		if (gmap.isOverviewMapControl())
 		{
@@ -73,7 +73,7 @@ class GMapComponent extends JavaScriptComponent
 				gmap.getZoomLevel()).append(");\n");
 		// Below registers when the user stoped moving the map, need to update
 		// some values, center and bounds
-		buffer.append("GEvent.addListener(map, \"dragend\", function () {\n"
+		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
 				+ "var center = map.getCenter();\n"
 				+ "var sW = map.getBounds().getSouthWest();\n"
 				+ "var nE = map.getBounds().getNorthEast();\n"

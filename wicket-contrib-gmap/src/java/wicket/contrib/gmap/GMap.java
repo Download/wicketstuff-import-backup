@@ -1,6 +1,6 @@
 /*
- * $Id$ $Revision$ $Date:
- * 2006-02-12 22:46:53 +0200 (Sun, 12 Feb 2006) $
+ * $Id$
+ * $Revision$ $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -39,20 +39,25 @@ public class GMap implements Serializable
 
 	private GLatLng center;
 	private GLatLngBounds bounds = new GLatLngBounds();
+
+	// TODO well, this class is supposed to be a POJO that contains only gmap
+	// related info (coordinates, settings, etc). adding wicket models into it
+	// makes it little dirty
 	private boolean insertMode = false;
 	private IModel insertModel;
-	private IModel dragEndModel;
 	private boolean dragEndMode;
+	private IModel dragEndModel;
+
+	/** map controls * */
 	private boolean largeMapControl;
-	private List overlays = new ArrayList();
 	private boolean overviewMapControl;
+	private boolean typeControl;
 	private boolean scaleControl;
 	private boolean smallMapControl;
 	private boolean smallZoomControl;
 
-	private boolean typeControl;
-
 	private int zoomLevel;
+	private List overlays = new ArrayList();
 
 	/**
 	 * Creates a map in insert mode, the insertModel will be notified, with an
@@ -66,7 +71,6 @@ public class GMap implements Serializable
 	 */
 	public GMap(GLatLng center, IModel insertModel, int zoomLevel)
 	{
-		super();
 		this.center = center;
 		this.insertModel = insertModel;
 		this.insertMode = true;
@@ -108,11 +112,17 @@ public class GMap implements Serializable
 		overlays.add(overlay);
 	}
 
+	/**
+	 * @return
+	 */
 	public GLatLng getCenter()
 	{
 		return center;
 	}
 
+	/**
+	 * @return
+	 */
 	public IModel getInsertModel()
 	{
 		return insertModel;
@@ -128,11 +138,17 @@ public class GMap implements Serializable
 		return overlays;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getZoomLevel()
 	{
 		return zoomLevel;
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean isInsertMode()
 	{
 		return insertMode;
@@ -268,5 +284,25 @@ public class GMap implements Serializable
 	public boolean isDragEndMode()
 	{
 		return dragEndMode;
+	}
+
+	public void setBounds(GLatLngBounds bounds)
+	{
+		this.bounds = bounds;
+	}
+
+	public void setCenter(GLatLng center)
+	{
+		this.center = center;
+	}
+
+	public void setDragEndMode(boolean dragEndMode)
+	{
+		this.dragEndMode = dragEndMode;
+	}
+
+	public void setInsertMode(boolean insertMode)
+	{
+		this.insertMode = insertMode;
 	}
 }

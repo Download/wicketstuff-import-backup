@@ -1,6 +1,6 @@
 /*
- * $Id$ $Revision$ $Date:
- * 2006-02-12 22:46:53 +0200 (Sun, 12 Feb 2006) $
+ * $Id$
+ * $Revision$ $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -42,8 +42,9 @@ import wicket.model.PropertyModel;
 public class GMapPanel extends Panel
 {
 	private static final long serialVersionUID = 1L;
-	private final GMapPanel gMapPanel;
 	private static final Log log = LogFactory.getLog(GMapPanel.class);
+
+	private GMapClickListener clickListener;
 
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
@@ -107,12 +108,11 @@ public class GMapPanel extends Panel
 
 		// add form that contains center and zoomlevel
 		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
-
+		gMapUpdatingForm.setOutputMarkupId(true);
 		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
 				"latitude")));
 		gMapUpdatingForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
 				gMap.getCenter(), "longtitude")));
-
 		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
 				.getSouthWest(), "latitude")));
 		gMapUpdatingForm.add(new HiddenField("longtitudeSW", new PropertyModel(gMap.getBounds()
@@ -121,17 +121,12 @@ public class GMapPanel extends Panel
 				.getNorthEast(), "latitude")));
 		gMapUpdatingForm.add(new HiddenField("longtitudeNE", new PropertyModel(gMap.getBounds()
 				.getNorthEast(), "longtitude")));
-
-
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
-		gMapUpdatingForm.setOutputMarkupId(true);
 		add(gMapUpdatingForm);
+
 		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
 				gMapUpdatingForm)
 		{
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			protected void onSubmit(AjaxRequestTarget target, Form arg1)
@@ -140,67 +135,67 @@ public class GMapPanel extends Panel
 				if (gMap.isDragEndMode())
 				{
 					log.debug("got notified dragEnd");
-					log.debug("Zoom Level are:"+gMap.getZoomLevel());
+					log.debug("Zoom Level are:" + gMap.getZoomLevel());
 					// notify dragEnd model
-					gMap.getDragEndModel().setObject(this, null);
-					// is this needed?
-					target.addComponent(gMapPanel);
-					target.appendJavascript("initGMap();");
 
+					// TODO not sure why you need these models for?
+					gMap.getDragEndModel().setObject(this, null);
+
+					// do refresh gmap panel
+					refresh(target);
 				}
 			}
 		};
 		add(ajaxSubmitLink);
 
 		// add click notifier form that contains center
-
-		// we might want to change the way that this is implemented
-		gMapPanel = this;
 		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm");
-
+		gmapClickNotifierForm.setOutputMarkupId(true);
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
 		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
 				"latitude")));
 		gmapClickNotifierForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
 				clickLatLng, "longtitude")));
-
-		gmapClickNotifierForm.setOutputMarkupId(true);
 		add(gmapClickNotifierForm);
-		if (!gMap.isInsertMode())
-		{
-			gmapClickNotifierForm.setVisible(false);
-		}
 		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
 				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)
 		{
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			protected void onSubmit(AjaxRequestTarget target, Form arg1)
 			{
-				// only notify when in update insert mode
-				if (gMap.isInsertMode())
+				// fire up click event
+				if (clickListener != null)
 				{
-					log.debug("got notified InsertMode");
-					// setting to new GLatlng inorder to prevent reference (this
-					// would cause all latlngs to be updated)
-					GLatLng gLatLng = new GLatLng(clickLatLng.getLatitude(), clickLatLng
-							.getLongtitude());
-					gMap.getInsertModel().setObject(this, gLatLng);
-					target.addComponent(gMapPanel);
-					target.appendJavascript("initGMap();");
+					clickListener.onClick(target, new GLatLng(clickLatLng));
 				}
+
+				// do refresh gmap panel
+				refresh(target);
 			}
 		};
 		add(ajaxClickNotifierSubmitLink);
-		if (!gMap.isInsertMode())
-		{
-			// if no insertmode we do not need this to be accessable, might give
-			// an javascript error? If the event are registered?
-			ajaxClickNotifierSubmitLink.setVisible(false);
-		}
+	}
+
+	/**
+	 * refresh the gmap panel on ajax call
+	 * 
+	 * @param target
+	 *            the ajax request target instance
+	 */
+	public void refresh(AjaxRequestTarget target)
+	{
+		target.addComponent(this);
+		// TOD split the init function
+		target.appendJavascript("initGMap();");
+	}
+
+	/**
+	 * @param clickListener the listener for click eventF
+	 */
+	public void setGMapClickListener(GMapClickListener clickListener)
+	{
+		this.clickListener = clickListener;
 	}
 
 	// gmap url
@@ -221,4 +216,5 @@ public class GMapPanel extends Panel
 	 * Defaul GMap key for <a href="http://localhost/gmap">http://localhost/gmap</a>
 	 */
 	public static final String GMAP_DEFAULT_KEY = "ABQIAAAALjfJpigGWq5XvKwy7McLIxTIqKwA3nrz2BTziwZcGRDeDRNmMxS-FtSv7KGpE1A21EJiYSIibc-oEA";
+
 }

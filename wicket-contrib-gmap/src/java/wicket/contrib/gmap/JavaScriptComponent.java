@@ -14,6 +14,10 @@ import wicket.model.Model;
 abstract class JavaScriptComponent extends WebComponent
 {
 
+    /**
+     * Construct.
+     * @param id
+     */
     public JavaScriptComponent(final String id)
     {
         super(id);
@@ -33,5 +37,8 @@ abstract class JavaScriptComponent extends WebComponent
         replaceComponentTagBody(markupStream, openTag, js);
     }
 
+    /**
+     * @return
+     */
     public abstract String onJavaScriptComponentTagBody();
 }

@@ -1,6 +1,6 @@
 /*
- * $Id$ $Revision$ $Date:
- * 2006-02-12 21:46:53 +0100 (Sun, 12 Feb 2006) $
+ * $Id$
+ * $Revision$ $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -27,16 +27,36 @@ import java.io.Serializable;
  */
 public class GLatLng implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 
 	private double longtitude;
 	private double latitude;
 
+	/**
+	 * Construct.
+	 * 
+	 * @param gLatLng
+	 */
+	public GLatLng(GLatLng gLatLng)
+	{
+		this(gLatLng.getLatitude(), gLatLng.getLongtitude());
+	}
+
+	/**
+	 * Construct.
+	 * 
+	 * @param latitude
+	 * @param longtitude
+	 */
 	public GLatLng(double latitude, double longtitude)
 	{
 		this.longtitude = longtitude;
 		this.latitude = latitude;
 	}
 
+	/**
+	 * @return
+	 */
 	public double getLongtitude()
 	{
 		return longtitude;
