@@ -2,17 +2,14 @@ package wicket.contrib.gmap;
 
 import java.util.Iterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author Iulian-Corneliu Costan
  */
 class GMapComponent extends JavaScriptComponent
 {
 	private static final long serialVersionUID = -3145330681596539743L;
-	private static final Log log = LogFactory.getLog(GMapComponent.class);
-	
+
+
 	private GMap gmap;
 
 	public GMapComponent(GMap gmap)
@@ -73,7 +70,8 @@ class GMapComponent extends JavaScriptComponent
 				gmap.getZoomLevel()).append(");\n");
 		// Below registers when the user stoped moving the map, need to update
 		// some values, center and bounds
-		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
+		// needs to be dragend otherwise infoboxes will be closed on map move
+		buffer.append("GEvent.addListener(map, \"dragend\", function () {\n"
 				+ "var center = map.getCenter();\n"
 				+ "var sW = map.getBounds().getSouthWest();\n"
 				+ "var nE = map.getBounds().getNorthEast();\n"
@@ -112,7 +110,7 @@ class GMapComponent extends JavaScriptComponent
 				"});\n");
 
 
-		// is gmap is in insert model this must be added for the notifier form
+		// if gmap is in insert model this must be added for the notifier form
 		// to be submitted on click
 		if (gmap.isInsertMode())
 		{
@@ -126,12 +124,6 @@ class GMapComponent extends JavaScriptComponent
 							+ "}});\n");
 		}
 
-		log.debug("ZoomLevel are:" + gmap.getZoomLevel());
-		// problems with updating the zoomlevel trying to force it!
-		// buffer.append("map.setZoom(" + gmap.getZoomLevel() + ");\n");
-		// buffer.append("alert('zoomLevel are='+map.getZoom()+', should have
-		// been "
-		// + gmap.getZoomLevel() + "');\n");
 
 		return buffer.toString();
 	}

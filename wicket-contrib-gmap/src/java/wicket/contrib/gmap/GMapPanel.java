@@ -1,6 +1,6 @@
 /*
- * $Id$
- * $Revision$ $Date$
+ * $Id$ $Revision$ $Date:
+ * 2007-05-26 13:21:45 +0200 (Sat, 26 May 2007) $
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,9 +16,6 @@
  * the License.
  */
 package wicket.contrib.gmap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -42,7 +39,6 @@ import wicket.model.PropertyModel;
 public class GMapPanel extends Panel
 {
 	private static final long serialVersionUID = 1L;
-	private static final Log log = LogFactory.getLog(GMapPanel.class);
 
 	private GMapClickListener clickListener;
 
@@ -134,8 +130,6 @@ public class GMapPanel extends Panel
 				// only notify dragEnd in dragEnd mode
 				if (gMap.isDragEndMode())
 				{
-					log.debug("got notified dragEnd");
-					log.debug("Zoom Level are:" + gMap.getZoomLevel());
 					// notify dragEnd model
 
 					// TODO not sure why you need these models for?
@@ -191,7 +185,8 @@ public class GMapPanel extends Panel
 	}
 
 	/**
-	 * @param clickListener the listener for click eventF
+	 * @param clickListener
+	 *            the listener for click eventF
 	 */
 	public void setGMapClickListener(GMapClickListener clickListener)
 	{

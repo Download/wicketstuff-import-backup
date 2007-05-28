@@ -17,15 +17,12 @@
  */
 package wicket.contrib.gmap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Iulian-Corneliu Costan
  */
 class JSUtil
 {
-	private static Log log = LogFactory.getLog(JSUtil.class);
 
 	public static String createFunction(String name, String body)
 	{
@@ -38,7 +35,6 @@ class JSUtil
 		string = string.replace('.', '_');
 
 		string = string.replace('-', 'n');
-		log.debug(string);
 		return string;
 	}
 
@@ -48,7 +44,6 @@ class JSUtil
 		string = string.replace('.', '_');
 
 		string = string.replace('-', 'n');
-		log.debug(string);
 		return string;
 	}
 
