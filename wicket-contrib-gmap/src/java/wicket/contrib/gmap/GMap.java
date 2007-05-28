@@ -43,6 +43,8 @@ public class GMap implements Serializable
 	// TODO well, this class is supposed to be a POJO that contains only gmap
 	// related info (coordinates, settings, etc). adding wicket models into it
 	// makes it little dirty
+	
+	// I can see that, when the project Im on are done we'll work on that.
 	private boolean insertMode = false;
 	private IModel insertModel;
 	private boolean dragEndMode;

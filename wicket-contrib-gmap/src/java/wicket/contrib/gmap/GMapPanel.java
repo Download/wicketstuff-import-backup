@@ -194,7 +194,7 @@ public class GMapPanel extends Panel
 	}
 
 	// gmap url
-	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2&key=";
+	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.81&key=";
 
 	/**
 	 * GMap key for root context <a href="http://localhost/">http://localhost</a>
