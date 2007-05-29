@@ -17,8 +17,6 @@
  */
 package wicket.contrib.gmap;
 
-import java.util.Locale;
-
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
 import wicket.markup.html.form.Form;
@@ -105,15 +103,7 @@ public class GMapPanel extends Panel
 		add(new Map("map", width, height));
 
 		// add form that contains center and zoomlevel
-		Form gMapUpdatingForm = new Form("gmapUpdatingForm")
-		{
-			// KEEP ENCODING IN US LOCALE INORDER TO SUPPORT EUROPEAN
-			// LOCALES..!?
-			public Locale getLocale()
-			{
-				return new Locale("US");
-			}
-		};
+		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
 		gMapUpdatingForm.setOutputMarkupId(true);
 		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
 				"latitude")));
@@ -154,15 +144,7 @@ public class GMapPanel extends Panel
 		add(ajaxSubmitLink);
 
 		// add click notifier form that contains center
-		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm")
-		{
-			// KEEP ENCODING IN US LOCALE INORDER TO SUPPORT EUROPEAN
-			// LOCALES..!?
-			public Locale getLocale()
-			{
-				return new Locale("US");
-			}
-		};
+		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm");
 
 		gmapClickNotifierForm.setOutputMarkupId(true);
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
