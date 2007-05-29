@@ -90,11 +90,20 @@ public class GLatLng implements Serializable
 		this.longitude = longitude;
 	}
 
-	public double distance(GLatLng other)
+	/**
+	 * @param gLatLng
+	 * @return distance from this coordinate to another GLatLng coordinate in meters.
+	 * {@linkplain} http://www.pk.org/rutgers/hw/a-5.html
+	 * {@linkplain} http://www.cs.rutgers.edu/~pxk/rutgers/hw/a-5.html
+	 * @author Ryan Gravener
+	 */
+	public double distance(final GLatLng gLatLng)
 	{
-		double la = Math.abs(latitude - other.getLatitude());
-		double ln = Math.abs(longitude - other.getLongitude());
-		return Math.max(la, ln);
+		return Math.toDegrees(Math.acos(Math.sin(Math.toRadians(this.latitude)) *
+				Math.sin(Math.toRadians(gLatLng.latitude)) +
+				Math.cos(Math.toRadians(this.latitude)) *
+				Math.cos(Math.toRadians(gLatLng.latitude)) * 
+				Math.cos(Math.toRadians(this.longitude-gLatLng.longitude)))) * 60 * 1852;
 	}
 
 
