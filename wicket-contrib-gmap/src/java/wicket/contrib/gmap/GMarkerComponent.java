@@ -69,7 +69,7 @@ class GMarkerComponent extends JavaScriptComponent
 		if (gmarker.getToolTip() != null && gmarker.getToolTip().length() > 0)
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
-					+ ",{icon:icon, title:'" + gmarker.getToolTip().replace("\'","\\'") + "'});" + "\n"
+					+ ",{icon:icon, title:'" + escape(gmarker.getToolTip()) + "'});" + "\n"
 					+ getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
 		}
@@ -89,7 +89,7 @@ class GMarkerComponent extends JavaScriptComponent
 		if (gmarker.getToolTip().length() > 0)
 		{
 			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
-					+ gmarker.getPointAsString() + ",{title:'" + gmarker.getToolTip().replace("\'","\\'") + "'});"
+					+ gmarker.getPointAsString() + ",{title:'" + escape(gmarker.getToolTip()) + "'});"
 					+ "\n" + getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
 
@@ -98,8 +98,21 @@ class GMarkerComponent extends JavaScriptComponent
 		return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
 				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n"
 				+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
-
-
+	}
+	
+	private String escape(String javaString) {
+		if(javaString==null)return "";
+		StringBuffer b = new StringBuffer();
+		for(int i = 0; i < javaString.length(); i++) {
+			char ch = javaString.charAt(i);
+			if(ch=='\'') {
+				b.append("\\'");
+			}
+			else {
+				b.append(ch);
+			}
+		}
+		return b.toString();
 	}
 
 	private String getOnClickHandler()
