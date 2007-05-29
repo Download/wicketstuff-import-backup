@@ -107,16 +107,16 @@ public class GMapPanel extends Panel
 		gMapUpdatingForm.setOutputMarkupId(true);
 		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
 				"latitude")));
-		gMapUpdatingForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
-				gMap.getCenter(), "longtitude")));
+		gMapUpdatingForm.add(new HiddenField("longitudeCenter", new PropertyModel(
+				gMap.getCenter(), "longitude")));
 		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
 				.getSouthWest(), "latitude")));
-		gMapUpdatingForm.add(new HiddenField("longtitudeSW", new PropertyModel(gMap.getBounds()
-				.getSouthWest(), "longtitude")));
+		gMapUpdatingForm.add(new HiddenField("longitudeSW", new PropertyModel(gMap.getBounds()
+				.getSouthWest(), "longitude")));
 		gMapUpdatingForm.add(new HiddenField("latitudeNE", new PropertyModel(gMap.getBounds()
 				.getNorthEast(), "latitude")));
-		gMapUpdatingForm.add(new HiddenField("longtitudeNE", new PropertyModel(gMap.getBounds()
-				.getNorthEast(), "longtitude")));
+		gMapUpdatingForm.add(new HiddenField("longitudeNE", new PropertyModel(gMap.getBounds()
+				.getNorthEast(), "longitude")));
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
 		add(gMapUpdatingForm);
 
@@ -148,8 +148,8 @@ public class GMapPanel extends Panel
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
 		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
 				"latitude")));
-		gmapClickNotifierForm.add(new HiddenField("longtitudeCenter", new PropertyModel(
-				clickLatLng, "longtitude")));
+		gmapClickNotifierForm.add(new HiddenField("longitudeCenter", new PropertyModel(
+				clickLatLng, "longitude")));
 		add(gmapClickNotifierForm);
 		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
 				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)

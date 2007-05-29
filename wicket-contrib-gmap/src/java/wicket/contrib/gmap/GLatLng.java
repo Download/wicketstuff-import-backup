@@ -29,7 +29,7 @@ public class GLatLng implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private double longtitude;
+	private double longitude;
 	private double latitude;
 
 	/**
@@ -39,37 +39,45 @@ public class GLatLng implements Serializable
 	 */
 	public GLatLng(GLatLng gLatLng)
 	{
-		this(gLatLng.getLatitude(), gLatLng.getLongtitude());
+		this(gLatLng.getLatitude(), gLatLng.getLongitude());
 	}
 
 	/**
 	 * Construct.
 	 * 
 	 * @param latitude
-	 * @param longtitude
+	 * @param longitude
 	 */
-	public GLatLng(double latitude, double longtitude)
+	public GLatLng(double latitude, double longitude)
 	{
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 		this.latitude = latitude;
 	}
 
 	/**
-	 * @return
+	 * @return longitude
 	 */
-	public double getLongtitude()
+	public double getLongitude()
 	{
-		return longtitude;
+		return longitude;
 	}
 
+	/**
+	 * @return latitude
+	 */
 	public double getLatitude()
 	{
 		return latitude;
 	}
 
+	/**
+	 * @see java.lang.Object#toString()
+	 * @return returns a javascript representation of creating a new GLatLng
+	 * 
+	 */
 	public String toString()
 	{
-		return "new GLatLng(" + latitude + ", " + longtitude + ")";
+		return "new GLatLng(" + latitude + ", " + longitude + ")";
 	}
 
 	public void setLatitude(double latitude)
@@ -77,15 +85,15 @@ public class GLatLng implements Serializable
 		this.latitude = latitude;
 	}
 
-	public void setLongtitude(double longtitude)
+	public void setLongitude(double longitude)
 	{
-		this.longtitude = longtitude;
+		this.longitude = longitude;
 	}
 
 	public double distance(GLatLng other)
 	{
 		double la = Math.abs(latitude - other.getLatitude());
-		double ln = Math.abs(longtitude - other.getLongtitude());
+		double ln = Math.abs(longitude - other.getLongitude());
 		return Math.max(la, ln);
 	}
 
@@ -93,7 +101,7 @@ public class GLatLng implements Serializable
 	public static boolean isSamePosition(GLatLng a, GLatLng b)
 	{
 		return equalDouble(a.getLatitude(), b.getLatitude())
-				&& equalDouble(a.getLongtitude(), b.getLongtitude());
+				&& equalDouble(a.getLongitude(), b.getLongitude());
 	}
 
 	private static boolean equalDouble(double a, double b)

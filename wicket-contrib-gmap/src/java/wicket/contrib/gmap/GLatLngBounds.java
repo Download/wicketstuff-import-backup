@@ -21,7 +21,7 @@ package wicket.contrib.gmap;
 import java.io.Serializable;
 
 /**
- * Bounds of something, represented by latitude and longtitude, southWest and
+ * Bounds of something, represented by latitude and longitude, southWest and
  * northEast
  * 
  * @author Nino Martinez Wael
@@ -85,7 +85,7 @@ public class GLatLngBounds implements Serializable
 	 */
 	public GLatLng getNorthWest()
 	{
-		return new GLatLng(southWest.getLatitude(), northEast.getLongtitude());
+		return new GLatLng(southWest.getLatitude(), northEast.getLongitude());
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class GLatLngBounds implements Serializable
 	 */
 	public GLatLng getSouthEast()
 	{
-		return new GLatLng(northEast.getLatitude(), southWest.getLongtitude());
+		return new GLatLng(northEast.getLatitude(), southWest.getLongitude());
 	}
 
 	/**
@@ -124,9 +124,9 @@ public class GLatLngBounds implements Serializable
 		if (delta + northEast.getLatitude() < other.getLatitude())
 			return false;
 
-		if (southWest.getLongtitude() > other.getLongtitude() + delta)
+		if (southWest.getLongitude() > other.getLongitude() + delta)
 			return false;
-		if (delta + northEast.getLongtitude() < other.getLongtitude())
+		if (delta + northEast.getLongitude() < other.getLongitude())
 			return false;
 		return true;
 	}

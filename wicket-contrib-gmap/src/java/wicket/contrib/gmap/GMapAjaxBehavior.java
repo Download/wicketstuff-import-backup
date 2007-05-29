@@ -1,8 +1,9 @@
-	package wicket.contrib.gmap;
+package wicket.contrib.gmap;
 
 import wicket.Response;
 import wicket.ajax.AbstractDefaultAjaxBehavior;
 import wicket.ajax.AjaxRequestTarget;
+
 
 /**
  * @author Iulian-Corneliu Costan
