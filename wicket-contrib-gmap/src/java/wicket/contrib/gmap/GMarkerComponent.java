@@ -2,6 +2,7 @@ package wicket.contrib.gmap;
 
 import wicket.behavior.AbstractAjaxBehavior;
 import wicket.markup.html.PackageResourceReference;
+import wicket.util.string.JavascriptUtils;
 
 /**
  * Wicket component for Google's GMarker API. It generates GMarker's JavaScript
@@ -58,6 +59,7 @@ class GMarkerComponent extends JavaScriptComponent
 
 	private String createMarkerCustomIcon()
 	{
+		CharSequence tooltip = JavascriptUtils.escapeQuotes(gmarker.getToolTip());
 		GIcon icon = gmarker.getIcon();
 		String customIcon = "var icon = new GIcon();\n" + "icon.image = \"" + icon.getImage()
 				+ "\";\n" + "icon.shadow = \"" + icon.getShadow() + "\";\n" + "icon.iconSize = "
@@ -66,10 +68,10 @@ class GMarkerComponent extends JavaScriptComponent
 				+ icon.getAnchor().toString() + ";\n" + "icon.infoWindowAnchor = "
 				+ icon.getInfoWindowAncor().toString() + "\n";
 		String customIconPartTwo = "";
-		if (gmarker.getToolTip() != null && gmarker.getToolTip().length() > 0)
+		if (tooltip != null && tooltip.length() > 0)
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
-					+ ",{icon:icon, title:'" + escape(gmarker.getToolTip()) + "'});" + "\n"
+					+ ",{icon:icon, title:'" + tooltip + "'});" + "\n"
 					+ getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
 		}
@@ -86,10 +88,11 @@ class GMarkerComponent extends JavaScriptComponent
 
 	private String createMarkerDefaultIcon()
 	{
-		if (gmarker.getToolTip().length() > 0)
+		CharSequence tooltip = JavascriptUtils.escapeQuotes(gmarker.getToolTip());
+		if (tooltip.length() > 0)
 		{
 			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
-					+ gmarker.getPointAsString() + ",{title:'" + escape(gmarker.getToolTip()) + "'});"
+					+ gmarker.getPointAsString() + ",{title:'" + tooltip + "'});"
 					+ "\n" + getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
 
@@ -100,21 +103,6 @@ class GMarkerComponent extends JavaScriptComponent
 				+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
 	}
 	
-	private String escape(String javaString) {
-		if(javaString==null)return "";
-		StringBuffer b = new StringBuffer();
-		for(int i = 0; i < javaString.length(); i++) {
-			char ch = javaString.charAt(i);
-			if(ch=='\'') {
-				b.append("\\'");
-			}
-			else {
-				b.append(ch);
-			}
-		}
-		return b.toString();
-	}
-
 	private String getOnClickHandler()
 	{
 		return JSUtil.createFunction("onClick", "marker.openInfoWindow(" + getInfoFactoryName()
