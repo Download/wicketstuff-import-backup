@@ -65,7 +65,7 @@ public class HomePage extends WicketExamplePage {
 
 				GMarker marker = new GMarker(gLatLng, new Label("gmarkerInfo",
 						"new market at " + gLatLng.getLatitude() + ":"
-								+ gLatLng.getLongtitude()));
+								+ gLatLng.getLongitude()));
 				gmap.addOverlay(marker);
 				gmapPanel.refresh(target);
 			}
