@@ -8,28 +8,28 @@
 <body onload="initGMap();" onunload="GUnload();">
 <wicket:panel>
 	<form wicket:id="gmapUpdatingForm"><input type="hidden"
-		wicket:id="latitudeCenter" name="latitudeCenter" id="latitudeCenter"> <input
-		type="hidden" wicket:id="longitudeCenter" name="longitudeCenter" id="longitudeCenter">
-		
-		<input type="hidden"
-			wicket:id="latitudeSW" name="latitudeSW" id="latitudeSW"> <input
-			type="hidden" wicket:id="longitudeSW" name="longitudeSW" id="longitudeSW">
-			<input type="hidden"
-				wicket:id="latitudeNE" name="latitudeNE" id="latitudeNE"> <input
-				type="hidden" wicket:id="longitudeNE" name="longitudeNE" id="longitudeNE">
-		
-		
-	<input type="hidden" name="zoomlevel" id="zoomLevel"
-		wicket:id="zoomLevel"></form>
-	<a wicket:id="ajaxGMapUpdatingFormSubmit" name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
+		wicket:id="latitudeCenter" name="latitudeCenter" id="latitudeCenter">
+	<input type="hidden" wicket:id="longitudeCenter" name="longitudeCenter"
+		id="longitudeCenter"> <input type="hidden"
+		wicket:id="latitudeSW" name="latitudeSW" id="latitudeSW"> <input
+		type="hidden" wicket:id="longitudeSW" name="longitudeSW"
+		id="longitudeSW"> <input type="hidden" wicket:id="latitudeNE"
+		name="latitudeNE" id="latitudeNE"> <input type="hidden"
+		wicket:id="longitudeNE" name="longitudeNE" id="longitudeNE"> <input
+		type="hidden" name="zoomlevel" id="zoomLevel" wicket:id="zoomLevel"></form>
+	<a wicket:id="ajaxGMapUpdatingFormSubmit"
+		name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
 		style="display: none;"></a>
 
-		<form wicket:id="gMapClickNotifierForm"><input type="hidden"
-			wicket:id="latitudeCenter" name="clickNotifierLatitude" id="clickNotifierLatitude"> <input
-			type="hidden" wicket:id="longitudeCenter" name="clickNotifierlongitude" id="clickNotifierlongitude">
-		</form>
-		<a wicket:id="ajaxGMapClickNotifierFormSubmit" name="ajaxGMapClickNotifierFormSubmit" id="ajaxGMapClickNotifierFormSubmit"
-			style="display: none;"></a>
+	<form wicket:id="gMapClickNotifierForm">
+	
+		<input type="hidden" wicket:id="latitudeCenter" name="clickNotifierLatitude" id="clickNotifierLatitude"> 
+		<input type="hidden"wicket:id="longitudeCenter" name="clickNotifierLongitude" id="clickNotifierLongitude">
+	
+	</form>
+	<a wicket:id="ajaxGMapClickNotifierFormSubmit"
+		name="ajaxGMapClickNotifierFormSubmit"
+		id="ajaxGMapClickNotifierFormSubmit" style="display: none;"></a>
 
 	<span wicket:id="gmapContainer"> <script
 		wicket:id="gmapComponent">gmap</script> <span wicket:id="gmarkersLoop">

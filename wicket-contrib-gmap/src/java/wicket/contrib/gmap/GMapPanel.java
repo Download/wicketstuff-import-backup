@@ -1,6 +1,6 @@
 /*
- * $Id$ $Revision$ $Date:
- * 2007-05-26 13:21:45 +0200 (Sat, 26 May 2007) $
+ * $Id$ $Revision$
+ * $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -16,6 +16,8 @@
  * the License.
  */
 package wicket.contrib.gmap;
+
+import java.util.Locale;
 
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -103,12 +105,20 @@ public class GMapPanel extends Panel
 		add(new Map("map", width, height));
 
 		// add form that contains center and zoomlevel
-		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
+		Form gMapUpdatingForm = new Form("gmapUpdatingForm")
+		{
+			// KEEP ENCODING IN US LOCALE INORDER TO SUPPORT EUROPEAN
+			// LOCALES..!?
+			public Locale getLocale()
+			{
+				return new Locale("US");
+			}
+		};
 		gMapUpdatingForm.setOutputMarkupId(true);
 		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
 				"latitude")));
-		gMapUpdatingForm.add(new HiddenField("longitudeCenter", new PropertyModel(
-				gMap.getCenter(), "longitude")));
+		gMapUpdatingForm.add(new HiddenField("longitudeCenter", new PropertyModel(gMap.getCenter(),
+				"longitude")));
 		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
 				.getSouthWest(), "latitude")));
 		gMapUpdatingForm.add(new HiddenField("longitudeSW", new PropertyModel(gMap.getBounds()
@@ -119,6 +129,7 @@ public class GMapPanel extends Panel
 				.getNorthEast(), "longitude")));
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
 		add(gMapUpdatingForm);
+
 
 		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
 				gMapUpdatingForm)
@@ -143,13 +154,22 @@ public class GMapPanel extends Panel
 		add(ajaxSubmitLink);
 
 		// add click notifier form that contains center
-		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm");
+		Form gmapClickNotifierForm = new Form("gMapClickNotifierForm")
+		{
+			// KEEP ENCODING IN US LOCALE INORDER TO SUPPORT EUROPEAN
+			// LOCALES..!?
+			public Locale getLocale()
+			{
+				return new Locale("US");
+			}
+		};
+
 		gmapClickNotifierForm.setOutputMarkupId(true);
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
 		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
 				"latitude")));
-		gmapClickNotifierForm.add(new HiddenField("longitudeCenter", new PropertyModel(
-				clickLatLng, "longitude")));
+		gmapClickNotifierForm.add(new HiddenField("longitudeCenter", new PropertyModel(clickLatLng,
+				"longitude")));
 		add(gmapClickNotifierForm);
 		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
 				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)
