@@ -1,6 +1,6 @@
 /*
- * $Id$
- * $Revision$ $Date$
+ * $Id$ $Revision$ $Date:
+ * 2007-05-28 23:46:51 +0200 (Mon, 28 May 2007) $
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -43,7 +43,7 @@ public class GMap implements Serializable
 	// TODO well, this class is supposed to be a POJO that contains only gmap
 	// related info (coordinates, settings, etc). adding wicket models into it
 	// makes it little dirty
-	
+
 	// I can see that, when the project Im on are done we'll work on that.
 	private boolean insertMode = false;
 	private IModel insertModel;
@@ -70,12 +70,12 @@ public class GMap implements Serializable
 	 * @param insertModel
 	 * @param zoomLevel
 	 * @author Nino Martinez Wael
+	 * @param mode tells if clicknotifier should be used
 	 */
-	public GMap(GLatLng center, IModel insertModel, int zoomLevel)
+	public GMap(GLatLng center, boolean mode, int zoomLevel)
 	{
 		this.center = center;
-		this.insertModel = insertModel;
-		this.insertMode = true;
+		this.insertMode = mode;
 		this.zoomLevel = zoomLevel;
 	}
 
