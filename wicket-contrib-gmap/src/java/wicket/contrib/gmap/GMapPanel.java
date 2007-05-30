@@ -42,6 +42,8 @@ public class GMapPanel extends Panel
 
 	private GMapClickListener clickListener;
 
+	private GMapContainer mapContainer;
+
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
 	 * {GMapPanel.GMAP_DEFAULT_KEY} key. Make sure that deployment context of
@@ -100,7 +102,8 @@ public class GMapPanel extends Panel
 		setOutputMarkupId(true);
 		add(new GMapAjaxBehavior());
 		add(new GMapScript("script", GMAP_URL + gmapKey));
-		add(new GMapContainer(gMap));
+		mapContainer = new GMapContainer(gMap);
+		add(mapContainer);
 		add(new Map("map", width, height));
 
 		// add form that contains center and zoomlevel
@@ -182,10 +185,11 @@ public class GMapPanel extends Panel
 	 */
 	public void refresh(AjaxRequestTarget target)
 	{
-		target.addComponent(this);
+		target.addComponent(mapContainer.getGMarkerLoop(), "gMarkersLoop");
+		target.addComponent(mapContainer.getGMapComponentUpdate(), "gmapComponentUpdate");
 		// TOD split the init function
 		// TODO call both initGMap and updateGMap
-		target.appendJavascript("initGMap();");
+		target.appendJavascript(mapContainer.getGMapComponentUpdate().getFunctionName()+";");
 	}
 
 	/**

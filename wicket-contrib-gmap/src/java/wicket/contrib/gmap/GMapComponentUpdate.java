@@ -8,7 +8,7 @@ import java.util.Iterator;
 class GMapComponentUpdate extends JavaScriptComponent
 {
 	private static final long serialVersionUID = -3145330681596539743L;
-
+	private final String functionName="updateGMap()"; 
 
 	private GMap gmap;
 
@@ -23,7 +23,7 @@ class GMapComponentUpdate extends JavaScriptComponent
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
-				"\nfunction updateGMap() {\n").append(
+				"\nfunction "+ functionName +" {\n").append(
 				"if (map!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
 				"\n" + overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
 		return buffer.toString();
@@ -56,4 +56,9 @@ class GMapComponentUpdate extends JavaScriptComponent
 	}
 
 	public static final String ID = "gmapComponentUpdate";
+
+	public String getFunctionName()
+	{
+		return functionName;
+	}
 }

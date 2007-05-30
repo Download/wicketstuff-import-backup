@@ -20,11 +20,18 @@ class GMapComponent extends JavaScriptComponent
 
 	public String onJavaScriptComponentTagBody()
 	{
-		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append("function initGMap() {\n")
+		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append("var map=null;\nfunction initGMap() {\n")
 				.append("if (GBrowserIsCompatible()) {\n").append("\n" + gmapDefinition()).append(
-						"\n" + overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
+						"\n" ).append("}\n").append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}
+//	public String onJavaScriptComponentTagBody()
+//	{
+//		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append("function initGMap() {\n")
+//				.append("if (GBrowserIsCompatible()) {\n").append("\n" + gmapDefinition()).append(
+//						"\n" + overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
+//		return buffer.toString();
+//	}
 
 	private String overlayDefinitions()
 	{
