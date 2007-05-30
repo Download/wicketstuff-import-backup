@@ -16,7 +16,6 @@ class GMapComponentUpdate extends JavaScriptComponent
 	{
 		super(ID);
 		this.gmap = gmap;
-		this.setOutputMarkupId(true);
 	}
 
 	public String onJavaScriptComponentTagBody()
@@ -24,8 +23,8 @@ class GMapComponentUpdate extends JavaScriptComponent
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
-				"var map=null;\nfunction updateGMap() {\n").append(
-				"if (GBrowserIsCompatible()) {\n").append("\n" + gmapDefinitionUpdate()).append(
+				"\nfunction updateGMap() {\n").append(
+				"if (map!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
 				"\n" + overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}

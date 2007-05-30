@@ -184,7 +184,8 @@ public class GMapPanel extends Panel
 	{
 		target.addComponent(this);
 		// TOD split the init function
-		target.appendJavascript("initGMap();updateGMap();");
+		// TODO call both initGMap and updateGMap
+		target.appendJavascript("initGMap();");
 	}
 
 	/**
