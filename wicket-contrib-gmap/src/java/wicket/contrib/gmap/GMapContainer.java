@@ -26,11 +26,12 @@ class GMapContainer extends WebMarkupContainer
 		final List overlays = gmap.getOverlays();
 
 		add(new GMapComponent(gmap));
+		add(new GMapComponentUpdate(gmap));
 		IModel model = new AbstractReadOnlyModel()
 		{
 			public Object getObject(Component component)
 			{
-				
+
 				return new Integer(overlays.size());
 			}
 		};
@@ -38,11 +39,12 @@ class GMapContainer extends WebMarkupContainer
 		{
 			protected void populateItem(LoopItem item)
 			{
-				Overlay gmarker =(Overlay) overlays.get(item.getIteration());
+				Overlay gmarker = (Overlay)overlays.get(item.getIteration());
 				item.add(new GMarkerContainer((GMarker)gmarker));
 			}
 		});
 	}
+
 
 	public static final String ID = "gmapContainer";
 }

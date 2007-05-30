@@ -5,7 +5,7 @@
 </wicket:head>
 </head>
 
-<body onload="initGMap();" onunload="GUnload();">
+<body onload="initGMap();updateGMAP();" onunload="GUnload();">
 <wicket:panel>
 	<form wicket:id="gmapUpdatingForm"><input type="hidden"
 		wicket:id="latitudeCenter" name="latitudeCenter" id="latitudeCenter">
@@ -32,7 +32,10 @@
 		id="ajaxGMapClickNotifierFormSubmit" style="display: none;"></a>
 
 	<span wicket:id="gmapContainer"> <script
-		wicket:id="gmapComponent">gmap</script> <span wicket:id="gmarkersLoop">
+		wicket:id="gmapComponentInit" id="" name="">gmapInit</script>
+		<script
+		wicket:id="gmapComponentUpdate">gmapUpdate</script>
+		 <span wicket:id="gmarkersLoop">
 	<div wicket:id="gmarkerContainer" style="display: none;"><script
 		wicket:id="gmarkerComponent">javascript</script> <span
 		wicket:id="gmarkerInfo">user's component</span></div>

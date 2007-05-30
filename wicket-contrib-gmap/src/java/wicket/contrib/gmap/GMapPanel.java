@@ -96,6 +96,7 @@ public class GMapPanel extends Panel
 	public GMapPanel(String id, final GMap gMap, int width, int height, String gmapKey)
 	{
 		super(id);
+
 		setOutputMarkupId(true);
 		add(new GMapAjaxBehavior());
 		add(new GMapScript("script", GMAP_URL + gmapKey));
@@ -183,7 +184,7 @@ public class GMapPanel extends Panel
 	{
 		target.addComponent(this);
 		// TOD split the init function
-		target.appendJavascript("initGMap();");
+		target.appendJavascript("initGMap();updateGMap();");
 	}
 
 	/**
