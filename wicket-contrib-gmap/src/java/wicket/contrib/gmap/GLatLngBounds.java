@@ -47,6 +47,8 @@ public class GLatLngBounds implements Serializable
 	 */
 	public GLatLngBounds(GLatLng sw, GLatLng ne)
 	{
+		if(sw.getLatitude() > ne.getLatitude())
+			throw new RuntimeException("SouthEast corner must be more south than NorthWest corner");
 		this.southWest = sw;
 		this.northEast = ne;
 	}
@@ -95,11 +97,7 @@ public class GLatLngBounds implements Serializable
 	{
 		return new GLatLng(northEast.getLatitude(), southWest.getLongitude());
 	}
-
-	/**
-	 * @param b
-	 * @return true
-	 */
+/*
 	public boolean containsBounds(GLatLngBounds b)
 	{
 		boolean ret = false;
@@ -111,23 +109,51 @@ public class GLatLngBounds implements Serializable
 		}
 		return ret;
 	}
-
+*/
 	/**
 	 * @param other
 	 * @return true if given coordinates are inside
 	 */
 	public boolean includes(GLatLng other)
 	{
-		final double delta = 0.0000001;
-		if (southWest.getLatitude() > other.getLatitude() + delta)
+		if (southWest.getLatitude() > other.getLatitude())
 			return false;
-		if (delta + northEast.getLatitude() < other.getLatitude())
+		if (northEast.getLatitude() < other.getLatitude())
 			return false;
+		
+        boolean crossmeridian = southWest.getLongitude() > northEast.getLongitude();
 
-		if (southWest.getLongitude() > other.getLongitude() + delta)
-			return false;
-		if (delta + northEast.getLongitude() < other.getLongitude())
-			return false;
+        boolean bigger = other.getLongitude() > southWest.getLongitude() && other.getLongitude() > northEast.getLongitude();
+
+        boolean smaller = other.getLongitude() < southWest.getLongitude() && other.getLongitude() < northEast.getLongitude();
+
+        boolean between = !(smaller || bigger);
+
+        return crossmeridian^between;
+
+/*
+		
+		if (southWest.getLongitude() + delta < northEast.getLongitude()) {
+			if (southWest.getLongitude() > other.getLongitude() + delta)
+				return false;
+			if (delta + northEast.getLongitude() < other.getLongitude())
+				return false;
+		} else { // this object crosses the "dateline"
+			if (southWest.getLongitude() + delta < other.getLongitude())
+				return false;
+			if (northEast.getLongitude() > other.getLongitude() + delta)
+				return false;
+		}
 		return true;
+*/
+    }
+	
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof GLatLngBounds))
+			return false;
+		GLatLngBounds bounds = (GLatLngBounds) other;		
+		return southWest.equals(bounds.getSouthWest()) && 
+			   northEast.equals(bounds.getNorthEast());
 	}
+	
 }
