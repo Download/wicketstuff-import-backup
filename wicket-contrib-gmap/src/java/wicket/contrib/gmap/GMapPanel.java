@@ -17,12 +17,15 @@
  */
 package wicket.contrib.gmap;
 
+import java.util.Locale;
+
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.form.AjaxSubmitLink;
 import wicket.markup.html.form.Form;
 import wicket.markup.html.form.HiddenField;
 import wicket.markup.html.panel.Panel;
 import wicket.model.PropertyModel;
+import wicket.util.convert.IConverter;
 
 /**
  * A reusable wicket component for <a href="http://maps.google.com">Google Maps</a>.
@@ -43,6 +46,15 @@ public class GMapPanel extends Panel
 	private GMapClickListener clickListener;
 
 	private GMapContainer mapContainer;
+
+
+	private IConverter getUSConverter()
+	{
+		IConverter converter = getApplication().getApplicationSettings().getConverterFactory()
+				.newConverter(Locale.US);
+		return converter;
+
+	}
 
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
@@ -110,17 +122,53 @@ public class GMapPanel extends Panel
 		Form gMapUpdatingForm = new Form("gmapUpdatingForm");
 		gMapUpdatingForm.setOutputMarkupId(true);
 		gMapUpdatingForm.add(new HiddenField("latitudeCenter", new PropertyModel(gMap.getCenter(),
-				"latitude")));
+				"latitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("longitudeCenter", new PropertyModel(gMap.getCenter(),
-				"longitude")));
+				"longitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("latitudeSW", new PropertyModel(gMap.getBounds()
-				.getSouthWest(), "latitude")));
+				.getSouthWest(), "latitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("longitudeSW", new PropertyModel(gMap.getBounds()
-				.getSouthWest(), "longitude")));
+				.getSouthWest(), "longitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("latitudeNE", new PropertyModel(gMap.getBounds()
-				.getNorthEast(), "latitude")));
+				.getNorthEast(), "latitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("longitudeNE", new PropertyModel(gMap.getBounds()
-				.getNorthEast(), "longitude")));
+				.getNorthEast(), "longitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
 		add(gMapUpdatingForm);
 
@@ -153,9 +201,21 @@ public class GMapPanel extends Panel
 		gmapClickNotifierForm.setOutputMarkupId(true);
 		final GLatLng clickLatLng = new GLatLng(0f, 0f);
 		gmapClickNotifierForm.add(new HiddenField("latitudeCenter", new PropertyModel(clickLatLng,
-				"latitude")));
+				"latitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		gmapClickNotifierForm.add(new HiddenField("longitudeCenter", new PropertyModel(clickLatLng,
-				"longitude")));
+				"longitude"))
+		{
+			public IConverter getConverter()
+			{
+				return getUSConverter();
+			}
+		});
 		add(gmapClickNotifierForm);
 		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
 				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)
@@ -189,7 +249,7 @@ public class GMapPanel extends Panel
 		target.addComponent(mapContainer.getGMapComponentUpdate(), "gmapComponentUpdate");
 		// TOD split the init function
 		// TODO call both initGMap and updateGMap
-		target.appendJavascript(mapContainer.getGMapComponentUpdate().getFunctionName()+";");
+		target.appendJavascript(mapContainer.getGMapComponentUpdate().getFunctionName() + ";");
 	}
 
 	/**
@@ -204,6 +264,11 @@ public class GMapPanel extends Panel
 	// gmap url
 	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.81&key=";
 
+	
+	/**
+	 * ALL localhost key could be removed, as of gmap version 2.81 keys are nolonger required for localhost.
+	 */
+	
 	/**
 	 * GMap key for root context <a href="http://localhost/">http://localhost</a>
 	 */
