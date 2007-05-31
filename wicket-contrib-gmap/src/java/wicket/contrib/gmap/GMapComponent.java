@@ -103,7 +103,7 @@ class GMapComponent extends JavaScriptComponent
 
 				"});\n");
 		// Listener for zoom
-		buffer.append("GEvent.addListener(gMap, \"zoomend\", function (oldZoom, newZoom) {\n"
+		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
 				+ "var center = googleMap.getCenter();\n"
 				+ "var sW = gMap.getBounds().getSouthWest();\n"
 				+ "var nE = gMap.getBounds().getNorthEast();\n"
