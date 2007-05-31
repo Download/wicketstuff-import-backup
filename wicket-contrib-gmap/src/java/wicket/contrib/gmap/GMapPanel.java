@@ -44,6 +44,7 @@ public class GMapPanel extends Panel
 	private static final long serialVersionUID = 1L;
 
 	private GMapClickListener clickListener;
+	private GMapListener dragEndListener;
 
 	private GMapContainer mapContainer;
 
@@ -181,12 +182,10 @@ public class GMapPanel extends Panel
 			protected void onSubmit(AjaxRequestTarget target, Form arg1)
 			{
 				// only notify dragEnd in dragEnd mode
-				if (gMap.isDragEndMode())
+				if (dragEndListener != null)
 				{
-					// notify dragEnd model
-
-					// TODO not sure why you need these models for?
-					gMap.getDragEndModel().setObject(this, null);
+					// notify dragEnd listener
+					dragEndListener.onClick(target, gMap);
 
 					// do refresh gmap panel
 					refresh(target);
@@ -281,5 +280,26 @@ public class GMapPanel extends Panel
 	 * Defaul GMap key for <a href="http://localhost/gmap">http://localhost/gmap</a>
 	 */
 	public static final String GMAP_DEFAULT_KEY = "ABQIAAAALjfJpigGWq5XvKwy7McLIxTIqKwA3nrz2BTziwZcGRDeDRNmMxS-FtSv7KGpE1A21EJiYSIibc-oEA";
+
+
+	public GMapListener getDragEndListener()
+	{
+		return dragEndListener;
+	}
+
+	public void setDragEndListener(GMapListener dragEndListener)
+	{
+		this.dragEndListener = dragEndListener;
+	}
+
+	public GMapClickListener getClickListener()
+	{
+		return clickListener;
+	}
+
+	public void setClickListener(GMapClickListener clickListener)
+	{
+		this.clickListener = clickListener;
+	}
 
 }

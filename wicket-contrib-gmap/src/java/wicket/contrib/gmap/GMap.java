@@ -21,8 +21,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import wicket.model.IModel;
-
 /**
  * This class represents the main Maps API's GMap object. First create an
  * instance of this class by specifying center and zoomLevel after that you can
@@ -46,9 +44,7 @@ public class GMap implements Serializable
 
 	// I can see that, when the project Im on are done we'll work on that.
 	private boolean insertMode = false;
-	private IModel insertModel;
-	private boolean dragEndMode;
-	private IModel dragEndModel;
+	private boolean dragEndMode = false;
 
 	/** map controls * */
 	private boolean largeMapControl;
@@ -70,7 +66,8 @@ public class GMap implements Serializable
 	 * @param insertModel
 	 * @param zoomLevel
 	 * @author Nino Martinez Wael
-	 * @param mode tells if clicknotifier should be used
+	 * @param mode
+	 *            tells if clicknotifier should be used
 	 */
 	public GMap(GLatLng center, boolean mode, int zoomLevel)
 	{
@@ -122,13 +119,6 @@ public class GMap implements Serializable
 		return center;
 	}
 
-	/**
-	 * @return
-	 */
-	public IModel getInsertModel()
-	{
-		return insertModel;
-	}
 
 	/**
 	 * Get all overlays.
@@ -260,28 +250,6 @@ public class GMap implements Serializable
 		return bounds;
 	}
 
-	public IModel getDragEndModel()
-	{
-		return dragEndModel;
-	}
-
-	public void setDragEndModel(IModel moveEndModel)
-	{
-		if (moveEndModel != null)
-		{
-			this.dragEndMode = true;
-		}
-		else
-		{
-			this.dragEndMode = false;
-		}
-		this.dragEndModel = moveEndModel;
-	}
-
-	public void setInsertModel(IModel insertModel)
-	{
-		this.insertModel = insertModel;
-	}
 
 	public boolean isDragEndMode()
 	{
