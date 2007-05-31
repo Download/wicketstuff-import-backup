@@ -94,6 +94,7 @@ class GMapComponent extends JavaScriptComponent
 		// Listener for zoom
 		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
 				+ "var center = googleMap.getCenter();\n"
+				+ "if(oldZoom!=newZoom){"
 				+ "var sW = googleMap.getBounds().getSouthWest();\n"
 				+ "var nE = googleMap.getBounds().getNorthEast();\n"
 				// set center
@@ -109,7 +110,7 @@ class GMapComponent extends JavaScriptComponent
 				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
 				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
-				"});\n");
+				"}});\n");
 
 
 		// if gmap is in insert model this must be added for the notifier form
@@ -117,7 +118,7 @@ class GMapComponent extends JavaScriptComponent
 		if (gmap.isInsertMode())
 		{
 			buffer
-					.append("GEvent.addListener(gMap, \"click\", function (marker, point) {\n"
+					.append("GEvent.addListener(googleMap, \"click\", function (marker, point) {\n"
 							+ "if(marker){}\n"
 							+ "else{\n"
 							+ "document.getElementById(\"clickNotifierLatitude\").value=point.lat();\n"
