@@ -18,6 +18,7 @@ class GMapContainer extends WebMarkupContainer
 	private GMapComponent gMapComponent;
 	private GMapComponentUpdate gMapComponentUpdate;
 	private Loop gMarkerLoop;
+	private WebMarkupContainer listContainer;
 
 	/**
 	 * Construct.
@@ -34,7 +35,6 @@ class GMapContainer extends WebMarkupContainer
 		gMapComponentUpdate = new GMapComponentUpdate(gmap);
 		gMapComponentUpdate.setOutputMarkupId(true);
 		add(gMapComponentUpdate);
-
 		IModel model = new AbstractReadOnlyModel()
 		{
 			public Object getObject(Component component)
@@ -51,8 +51,10 @@ class GMapContainer extends WebMarkupContainer
 				item.add(new GMarkerContainer((GMarker)gmarker));
 			}
 		};
-		gMarkerLoop.setOutputMarkupId(true);
-		add(gMarkerLoop);
+		listContainer = new WebMarkupContainer("loopContainer");
+		listContainer.setOutputMarkupId(true);
+		listContainer.add(gMarkerLoop);
+		add(listContainer);
 	}
 
 
@@ -74,13 +76,20 @@ class GMapContainer extends WebMarkupContainer
 	{
 		return gMarkerLoop;
 	}
+
 	public void refresh(AjaxRequestTarget target)
 	{
-		target.addComponent(getGMarkerLoop());
+		target.addComponent(getListContainer());
 		target.addComponent(getGMapComponentUpdate(), "gmapComponentUpdate");
 		// TOD split the init function
 		// TODO call both initGMap and updateGMap
 		target.appendJavascript(getGMapComponentUpdate().getFunctionName() + ";");
+	}
+
+
+	public WebMarkupContainer getListContainer()
+	{
+		return listContainer;
 	}
 
 }
