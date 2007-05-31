@@ -3,6 +3,7 @@ package wicket.contrib.gmap;
 import java.util.List;
 
 import wicket.Component;
+import wicket.ajax.AjaxRequestTarget;
 import wicket.markup.html.WebMarkupContainer;
 import wicket.markup.html.list.Loop;
 import wicket.model.AbstractReadOnlyModel;
@@ -73,4 +74,13 @@ class GMapContainer extends WebMarkupContainer
 	{
 		return gMarkerLoop;
 	}
+	public void refresh(AjaxRequestTarget target)
+	{
+		target.addComponent(getGMarkerLoop(), "gMarkersLoop");
+		target.addComponent(getGMapComponentUpdate(), "gmapComponentUpdate");
+		// TOD split the init function
+		// TODO call both initGMap and updateGMap
+		target.appendJavascript(getGMapComponentUpdate().getFunctionName() + ";");
+	}
+
 }

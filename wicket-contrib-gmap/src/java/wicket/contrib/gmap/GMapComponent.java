@@ -20,27 +20,31 @@ class GMapComponent extends JavaScriptComponent
 
 	public String onJavaScriptComponentTagBody()
 	{
-		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append("var map=null;\nfunction initGMap() {\n")
-				.append("if (GBrowserIsCompatible()) {\n").append("\n" + gmapDefinition()).append(
-						"\n" ).append("}\n").append("}\n").append("//]]>\n");
+		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n var googleMap=null;").append(
+				"\nfunction initGMap() {\n").append("if (GBrowserIsCompatible()) {\n").append(
+				"\n" + gmapDefinition()).append("\n").append("}\n").append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}
-//	public String onJavaScriptComponentTagBody()
-//	{
-//		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append("function initGMap() {\n")
-//				.append("if (GBrowserIsCompatible()) {\n").append("\n" + gmapDefinition()).append(
-//						"\n" + overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
-//		return buffer.toString();
-//	}
+
+	// public String onJavaScriptComponentTagBody()
+	// {
+	// StringBuffer buffer = new
+	// StringBuffer("\n//<![CDATA[\n").append("function initGMap() {\n")
+	// .append("if (GBrowserIsCompatible()) {\n").append("\n" +
+	// gmapDefinition()).append(
+	// "\n" +
+	// overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
+	// return buffer.toString();
+	// }
 
 	private String overlayDefinitions()
 	{
-		StringBuffer buffer = new StringBuffer("map.clearOverlays();\n");
+		StringBuffer buffer = new StringBuffer("googleMap.clearOverlays();\n");
 		Iterator iterator = gmap.getOverlays().iterator();
 		while (iterator.hasNext())
 		{
 			Overlay overlay = (Overlay)iterator.next();
-			buffer.append("map.addOverlay(" + overlay.getFactoryMethod() + "());\n");
+			buffer.append("googleMap.addOverlay(" + overlay.getFactoryMethod() + "());\n");
 		}
 		return buffer.toString();
 	}
@@ -48,41 +52,42 @@ class GMapComponent extends JavaScriptComponent
 	private String gmapDefinition()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("var map = map ? map : new GMap2(document.getElementById(\"map\"));\n");
+		buffer
+				.append("googleMap = googleMap ? googleMap : new GMap2(document.getElementById(\"map\"));\n");
 		if (gmap.isLargeMapControl())
 		{
-			buffer.append("map.addControl(new GLargeMapControl());\n");
+			buffer.append("googleMap.addControl(new GLargeMapControl());\n");
 		}
 		if (gmap.isTypeControl())
 		{
-			buffer.append("map.addControl(new GMapTypeControl());\n");
+			buffer.append("googleMap.addControl(new GMapTypeControl());\n");
 		}
 		if (gmap.isScaleControl())
 		{
-			buffer.append("map.addControl(new GScaleControl());\n");
+			buffer.append("googleMap.addControl(new GScaleControl());\n");
 		}
 		if (gmap.isOverviewMapControl())
 		{
-			buffer.append("map.addControl(new GOverviewMapControl());\n");
+			buffer.append("googleMap.addControl(new GOverviewMapControl());\n");
 		}
 		if (gmap.isSmallMapControl())
 		{
-			buffer.append("map.addControl(new GSmallMapControl());\n");
+			buffer.append("googleMap.addControl(new GSmallMapControl());\n");
 		}
 		if (gmap.isSmallZoomControl())
 		{
-			buffer.append("map.addControl(new GSmallZoomControl());\n");
+			buffer.append("googleMap.addControl(new GSmallZoomControl());\n");
 		}
-		buffer.append("map.setCenter(").append(gmap.getCenter().toString()).append(", ").append(
-				gmap.getZoomLevel()).append(");\n");
+		buffer.append("googleMap.setCenter(").append(gmap.getCenter().toString()).append(", ")
+				.append(gmap.getZoomLevel()).append(");\n");
 		// Below registers when the user stoped moving the map, need to update
 		// some values, center and bounds
 		// needs to be dragend otherwise infoboxes will be closed on map move
 		// dragend doesnt work nicely, movend does, not sure why.
-		buffer.append("GEvent.addListener(map, \"moveend\", function () {\n"
-				+ "var center = map.getCenter();\n"
-				+ "var sW = map.getBounds().getSouthWest();\n"
-				+ "var nE = map.getBounds().getNorthEast();\n"
+		buffer.append("GEvent.addListener(googleMap, \"dragend\", function () {\n"
+				+ "var center = googleMap.getCenter();\n"
+				+ "var sW = googleMap.getBounds().getSouthWest();\n"
+				+ "var nE = googleMap.getBounds().getNorthEast();\n"
 				// set center
 				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
 				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
@@ -93,15 +98,15 @@ class GMapComponent extends JavaScriptComponent
 				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
 				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
 
-				+ "document.getElementById(\"zoomLevel\").value=map.getZoom();\n"
+				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
 				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
 				"});\n");
 		// Listener for zoom
-		buffer.append("GEvent.addListener(map, \"zoomend\", function (oldZoom, newZoom) {\n"
-				+ "var center = map.getCenter();\n"
-				+ "var sW = map.getBounds().getSouthWest();\n"
-				+ "var nE = map.getBounds().getNorthEast();\n"
+		buffer.append("GEvent.addListener(gMap, \"zoomend\", function (oldZoom, newZoom) {\n"
+				+ "var center = googleMap.getCenter();\n"
+				+ "var sW = gMap.getBounds().getSouthWest();\n"
+				+ "var nE = gMap.getBounds().getNorthEast();\n"
 				// set center
 				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
 				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
@@ -112,7 +117,7 @@ class GMapComponent extends JavaScriptComponent
 				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
 				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
 
-				+ "document.getElementById(\"zoomLevel\").value=map.getZoom();\n"
+				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
 				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
 				"});\n");
@@ -123,7 +128,7 @@ class GMapComponent extends JavaScriptComponent
 		if (gmap.isInsertMode())
 		{
 			buffer
-					.append("GEvent.addListener(map, \"click\", function (marker, point) {\n"
+					.append("GEvent.addListener(gMap, \"click\", function (marker, point) {\n"
 							+ "if(marker){}\n"
 							+ "else{\n"
 							+ "document.getElementById(\"clickNotifierLatitude\").value=point.lat();\n"

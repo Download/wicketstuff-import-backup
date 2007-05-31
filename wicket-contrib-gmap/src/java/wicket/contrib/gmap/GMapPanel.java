@@ -245,11 +245,7 @@ public class GMapPanel extends Panel
 	 */
 	public void refresh(AjaxRequestTarget target)
 	{
-		target.addComponent(mapContainer.getGMarkerLoop(), "gMarkersLoop");
-		target.addComponent(mapContainer.getGMapComponentUpdate(), "gmapComponentUpdate");
-		// TOD split the init function
-		// TODO call both initGMap and updateGMap
-		target.appendJavascript(mapContainer.getGMapComponentUpdate().getFunctionName() + ";");
+		mapContainer.refresh(target);
 	}
 
 	/**
@@ -264,11 +260,12 @@ public class GMapPanel extends Panel
 	// gmap url
 	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.81&key=";
 
-	
+
 	/**
-	 * ALL localhost key could be removed, as of gmap version 2.81 keys are nolonger required for localhost.
+	 * ALL localhost key could be removed, as of gmap version 2.81 keys are
+	 * nolonger required for localhost.
 	 */
-	
+
 	/**
 	 * GMap key for root context <a href="http://localhost/">http://localhost</a>
 	 */
