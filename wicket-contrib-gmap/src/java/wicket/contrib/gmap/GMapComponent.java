@@ -26,17 +26,6 @@ class GMapComponent extends JavaScriptComponent
 		return buffer.toString();
 	}
 
-	// public String onJavaScriptComponentTagBody()
-	// {
-	// StringBuffer buffer = new
-	// StringBuffer("\n//<![CDATA[\n").append("function initGMap() {\n")
-	// .append("if (GBrowserIsCompatible()) {\n").append("\n" +
-	// gmapDefinition()).append(
-	// "\n" +
-	// overlayDefinitions()).append("}\n").append("}\n").append("//]]>\n");
-	// return buffer.toString();
-	// }
-
 	private String overlayDefinitions()
 	{
 		StringBuffer buffer = new StringBuffer("googleMap.clearOverlays();\n");
@@ -105,8 +94,8 @@ class GMapComponent extends JavaScriptComponent
 		// Listener for zoom
 		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
 				+ "var center = googleMap.getCenter();\n"
-				+ "var sW = gMap.getBounds().getSouthWest();\n"
-				+ "var nE = gMap.getBounds().getNorthEast();\n"
+				+ "var sW = googleMap.getBounds().getSouthWest();\n"
+				+ "var nE = googleMap.getBounds().getNorthEast();\n"
 				// set center
 				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
 				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
