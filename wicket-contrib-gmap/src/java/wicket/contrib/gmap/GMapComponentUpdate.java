@@ -9,8 +9,8 @@ class GMapComponentUpdate extends JavaScriptComponent
 {
 	private static final long serialVersionUID = -3145330681596539743L;
 	private final String functionName = "updateGMap()";
-
 	private GMap gmap;
+
 
 	public GMapComponentUpdate(GMap gmap)
 	{
@@ -24,7 +24,7 @@ class GMapComponentUpdate extends JavaScriptComponent
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
 				"\nfunction " + functionName + " {\n").append("if (window.googleMap!=null) {\n")
-				.append("\n" + gmapDefinitionUpdate()).append("\n" + overlayDefinitions()).append(
+				.append("\n" + overlayDefinitions()).append("\n" + gmapDefinitionUpdate()).append(
 						"}\n else{alert('map was null!');}").append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}
@@ -38,7 +38,8 @@ class GMapComponentUpdate extends JavaScriptComponent
 			Overlay overlay = (Overlay)iterator.next();
 			buffer.append("googleMap.addOverlay(" + overlay.getFactoryMethod() + "());\n");
 		}
-		buffer.append("googleMap.redraw(true);\n");
+		// trying to force redraw
+		// buffer.append("googleMap.checkResize();\n");
 		return buffer.toString();
 	}
 
@@ -50,8 +51,7 @@ class GMapComponentUpdate extends JavaScriptComponent
 	private String gmapDefinitionUpdate()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("googleMap.setCenter(").append(gmap.getCenter().toString()).append(", ")
-				.append(gmap.getZoomLevel()).append(");\n");
+		buffer.append("googleMap.panTo(").append(gmap.getCenter().toString()).append(");\n");
 
 		return buffer.toString();
 	}
