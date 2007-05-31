@@ -76,7 +76,7 @@ class GMapContainer extends WebMarkupContainer
 	}
 	public void refresh(AjaxRequestTarget target)
 	{
-		target.addComponent(getGMarkerLoop(), "gMarkersLoop");
+		target.addComponent(getGMarkerLoop());
 		target.addComponent(getGMapComponentUpdate(), "gmapComponentUpdate");
 		// TOD split the init function
 		// TODO call both initGMap and updateGMap
