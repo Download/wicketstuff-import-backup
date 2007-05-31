@@ -43,6 +43,9 @@ public class GMapPanel extends Panel
 {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * should listeners be attached to gmap instead, inorder to be able to ad event in the gmapcomponet based on wheter needed or not?
+	 */
 	private GMapClickListener clickListener;
 	private GMapListener dragEndListener;
 
