@@ -23,9 +23,9 @@ class GMapComponentUpdate extends JavaScriptComponent
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
-				"\nfunction " + functionName + " {\n").append("if (window.googleMap!=null) {\n").append(
-				"\n" + gmapDefinitionUpdate()).append("\n" + overlayDefinitions()).append(
-				"}\n else{alert('map was null!');}").append("}\n").append("//]]>\n");
+				"\nfunction " + functionName + " {\n").append("if (window.googleMap!=null) {\n")
+				.append("\n" + gmapDefinitionUpdate()).append("\n" + overlayDefinitions()).append(
+						"}\n else{alert('map was null!');}").append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}
 
@@ -38,6 +38,7 @@ class GMapComponentUpdate extends JavaScriptComponent
 			Overlay overlay = (Overlay)iterator.next();
 			buffer.append("googleMap.addOverlay(" + overlay.getFactoryMethod() + "());\n");
 		}
+		buffer.append("googleMap.redraw(true);\n");
 		return buffer.toString();
 	}
 
@@ -49,8 +50,8 @@ class GMapComponentUpdate extends JavaScriptComponent
 	private String gmapDefinitionUpdate()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("googleMap.setCenter(").append(gmap.getCenter().toString()).append(", ").append(
-				gmap.getZoomLevel()).append(");\n");
+		buffer.append("googleMap.setCenter(").append(gmap.getCenter().toString()).append(", ")
+				.append(gmap.getZoomLevel()).append(");\n");
 
 		return buffer.toString();
 	}

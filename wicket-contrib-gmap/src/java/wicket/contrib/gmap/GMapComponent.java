@@ -92,25 +92,26 @@ class GMapComponent extends JavaScriptComponent
 
 				"});\n");
 		// Listener for zoom
-		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
-				+ "var center = googleMap.getCenter();\n"
-				+ "if(oldZoom!=newZoom){"
-				+ "var sW = googleMap.getBounds().getSouthWest();\n"
-				+ "var nE = googleMap.getBounds().getNorthEast();\n"
-				// set center
-				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
-				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
-				// set SW bound
-				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
-				+ "document.getElementById(\"longitudeSW\").value=sW.lng();\n"
-				// set NE bound
-				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
-				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
-
-				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
-				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
-
-				"}});\n");
+		
+//		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
+//				+ "var center = googleMap.getCenter();\n"
+//				+ "if(oldZoom!=newZoom){"
+//				+ "var sW = googleMap.getBounds().getSouthWest();\n"
+//				+ "var nE = googleMap.getBounds().getNorthEast();\n"
+//				// set center
+//				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
+//				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
+//				// set SW bound
+//				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
+//				+ "document.getElementById(\"longitudeSW\").value=sW.lng();\n"
+//				// set NE bound
+//				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
+//				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
+//
+//				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
+//				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
+//
+//				"}});\n");
 
 
 		// if gmap is in insert model this must be added for the notifier form
