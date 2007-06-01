@@ -72,7 +72,6 @@ class GMapComponent extends JavaScriptComponent
 		// Below registers when the user stoped moving the map, need to update
 		// some values, center and bounds
 		// needs to be dragend otherwise infoboxes will be closed on map move
-		// dragend doesnt work nicely, movend does, not sure why.
 		buffer.append("GEvent.addListener(googleMap, \"dragend\", function () {\n"
 				+ "var center = googleMap.getCenter();\n"
 				+ "var sW = googleMap.getBounds().getSouthWest();\n"
