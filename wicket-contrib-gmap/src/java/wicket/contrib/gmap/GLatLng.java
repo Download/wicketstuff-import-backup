@@ -1,6 +1,6 @@
 /*
- * $Id$
- * $Revision$ $Date$
+ * $Id$ $Revision$
+ * $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -23,12 +23,13 @@ import java.io.Serializable;
  * Represents Googles GLatLng class contains Geo location stored in latitude and
  * longtitude
  * 
- * Latitude will be clamped to lie within [-90,90] and longitude will be wrapped to
- * lie within ]-180, 180]
+ * Latitude will be clamped to lie within [-90,90] and longitude will be wrapped
+ * to lie within ]-180, 180]
  * 
  * @author Nino Martinez Wael
  */
-public class GLatLng implements Serializable {
+public class GLatLng implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	private double longitude;
@@ -40,7 +41,8 @@ public class GLatLng implements Serializable {
 	 * 
 	 * @param gLatLng
 	 */
-	public GLatLng(GLatLng gLatLng) {
+	public GLatLng(GLatLng gLatLng)
+	{
 		this(gLatLng.getLatitude(), gLatLng.getLongitude());
 	}
 
@@ -50,7 +52,8 @@ public class GLatLng implements Serializable {
 	 * @param latitude
 	 * @param longitude
 	 */
-	public GLatLng(double latitude, double longitude) {
+	public GLatLng(double latitude, double longitude)
+	{
 		setLatitude(latitude);
 		setLongitude(longitude);
 	}
@@ -58,14 +61,16 @@ public class GLatLng implements Serializable {
 	/**
 	 * @return longitude
 	 */
-	public double getLongitude() {
+	public double getLongitude()
+	{
 		return longitude;
 	}
 
 	/**
 	 * @return latitude
 	 */
-	public double getLatitude() {
+	public double getLatitude()
+	{
 		return latitude;
 	}
 
@@ -74,12 +79,14 @@ public class GLatLng implements Serializable {
 	 * @return returns a javascript representation of creating a new GLatLng
 	 * 
 	 */
-	public String toString() {
+	public String toString()
+	{
 		return "new GLatLng(" + latitude + ", " + longitude + ")";
 	}
 
-	public void setLatitude(double latitude) {
-		//clamp latitude
+	public void setLatitude(double latitude)
+	{
+		// clamp latitude
 		if (latitude < -90)
 			latitude = -90;
 		if (latitude > 90)
@@ -88,13 +95,17 @@ public class GLatLng implements Serializable {
 		this.latitude = latitude;
 	}
 
-	public void setLongitude(double longitude) {
-		//wrap longitude
+	public void setLongitude(double longitude)
+	{
+		// wrap longitude
 		longitude = longitude % 360;
 
-		if (longitude > 180) {
+		if (longitude > 180)
+		{
 			longitude = longitude - 360;
-		} else if (longitude <= -180) {
+		}
+		else if (longitude < -180)
+		{
 			longitude = longitude + 360;
 		}
 
@@ -103,35 +114,37 @@ public class GLatLng implements Serializable {
 
 	/**
 	 * @param gLatLng
-	 * @return distance from this coordinate to another GLatLng coordinate in meters.
-	 * {@linkplain} http://www.pk.org/rutgers/hw/a-5.html
-	 * {@linkplain} http://www.cs.rutgers.edu/~pxk/rutgers/hw/a-5.html
+	 * @return distance from this coordinate to another GLatLng coordinate in
+	 *         meters. {@linkplain} http://www.pk.org/rutgers/hw/a-5.html
+	 *         {@linkplain} http://www.cs.rutgers.edu/~pxk/rutgers/hw/a-5.html
 	 * @author Ryan Gravener
 	 */
-	public double distance(final GLatLng gLatLng) {
-		return Math
-				.toDegrees(Math.acos(Math.sin(Math.toRadians(this.latitude))
-						* Math.sin(Math.toRadians(gLatLng.latitude))
-						+ Math.cos(Math.toRadians(this.latitude))
-						* Math.cos(Math.toRadians(gLatLng.latitude))
-						* Math.cos(Math.toRadians(this.longitude
-								- gLatLng.longitude)))) * 60 * 1852;
+	public double distance(final GLatLng gLatLng)
+	{
+		return Math.toDegrees(Math.acos(Math.sin(Math.toRadians(this.latitude))
+				* Math.sin(Math.toRadians(gLatLng.latitude))
+				+ Math.cos(Math.toRadians(this.latitude))
+				* Math.cos(Math.toRadians(gLatLng.latitude))
+				* Math.cos(Math.toRadians(this.longitude - gLatLng.longitude)))) * 60 * 1852;
 	}
 
-	public static boolean isSamePosition(GLatLng a, GLatLng b) {
+	public static boolean isSamePosition(GLatLng a, GLatLng b)
+	{
 		return equalDouble(a.getLatitude(), b.getLatitude())
 				&& equalDouble(a.getLongitude(), b.getLongitude());
 	}
 
-	private static boolean equalDouble(double a, double b) {
+	private static boolean equalDouble(double a, double b)
+	{
 		final double delta = 0.000000001;
 		return (a >= b - delta && a <= b + delta);
 	}
 
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if ((obj == null) || (!(obj instanceof GLatLng)))
 			return false;
-		return isSamePosition(this, (GLatLng) obj);
+		return isSamePosition(this, (GLatLng)obj);
 	}
 
 }
