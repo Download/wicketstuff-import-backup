@@ -1,6 +1,6 @@
 /*
- * $Id$ $Revision$
- * $Date$
+ * $Id$
+ * $Revision$ $Date$
  * 
  * ==================================================================== Licensed
  * under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -48,17 +48,7 @@ public class GMapPanel extends Panel
 	 */
 	private GMapClickListener clickListener;
 	private GMapListener dragEndListener;
-
 	private GMapContainer mapContainer;
-
-
-	private IConverter getUSConverter()
-	{
-		IConverter converter = getApplication().getApplicationSettings().getConverterFactory()
-				.newConverter(Locale.US);
-		return converter;
-
-	}
 
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
@@ -114,10 +104,11 @@ public class GMapPanel extends Panel
 	public GMapPanel(String id, final GMap gMap, int width, int height, String gmapKey)
 	{
 		super(id);
-
 		setOutputMarkupId(true);
-		add(new GMapAjaxBehavior());
+
 		add(new GMapScript("script", GMAP_URL + gmapKey));
+		add(new GMapInitializer(gMap));
+		add(new GMapAjaxBehavior());
 		mapContainer = new GMapContainer(gMap);
 		add(mapContainer);
 		add(new Map("map", width, height));
@@ -259,7 +250,14 @@ public class GMapPanel extends Panel
 		this.clickListener = clickListener;
 	}
 
-	// gmap url
+	private IConverter getUSConverter()
+	{
+		IConverter converter = getApplication().getApplicationSettings().getConverterFactory()
+				.newConverter(Locale.US);
+		return converter;
+	}
+
+	/** gmap url **/
 	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.81&key=";
 
 

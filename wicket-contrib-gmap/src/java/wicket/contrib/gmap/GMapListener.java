@@ -30,10 +30,14 @@ import wicket.ajax.AjaxRequestTarget;
 public interface GMapListener extends Serializable
 {
 	/**
+	 * TODO passing GMap as parameter make no sense here, since gmap instance is
+	 * something that user already has, it creates and initializes gmap at the
+	 * begining, it is quite reduntant, but still for the moment it is fine, let it go.
+	 * 
 	 * @param target
 	 *            the ajax target that carries this event
 	 * @param gMap
-	 * the updated map
+	 *            the updated map
 	 */
 	void onClick(AjaxRequestTarget target, GMap gMap);
 }

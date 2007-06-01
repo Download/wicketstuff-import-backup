@@ -15,7 +15,7 @@ import wicket.model.IModel;
 class GMapContainer extends WebMarkupContainer
 {
 	private static final long serialVersionUID = 1L;
-	private GMapComponent gMapComponent;
+
 	private GMapComponentUpdate gMapComponentUpdate;
 	private Loop gMarkerLoop;
 	private WebMarkupContainer listContainer;
@@ -25,15 +25,14 @@ class GMapContainer extends WebMarkupContainer
 	 * 
 	 * @param gmap
 	 */
+	@SuppressWarnings("serial")
 	public GMapContainer(final GMap gmap)
 	{
 		super(ID);
+		setOutputMarkupId(true);
+
 		final List overlays = gmap.getOverlays();
-		gMapComponent = new GMapComponent(gmap);
-		gMapComponent.setOutputMarkupId(true);
-		add(gMapComponent);
 		gMapComponentUpdate = new GMapComponentUpdate(gmap);
-		gMapComponentUpdate.setOutputMarkupId(true);
 		add(gMapComponentUpdate);
 		IModel model = new AbstractReadOnlyModel()
 		{
@@ -57,39 +56,14 @@ class GMapContainer extends WebMarkupContainer
 		add(listContainer);
 	}
 
-
-	public static final String ID = "gmapContainer";
-
-	public GMapComponent getGMapComponent()
-	{
-		return gMapComponent;
-	}
-
-
-	public GMapComponentUpdate getGMapComponentUpdate()
-	{
-		return gMapComponentUpdate;
-	}
-
-
-	public Loop getGMarkerLoop()
-	{
-		return gMarkerLoop;
-	}
-
+	/**
+	 * @param target
+	 */
 	public void refresh(AjaxRequestTarget target)
 	{
-		target.addComponent(getListContainer());
-		target.addComponent(getGMapComponentUpdate(), "gmapComponentUpdate");
-		// TOD split the init function
-		// TODO call both initGMap and updateGMap
-		target.appendJavascript(getGMapComponentUpdate().getFunctionName() + ";");
+		target.addComponent(this);
+		target.appendJavascript(GMapComponentUpdate.REFRESH_FUNCTION + ";");
 	}
 
-
-	public WebMarkupContainer getListContainer()
-	{
-		return listContainer;
-	}
-
+	public static final String ID = "gmapContainer";
 }

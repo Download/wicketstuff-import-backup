@@ -8,24 +8,39 @@ import java.util.Iterator;
 class GMapComponentUpdate extends JavaScriptComponent
 {
 	private static final long serialVersionUID = -3145330681596539743L;
-	private final String functionName = "updateGMap()";
+
+	/**
+	 * the name of the gmap refresh function
+	 */
+	public static final String REFRESH_FUNCTION = "refreshGMap()";
+
 	private GMap gmap;
 
 
+	/**
+	 * Construct.
+	 * 
+	 * @param gmap
+	 */
 	public GMapComponentUpdate(GMap gmap)
 	{
 		super(ID);
+		setOutputMarkupId(true);
 		this.gmap = gmap;
 	}
 
+	/**
+	 * @see wicket.contrib.gmap.JavaScriptComponent#onJavaScriptComponentTagBody()
+	 */
 	public String onJavaScriptComponentTagBody()
 	{
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
-				"\nfunction " + functionName + " {\n").append("if (window.googleMap!=null) {\n")
-				.append("\n" + overlayDefinitions()).append("\n" + gmapDefinitionUpdate()).append(
-						"}\n else{alert('map was null!');}").append("}\n").append("//]]>\n");
+				"\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n").append(
+				"if (window.googleMap!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
+				"\n" + overlayDefinitions()).append("}\n else{alert('map was null!');}").append(
+				"}\n").append("//]]>\n");
 		return buffer.toString();
 	}
 
@@ -43,11 +58,6 @@ class GMapComponentUpdate extends JavaScriptComponent
 		return buffer.toString();
 	}
 
-	/**
-	 * updates the Gmap
-	 * 
-	 * @return gives the gmap update
-	 */
 	private String gmapDefinitionUpdate()
 	{
 		StringBuffer buffer = new StringBuffer();
@@ -57,9 +67,4 @@ class GMapComponentUpdate extends JavaScriptComponent
 	}
 
 	public static final String ID = "gmapComponentUpdate";
-
-	public String getFunctionName()
-	{
-		return functionName;
-	}
 }
