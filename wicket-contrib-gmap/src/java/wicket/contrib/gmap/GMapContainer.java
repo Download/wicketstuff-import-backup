@@ -25,7 +25,6 @@ class GMapContainer extends WebMarkupContainer
 	 * 
 	 * @param gmap
 	 */
-	@SuppressWarnings("serial")
 	public GMapContainer(final GMap gmap)
 	{
 		super(ID);

@@ -25,7 +25,6 @@ class GMapInitializer extends AbstractAjaxBehavior
 		this.gmap = gmap;
 	}
 
-	@Override
 	protected void onRenderHeadInitContribution(Response response)
 	{
 		String initScript = getInitScript();
@@ -35,7 +34,6 @@ class GMapInitializer extends AbstractAjaxBehavior
 				"gmap-initializer");
 	}
 
-	@Override
 	protected String getImplementationId()
 	{
 		return "gmap-initializer";
@@ -176,10 +174,10 @@ class GMapInitializer extends AbstractAjaxBehavior
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
 		StringBuffer buffer = new StringBuffer("\n").append(
-				"\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n")
-				.append("if (window.googleMap!=null) {\n").append("\n" + gmapDefinitionUpdate())
-				.append("\n" + overlayDefinitions()).append("}\n else{alert('map was null!');}")
-				.append("}\n");
+				"\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n").append(
+				"if (window.googleMap!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
+				"\n" + overlayDefinitions()).append("}\n else{alert('map was null!');}").append(
+				"}\n");
 		return buffer.toString();
 	}
 
@@ -203,8 +201,8 @@ class GMapInitializer extends AbstractAjaxBehavior
 	private String gmapDefinitionUpdate()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("googleMap.setCenter(").append(gmap.getCenter().toString()).append(", ")
-				.append(gmap.getZoomLevel()).append(");\n");
+		buffer.append("googleMap.panTo(").append(gmap.getCenter().toString()).append(
+				");\n");
 
 		return buffer.toString();
 	}

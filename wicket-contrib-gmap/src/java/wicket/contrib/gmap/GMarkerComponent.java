@@ -71,8 +71,7 @@ class GMarkerComponent extends JavaScriptComponent
 		if (tooltip != null && tooltip.length() > 0)
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
-					+ ",{icon:icon, title:'" + tooltip + "'});" + "\n"
-					+ getOnClickHandler() + "\n"
+					+ ",{icon:icon, title:'" + tooltip + "'});" + "\n" + getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;";
 		}
 		else
@@ -92,8 +91,8 @@ class GMarkerComponent extends JavaScriptComponent
 		if (tooltip.length() > 0)
 		{
 			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
-					+ gmarker.getPointAsString() + ",{title:'" + tooltip + "'});"
-					+ "\n" + getOnClickHandler() + "\n"
+					+ gmarker.getPointAsString() + ",{title:'" + tooltip + "'});" + "\n"
+					+ getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
 
 		}
@@ -102,7 +101,7 @@ class GMarkerComponent extends JavaScriptComponent
 				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n"
 				+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" + "return marker;");
 	}
-	
+
 	private String getOnClickHandler()
 	{
 		return JSUtil.createFunction("onClick", "marker.openInfoWindow(" + getInfoFactoryName()

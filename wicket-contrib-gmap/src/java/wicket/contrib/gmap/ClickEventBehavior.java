@@ -34,10 +34,10 @@ public class ClickEventBehavior extends AbstractDefaultAjaxBehavior
 	private static final long serialVersionUID = 1L;
 	private static final Log log = LogFactory.getLog(ClickEventBehavior.class);
 
-	@Override
+
 	protected void onRenderHeadInitContribution(Response response)
 	{
-		StringBuilder builder = new StringBuilder();
+		StringBuffer builder = new StringBuffer();
 		builder.append("function initListener() {\n");
 		builder.append("GEvent.addListener(googleMap, \"click\", function (marker, point) {\n\t");
 
@@ -52,19 +52,17 @@ public class ClickEventBehavior extends AbstractDefaultAjaxBehavior
 		JavascriptUtils.writeJavascript(response, builder.toString());
 	}
 
-	@Override
 	protected String getImplementationId()
 	{
 		return "gmap-event-listener";
 	}
 
-	@Override
 	protected void respond(AjaxRequestTarget target)
 	{
 		String x = getX();
 		String y = getY();
 		log.debug("executing onclick handler: " + "x=" + x + ",y=" + y);
-		
+
 		String msg = "x=" + x + ":y=" + y;
 		target.appendJavascript("alert('" + msg + "');");
 	}
@@ -79,7 +77,6 @@ public class ClickEventBehavior extends AbstractDefaultAjaxBehavior
 		return getComponent().getRequest().getParameter("x");
 	}
 
-	@Override
 	protected void onBind()
 	{
 		getComponent().setOutputMarkupId(true);
