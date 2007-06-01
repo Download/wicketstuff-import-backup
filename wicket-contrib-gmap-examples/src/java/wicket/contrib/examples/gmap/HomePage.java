@@ -21,6 +21,7 @@ package wicket.contrib.examples.gmap;
 import wicket.ajax.AjaxRequestTarget;
 import wicket.ajax.markup.html.AjaxLink;
 import wicket.contrib.examples.WicketExamplePage;
+import wicket.contrib.gmap.ClickEventBehavior;
 import wicket.contrib.gmap.GLatLng;
 import wicket.contrib.gmap.GMap;
 import wicket.contrib.gmap.GMapClickListener;
@@ -36,24 +37,26 @@ public class HomePage extends WicketExamplePage {
 
 	public HomePage() {
 		// add gmap
-		final GMap gmap = new GMap(new GLatLng(10, 30), 10);
+		final GMap gmap = new GMap(new GLatLng(30, 10), 2);
 		gmap.setInsertMode(true);
 		gmap.setTypeControl(true);
 		gmap.setSmallMapControl(true);
 
 		// www.wicket-library.com
-		GMarker wicketLibrary = new GMarker(new GLatLng(-112.1872f, 33.2765f),
+		GMarker wicketLibrary = new GMarker(new GLatLng(33.2765f, -112.1872f),
 				new Label("gmarkerInfo", "www.wicket-library.com"));
 		gmap.addOverlay(wicketLibrary);
 
 		// www.wicket.org
-		GMarker wicket = new GMarker(new GLatLng(-78.7073f, 35.7512f),
+		GMarker wicket = new GMarker(new GLatLng(35.7512f, -78.7073f),
 				new InfoPanel("gmarkerInfo"));
 		gmap.addOverlay(wicket);
 
 		// initialize gmap panel
 		final GMapPanel gmapPanel = new GMapPanel("gmap", gmap, 800, 600,
 				LOCALHOST_8080_WICKET_CONTRIB_GMAP_EXAMPLES_KEY);
+		gmapPanel.add(new ClickEventBehavior());
+		
 		// add onclick listener
 		gmapPanel.setGMapClickListener(new GMapClickListener() {
 
@@ -76,7 +79,7 @@ public class HomePage extends WicketExamplePage {
 
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				gmap.addOverlay(new GMarker(new GLatLng(-10.1872f, 50.2765f),
+				gmap.addOverlay(new GMarker(new GLatLng(50.2765f, -10.1872f),
 						new Label("gmarkerInfo", "uraaaaaaa")));
 				gmapPanel.refresh(target);
 			}
