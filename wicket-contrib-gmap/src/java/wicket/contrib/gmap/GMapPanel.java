@@ -50,6 +50,10 @@ public class GMapPanel extends Panel
 	private GMapListener dragEndListener;
 	private GMapContainer mapContainer;
 
+	private AjaxSubmitLink ajaxClickNotifierSubmitLink;
+
+	private AjaxSubmitLink ajaxSubmitLink;
+
 	/**
 	 * Creates a GMapPanel with width=400, height=300 and using default
 	 * {GMapPanel.GMAP_DEFAULT_KEY} key. Make sure that deployment context of
@@ -168,7 +172,7 @@ public class GMapPanel extends Panel
 		add(gMapUpdatingForm);
 
 
-		AjaxSubmitLink ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
+		ajaxSubmitLink = new AjaxSubmitLink("ajaxGMapUpdatingFormSubmit",
 				gMapUpdatingForm)
 		{
 			private static final long serialVersionUID = 1L;
@@ -186,6 +190,7 @@ public class GMapPanel extends Panel
 				}
 			}
 		};
+		
 		add(ajaxSubmitLink);
 
 		// add click notifier form that contains center
@@ -210,7 +215,7 @@ public class GMapPanel extends Panel
 			}
 		});
 		add(gmapClickNotifierForm);
-		AjaxSubmitLink ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
+		ajaxClickNotifierSubmitLink = new AjaxSubmitLink(
 				"ajaxGMapClickNotifierFormSubmit", gmapClickNotifierForm)
 		{
 			private static final long serialVersionUID = 1L;
@@ -301,6 +306,16 @@ public class GMapPanel extends Panel
 	public void setClickListener(GMapClickListener clickListener)
 	{
 		this.clickListener = clickListener;
+	}
+
+	public AjaxSubmitLink getAjaxClickNotifierSubmitLink()
+	{
+		return ajaxClickNotifierSubmitLink;
+	}
+
+	public AjaxSubmitLink getAjaxSubmitLink()
+	{
+		return ajaxSubmitLink;
 	}
 
 }
