@@ -87,7 +87,7 @@ public class GLatLngBounds implements Serializable
 	 */
 	public GLatLng getNorthWest()
 	{
-		return new GLatLng(southWest.getLatitude(), northEast.getLongitude());
+		return new GLatLng(northEast.getLatitude(), southWest.getLongitude());
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class GLatLngBounds implements Serializable
 	 */
 	public GLatLng getSouthEast()
 	{
-		return new GLatLng(northEast.getLatitude(), southWest.getLongitude());
+		return new GLatLng(southWest.getLatitude(), northEast.getLongitude());
 	}
 
 	/*
