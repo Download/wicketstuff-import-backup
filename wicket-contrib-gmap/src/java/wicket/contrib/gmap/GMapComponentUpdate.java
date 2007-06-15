@@ -5,7 +5,7 @@ import java.util.Iterator;
 /**
  * @author Nino Martinez Wael
  */
-class GMapComponentUpdate extends JavaScriptComponent
+class GMapComponentUpdate extends JavaScriptComponentIEFix
 {
 	private static final long serialVersionUID = -3145330681596539743L;
 
