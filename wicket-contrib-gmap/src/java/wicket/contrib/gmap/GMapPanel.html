@@ -21,27 +21,22 @@
 		name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
 		style="display: none;"></a>
 
-	<form wicket:id="gMapClickNotifierForm">
-	
-		<input type="hidden" wicket:id="latitudeCenter" name="clickNotifierLatitude" id="clickNotifierLatitude"> 
-		<input type="hidden"wicket:id="longitudeCenter" name="clickNotifierLongitude" id="clickNotifierLongitude">
-	
-	</form>
+	<form wicket:id="gMapClickNotifierForm"><input type="hidden"
+		wicket:id="latitudeCenter" name="clickNotifierLatitude"
+		id="clickNotifierLatitude"> <input type="hidden"
+		wicket:id="longitudeCenter" name="clickNotifierLongitude"
+		id="clickNotifierLongitude"></form>
 	<a wicket:id="ajaxGMapClickNotifierFormSubmit"
 		name="ajaxGMapClickNotifierFormSubmit"
 		id="ajaxGMapClickNotifierFormSubmit" style="display: none;"></a>
 
 	<span wicket:id="gmapContainer">
-		<div wicket:id="gmapComponentUpdate" id="gmapComponentUpdate">gmapUpdate</div>
-		<span wicket:id="loopContainer">
-		<span wicket:id="gmarkersLoop" >
-			<div wicket:id="gmarkerContainer" style="display: none;">
-				<script wicket:id="gmarkerComponent">javascript</script> 
-				<span wicket:id="gmarkerInfo">user's component</span>
-			</div>
-		</span>
-		</span> 
-	</span>
+	<div wicket:id="gmapComponentUpdate" id="gmapComponentUpdate">gmapUpdate</div>
+	<span wicket:id="loopContainer">
+	<div wicket:id="gmarkersLoop"><span wicket:id="gmarkerContainer"
+		style="display: none;"><script wicket:id="gmarkerComponent" type="text/javascript">javascript</script>
+	<span wicket:id="gmarkerInfo">user's component</span> </span></div>
+	</span> </span>
 
 	<div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>
 

@@ -121,10 +121,16 @@ class GMarkerComponent extends JavaScriptComponent
 		buffer.append("nobr.appendChild(waitText);\n");
 		buffer.append("div.appendChild(nobr);\n");
 		buffer.append("var script = document.createElement(\"script\");\n");
+		buffer.append("var browserName=navigator.appName;\n");
+		buffer.append("if(browserName=='Microsoft Internet Explorer'){\n");
+		buffer.append("script.text=\"gmapRequest('" + behavior.getCallbackUrl() + "','"
+				+ gmarker.getOverlayId() + "');\";\n");
+		buffer.append("}\nelse{\n");
 		buffer.append("var js = document.createTextNode(\"");
-		buffer.append("gmapRequest('" + behavior.getCallbackUrl() + "', '" + gmarker.getOverlayId()
-				+ "');\")\n");
+		buffer.append("gmapRequest('" + behavior.getCallbackUrl() + "','" + gmarker.getOverlayId()
+				+ "');\");\n");
 		buffer.append("script.appendChild(js);\n");
+		buffer.append("}\n");
 		buffer.append("div.appendChild(script);\n");
 		buffer.append("return div;");
 		return JSUtil.createFunction(getInfoFactoryName(), buffer.toString());
