@@ -83,7 +83,8 @@ class GMapInitializer extends AbstractAjaxBehavior
 				.append("googleMap = googleMap ? googleMap : new GMap2(document.getElementById(\"map\"));\n");
 		if (gmap.isLargeMapControl())
 		{
-			buffer.append("googleMap.addControl(new GLargeMapControl());\n");
+			buffer.append("var gLargeMapControl=new GLargeMapControl();\n");
+			buffer.append("googleMap.addControl(gLargeMapControl);\n");
 		}
 		if (gmap.isTypeControl())
 		{
@@ -111,7 +112,7 @@ class GMapInitializer extends AbstractAjaxBehavior
 		// some values, center and bounds
 		// needs to be dragend otherwise infoboxes will be closed on map move
 		// dragend doesnt work nicely, movend does, not sure why.
-		buffer.append("GEvent.addListener(googleMap, \"dragend\", function () {\n"
+		buffer.append("GEvent.addListener(googleMap, \"moveend\", function () {\n"
 				+ "var center = googleMap.getCenter();\n"
 				+ "var sW = googleMap.getBounds().getSouthWest();\n"
 				+ "var nE = googleMap.getBounds().getNorthEast();\n"
@@ -130,49 +131,27 @@ class GMapInitializer extends AbstractAjaxBehavior
 
 				"});\n");
 		// Listener for zoom
-		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
-				+ "var center = googleMap.getCenter();\n"
-				+ "if(oldZoom!=newZoom){"
-				+ "var sW = googleMap.getBounds().getSouthWest();\n"
-				+ "var nE = googleMap.getBounds().getNorthEast();\n"
-				// set center
-				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
-				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
-				// set SW bound
-				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
-				+ "document.getElementById(\"longitudeSW\").value=sW.lng();\n"
-				// set NE bound
-				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
-				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
+//		buffer.append("GEvent.addListener(googleMap, \"zoomend\", function (oldZoom, newZoom) {\n"
+//				+ "var center = googleMap.getCenter();\n"
+//				+ "if(oldZoom!=newZoom){"
+//				+ "var sW = googleMap.getBounds().getSouthWest();\n"
+//				+ "var nE = googleMap.getBounds().getNorthEast();\n"
+//				// set center
+//				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
+//				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
+//				// set SW bound
+//				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
+//				+ "document.getElementById(\"longitudeSW\").value=sW.lng();\n"
+//				// set NE bound
+//				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
+//				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
+//
+//				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
+//				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
+//
+//				"}});\n");
 
-				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
-				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
 
-				"}});\n");
-
-
-		// listener for dblclick (eg panning by dblclicking)
-		buffer.append("GEvent.addListener(googleMap, \"dblclick\", function (meNull,clickedCenter) {\n"
-				// making certain that the map has either been draged or
-				// possitioned correctly after dbl click
-				 +" googleMap.panTo(clickedCenter);\n"
-				+ "var center = clickedCenter;\n"
-				+ "var sW = googleMap.getBounds().getSouthWest();\n"
-				+ "var nE = googleMap.getBounds().getNorthEast();\n"
-				// set center
-				+ "document.getElementById(\"latitudeCenter\").value=center.lat();\n"
-				+ "document.getElementById(\"longitudeCenter\").value=center.lng();\n"
-				// set SW bound
-				+ "document.getElementById(\"latitudeSW\").value=sW.lat();\n"
-				+ "document.getElementById(\"longitudeSW\").value=sW.lng();\n"
-				// set NE bound
-				+ "document.getElementById(\"latitudeNE\").value=nE.lat();\n"
-				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
-
-				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
-				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n" +
-
-				"});\n");
 
 
 		// if gmap is in insert model this must be added for the notifier form
