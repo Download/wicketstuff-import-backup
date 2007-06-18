@@ -39,7 +39,7 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
 				"\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n").append(
 				"if (window.googleMap!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
-				"\n" + overlayDefinitions()).append("}\n else{alert('map was null!');}").append(
+				"\n" + overlayDefinitions()).append("}\n else{alert('The Map cannot be shown currently due to a technical error, please try again later!');}").append(
 				"}\n").append("//]]>\n");
 		return buffer.toString();
 	}

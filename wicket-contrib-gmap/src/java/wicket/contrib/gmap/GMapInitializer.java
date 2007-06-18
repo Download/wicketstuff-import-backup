@@ -152,8 +152,11 @@ class GMapInitializer extends AbstractAjaxBehavior
 
 
 		// listener for dblclick (eg panning by dblclicking)
-		buffer.append("GEvent.addListener(googleMap, \"dblclick\", function () {\n"
-				+ "var center = googleMap.getCenter();\n"
+		buffer.append("GEvent.addListener(googleMap, \"dblclick\", function (meNull,clickedCenter) {\n"
+				// making certain that the map has either been draged or
+				// possitioned correctly after dbl click
+				 +" googleMap.panTo(clickedCenter);\n"
+				+ "var center = clickedCenter;\n"
 				+ "var sW = googleMap.getBounds().getSouthWest();\n"
 				+ "var nE = googleMap.getBounds().getNorthEast();\n"
 				// set center
