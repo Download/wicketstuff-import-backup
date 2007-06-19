@@ -16,7 +16,9 @@
 		id="longitudeSW"> <input type="hidden" wicket:id="latitudeNE"
 		name="latitudeNE" id="latitudeNE"> <input type="hidden"
 		wicket:id="longitudeNE" name="longitudeNE" id="longitudeNE"> <input
-		type="hidden" name="zoomlevel" id="zoomLevel" wicket:id="zoomLevel"></form>
+		type="hidden" name="zoomlevel" id="zoomLevel" wicket:id="zoomLevel">
+	<input type="hidden" name="openMarkerInfoWindow"
+		id="openMarkerInfoWindow" wicket:id="openMarkerInfoWindow"></form>
 	<a wicket:id="ajaxGMapUpdatingFormSubmit"
 		name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
 		style="display: none;"></a>
@@ -34,8 +36,9 @@
 	<div wicket:id="gmapComponentUpdate" id="gmapComponentUpdate">gmapUpdate</div>
 	<span wicket:id="loopContainer">
 	<div wicket:id="gmarkersLoop"><span wicket:id="gmarkerContainer"
-		style="display: none;"><script wicket:id="gmarkerComponent" type="text/javascript">javascript</script>
-	<span wicket:id="gmarkerInfo">user's component</span> </span></div>
+		style="display: none;"><script wicket:id="gmarkerComponent"
+		type="text/javascript">javascript</script> <span
+		wicket:id="gmarkerInfo">user's component</span> </span></div>
 	</span> </span>
 
 	<div wicket:id="map" id="map" style="width: 400px; height: 300px"></div>

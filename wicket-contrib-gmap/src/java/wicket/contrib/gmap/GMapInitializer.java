@@ -70,7 +70,7 @@ class GMapInitializer extends AbstractAjaxBehavior
 	 */
 	public String getInitScript()
 	{
-		StringBuffer buffer = new StringBuffer("var googleMap = null;\n").append(
+		StringBuffer buffer = new StringBuffer("var googleMap = null;\nvar openMarker = null;\n").append(
 				"\nfunction initGMap() {\n").append("if (GBrowserIsCompatible()) {\n").append(
 				"\n" + gmapDefinition()).append("\n").append("}\n").append("}\n");
 		return buffer.toString();

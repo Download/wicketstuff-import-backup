@@ -48,13 +48,27 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 	{
 		StringBuffer buffer = new StringBuffer("googleMap.clearOverlays();\n");
 		Iterator iterator = gmap.getOverlays().iterator();
+		
+		boolean hasOpenInfoOverlay=false;
+		String openOverlayInfo="";
+		if(gmap.getOpenMarkerInfoWindow()!=null)
+		{
+		openOverlayInfo=gmap.getOpenMarkerInfoWindow().replaceAll("createInfo", "");
+		}
 		while (iterator.hasNext())
 		{
 			Overlay overlay = (Overlay)iterator.next();
 			buffer.append("googleMap.addOverlay(" + overlay.getFactoryMethod() + "());\n");
+			
+			if(overlay.getOverlayId().compareTo(openOverlayInfo)==0){
+				hasOpenInfoOverlay=true;
+			}
 		}
-		// trying to force redraw
-		// buffer.append("googleMap.checkResize();\n");
+		
+		// Below trying to fix the closing of open info windows when moveend triggered by centering on the marker
+		if(hasOpenInfoOverlay){
+			buffer.append("GEvent.trigger(openMarker, 'click');\n");
+		}
 		return buffer.toString();
 	}
 

@@ -35,6 +35,8 @@ public class GMap implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	private String openMarkerInfoWindow="";
+	
 	private GLatLng center;
 	private GLatLngBounds bounds = new GLatLngBounds();
 
@@ -274,5 +276,15 @@ public class GMap implements Serializable
 	public void setInsertMode(boolean insertMode)
 	{
 		this.insertMode = insertMode;
+	}
+
+	public String getOpenMarkerInfoWindow()
+	{
+		return openMarkerInfoWindow;
+	}
+
+	public void setOpenMarkerInfoWindow(String openMarkerInfoWindow)
+	{
+		this.openMarkerInfoWindow = openMarkerInfoWindow;
 	}
 }

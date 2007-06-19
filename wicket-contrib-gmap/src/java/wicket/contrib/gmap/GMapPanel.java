@@ -169,6 +169,7 @@ public class GMapPanel extends Panel
 			}
 		});
 		gMapUpdatingForm.add(new HiddenField("zoomLevel", new PropertyModel(gMap, "zoomLevel")));
+		gMapUpdatingForm.add(new HiddenField("openMarkerInfoWindow", new PropertyModel(gMap, "openMarkerInfoWindow")));
 		add(gMapUpdatingForm);
 
 
