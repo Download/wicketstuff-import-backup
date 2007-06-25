@@ -2,6 +2,24 @@
 <head>
 <wicket:head>
 	<script wicket:id="script">gmap script import</script>
+	<script type="text/javascript" language="javascript">
+function reOpenInfo(){
+				if(window.openMarker!=null && document.getElementById("openMarkerInfoWindow").value!='0')
+				{
+					GEvent.trigger(window.openMarker, 'click');
+				}
+}
+function onInfoWindowClose() {
+
+document.getElementById("openMarkerInfoWindow").value='0';
+
+}
+function updateOpenInfoWindow(marker,infoID){
+document.getElementById("openMarkerInfoWindow").value=infoID;
+window.openMarker=marker;
+}
+	
+	</script>
 </wicket:head>
 </head>
 
@@ -18,7 +36,7 @@
 		wicket:id="longitudeNE" name="longitudeNE" id="longitudeNE"> <input
 		type="hidden" name="zoomlevel" id="zoomLevel" wicket:id="zoomLevel">
 	<input type="hidden" name="openMarkerInfoWindow"
-		id="openMarkerInfoWindow" wicket:id="openMarkerInfoWindow"></form>
+		id="openMarkerInfoWindow" wicket:id="openMarkerInfoWindow" value='0'></form>
 	<a wicket:id="ajaxGMapUpdatingFormSubmit"
 		name="ajaxGMapUpdatingFormSubmit" id="ajaxGMapUpdatingFormSubmit"
 		style="display: none;"></a>

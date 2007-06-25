@@ -62,6 +62,12 @@ class GMapContainer extends WebMarkupContainer
 	{
 		target.addComponent(this);
 		target.appendJavascript(GMapComponentUpdate.REFRESH_FUNCTION + ";");
+		
+		// this fixes trouble with internet explorer and reopening info windows
+		if (gMapComponentUpdate.isOpenInfoOverlay())
+		{
+			target.appendJavascript(gMapComponentUpdate.OPENINFOWINDOW_FUNCTION + ";");
+		}
 	}
 
 	public static final String ID = "gmapContainer";

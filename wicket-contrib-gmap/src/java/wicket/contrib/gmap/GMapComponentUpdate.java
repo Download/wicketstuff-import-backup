@@ -13,8 +13,11 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 	 * the name of the gmap refresh function
 	 */
 	public static final String REFRESH_FUNCTION = "refreshGMap()";
+	public static final String OPENINFOWINDOW_FUNCTION = "reOpenInfo()";
 
 	private GMap gmap;
+
+	private boolean openInfoOverlay=false;
 
 
 	/**
@@ -36,11 +39,14 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 	{
 		// trying to split up function by declaring map as a page variable
 		// instead of function variable
-		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n").append(
-				"\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n").append(
-				"if (window.googleMap!=null) {\n").append("\n" + gmapDefinitionUpdate()).append(
-				"\n" + overlayDefinitions()).append("}\n else{alert('The Map cannot be shown currently due to a technical error, please try again later!');}").append(
-				"}\n").append("//]]>\n");
+		StringBuffer buffer = new StringBuffer("\n//<![CDATA[\n")
+				.append("\nfunction " + GMapComponentUpdate.REFRESH_FUNCTION + " {\n")
+				.append("if (window.googleMap!=null) {\n")
+				.append("\n" + gmapDefinitionUpdate())
+				.append("\n" + overlayDefinitions())
+				.append(
+						"}\n else{alert('The Map cannot be shown currently due to a technical error, please try again later!');}")
+				.append("}\n").append("//]]>\n");
 		return buffer.toString();
 	}
 
@@ -48,27 +54,26 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 	{
 		StringBuffer buffer = new StringBuffer("googleMap.clearOverlays();\n");
 		Iterator iterator = gmap.getOverlays().iterator();
-		
-		boolean hasOpenInfoOverlay=false;
-		String openOverlayInfo="";
-		if(gmap.getOpenMarkerInfoWindow()!=null)
+
+		openInfoOverlay = false;
+		String openOverlayInfo = "";
+		if (gmap.getOpenMarkerInfoWindow() != null)
 		{
-		openOverlayInfo=gmap.getOpenMarkerInfoWindow().replaceAll("createInfo", "");
+			openOverlayInfo = gmap.getOpenMarkerInfoWindow().replaceAll("createInfo", "");
 		}
 		while (iterator.hasNext())
 		{
 			Overlay overlay = (Overlay)iterator.next();
 			buffer.append("googleMap.addOverlay(" + overlay.getFactoryMethod() + "());\n");
-			
-			if(overlay.getOverlayId().compareTo(openOverlayInfo)==0){
-				hasOpenInfoOverlay=true;
+
+			// Below trying to fix the closing of open info windows when moveend
+			// triggered by centering on the marker
+			if (overlay.getOverlayId().compareTo(openOverlayInfo) == 0)
+			{
+				openInfoOverlay = true;
 			}
 		}
-		
-		// Below trying to fix the closing of open info windows when moveend triggered by centering on the marker
-		if(hasOpenInfoOverlay){
-			buffer.append("GEvent.trigger(openMarker, 'click');\n");
-		}
+
 		return buffer.toString();
 	}
 
@@ -81,4 +86,10 @@ class GMapComponentUpdate extends JavaScriptComponentIEFix
 	}
 
 	public static final String ID = "gmapComponentUpdate";
+
+
+	public boolean isOpenInfoOverlay()
+	{
+		return openInfoOverlay;
+	}
 }

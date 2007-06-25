@@ -47,7 +47,7 @@ public class GMapPanel extends Panel
 	 * should listeners be attached to gmap instead, inorder to be able to ad event in the gmapcomponet based on wheter needed or not?
 	 */
 	private GMapClickListener clickListener;
-	private GMapListener dragEndListener;
+	private GMapListener moveEndListener;
 	private GMapContainer mapContainer;
 
 	private AjaxSubmitLink ajaxClickNotifierSubmitLink;
@@ -181,10 +181,10 @@ public class GMapPanel extends Panel
 			protected void onSubmit(AjaxRequestTarget target, Form arg1)
 			{
 				// only notify dragEnd in dragEnd mode
-				if (dragEndListener != null)
+				if (moveEndListener != null)
 				{
 					// notify dragEnd listener
-					dragEndListener.onClick(target, gMap);
+					moveEndListener.onClick(target, gMap);
 
 					// do refresh gmap panel
 					refresh(target);
@@ -264,7 +264,7 @@ public class GMapPanel extends Panel
 	}
 
 	/** gmap url **/
-	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.81&key=";
+	private static final String GMAP_URL = "http://maps.google.com/maps?file=api&v=2.x&key=";
 
 
 	/**
@@ -289,14 +289,14 @@ public class GMapPanel extends Panel
 	public static final String GMAP_DEFAULT_KEY = "ABQIAAAALjfJpigGWq5XvKwy7McLIxTIqKwA3nrz2BTziwZcGRDeDRNmMxS-FtSv7KGpE1A21EJiYSIibc-oEA";
 
 
-	public GMapListener getDragEndListener()
+	public GMapListener getMoveEndListener()
 	{
-		return dragEndListener;
+		return moveEndListener;
 	}
 
-	public void setDragEndListener(GMapListener dragEndListener)
+	public void setMoveEndListener(GMapListener dragEndListener)
 	{
-		this.dragEndListener = dragEndListener;
+		this.moveEndListener = dragEndListener;
 	}
 
 	public GMapClickListener getClickListener()

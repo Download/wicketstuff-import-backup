@@ -16,6 +16,7 @@ class GMarkerComponent extends JavaScriptComponent
 	private static final long serialVersionUID = 1L;
 	private AbstractAjaxBehavior behavior;
 	private GMarker gmarker;
+	private static final String infoCloseEvent = "infowindowclose";
 
 	/**
 	 * thanks to <a href="http://mentalized.net/activity-indicators/">these guys</a>
@@ -71,16 +72,18 @@ class GMarkerComponent extends JavaScriptComponent
 		if (tooltip != null && tooltip.length() > 0)
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
-					+ ",{icon:icon, title:'" + tooltip + "'});" + "\n" + getOnClickHandler() + "\n" + getOpenInfoHandler() + "\n"
-					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" 
-					+ "GEvent.addListener(marker, \"infowindowclose\", onClose);\n" + "return marker;";
+					+ ",{icon:icon, title:'" + tooltip + "'});" + "\n" + getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n"
+					+ "GEvent.addListener(marker, \"" + infoCloseEvent
+					+ "\", onInfoWindowClose);\n" + "return marker;";
 		}
 		else
 		{
 			customIconPartTwo = "var marker = new GMarker(" + gmarker.getPointAsString()
-					+ ",icon);" + "\n" + getOnClickHandler() + "\n" + getOpenInfoHandler() + "\n"
-					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n" 
-					+ "GEvent.addListener(marker, \"infowindowclose\", onClose);\n" + "return marker;";
+					+ ",icon);" + "\n" + getOnClickHandler() + "\n"
+					+ "GEvent.addListener(marker, \"click\", onClick);" + "\n"
+					+ "GEvent.addListener(marker, \"" + infoCloseEvent
+					+ "\", onInfoWindowClose);\n" + "\n" + "return marker;";
 
 		}
 
@@ -94,27 +97,26 @@ class GMarkerComponent extends JavaScriptComponent
 		{
 			return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
 					+ gmarker.getPointAsString() + ",{title:'" + tooltip + "'});" + "\n"
-					+ getOnClickHandler() + "\n" + getOpenInfoHandler() + "\n"
+					+ getOnClickHandler() + "\n"
 					+ "GEvent.addListener(marker, \"click\", onClick);\n"
-					+ "GEvent.addListener(marker, \"infowindowclose\", onClose);\n" + "return marker;");
+					+ "GEvent.addListener(marker, \"" + infoCloseEvent
+					+ "\", onInfoWindowClose);\n"
+
+					+ "return marker;");
 
 		}
 
 		return JSUtil.createFunction(gmarker.getFactoryMethod(), "var marker = new GMarker("
-				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n" + getOpenInfoHandler() + "\n"
-				+ "GEvent.addListener(marker, \"click\", onClick);\n" 
-				+ "GEvent.addListener(marker, \"infowindowclose\", onClose);\n" + "return marker;");
+				+ gmarker.getPointAsString() + ");" + "\n" + getOnClickHandler() + "\n"
+				+ "GEvent.addListener(marker, \"click\", onClick);\n"
+				+ "GEvent.addListener(marker, \"" + infoCloseEvent + "\", onInfoWindowClose);\n"
+				+ "return marker;");
 	}
 
 	private String getOnClickHandler()
 	{
 		return JSUtil.createFunction("onClick", "marker.openInfoWindow(" + getInfoFactoryName()
-				+ "());\ndocument.getElementById(\"openMarkerInfoWindow\").value='"+getInfoFactoryName()+"';\nopenMarker=marker;\n");
-	}
-	private String getOpenInfoHandler()
-	{
-		return JSUtil.createFunction("onClose", "document.getElementById(\"openMarkerInfoWindow\").value='';");
-//		\nopenMarker=null;\n
+				+ "());\n");
 	}
 
 	private String createInfoFunction()
