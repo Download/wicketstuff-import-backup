@@ -1,0 +1,3 @@
+var oMenu = new YAHOO.widget.MenuBar("${elementId}", { autosubmenudisplay: true, hidedelay: 750, lazyload: true }); 
+
+oMenu.render(); 
