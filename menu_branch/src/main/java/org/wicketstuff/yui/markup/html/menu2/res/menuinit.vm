@@ -1,3 +1,6 @@
-var oMenu = new YAHOO.widget.Menu("${elementId}", { fixedcenter: true }); 
+vYAHOO.util.Event.onDOMReady(function() {
+var oMenu = new YAHOO.widget.Menu("${elementId}", {visible:true,clicktohide:false}); 
 
 oMenu.render(); 
+oMenu.show();
+} );
