@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 
-class YuiMenuBarItem extends AbstractYuiMenuItem {
+public class YuiMenuBarItem extends AbstractYuiMenuItem {
 	private static final String ITEM_ID = "item";
 	private static final String MENU_ITEM_ID = "menu";
 	private static final String LINK_ID = "link";
