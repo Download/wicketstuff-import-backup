@@ -2,8 +2,10 @@ package wicket.contrib.gmap;
 
 import java.util.Iterator;
 
+import wicket.Component;
 import wicket.Response;
 import wicket.behavior.AbstractAjaxBehavior;
+import wicket.markup.html.WebPage;
 import wicket.util.string.JavascriptUtils;
 
 /**
@@ -141,7 +143,7 @@ class GMapInitializer extends AbstractAjaxBehavior
 							+ "else{\n"
 							+ "document.getElementById(\"clickNotifierLatitude\").value=point.lat();\n"
 							+ "document.getElementById(\"clickNotifierLongitude\").value=point.lng();\n"
-							+ "document.getElementById(\"gmap_ajaxGMapClickNotifierFormSubmit\").onclick();\n"
+							+ "document.getElementById(\"" + getComponentPrefix() + "gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n"
 							+ "}});\n");
 		}
 		else
@@ -170,6 +172,34 @@ class GMapInitializer extends AbstractAjaxBehavior
 				.append("}\n");
 		return buffer.toString();
 	}
+
+
+	private String getComponentPrefix()
+	{
+		StringBuffer b = new StringBuffer();
+
+		Component c = (Component)getComponent();
+		if (c == null)
+		{
+			throw new UnsupportedOperationException("getComponent should not return null");
+		}
+
+		while (c.getParent() != null)
+		{
+			c = c.getParent();
+			if (c instanceof WebPage)
+			{
+				c = null;
+				break;
+			}
+
+			b.insert(0, c.getId() + "_");
+
+		}
+
+		return b.toString();
+	}
+
 
 	private String overlayDefinitions()
 	{
