@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Wicket Examples - Yahoo UI library, Menu 2- Group Menu</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+<title>Wicket Examples - Yahoo UI library, Menu 2- Group Menu</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-    <span wicket:id="mainNavigation"/>
+<span wicket:id="mainNavigation" />
 
-<br/>
-<br/>
-	<div wicket:id="groupMenu">[Menu Here]</div>
-	<div wicket:id="feedback" >
-	</div>
+<br />
+<br />
+
+<div wicket:id="feedback"></div>
+<table cellspacing="4" cellpadding="4">
+	<tr>
+		<td>No Headers</td>
+		<td>&nbsp;</td>
+		<td>With Headers</td>
+	</tr>
+	<tr valign="top">
+		<td>
+		<div wicket:id="groupMenu1">[Menu Here]</div>
+		</td>
+		<td>&nbsp;</td>
+		<td>
+		<div wicket:id="groupMenu2">[Menu Here]</div>
+		</td>
+	</tr>
+</table>
 </body>
 </html>
