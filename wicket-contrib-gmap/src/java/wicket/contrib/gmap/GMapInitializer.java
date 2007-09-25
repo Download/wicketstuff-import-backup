@@ -129,7 +129,7 @@ class GMapInitializer extends AbstractAjaxBehavior
 				+ "document.getElementById(\"longitudeNE\").value=nE.lng();\n"
 
 				+ "document.getElementById(\"zoomLevel\").value=googleMap.getZoom();\n"
-				+ "document.getElementById(\"gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n"
+				+ "document.getElementById(\"" + getComponentPrefix() + "gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n"
 				+ "});\n");
 		// if gmap is in insert model this must be added for the notifier form
 		// to be submitted on click
@@ -143,7 +143,7 @@ class GMapInitializer extends AbstractAjaxBehavior
 							+ "else{\n"
 							+ "document.getElementById(\"clickNotifierLatitude\").value=point.lat();\n"
 							+ "document.getElementById(\"clickNotifierLongitude\").value=point.lng();\n"
-							+ "document.getElementById(\"" + getComponentPrefix() + "gmap_ajaxGMapUpdatingFormSubmit\").onclick();\n"
+							+ "document.getElementById(\"" + getComponentPrefix() + "gmap_ajaxGMapClickNotifierFormSubmit\").onclick();\n"
 							+ "}});\n");
 		}
 		else
