@@ -63,7 +63,7 @@ public class ContextMenu2Page extends WicketExamplePage {
 			this.name = name;			
 		}
 
-		public void onClick(AjaxRequestTarget arg0) {
+		public void onClick(AjaxRequestTarget target, String targetId) {
 			System.out.println( "(A) TestAction[" + name + "] clicked" );
 			
 		}
@@ -87,7 +87,7 @@ public class ContextMenu2Page extends WicketExamplePage {
 			this.name = name;			
 		}
 
-		public void onClick(AjaxRequestTarget target) {
+		public void onClick(AjaxRequestTarget target, String targetId) {
 			subPanel.add( new AttributeModifier( "bgcolor", true, new Model( name )));
 			target.addComponent(subPanel);			
 		}
