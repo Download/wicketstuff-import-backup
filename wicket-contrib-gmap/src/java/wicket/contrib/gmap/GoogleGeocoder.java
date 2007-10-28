@@ -12,9 +12,7 @@ import java.net.URLEncoder;
  * @author Ryan Gravener (ryangravener)
  */
 public class GoogleGeocoder {
-	private GoogleGeocoder() {
-		
-	}
+
 	/**
 	 * @param apiKey
 	 * @param query
@@ -39,6 +37,10 @@ public class GoogleGeocoder {
 			}
 			code = Integer.parseInt(findField(buffer,"code"));
 			if(code!=200) {
+				try {
+					br.close();
+				} catch (IOException e) {
+				}
 				return code;
 			}
 			placemark.setCountryNameCode(findField(buffer,"CountryNameCode"));
@@ -55,10 +57,6 @@ public class GoogleGeocoder {
 		catch (MalformedURLException e) {
 			throw new MalformedURLException();
 		}
-		catch (IOException e)
-		{
-			throw new IOException(e);
-		}
 		finally {
 			if(br!=null) {
 				try {
@@ -67,8 +65,9 @@ public class GoogleGeocoder {
 					
 				}
 			}
+			return code;
 		}
-		return code;
+		
 		
 	}
 	
