@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import junit.framework.TestCase;
 
 import org.apache.wicket.Component;
@@ -33,6 +35,7 @@ import org.apache.wicket.authorization.UnauthorizedInstantiationException;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.protocol.http.WebRequestCycle;
+import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.request.target.component.BookmarkablePageRequestTarget;
 import org.apache.wicket.security.actions.ActionFactory;
 import org.apache.wicket.security.actions.RegistrationException;
@@ -212,6 +215,13 @@ public class GeneralTest extends TestCase
 			public StrategyFactory getStrategyFactory()
 			{
 				return strategyFactory;
+			}
+
+			protected WebResponse newWebResponse(HttpServletResponse servletResponse)
+			{
+				// junit test workaround for problem with tests in
+				// wicket-1.3.0-rc1
+				return new WebResponse(servletResponse);
 			}
 		}, "src/test/java/" + getClass().getPackage().getName().replace('.', '/'));
 	}
