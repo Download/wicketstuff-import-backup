@@ -258,7 +258,7 @@
 						<warSourceDirectory>
 							src/webapp
 						</warSourceDirectory>
-						<warSourceExcludes>WEB-INF/lib/servlet-api-2.3.jar,WEB-INF/lib/commons-logging-1.1.jar</warSourceExcludes>
+						<warSourceExcludes>WEB-INF/lib/servlet-api-2.3.jar,WEB-INF/lib/oro-2.0.8.jar,WEB-INF/lib/spring-aop-1.2.9.jar,WEB-INF/lib/spring-beans-1.2.9.jar,WEB-INF/lib/spring-context-1.2.9.jar,WEB-INF/lib/spring-core-1.2.9.jar,WEB-INF/lib/spring-dao-1.2.9.jar,WEB-INF/lib/spring-jdbc-1.2.9.jar,WEB-INF/lib/spring-remoting-1.2.9.jar,WEB-INF/lib/spring-support-1.2.9.jar</warSourceExcludes>
 					</configuration>
 				</plugin>
 			</plugins>
