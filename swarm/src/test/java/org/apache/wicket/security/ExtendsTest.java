@@ -18,11 +18,14 @@ package org.apache.wicket.security;
 
 import java.net.MalformedURLException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.wicket.Application;
 import org.apache.wicket.Request;
 import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.security.actions.ActionFactory;
 import org.apache.wicket.security.hive.HiveMind;
 import org.apache.wicket.security.hive.config.PolicyFileHiveFactory;
@@ -187,6 +190,13 @@ public class ExtendsTest extends GeneralTest
 			ActionFactory factory2 = getActionFactory();
 			if (factory2 != null)
 				factory2.destroy();
+		}
+
+		protected WebResponse newWebResponse(HttpServletResponse servletResponse)
+		{
+			// junit test workaround for problem with tests in
+			// wicket-1.3.0-rc1
+			return new WebResponse(servletResponse);
 		}
 	}
 
