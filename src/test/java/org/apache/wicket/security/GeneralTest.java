@@ -23,11 +23,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import junit.framework.TestCase;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.security.hive.HiveMind;
 import org.apache.wicket.security.hive.authentication.SecondaryLoginContext;
 import org.apache.wicket.security.hive.authorization.permissions.AllPermissions;
@@ -100,6 +103,13 @@ public class GeneralTest extends TestCase
 			public Class getLoginPage()
 			{
 				return MockLoginPage.class;
+			}
+
+			protected WebResponse newWebResponse(HttpServletResponse servletResponse)
+			{
+				// junit test workaround for problem with tests in
+				// wicket-1.3.0-rc1
+				return new WebResponse(servletResponse);
 			}
 		}, "src/test/java/" + getClass().getPackage().getName().replace('.', '/'));
 	}
