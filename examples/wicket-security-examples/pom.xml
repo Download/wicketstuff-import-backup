@@ -22,7 +22,7 @@
 	<groupId>org.apache.wicket.wicket-security</groupId>
 	<artifactId>examples</artifactId>
 	<packaging>war</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>1.3.0-rc1</version>
 	<name>Examples</name>
 	<inceptionYear>2006</inceptionYear>
 	<description>Examples for WASP and SWARM</description>
@@ -37,7 +37,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 		</repository>
 	</repositories>
@@ -73,20 +73,20 @@
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
-			<version>1.3.0-SNAPSHOT</version>
+			<version>1.3.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
-			<version>1.3.0-SNAPSHOT</version>
+			<version>1.3.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<!-- begin acegi dependencies -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-spring</artifactId>
-			<version>1.3.0-SNAPSHOT</version>
+			<version>1.3.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -137,16 +137,17 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- end acegi dependencies -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.wicket.wicket-security</groupId>
 			<artifactId>wasp</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>1.3.0-rc1</version>
 			<scope>compile</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.apache.wicket.wicket-security</groupId>
 			<artifactId>swarm</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>1.3.0-rc1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -321,7 +322,7 @@
 				<configuration>
 					<links>
 						<link>
-							http://java.sun.com/j2se/1.5.0/docs/api/
+							http://java.sun.com/j2se/1.4.2/docs/api/
 						</link>
 					</links>
 					<show>package</show>
