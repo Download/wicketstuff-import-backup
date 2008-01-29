@@ -456,4 +456,16 @@ public class PolicyFileHiveFactoryTest extends TestCase
 				fail(e.getMessage());
 		}
 	}
+
+	/**
+	 * Test handling null urls, readers and streams.
+	 */
+	public void testAddNull()
+	{
+		PolicyFileHiveFactory factory = new PolicyFileHiveFactory();
+		assertFalse(factory.addPolicyFile(null));
+		assertFalse(factory.addReader(null));
+		assertFalse(factory.addStream(null));
+
+	}
 }

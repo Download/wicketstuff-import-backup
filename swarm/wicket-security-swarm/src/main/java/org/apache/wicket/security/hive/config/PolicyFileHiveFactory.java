@@ -144,6 +144,11 @@ public class PolicyFileHiveFactory implements HiveFactory
 	 */
 	public final boolean addPolicyFile(URL file)
 	{
+		if (file == null)
+		{
+			log.warn("Can not add null as an url.");
+			return false;
+		}
 		return policyFiles.add(file);
 	}
 
@@ -170,6 +175,11 @@ public class PolicyFileHiveFactory implements HiveFactory
 	 */
 	public final boolean addStream(InputStream stream)
 	{
+		if (stream == null)
+		{
+			log.warn("Can not add null as a stream.");
+			return false;
+		}
 		return inputStreams.add(stream);
 	}
 
@@ -196,6 +206,11 @@ public class PolicyFileHiveFactory implements HiveFactory
 	 */
 	public final boolean addReader(Reader input)
 	{
+		if (input == null)
+		{
+			log.warn("Can not add null as a reader.");
+			return false;
+		}
 		return inputReaders.add(input);
 	}
 
