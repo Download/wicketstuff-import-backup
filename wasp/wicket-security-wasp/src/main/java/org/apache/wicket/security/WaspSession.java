@@ -95,7 +95,10 @@ public class WaspSession extends WebSession
 	{
 		if (securityStrategy != null && securityStrategy.logoff(context))
 		{
-			dirty();
+			if (securityStrategy.isUserAuthenticated())
+				dirty();
+			else
+				invalidate();
 			return true;
 		}
 		return false;
@@ -111,5 +114,16 @@ public class WaspSession extends WebSession
 	{
 		securityStrategy.destroy();
 		super.invalidateNow();
+	}
+
+	/**
+	 * 
+	 * @see org.apache.wicket.Session#detach()
+	 */
+	protected void detach()
+	{
+		if (isTemporary() && securityStrategy.isUserAuthenticated())
+			bind();
+		super.detach();
 	}
 }
