@@ -235,4 +235,13 @@ public class SwarmStrategy extends ClassAuthorizationStrategy
 	{
 		return loginContainer;
 	}
+
+	/**
+	 * 
+	 * @see org.apache.wicket.security.strategies.WaspAuthorizationStrategy#isUserAuthenticated()
+	 */
+	public boolean isUserAuthenticated()
+	{
+		return getSubject() != null;
+	}
 }
