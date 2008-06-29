@@ -13,6 +13,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.tree.AbstractTree;
+import org.apache.wicket.markup.html.tree.DefaultTreeState;
 import org.apache.wicket.markup.html.tree.ITreeState;
 import org.apache.wicket.markup.html.tree.ITreeStateListener;
 import org.apache.wicket.model.IModel;
@@ -57,10 +58,20 @@ public class TreeGrid extends AbstractGrid {
 			protected void rowPopulated(WebMarkupContainer item) {
 				TreeGrid.this.onRowPopulated(item);
 			}
+
+			@Override
+			protected ITreeState newTreeState() {
+				return TreeGrid.this.newTreeState();
+			}
 		});
 
 		getTreeState().addTreeStateListener(new TreeStateListener());
 	}
+
+	private ITreeState newTreeState() {
+		return new DefaultTreeState() {
+		};
+	};
 
 	private class TreeStateListener implements ITreeStateListener, Serializable {
 
@@ -147,8 +158,8 @@ public class TreeGrid extends AbstractGrid {
 	};
 
 	/**
-	 * Callback function called after user clicked on an junction link. The node has already been
-	 * expanded/collapsed (depending on previous status).
+	 * Callback function called after user clicked on an junction link. The node
+	 * has already been expanded/collapsed (depending on previous status).
 	 * 
 	 * @param target
 	 *            Request target - may be null on non-ajax call
@@ -217,14 +228,18 @@ public class TreeGrid extends AbstractGrid {
 	public void selectAllVisibleItems() {
 		WebMarkupContainer body = (WebMarkupContainer) get("form:bodyContainer:body:i");
 		if (body != null) {
+			boolean first = true;
 			for (Iterator<?> i = body.iterator(); i.hasNext();) {
 				Component component = (Component) i.next();
-				selectItem(component.getModel(), true);
+				if (getTree().isRootLess() == false || first == false) {
+					selectItem(component.getModel(), true);
+				}
+				first = false;
 			}
 		}
 		getTree().invalidateAll();
 	}
-	
+
 	@Override
 	protected WebMarkupContainer findRowComponent(IModel rowModel) {
 		if (rowModel == null) {
@@ -239,10 +254,10 @@ public class TreeGrid extends AbstractGrid {
 					return (WebMarkupContainer) component;
 				}
 			}
-		}		
+		}
 		return null;
 	}
-	
+
 	@Override
 	public void markItemDirty(IModel model) {
 		TreeNode node = (TreeNode) model.getObject();
@@ -260,7 +275,7 @@ public class TreeGrid extends AbstractGrid {
 	@Override
 	public WebMarkupContainer findParentRow(Component child) {
 		if (child instanceof AbstractTreeGridRow == false) {
-			child = child.findParent(AbstractTreeGridRow.class);
+			child = (Component) child.findParent(AbstractTreeGridRow.class);
 		}
 		return (WebMarkupContainer) (child != null ? child.getParent() : null);
 	}

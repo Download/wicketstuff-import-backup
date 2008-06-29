@@ -732,7 +732,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 					public CharSequence decorateScript(CharSequence script) {
 						return super.decorateScript("if (InMethod.XTable.canSelectRow(event)) { "
 								+ "var col=(this.imxtClickedColumn || ''); this.imxtClickedColumn='';" + script
-								+ " } else return false;");
+								+ " }");
 					}
 				};
 			}
@@ -872,7 +872,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 */
 	public abstract void markItemDirty(IModel model);
 
-	private boolean selectToEdit = true;
+	private boolean selectToEdit = false;
 
 	/**
 	 * Determines whether selected items should also be editable. This should be

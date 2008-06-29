@@ -59,7 +59,7 @@ public abstract class TreeGridBody extends AbstractTree {
 
 			@Override
 			public void onComponentTag(Component component, ComponentTag tag) {
-				CharSequence klass = "imxt-want-prelight";
+				CharSequence klass = "imxt-want-prelight imxt-grid-row";
 				if (getTreeState().isNodeSelected((TreeNode) item.getModelObject())) {
 					klass = klass + " imxt-selected";
 				}
@@ -83,10 +83,6 @@ public abstract class TreeGridBody extends AbstractTree {
 		}
 	}
 
-	boolean isNodeExpanded2(TreeNode node) {
-		return isNodeExpanded(node);
-	}
-
 	/**
 	 * @see org.apache.wicket.markup.html.tree.AbstractTree#isForceRebuildOnSelectionChange()
 	 */
@@ -94,6 +90,11 @@ public abstract class TreeGridBody extends AbstractTree {
 		return false;
 	}
 
+	boolean isNodeExpanded2(TreeNode object)
+	{
+		return super.isNodeExpanded(object);
+	}
+	
 	protected abstract Collection<IGridColumn> getActiveColumns();
 
 	protected abstract void rowPopulated(WebMarkupContainer item);

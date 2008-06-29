@@ -28,6 +28,7 @@ var genIdCounter = 0;
 var elementsWithListeners = new Array();
 
 var addListener = function(element, event, fn, obj, override) {
+	
 	E.addListener(element, event, fn, obj, override);
 	if (element != document && element != window) {
 		elementsWithListeners.push(element);
@@ -81,12 +82,19 @@ var mouseOut = function(ev, instance) {
 	instance.updatePrelight(e);	
 };
 
+var ignorePrelight = function(element)
+{
+	// We need to ignore prelight on table rows for all browsers but IE<=6.
+	// For all other browsers we use :hover, it's much faster in IE7
+	return !(element.tagName == "TR" && Wicket.Browser.isIELessThan7()) && hasClass(element, "imxt-grid-row");
+}
+
 var attachPrelight = function(elements, instance) {
 	
 	for (var i = 0; i < elements.length; ++i) {
 		var element = elements[i];
-			
-		if (element.imxtPrelightAttached != true) {
+					
+		if (element.imxtPrelightAttached != true && !ignorePrelight(element)) {
 			if (curPrelight != null && curPrelight[getElementId(element)] != null) {
 				mouseIn.bind(element)(null, instance);
 			}			
@@ -124,7 +132,7 @@ InMethod.Drag.prototype = {
 		this.thisRef = thisRef || new Object();
 		this.noTree = null;
 		
-		E.addListener(element, "mousedown", this.onMouseDown, this, true);		
+		addListener(element, "mousedown", this.onMouseDown, this, true);		
 		
 		element.imDrag = this;
 	},
@@ -136,9 +144,9 @@ InMethod.Drag.prototype = {
 			this.lastMouseX = e.clientX;
 			this.lastMouseY = e.clientY;				
 			
-			E.addListener(document, "selectstart", this.onSelectStart);							
-			E.addListener(document, "mousemove", this.onMouseMove, this, true);
-			E.addListener(document, "mouseup", this.onMouseUp, this, true);	
+			addListener(document, "selectstart", this.onSelectStart);							
+			addListener(document, "mousemove", this.onMouseMove, this, true);
+			addListener(document, "mouseup", this.onMouseUp, this, true);	
 			
 			this.onDragBegin.bind(this.thisRef)(Wicket.$(this.elementId), e);
 		}
@@ -285,7 +293,7 @@ InMethod.XTable.prototype = {
 		this.updateScrollTop = this.lastScrollTop;
 		this.updateScrollLeft = this.lastScrollLeft;	
 					
-		this.updateColumnWidths();
+		//this.updateColumnWidths();
 		this.update();
 		this.columnsStateCallback = columnsStateCallback;
 		
@@ -590,14 +598,18 @@ InMethod.XTable.prototype = {
 		var padding = (bodyContainer1.offsetWidth - bodyContainer1.clientWidth);
 
 		// count new header width
-		var newWidth = (body.offsetWidth + padding) + "px";
+		var newWidth = (body.offsetWidth + padding);
 		
-		if (head.style.width != newWidth)
-			head.style.width = newWidth; 
+		// sometimes newWidth is negative in IE, we have to ignore it
+		
+		if (newWidth > 0 && head.style.width != newWidth)
+			head.style.width = newWidth + "px"; 
 
-		// compensate for scrollbar
-		var e = this.getElement("th", "imxt-padding-right", head);		
-		e.style.width = padding + "px";			 		
+		if (padding > 0) {
+			// compensate for scrollbar
+			var e = this.getElement("th", "imxt-padding-right", head);		
+			e.style.width = padding + "px";			
+		}
  			 		 			 		
  		this.updateHandles(force);
  		 		 		

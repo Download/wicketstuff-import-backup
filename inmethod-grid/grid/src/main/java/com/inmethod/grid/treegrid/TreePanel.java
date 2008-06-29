@@ -1,5 +1,6 @@
 package com.inmethod.grid.treegrid;
 
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 
 import org.apache.wicket.Component;
@@ -41,7 +42,13 @@ public abstract class TreePanel extends Panel {
 	 */	
 	public TreePanel(String id, final IModel model, int level) {
 		super(id, model);
-
+		this.level = level;
+	}
+	
+	private final int level;
+	
+	private void init()
+	{
 		// add junction link
 		TreeNode node = (TreeNode) getModelObject();
 		Component junctionLink = newJunctionLink(this, JUNCTION_LINK_ID, node);
@@ -61,7 +68,16 @@ public abstract class TreePanel extends Panel {
 			}
 		};
 		icon.setComponentBorder(IconBorder.INSTANCE);
-		add(icon);
+		add(icon);		
+	}
+	
+	@Override
+	protected void onBeforeRender() {
+		if (!hasBeenRendered())
+		{
+			init();
+		}
+		super.onBeforeRender();
 	}
 
 	/**
@@ -166,7 +182,7 @@ public abstract class TreePanel extends Panel {
 		 * @param node
 		 * @param level
 		 */
-		public JunctionBorder(TreeNode node, int level) {
+		public JunctionBorder(Object node, int level) {
 			this.level = level;
 		}
 
@@ -210,7 +226,8 @@ public abstract class TreePanel extends Panel {
 	protected Component newJunctionLink(MarkupContainer parent, final String id, final TreeNode node) {
 		final MarkupContainer junctionLink;
 
-		if (node.isLeaf() == false) {
+		TreeModel model  = (TreeModel) getTreeGridBody().getModelObject();
+		if (model.isLeaf(node) == false) {
 			junctionLink = newLink(id, new ILinkCallback() {
 				private static final long serialVersionUID = 1L;
 
