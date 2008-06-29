@@ -45,8 +45,7 @@ public class WicketApplication extends WebApplication
 		mount(new HybridUrlCodingStrategy("/tree-grid/vertical-scrolling", VerticalScrollingTreeGridPage.class));
 		mount(new HybridUrlCodingStrategy("/tree-grid/item-selection", TreeGridSelectionPage.class));
 		mount(new HybridUrlCodingStrategy("/tree-grid/column-properties", TreeGridColumnPropertiesPage.class));
-		mount(new HybridUrlCodingStrategy("/tree-grid/editable", EditableTreeGridPage.class));
-		
+		mount(new HybridUrlCodingStrategy("/tree-grid/editable", EditableTreeGridPage.class));		
 	}
 	
 	/**
@@ -62,7 +61,7 @@ public class WicketApplication extends WebApplication
 	 */
 	public Class<? extends Page> getHomePage()
 	{
-		return SimpleDataGridPage.class;
+		return (Class<? extends Page>) SimpleDataGridPage.class;
 	}
   
 }
