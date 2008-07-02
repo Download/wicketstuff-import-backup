@@ -1271,6 +1271,10 @@ InMethod.XTable.prototype = {
 				
 				var current = tds[i];
 				
+				if (typeof(current) == "undefined") {
+					continue;
+				}
+				
 				var index = i + delta;
 				if (delta > 0) {
 					++index;
