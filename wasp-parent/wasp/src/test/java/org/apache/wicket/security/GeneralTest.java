@@ -523,7 +523,8 @@ public class GeneralTest extends TestCase
 		assertTrue(tag.hasAttribute("disabled"));
 		try
 		{
-			mock.getComponentFromLastRenderedPage("secure").setModelObject("writing in textfield");
+			mock.getComponentFromLastRenderedPage("secure").setDefaultModelObject(
+					"writing in textfield");
 			fail("should not be able to write in textfield");
 		}
 		catch (UnauthorizedActionException e)
@@ -538,8 +539,9 @@ public class GeneralTest extends TestCase
 		tag = mock.getTagByWicketId("secure");
 		assertFalse(tag.hasAttribute("disabled"));
 		String writings = "now we are getting somewhere";
-		mock.getComponentFromLastRenderedPage("secure").setModelObject(writings);
-		assertEquals(writings, mock.getComponentFromLastRenderedPage("secure").getModelObject());
+		mock.getComponentFromLastRenderedPage("secure").setDefaultModelObject(writings);
+		assertEquals(writings, mock.getComponentFromLastRenderedPage("secure")
+				.getDefaultModelObject());
 		mock.startPage(mock.getLastRenderedPage());
 		mock.assertRenderedPage(PageA.class);
 		tag = mock.getTagByWicketId("secure");
@@ -726,7 +728,7 @@ public class GeneralTest extends TestCase
 		mock.assertInvisible("bothcheck");// component says no, model says yes
 		try
 		{
-			mock.getComponentFromLastRenderedPage("modelcheck").setModelObject("foobar");
+			mock.getComponentFromLastRenderedPage("modelcheck").setDefaultModelObject("foobar");
 			fail("should not be able to write to model");
 		}
 		catch (UnauthorizedActionException e)
@@ -744,8 +746,9 @@ public class GeneralTest extends TestCase
 		mock.assertVisible("modelcheck");
 		mock.assertVisible("both");
 		mock.assertVisible("bothcheck");
-		mock.getComponentFromLastRenderedPage("modelcheck").setModelObject("foobar");
-		assertEquals("foobar", mock.getComponentFromLastRenderedPage("modelcheck").getModelObject());
+		mock.getComponentFromLastRenderedPage("modelcheck").setDefaultModelObject("foobar");
+		assertEquals("foobar", mock.getComponentFromLastRenderedPage("modelcheck")
+				.getDefaultModelObject());
 		((ISecureComponent)mock.getComponentFromLastRenderedPage("both")).setSecurityCheck(null);
 		authorized.clear();
 		authorized.put("model:modelcheck", application.getActionFactory()
@@ -762,7 +765,7 @@ public class GeneralTest extends TestCase
 		mock.assertInvisible("bothcheck"); // model says no, component says yes
 		try
 		{
-			mock.getComponentFromLastRenderedPage("modelcheck").setModelObject("blaat");
+			mock.getComponentFromLastRenderedPage("modelcheck").setDefaultModelObject("blaat");
 			fail("should not be able to write to model");
 		}
 		catch (UnauthorizedActionException e)
@@ -865,7 +868,8 @@ public class GeneralTest extends TestCase
 		assertTrue(tag.hasAttribute("disabled"));
 		try
 		{
-			mock.getComponentFromLastRenderedPage("input").setModelObject("writing in textfield");
+			mock.getComponentFromLastRenderedPage("input").setDefaultModelObject(
+					"writing in textfield");
 			fail("should not be able to write in textfield");
 		}
 		catch (UnauthorizedActionException e)
@@ -877,14 +881,15 @@ public class GeneralTest extends TestCase
 		tag = mock.getTagByWicketId("input");
 		assertFalse(tag.hasAttribute("disabled"));
 		String writings = "now we are getting somewhere";
-		mock.getComponentFromLastRenderedPage("input").setModelObject(writings);
-		assertEquals(writings, mock.getComponentFromLastRenderedPage("input").getModelObject());
+		mock.getComponentFromLastRenderedPage("input").setDefaultModelObject(writings);
+		assertEquals(writings, mock.getComponentFromLastRenderedPage("input")
+				.getDefaultModelObject());
 		mock.startPage(mock.getLastRenderedPage());
 		mock.assertRenderedPage(SecureModelPage.class);
 		tag = mock.getTagByWicketId("input");
 		assertTrue(tag.getAttributeIs("value", writings));
 		assertEquals(SecureCompoundPropertyModel.class.getName() + ":input", mock
-				.getComponentFromLastRenderedPage("input").getModel().toString());
+				.getComponentFromLastRenderedPage("input").getDefaultModel().toString());
 
 	}
 
@@ -934,9 +939,10 @@ public class GeneralTest extends TestCase
 		form.setValue("area", "also allowed");
 		form.submit();
 		mock.assertRenderedPage(FormPage.class);
-		assertEquals("allowed", mock.getComponentFromLastRenderedPage("form:text").getModelObject());
+		assertEquals("allowed", mock.getComponentFromLastRenderedPage("form:text")
+				.getDefaultModelObject());
 		assertEquals("also allowed", mock.getComponentFromLastRenderedPage("form:area")
-				.getModelObject());
+				.getDefaultModelObject());
 
 	}
 

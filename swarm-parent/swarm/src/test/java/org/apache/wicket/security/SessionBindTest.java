@@ -34,8 +34,8 @@ import org.apache.wicket.security.pages.MockHomePage;
 import org.apache.wicket.security.pages.MockLoginPage;
 import org.apache.wicket.security.strategies.WaspAuthorizationStrategy;
 import org.apache.wicket.security.swarm.SwarmWebApplication;
-import org.apache.wicket.util.tester.SwarmFormTester;
-import org.apache.wicket.util.tester.SwarmWicketTester;
+import org.apache.wicket.util.tester.FormTester;
+import org.apache.wicket.util.tester.WicketTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,15 +91,22 @@ public class SessionBindTest extends TestCase
 	/**
 	 * Handle to the mock environment.
 	 */
-	protected SwarmWicketTester mock;
+	protected WicketTester mock;
 
 	/**
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	protected void setUp()
 	{
-		mock = new SwarmWicketTester(application = new MyWebApplication(), "src/test/java/"
-				+ getClass().getPackage().getName().replace('.', '/'));
+		mock = new WicketTester(application = new MyWebApplication(), "src/test/java/"
+				+ getClass().getPackage().getName().replace('.', '/'))
+		{
+			@Override
+			public boolean initializeHttpSessionAsTemporary()
+			{
+				return true;
+			}
+		};
 
 	}
 
@@ -129,7 +136,7 @@ public class SessionBindTest extends TestCase
 		// loginpage, else the homepage will be used which will trigger a bind
 		// because a throw restartResponseAtInterceptPageexception will trigger
 		// a session.bind
-		SwarmFormTester form = mock.newFormTester("form");
+		FormTester form = mock.newFormTester("form");
 		form.setValue("username", "test");
 		form.submit();
 		mock.assertRenderedPage(MockHomePage.class);
