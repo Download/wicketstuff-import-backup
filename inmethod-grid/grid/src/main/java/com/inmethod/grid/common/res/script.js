@@ -30,20 +30,82 @@ var elementsWithListeners = new Array();
 var addListener = function(element, event, fn, obj, override) {
 	
 	E.addListener(element, event, fn, obj, override);
+	
 	if (element != document && element != window) {
 		elementsWithListeners.push(element);
 	}
 };
 
+// temporary array of elements being processed during purge
+var beingPurged = null;
+
+// count of purged elements (debug)
+var purgedCount = 0;
+
+var purgeDebug = false;
+
+// periodically called to initiate the purging process
 var purgeInactiveListeners = function() {
-	var c = 0;
-	var a = elementsWithListeners;
-	for (var i = 0; i < a.length; ++i) {
-		var e = a[i];
-		if (e != null && Wicket.$$(e) == false) {
-			E.purgeElement(e);
-			a[i] = null;
-			++c;
+	
+	// if purge is in progress don't do anything
+	if (beingPurged != null) {
+		return;
+	}
+	
+	// the the elements
+	beingPurged = elementsWithListeners;
+	elementsWithListeners = new Array();
+	
+	if (purgeDebug)
+		Wicket.Log.info("Purge begin");
+	
+	purgedCount = 0;
+	
+	// start the process
+	purge();
+};
+
+var purge = function() 
+{
+	if (beingPurged != null)
+	{
+		var done = 0;
+		
+		// it is necessary to limit amount of items being purged in one go otherwise
+		// IE will complain about script being slow
+		var max = 50;
+		
+		var a = beingPurged;
+		for (var i = 0; i < a.length && done < 50; ++i)
+		{
+			var e = a[i];
+			if (e != null)
+			{
+				++done;
+				if (!D.inDocument(e)) {
+					E.purgeElement(e);
+					++purgedCount;
+				} else {
+					// element is still in document, return it
+					elementsWithListeners.push(e);
+				}
+				a[i] = null;
+			}			
+		}
+		
+		
+		if (i == a.length)
+		{
+			// we are done with purging
+			beingPurged = null;
+			
+			if (purgeDebug)
+				Wicket.Log.info("Purge End; purged: " + purgedCount + ", total: " + elementsWithListeners.length);
+		}		
+		else
+		{
+			// not yet done, continue after 50ms
+			window.setTimeout(purge, 50);
 		}
 	}
 };
@@ -286,15 +348,16 @@ InMethod.XTable.prototype = {
 		this.id = id;
 		
 		this.initColumns(columnsData);
-							
+		
 		this.attachEventHandlers();
-		this.prevColumnWidths = null;			
+		this.prevColumnWidths = null;					
 		
 		this.updateScrollTop = this.lastScrollTop;
 		this.updateScrollLeft = this.lastScrollLeft;	
 					
 		//this.updateColumnWidths();
 		this.update();
+						
 		this.columnsStateCallback = columnsStateCallback;
 		
 		// IE needs update called twice, otherwise the top right corner flashes or there is a horizontal 
@@ -304,18 +367,19 @@ InMethod.XTable.prototype = {
 			bodyContainer1.imxtOldOffsetWidth = null;
 			this.update();		
 		}
-		
+						
 		if (Wicket.Browser.isIE()) {
 			addClass(Wicket.$(id), "imxt-ie");
 		} else if (Wicket.Browser.isGecko()) {
 			addClass(Wicket.$(id), "imxt-ff");
 		} else if (Wicket.Browser.isSafari()) {
 			addClass(Wicket.$(id), "imxt-safari");
-		}
+		}				
 		
 		this.updateSelectCheckBoxes();
+		
 		this.initCells(this.getBodyTable());
-
+		
 	},
 	
 	initColumns: function(columnsData) {
@@ -492,8 +556,8 @@ InMethod.XTable.prototype = {
 	/**
 	 * Updates the widths of columns in table body according to the headers 
 	 */
-	updateColumnWidths: function() {		
-	
+	updateColumnWidths: function() {				
+		
 		var widths = this.getColumnWidths();		
 								
 		var scroll;
@@ -602,9 +666,15 @@ InMethod.XTable.prototype = {
 		
 		// sometimes newWidth is negative in IE, we have to ignore it
 		
-		if (newWidth > 0 && head.style.width != newWidth)
+		if (Wicket.Browser.isIE() && newWidth > 0 && head.style.width != newWidth)
 			head.style.width = newWidth + "px"; 
-
+		else if (Wicket.Browser.isSafari()) {
+			
+			var form = this.getElement("form", "imxt-form");
+			var fieldset = this.getElement("fieldset", "imxt-fieldset", form);
+			fieldset.style.width = form.offsetWidth + "px";
+		}
+		
 		if (padding > 0) {
 			// compensate for scrollbar
 			var e = this.getElement("th", "imxt-padding-right", head);		
@@ -1263,7 +1333,7 @@ InMethod.XTable.prototype = {
 			
 		}.bind(this);
 						
-		// heper function that reorders columns in the given rows
+		// helper function that reorders columns in the given rows
 		var updateRows = function(rows, fixSpans) {			
 			for (var j = 0; j < rows.length; ++j) {
 				var row = rows[j];
@@ -1281,7 +1351,7 @@ InMethod.XTable.prototype = {
 				}
 				
 				other = tds[index];		
-				
+								
 				row.insertBefore(current, other);
 				
 				if (L.isFunction(fixSpans)) {
@@ -1445,6 +1515,7 @@ InMethod.XTable.prototype = {
 				cell.imxtInitialized = true;
 			}
 		}
+			
 	}
 };
 
@@ -1477,7 +1548,7 @@ InMethod.XTableManager.prototype = {
 		window.setInterval(this.update.bind(this), interval);
 	},
 	
-	update: function() {
+	update: function() {						
 		for (var property in this.current) {
 			var table = this.current[property];
 			if (table != null) {
@@ -1539,11 +1610,11 @@ function findParent(node, tagName)  {
 }
 
 onKeyEvent = function(element, event) {
+	
 	var e = Wicket.fixEvent(event)
 	var key = event.keyCode;
 	
-	if (key == 13 || key == 27) {
-		
+	if (key == 13 || key == 27) {					
 		
 		if (key == 13 && Wicket.Browser.isSafari()) {
 			// somewhat ugly fix but this is the only thing preventing safari from submitting the form on enter
@@ -1573,13 +1644,13 @@ onKeyEvent = function(element, event) {
 			if (elements != null && elements.length > 0) {
 				elements[0].onclick.bind(elements[0])();
 			}		
-		}
+		}		
 	}	
 };
 
 
 InMethod.editKeyUp = function(element, event) {
-	
+		
 	if (!Wicket.Browser.isOpera() && !Wicket.Browser.isSafari()) {
 		onKeyEvent(element, event);
 	}
@@ -1609,5 +1680,4 @@ InMethod.editKeyPress = function(element, event) {
 		return true;
 	}	
 };
-
 })();
