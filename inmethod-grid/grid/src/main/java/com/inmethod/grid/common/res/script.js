@@ -668,9 +668,8 @@ InMethod.XTable.prototype = {
 		
 		if (Wicket.Browser.isIE() && newWidth > 0 && head.style.width != newWidth)
 			head.style.width = newWidth + "px"; 
-		else if (Wicket.Browser.isSafari()) {
-			
-			var form = this.getElement("form", "imxt-form");
+		else if (Wicket.Browser.isSafari()) {		
+			var form = this.getElement("*", "imxt-form");
 			var fieldset = this.getElement("fieldset", "imxt-fieldset", form);
 			fieldset.style.width = form.offsetWidth + "px";
 		}
