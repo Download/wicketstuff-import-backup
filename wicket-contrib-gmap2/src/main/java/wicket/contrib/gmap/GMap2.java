@@ -204,6 +204,10 @@ public class GMap2 extends Panel implements GOverlayContainer
 		if (AjaxRequestTarget.get() != null && findPage() != null)
 		{
 			AjaxRequestTarget.get().appendJavascript(overlay.getJSadd());
+			for (GOverlayListenerBehavior behavior : overlay.getBehaviors())
+			{
+				AjaxRequestTarget.get().appendJavascript(behavior.getJSaddListener());
+			}
 		}
 
 		return this;
