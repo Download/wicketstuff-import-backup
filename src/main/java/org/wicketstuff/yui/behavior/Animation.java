@@ -28,7 +28,8 @@ import org.wicketstuff.yui.helper.JSArray;
  * click will "Blind Up" etc...
  * 
  * YAHOO.util.Anim / Motion / Scroll. Also include Effects from <a
- * href="http://blog.davglass.com/files/yui/effects/">http://blog.davglass.com/files/yui/effects/</a>
+ * href="http://blog.davglass.com/files/yui/effects/"
+ * >http://blog.davglass.com/files/yui/effects/</a>
  * 
  * @author josh
  */
@@ -115,7 +116,9 @@ public class Animation extends AbstractBehavior
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apache.wicket.behavior.AbstractBehavior#bind(org.apache.wicket.Component)
+	 * @see
+	 * org.apache.wicket.behavior.AbstractBehavior#bind(org.apache.wicket.Component
+	 * )
 	 */
 	@Override
 	public void bind(Component component)
@@ -143,16 +146,16 @@ public class Animation extends AbstractBehavior
 	 * 
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apache.wicket.behavior.AbstractBehavior#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
+	 * @see
+	 * org.apache.wicket.behavior.AbstractBehavior#renderHead(org.apache.wicket
+	 * .markup.html.IHeaderResponse)
 	 */
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		StringBuffer buffer = new StringBuffer().append("var ").append(getAnimVar()).append(" = ")
-				.append(buildEffectsJS()).append("Wicket.yui.Animator.add(")
-				.append(getAnimValueGroups()).append(",") 
-				.append("'").append(getOnEvent()).append("'").append(",") 
-				.append("'").append(getComponentId()).append("'") 
+		StringBuffer buffer = new StringBuffer().append("var ").append(getAnimVar()).append(" = ").append(
+				buildEffectsJS()).append("Wicket.yui.Animator.add(").append(getAnimValueGroups()).append(",").append(
+				"'").append(getOnEvent()).append("'").append(",").append("'").append(getComponentId()).append("'")
 				.append(")");
 		response.renderOnDomReadyJavascript(buffer.toString());
 	}
@@ -187,7 +190,8 @@ public class Animation extends AbstractBehavior
 	 * need this to 1/ strip out the initial "eff =" 2/ end "animate()"
 	 * 
 	 * var anim_singapore0 = anim_singapore01=new
-	 * YAHOO.widget.Effects.BlindDown(singapore0,{delay:true},{delay:true});.animate();;
+	 * YAHOO.widget.Effects.BlindDown(
+	 * singapore0,{delay:true},{delay:true});.animate();;
 	 * 
 	 * @return
 	 */
@@ -220,14 +224,13 @@ public class Animation extends AbstractBehavior
 		{
 			AnimEffect effect = effectslist.get(0);
 			StringBuffer buffer = new StringBuffer();
-			buffer.append(jsVar).append("=").append("new ").append(effect.newEffectJS()).append(
-					"('").append(getComponentId()).append("',").append(effect.getAttributes())
-					.append(",").append(effect.getOpts()).append(");");
+			buffer.append(jsVar).append("=").append("new ").append(effect.newEffectJS()).append("('").append(
+					getComponentId()).append("',").append(effect.getAttributes()).append(",").append(effect.getOpts())
+					.append(");");
 
 			if (listsize > 1) // means at least one more child to go
 			{
-				buffer.append(jsVar).append(".").append(effect.onCompleteJS()).append(
-						".subscribe(function() {");
+				buffer.append(jsVar).append(".").append(effect.onCompleteJS()).append(".subscribe(function() {");
 				buffer.append(buildEffectsJS(jsVar + listsize, effectslist.subList(1, listsize)));
 				buffer.append("});");
 			}
@@ -400,8 +403,7 @@ public class Animation extends AbstractBehavior
 		 * @param value
 		 * @param animateOnValue
 		 */
-		public AnimValueGroup(String triggerId, FormComponent element, String value,
-				boolean animateOnValue)
+		public AnimValueGroup(String triggerId, FormComponent element, String value, boolean animateOnValue)
 		{
 			this.triggerId = triggerId;
 			this.isAnimateOnValue = animateOnValue;
@@ -416,8 +418,7 @@ public class Animation extends AbstractBehavior
 		 * @param value
 		 * @param animateOnValue
 		 */
-		public AnimValueGroup(Component triggerComponent, FormComponent element, String value,
-				boolean animateOnValue)
+		public AnimValueGroup(Component triggerComponent, FormComponent element, String value, boolean animateOnValue)
 		{
 			this.triggerComponent = triggerComponent;
 			this.isAnimateOnValue = animateOnValue;
@@ -440,12 +441,9 @@ public class Animation extends AbstractBehavior
 		{
 			StringBuffer script = new StringBuffer();
 
-			script.append("new Wicket.yui.AnimValueGroup(")
-							.append("'").append(getTriggerId()).append("'")
-							.append(",").append(getAnimVar()).append(",")
-							.append(getElementId()).append(",")
-							.append(getElementValue()).append(",")
-							.append(this.isAnimateOnValue).append(")");
+			script.append("new Wicket.yui.AnimValueGroup(").append("'").append(getTriggerId()).append("'").append(",")
+					.append(getAnimVar()).append(",").append(getElementId()).append(",").append(getElementValue())
+					.append(",").append(this.isAnimateOnValue).append(")");
 
 			return script.toString();
 		}
