@@ -46,6 +46,13 @@ public class YuiDependencyResolver implements Serializable
         return null != url;
     }
     
+    public boolean hasCssAsset(String module, String path, String skin)
+    {
+        String asset = path + "/assets/skins/" + skin +"/"+ module + ".css";
+        URL url = getClass().getResource(asset);
+        return null != url;
+    }
+    
     protected void fetchModuleDependencies(Set<String> deps, String module, String path)
     {
         String baseName = path + "/" + module + "/" + module;

@@ -33,13 +33,17 @@ public abstract class NameValuePair<T> extends TokenSeparatedValues
 	{
 	}
 
+	public T add(String element, String value) 
+	{
+		return add(element, value, true);
+	}
 	/**
 	 * 
 	 * @param element
 	 * @param value
 	 */
 	@SuppressWarnings("unchecked")
-	public T add(String element, String value) 
+	public T add(String element, String value, boolean wrap) 
 	{
 		if (isValid(element, value)) 
 		{
@@ -53,7 +57,7 @@ public abstract class NameValuePair<T> extends TokenSeparatedValues
 				}
 				catch (Exception e) 
 				{
-					value = wrapValue(value);
+					value = wrap ? wrapValue(value) : value;
 				}
 			}
 			propertyMap.put(element, value);

@@ -32,16 +32,15 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
     
     List<YuiModuleHeaderContributor> contributors = new ArrayList<YuiModuleHeaderContributor>();
     
-
     @Override
     public IHeaderContributor[] getHeaderContributors()
     {
         return contributors.toArray(new IHeaderContributor[]{});
     }
     
-    private void addModuleHeaderContributor(String name, String build, boolean debug)
+    private void addModuleHeaderContributor(String name, String build, boolean debug, String skin)
     {
-        contributors.add(new YuiModuleHeaderContributor(name, build, debug));
+        contributors.add(new YuiModuleHeaderContributor(name, build, debug, skin));
     }
     
     public static YuiHeaderContributor forModule(String module) {
@@ -57,37 +56,43 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
         return forModule(name, optionalDependencies, debug, DEFAULT_YUI_BUILD);
     }
     
+    
     public static YuiHeaderContributor forModule(String name, String[] optionalDependencies, boolean debug, String build)
+    {
+    	return forModule(name, optionalDependencies, debug, build, null);
+    }
+    
+    public static YuiHeaderContributor forModule(String name, String[] optionalDependencies, boolean debug, String build, String skin)
     {
         YuiHeaderContributor yhc = new YuiHeaderContributor();
         Set<String> dependencies = dependencyResolver.resolveDependencies(name, YUI_BUILD_ROOT + "/" + build);
         for (String dep : dependencies) {
-            yhc.addModuleHeaderContributor(dep, build, debug);
+            yhc.addModuleHeaderContributor(dep, build, debug, skin);
         }
         if(null != optionalDependencies && optionalDependencies.length != 0) {
             for (String opts : optionalDependencies) {
-                yhc.addModuleHeaderContributor(opts, build, debug);
+                yhc.addModuleHeaderContributor(opts, build, debug, skin);
             }
         }
         
-        yhc.addModuleHeaderContributor(name, build, debug);
+        yhc.addModuleHeaderContributor(name, build, debug, skin);
         
         return yhc;
     }
-    
+
     class YuiModuleHeaderContributor implements IHeaderContributor 
     {
         private final String name;
         private final String build;
         private final boolean debug;
+        private final String skin;
         
-        
-        
-        public YuiModuleHeaderContributor(String name, String build, boolean debug)
+        public YuiModuleHeaderContributor(String name, String build, boolean debug, String skin)
         {
             this.name = name;
             this.build = build;
             this.debug = debug;
+            this.skin = skin;
         }
 
 
@@ -138,17 +143,36 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
                     YuiHeaderContributor.this.moduleCache.put(path, moduleScript);
                 }
                 response.renderJavascriptReference(moduleScript);
-                if (dependencyResolver.hasCssAsset(name, YUI_BUILD_ROOT + "/" + build)) {
-                    final String assetPath = YUI_BUILD_ROOT + "/" + build + "/" + name + "/assets/" + name + ".css";
+                
+                // use skin...
+                
+                if ((skin != null) && (dependencyResolver.hasCssAsset(name, YUI_BUILD_ROOT + "/" + build, skin)))
+                {
+                    final String assetPath = YUI_BUILD_ROOT + "/" + build + "/assets/skins/" + skin + "/"+ name + ".css";
                     final ResourceReference assetRef;
-                    if (YuiHeaderContributor.this.moduleCache.containsKey(assetPath)) {
+                    if (YuiHeaderContributor.this.moduleCache.containsKey(assetPath))
+                    {
                         assetRef = YuiHeaderContributor.this.moduleCache.get(assetPath);
                     } else {
                         assetRef = new CompressedResourceReference(YuiHeaderContributor.class, assetPath);
                         YuiHeaderContributor.this.moduleCache.put(assetPath, assetRef);
                     }
-
                     response.renderCSSReference(assetRef, "screen");
+                }
+                else
+                {
+	                if (dependencyResolver.hasCssAsset(name, YUI_BUILD_ROOT + "/" + build)) {
+	                    final String assetPath = YUI_BUILD_ROOT + "/" + build + "/" + name + "/assets/" + name + ".css";
+	                    final ResourceReference assetRef;
+	                    if (YuiHeaderContributor.this.moduleCache.containsKey(assetPath)) {
+	                        assetRef = YuiHeaderContributor.this.moduleCache.get(assetPath);
+	                    } else {
+	                        assetRef = new CompressedResourceReference(YuiHeaderContributor.class, assetPath);
+	                        YuiHeaderContributor.this.moduleCache.put(assetPath, assetRef);
+	                    }
+	
+	                    response.renderCSSReference(assetRef, "screen");
+	                }
                 }
             } else {
                 log.error("Unable to find realName for Yui Module " + name);
@@ -157,5 +181,4 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
         }
         
     }
-
 }
