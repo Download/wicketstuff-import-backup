@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Carousel Example</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+#carousel_1 .yui-carousel-element li {
+	height: 200px;
+	text-align: left;
+}
+
+#carousel_1 {
+	font-size: 13px;
+	margin: 0 auto;
+}
+
+#carousel_1 .item {
+	display: inline;
+	margin: 10px 20px;
+	overflow: hidden;
+	padding: 0 20px;
+	width: 300px;
+}
+
+#carousel_1 .yui-carousel-item-selected {
+	outline: none;
+	border: 0 solid #DDDDDD;
+}
+
+/* customise sam skin with my own */
+.yui-skin-sam .yui-carousel,
+.yui-skin-sam .yui-carousel-vertical {
+    border: 1px solid #808080;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav {
+    background: url(/wicket-contrib-yui-examples/images/carousel_sprite.png) repeat-x 0 0;
+    padding: 3px;
+    text-align: right;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-button {
+    background: url(/wicket-contrib-yui-examples/images/carousel_sprite.png) no-repeat 0 -500px;
+    float: right;
+    height: 19px;
+    margin: 5px;
+    overflow: hidden;
+    width: 40px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-vertical .yui-carousel-button {
+    background-position: 0 -800px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-button-disabled {
+    background-position: 0 -550px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-vertical .yui-carousel-button-disabled {
+    background-position: 0 -2100px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-button input {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    height: 44px;
+    margin: -2px 0 0 -2px;
+    padding: 0 0 0 50px;
+}
+
+#carousel_1 .yui-skin-sam span.yui-carousel-first-button {
+    background-position: 0px -450px;
+    margin-left: -100px;
+    margin-right: 35px;
+   *margin: 5px 5px 5px -90px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-vertical span.yui-carousel-first-button {
+    background-position: 0px -750px;
+}
+
+#carousel_1 .yui-skin-sam span.yui-carousel-first-button-disabled {
+    background-position: 0 -1950px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-vertical span.yui-carousel-first-button-disabled {
+    background-position: 0 -2050px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul {
+    float: right;
+    margin: 0;
+    margin-left: -220px;
+    margin-right: 100px;
+   *margin-left: -160px;
+   *margin-right: 0;
+    padding: 0;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav select {
+    position: relative;
+   *right: 50px;
+    top: 4px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-vertical .yui-carousel-nav ul,
+#carousel_1 .yui-skin-sam .yui-carousel-vertical .yui-carousel-nav select {
+    float: none;
+    margin: 0;
+   *zoom: 1;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul li {
+    float: left;
+    height: 19px;
+    list-style: none;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul:after {
+    clear: both;
+    content: "";
+    display: block;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul li a {
+    background: url(/wicket-contrib-yui-examples/images/carousel_sprite.png) no-repeat 0 -650px;
+    display: block;
+    height: 9px;
+    margin: 10px 0 0 5px;
+    overflow: hidden;
+    width: 9px;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul li a em {
+    left: -10000px;
+    position: absolute;
+}
+
+#carousel_1 .yui-skin-sam .yui-carousel-nav ul li.yui-carousel-nav-page-selected a {
+    background-position: 0 -700px;
+}
+</style>
+</head>
+
+<body>
+<span wicket:id="mainNavigation" />
+
+<br />
+
+<table>
+    <tr>
+        <td align="left" valign="top">
+        <ol>
+            <li>anything more than 5 will change the navigation to a drop down</li>
+        </ol>
+        </td>
+        <td>
+        <div id="carousel_1" wicket:id="carousel"></div>
+        </td>
+    </tr>
+</table>
+
+
+
+
+</body>
+</html>
