@@ -74,7 +74,7 @@ public class SliderSettings implements Serializable {
 
 	public static SliderSettings getDefault(int leftUp, int rightDown, int tick) {
 		ResourceReference background = new ResourceReference(Slider.class,
-				"style/bg.gif");
+				"style/bg.png");
 		ResourceReference thumb = new ResourceReference(Slider.class,
 				"style/thumb.png");
 		ResourceReference leftCorner = new ResourceReference(Slider.class,
