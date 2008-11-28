@@ -20,9 +20,14 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.inmethod</groupId>
-	<artifactId>grid-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<parent>
+		<groupId>org.wicketstuff</groupId>
+		<artifactId>core-parent</artifactId>
+		<version>1.4-SNAPSHOT</version>
+	</parent>
+
+	<groupId>org.wicketstuff</groupId>
+	<artifactId>inmethod-grid-parent</artifactId>
 	<packaging>pom</packaging>
 
 	<name>InMethod Grid Parent</name>
@@ -30,16 +35,17 @@
 		Advanced grid components for Apache Wicket
 	</description>
 
+	<modules>
+		<module>inmethod-grid</module>
+		<module>inmethod-grid-examples</module>
+	</modules>
+
 	<profiles>
 		<profile>
 			<id>bamboo</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<modules>
-				<module>grid</module>
-				<module>grid-examples</module>
-			</modules>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>repo</id>
@@ -56,10 +62,6 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			<modules>
-				<module>grid</module>
-				<module>grid-examples</module>
-			</modules>
 			<build>
 				<plugins>
 					<plugin>
@@ -107,10 +109,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<modules>
-				<module>grid</module>
-				<module>grid-examples</module>
-			</modules>
 		</profile>
 	</profiles>
 
@@ -140,20 +138,6 @@
 		<url>http://wicketstuff.org/bamboo</url>
 	</ciManagement>
 
-	<scm>
-		<connection>
-			scm:svn:http://wicket-stuff.svn.sourceforge.net/svnroot/wicket-stuff/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://wicket-stuff.svn.sourceforge.net/svnroot/wicket-stuff/trunk
-		</developerConnection>
-		<url>
-			http://wicket-stuff.svn.sourceforge.net/svnroot/wicket-stuff/trunk/
-		</url>
-	</scm>
-
-	<mailingLists></mailingLists>
-
 	<repositories>
 		<repository>
 			<id>WicketStuff</id>
@@ -168,33 +152,21 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.inmethod</groupId>
-				<artifactId>grid</artifactId>
-				<version>${grid.version}</version>
+				<groupId>org.wicketstuff</groupId>
+				<artifactId>inmethod-grid</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-
 	<dependencies>
-
-		<!--  WICKET DEPENDENCIES -->
-
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-
+		<!-- ADDITIONAL WICKET DEPENDENCIES -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version>
 		</dependency>
 
-
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -215,7 +187,6 @@
 		</dependency>
 
 		<!--  JETTY DEPENDENCIES FOR TESTING  -->
-
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>jetty</artifactId>
@@ -236,8 +207,6 @@
 		</dependency>
 
 	</dependencies>
-
-
 
 	<build>
 		<extensions>
@@ -518,8 +487,6 @@
 	</reporting>
 
 	<properties>
-		<grid.version>1.0.0-SNAPSHOT</grid.version>
-		<wicket.version>1.4-SNAPSHOT</wicket.version>
 		<jetty.version>6.1.4</jetty.version>
 	</properties>
 </project>
