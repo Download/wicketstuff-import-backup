@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.wicketstuff</groupId>
-		<artifactId>wicketstuff-parent</artifactId>
+		<artifactId>jquery-parent</artifactId>
 		<version>1.4-SNAPSHOT</version>
 	</parent>
-	<groupId>org.wicketstuff</groupId>
-	<artifactId>wicketstuff-jquery-examples</artifactId>
-	<version>1.4-SNAPSHOT</version>
+	
+	<artifactId>jquery-examples</artifactId>
 	<packaging>war</packaging>
-	<name>${artifactId}</name>
+
+	<name>JQuery Integration - Examples</name>
+
 	<developers>
 		<developer>
 			<id>dwayneb</id>
@@ -23,6 +26,7 @@
 			<name>Xavier Hanin</name>
 		</developer>
 	</developers>
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -32,6 +36,7 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
+			<version>2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -41,16 +46,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl104-over-slf4j</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>${wicket.version}</version>
+			<version>1.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version>
 		</dependency>
 <!-- Test -->
 		<dependency>
@@ -76,10 +76,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
@@ -94,14 +90,6 @@
 					</connectors>
 				</configuration>
 			</plugin>
-			<plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>RELEASE</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
 		</plugins>
 	</build>
 </project>
