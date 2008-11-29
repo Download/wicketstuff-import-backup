@@ -41,7 +41,7 @@ public class SortableListPage extends WicketExamplePage
 			protected void onDrop(AjaxRequestTarget target, Component component, int index)
 			{
 				Component label = ((MarkupContainer) component).get("label");
-				String value = label.getModelObjectAsString();
+				String value = label.getDefaultModelObjectAsString();
 				choices.remove(value);
 				choices.add(index, value);
 				target.addComponent(serverState);
