@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.IHeaderContributor;
@@ -46,9 +47,10 @@ import org.wicketstuff.yui.YuiHeaderContributor;
  * @author Eelco Hillenius
  * @author Joshua Lim
  */
-public class Slider extends Panel implements IHeaderContributor {
+public class Slider extends Panel implements IHeaderContributor
+{
 	private static final long serialVersionUID = 1L;
-	
+
 	/** Ref to CSS file */
 	private static final ResourceReference CSS = new ResourceReference(Slider.class, "css/slider.css");
 
@@ -68,21 +70,21 @@ public class Slider extends Panel implements IHeaderContributor {
 	private String javaScriptId;
 
 	/**
-	 * the form Element that holds the value for the slider, ususally a Textfield
-	 * or a Hidden Field.
+	 * the form Element that holds the value for the slider, ususally a
+	 * Textfield or a Hidden Field.
 	 */
 	private FormComponent element;
-	
+
 	/**
-	 * default divisor to divide the slider value by so that you can get a nicer range
-	 * of numbers and not limited by the pixel size
+	 * default divisor to divide the slider value by so that you can get a nicer
+	 * range of numbers and not limited by the pixel size
 	 */
 	private float divisor;
-    
-    /**
-     * the slider settings 
-     */
-    SliderSettings sliderSettings;
+
+	/**
+	 * the slider settings
+	 */
+	SliderSettings sliderSettings;
 
 	/**
 	 * logger
@@ -91,13 +93,14 @@ public class Slider extends Panel implements IHeaderContributor {
 
 	/**
 	 * Construct
+	 * 
 	 * @param id
 	 * @param model
 	 * @param element
 	 * @param settings
 	 */
-	public Slider(String id, IModel model, final FormComponent element,
-			final SliderSettings settings) {
+	public Slider(String id, IModel model, final FormComponent element, final SliderSettings settings)
+	{
 		this(id, model, element, settings, 1);
 	}
 
@@ -108,26 +111,30 @@ public class Slider extends Panel implements IHeaderContributor {
 	 * @param element
 	 * @param settings
 	 * @param divisor
-	 * 			Use this float to divide out the pixel value to give a nicer value
-	 * 			e.g. the total size in pixel specified in the SliderSettings is 300 pixels (from -150 to 150)
-	 * 			and you want the values of the slider to be -15 to 15 then the divisor will be 10.
-	 * 			the default divisor is 1 so that the orignal value is retained
+	 *            Use this float to divide out the pixel value to give a nicer
+	 *            value e.g. the total size in pixel specified in the
+	 *            SliderSettings is 300 pixels (from -150 to 150) and you want
+	 *            the values of the slider to be -15 to 15 then the divisor will
+	 *            be 10. the default divisor is 1 so that the orignal value is
+	 *            retained
 	 */
-	public Slider(String id, IModel model, final FormComponent element,
-			final SliderSettings settings, float divisor) {
+	@SuppressWarnings("serial")
+	public Slider(String id, IModel model, final FormComponent element, final SliderSettings settings, float divisor)
+	{
 		super(id, model);
-		
-        this.sliderSettings = settings;
-        add(YuiHeaderContributor.forModule("animation"));
+
+		this.sliderSettings = settings;
+		add(YuiHeaderContributor.forModule("animation"));
 		add(YuiHeaderContributor.forModule("slider"));
 		add(HeaderContributor.forCss(getCSS()));
 
 		this.divisor = divisor;
-		
+
 		/*
 		 * default settings if null
 		 */
-		if (settings == null) {
+		if (settings == null)
+		{
 			// error
 		}
 
@@ -138,7 +145,8 @@ public class Slider extends Panel implements IHeaderContributor {
 			this.element = element;
 		}
 
-		IModel variablesModel = new AbstractReadOnlyModel() {
+		IModel variablesModel = new AbstractReadOnlyModel()
+		{
 			private static final long serialVersionUID = 1L;
 
 			/** cached variables; we only need to fill this once. */
@@ -148,8 +156,10 @@ public class Slider extends Panel implements IHeaderContributor {
 			 * @see wicket.model.AbstractReadOnlyModel#getObject(wicket.Component)
 			 */
 			@Override
-			public Object getObject() {
-				if (variables == null) {
+			public Object getObject()
+			{
+				if (variables == null)
+				{
 					this.variables = new HashMap<String, Object>(8);
 					variables.put("javaScriptId", javaScriptId);
 					variables.put("backGroundElementId", backgroundElementId);
@@ -165,84 +175,90 @@ public class Slider extends Panel implements IHeaderContributor {
 			}
 		};
 
-		add(TextTemplateHeaderContributor.forJavaScript(Slider.class,
-				"init.js", variablesModel));
+		add(TextTemplateHeaderContributor.forJavaScript(Slider.class, "init.js", variablesModel));
 
 		/*
 		 * LEFT Corner Images & Tick Marks
 		 */
 
-		Image leftTickImg = new Image("leftTickImg", settings
-				.getLeftTickResource());
-		leftTickImg.add(new AttributeModifier("onclick", true,
-				new AbstractReadOnlyModel() {
+		Image leftTickImg = new Image("leftTickImg", settings.getLeftTickResource());
+		leftTickImg.add(new AttributeModifier("onclick", true, new AbstractReadOnlyModel()
+		{
 
-					private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public Object getObject() {
-						return javaScriptId + ".setValue(" + javaScriptId
-								+ ".getXValue() - " + settings.getTick() + ");";
-					}
-				}));
+			@Override
+			public Object getObject()
+			{
+				return javaScriptId + ".setValue(" + javaScriptId + ".getXValue() - " + settings.getTick() + ");";
+			}
+		}));
 		add(leftTickImg.setVisible(settings.isShowTicks()));
 
-		Image leftCornerImg = new Image("leftCornerImg", settings
-				.getLeftCornerResource());
-		leftCornerImg.add(new AttributeModifier("onclick", true,
-				new AbstractReadOnlyModel() {
-					private static final long serialVersionUID = 1L;
+		Image leftCornerImg = new Image("leftCornerImg", settings.getLeftCornerResource());
+		leftCornerImg.add(new AttributeModifier("onclick", true, new AbstractReadOnlyModel()
+		{
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public Object getObject() {
-						return javaScriptId + ".setValue(-"
-								+ settings.getLeftUp() + ")";
-					}
-				}));
+			@Override
+			public Object getObject()
+			{
+				return javaScriptId + ".setValue(-" + settings.getLeftUp() + ")";
+			}
+		}));
 		add(leftCornerImg);
 
 		/*
 		 * RIGHT Corner Images & Tick Marks
 		 */
 
-		Image rightCornerImg = new Image("rightCornerImg", settings
-				.getRightCornerResource());
-		rightCornerImg.add(new AttributeModifier("onclick", true,
-				new AbstractReadOnlyModel() {
-					private static final long serialVersionUID = 1L;
+		Image rightCornerImg = new Image("rightCornerImg", settings.getRightCornerResource());
+		rightCornerImg.add(new AttributeModifier("onclick", true, new AbstractReadOnlyModel()
+		{
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public Object getObject() {
-						return javaScriptId + ".setValue("
-								+ settings.getRightDown() + ")";
-					}
-				}));
+			@Override
+			public Object getObject()
+			{
+				return javaScriptId + ".setValue(" + settings.getRightDown() + ")";
+			}
+		}));
 		add(rightCornerImg);
 
-		Image rightTickImg = new Image("rightTickImg", settings
-				.getRightTickResource());
-		rightTickImg.add(new AttributeModifier("onclick", true,
-				new AbstractReadOnlyModel() {
-					private static final long serialVersionUID = 1L;
+		Image rightTickImg = new Image("rightTickImg", settings.getRightTickResource());
+		rightTickImg.add(new AttributeModifier("onclick", true, new AbstractReadOnlyModel()
+		{
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public Object getObject() {
-						return javaScriptId + ".setValue(" + javaScriptId
-								+ ".getXValue() + " + settings.getTick() + ");";
-					}
-				}));
+			@Override
+			public Object getObject()
+			{
+				return javaScriptId + ".setValue(" + javaScriptId + ".getXValue() + " + settings.getTick() + ");";
+			}
+		}));
 		add(rightTickImg.setVisible(settings.isShowTicks()));
 
 		/*
 		 * Background Div
 		 */
 
-		WebMarkupContainer backgroundElement = new WebMarkupContainer(
-				"backgroundDiv");
-		backgroundElement.add(new AttributeModifier("id", true,
-				new PropertyModel(this, "backgroundElementId")));
-		backgroundElement.add(new AttributeModifier("style", true, new Model(
-				settings.getBackground().getStyle())));
+		WebMarkupContainer backgroundElement = new WebMarkupContainer("backgroundDiv");
+		backgroundElement.add(new AttributeModifier("id", true, new PropertyModel(this, "backgroundElementId")));
+		backgroundElement.add(new AttributeModifier("style", true, new AbstractReadOnlyModel()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Object getObject()
+			{
+
+				settings.getBackground().add("background",
+						"url(" + RequestCycle.get().urlFor(settings.getBackgroundResource()) + ") repeat-x");
+
+				return settings.getBackground().getStyle();
+			}
+
+		}));
 		add(backgroundElement);
 
 		/*
@@ -250,14 +266,22 @@ public class Slider extends Panel implements IHeaderContributor {
 		 */
 
 		WebMarkupContainer imageElement = new WebMarkupContainer("handleDiv");
-		imageElement.add(new AttributeModifier("id", true, new PropertyModel(
-				this, "imageElementId")));
-		imageElement.add(new AttributeModifier("style", true, new Model(
-				settings.getHandle().getStyle())));
+		imageElement.add(new AttributeModifier("id", true, new PropertyModel(this, "imageElementId")));
+		imageElement.add(new AttributeModifier("style", true, new Model(settings.getHandle().getStyle())));
 
 		WebMarkupContainer thumbElement = new WebMarkupContainer("thumbDiv");
-		thumbElement.add(new AttributeModifier("style", true, new Model(
-				settings.getThumb().getStyle())));
+		thumbElement.add(new AttributeModifier("style", true, new AbstractReadOnlyModel()
+		{
+
+			@Override
+			public Object getObject()
+			{
+				settings.getThumb().add("background",
+						"url(" + RequestCycle.get().urlFor(settings.getThumbResource()) + ") no-repeat");
+				return settings.getThumb().getStyle();
+			}
+
+		}));
 
 		imageElement.add(thumbElement);
 		backgroundElement.add(imageElement);
@@ -275,10 +299,10 @@ public class Slider extends Panel implements IHeaderContributor {
 	 * @param element
 	 */
 
-	public Slider(String id, IModel model, final int leftUp,
-			final int rightDown, final int tick, final FormComponent element) {
-		this(id, model, element, SliderSettings.getDefault(leftUp, rightDown,
-				tick));
+	public Slider(String id, IModel model, final int leftUp, final int rightDown, final int tick,
+			final FormComponent element)
+	{
+		this(id, model, element, SliderSettings.getDefault(leftUp, rightDown, tick));
 	}
 
 	/**
@@ -286,7 +310,8 @@ public class Slider extends Panel implements IHeaderContributor {
 	 * 
 	 * @return backgroundElementId
 	 */
-	public final String getBackgroundElementId() {
+	public final String getBackgroundElementId()
+	{
 		return backgroundElementId;
 	}
 
@@ -295,42 +320,48 @@ public class Slider extends Panel implements IHeaderContributor {
 	 * 
 	 * @return imageElementId
 	 */
-	public final String getImageElementId() {
+	public final String getImageElementId()
+	{
 		return imageElementId;
 	}
 
 	/**
 	 * @see org.apache.wicket.markup.html.IHeaderContributor#renderHead(org.apache.wicket.markup.html.IHeaderResponse)
 	 */
-	public void renderHead(IHeaderResponse response) {
-        Integer value = (Integer) this.element.getModelObject();
-        
-        if (value == null)
-        	value = (Integer) this.element.getConvertedInput();
-        
-        if (value == null) 
-            value = getSliderSettings().getStartValue();
-        
+	public void renderHead(IHeaderResponse response)
+	{
+		Integer value = (Integer)this.element.getModelObject();
+
+		if (value == null)
+			value = (Integer)this.element.getConvertedInput();
+
+		if (value == null)
+			value = getSliderSettings().getStartValue();
+
 		response.renderOnLoadJavascript("init" + javaScriptId + "(" + value + ");");
 	}
 
 	/**
 	 * TODO implement
 	 */
-	public void updateModel() {
+	public void updateModel()
+	{
 		log.info("updateModel");
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apache.wicket.Component#onAttach()
 	 */
 	@Override
-	protected void onBeforeRender() {
+	protected void onBeforeRender()
+	{
 		super.onBeforeRender();
-		
+
 		// initialize lazily
-		if (backgroundElementId == null) {
+		if (backgroundElementId == null)
+		{
 			// assign the markup id
 			String id = getMarkupId();
 			backgroundElementId = id + "Bg";
@@ -339,7 +370,7 @@ public class Slider extends Panel implements IHeaderContributor {
 		}
 	}
 
-	
+
 	public float getDivisor()
 	{
 		return divisor;
@@ -350,19 +381,19 @@ public class Slider extends Panel implements IHeaderContributor {
 		this.divisor = divisor;
 	}
 
-    protected ResourceReference getCSS()
-    {
-        return CSS;
-    }
+	protected ResourceReference getCSS()
+	{
+		return CSS;
+	}
 
-    public SliderSettings getSliderSettings()
-    {
-        return sliderSettings;
-    }
+	public SliderSettings getSliderSettings()
+	{
+		return sliderSettings;
+	}
 
-    public void setSliderSettings(SliderSettings sliderSettings)
-    {
-        this.sliderSettings = sliderSettings;
-    }
+	public void setSliderSettings(SliderSettings sliderSettings)
+	{
+		this.sliderSettings = sliderSettings;
+	}
 
 }
