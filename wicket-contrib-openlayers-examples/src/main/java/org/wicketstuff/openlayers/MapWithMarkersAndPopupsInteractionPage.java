@@ -28,23 +28,23 @@ public class MapWithMarkersAndPopupsInteractionPage extends WebPage {
 		OpenLayersMap openLayersMap = new OpenLayersMap("map");
 		add(openLayersMap);
 		Marker marker = new Marker(new LonLat(50, 50), new PopupPanel(
-				"Hello Marker 1"));
+				"Hello non-centering Marker 1"));
 		openLayersMap.addOverlay(marker);
 
 		WebMarkupContainer popupClicker = new WebMarkupContainer("openPop1");
 
 		popupClicker.add(new PopupMarkerInfoAttributeAppender("onClick", ";",
-				marker, openLayersMap));
+				marker, false, openLayersMap));
 
 		add(popupClicker);
 
 		marker = new Marker(new LonLat(100, 50), new PopupPanel(
-				"Hello Marker 2"));
+				"Hello centering Marker 2"));
 		openLayersMap.addOverlay(marker);
 		popupClicker = new WebMarkupContainer("openPop2");
 
 		popupClicker.add(new PopupMarkerInfoAttributeAppender("onClick", ";",
-				marker, openLayersMap));
+				marker, true, openLayersMap));
 
 		add(popupClicker);
 
