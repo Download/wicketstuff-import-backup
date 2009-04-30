@@ -18,13 +18,18 @@ public class PopupMarkerInfoAttributeAppender extends AttributeAppender {
 	private static final long serialVersionUID = 1L;
 	private final IModel appendModel;
 
-	public PopupMarkerInfoAttributeAppender(String attribute, String separator, Marker marker, OpenLayersMap map) {
+	public PopupMarkerInfoAttributeAppender(String attribute, String separator, Marker marker, boolean centerOnMapOnMarker, OpenLayersMap map) {
 		super(attribute, new Model(), separator);
 		appendModel = this.getReplaceModel();
 		String markerId=marker.getId();
 		String callBackUrl=map.getCallbackListener().getCallBackForMarker(marker);
-		
-		appendModel.setObject( map.getJSinvoke("popupInfo('"+callBackUrl+"',"+map.getJSinvokeNoLineEnd("getMarker("+markerId+")")+","+map.getJSInstance()+", null)"));
+		String jsString = "";
+		if(centerOnMapOnMarker)
+		{
+			//don't change the zoomlevel
+			 jsString = map.getJSInstance()+".map.setCenter("+marker.getLonLat()+","+map.getJSInstance()+".map.getZoom(), false, false);";
+		}
+		appendModel.setObject( jsString + map.getJSinvoke("popupInfo('"+callBackUrl+"',"+map.getJSinvokeNoLineEnd("getMarker("+markerId+")")+","+map.getJSInstance()+", null)"));
 		
 	}
 
