@@ -33,7 +33,7 @@ public class YuiMenuGroup extends Panel {
 	public YuiMenuGroup(String wicketId, final String elementId) {
 		super(wicketId);
 
-		add(YuiHeaderContributor.forModule("menu", null, false, "2.5.2"));		
+		add(YuiHeaderContributor.forModule("menu", null, false));		
 		setRenderBodyOnly(true);
 		WebMarkupContainer mg = new WebMarkupContainer(MENU_GROUP_ID) {
 			protected void onComponentTag(ComponentTag tag) {

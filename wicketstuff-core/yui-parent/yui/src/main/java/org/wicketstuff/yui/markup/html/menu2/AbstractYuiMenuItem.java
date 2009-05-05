@@ -59,10 +59,13 @@ public abstract class AbstractYuiMenuItem extends Panel
     {
         if(null == menuPath) {
             AbstractYuiMenuItem p = (AbstractYuiMenuItem) findParent(AbstractYuiMenuItem.class);
+            AbstractYuiMenu aym = (AbstractYuiMenu) findParent(AbstractYuiMenu.class);
             if(p != null) {
-                menuPath = new YuiMenuPath(getIndex(), getGroupIndex(),p.getMenuPath(), null);
+            	if(aym.findParent(AbstractYuiMenuItem.class) != p)
+            		menuPath = new YuiMenuPath(getIndex(), getGroupIndex(),p.getMenuPath(), null);
+            	else
+            		menuPath = new YuiMenuPath(getIndex(), getGroupIndex(), null, aym.getMenuName());
             } else {
-                AbstractYuiMenu aym = (AbstractYuiMenu) findParent(AbstractYuiMenu.class);
                 if(aym != null) {
                     menuPath = new YuiMenuPath(getIndex(), getGroupIndex(), null, aym.getMenuName());
                 } else {

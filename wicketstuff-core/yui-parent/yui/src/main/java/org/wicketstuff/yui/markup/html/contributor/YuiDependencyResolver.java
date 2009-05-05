@@ -54,7 +54,7 @@ public class YuiDependencyResolver implements Serializable
 	protected void fetchModuleDependencies(Set<String> deps, String module, String path)
 	{
 		String baseName = path + "/" + module + "/" + module;
-
+		
 		InputStream is = getClass().getResourceAsStream(baseName + ".js");
 
 		if (null == is)
