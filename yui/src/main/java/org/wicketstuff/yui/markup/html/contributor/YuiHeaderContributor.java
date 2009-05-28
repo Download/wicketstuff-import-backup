@@ -16,17 +16,18 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wicketstuff.yui.inc.YUI;
 
 public class YuiHeaderContributor extends AbstractHeaderContributor
 {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Logger log = LoggerFactory.getLogger(YuiHeaderContributor.class);
+	private static final Logger log = LoggerFactory.getLogger(YUI.class);
 
 	static final String DEFAULT_YUI_BUILD = "2.7.0b";
 
-	static final String YUI_BUILD_ROOT = "../../../inc";
+	static final String YUI_BUILD_ROOT = ".";
 
 	static final Map<String, ResourceReference> moduleCache = Collections
 			.synchronizedMap(new HashMap<String, ResourceReference>());
@@ -104,26 +105,26 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
 		{
 			final String fullPath = path + "/" + module + "/";
 
-			URL url = getClass().getResource(fullPath + module + "-min.js");
+			URL url = YUI.class.getResource(fullPath + module + "-min.js");
 			if (null != url)
 			{
 				return module + "-min";
 			}
 
-			url = getClass().getResource(fullPath + module + ".js");
+			url = YUI.class.getResource(fullPath + module + ".js");
 			if (null != url)
 			{
 				return module;
 			}
 
-			url = getClass().getResource(fullPath + module + "-beta.js");
+			url = YUI.class.getResource(fullPath + module + "-beta.js");
 
 			if (null != url)
 			{
 				return module + "-beta";
 			}
 
-			url = getClass().getResource(fullPath + module + "-experimental.js");
+			url = YUI.class.getResource(fullPath + module + "-experimental.js");
 
 			if (null != url)
 			{
@@ -157,11 +158,11 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
 				{
 					if (debug)
 					{
-						moduleScript = new ResourceReference(YuiHeaderContributor.class, path);
+						moduleScript = new ResourceReference(YUI.class, path);
 					}
 					else
 					{
-						moduleScript = new JavascriptResourceReference(YuiHeaderContributor.class,
+						moduleScript = new JavascriptResourceReference(YUI.class,
 								path);
 					}
 					YuiHeaderContributor.this.moduleCache.put(path, moduleScript);
@@ -178,7 +179,7 @@ public class YuiHeaderContributor extends AbstractHeaderContributor
 					}
 					else
 					{
-						assetRef = new CompressedResourceReference(YuiHeaderContributor.class,
+						assetRef = new CompressedResourceReference(YUI.class,
 								assetPath);
 						YuiHeaderContributor.this.moduleCache.put(assetPath, assetRef);
 					}

@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import org.apache.wicket.util.string.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wicketstuff.yui.inc.YUI;
 
 public class YuiDependencyResolver implements Serializable
 {
@@ -47,7 +48,7 @@ public class YuiDependencyResolver implements Serializable
 	public boolean hasCssAsset(String module, String path)
 	{
 		String asset = path + "/" + module + "/assets/" + module + ".css";
-		URL url = getClass().getResource(asset);
+		URL url = YUI.class.getResource(asset);
 		return null != url;
 	}
 
@@ -55,7 +56,7 @@ public class YuiDependencyResolver implements Serializable
 	{
 		String baseName = path + "/" + module + "/" + module;
 
-		InputStream is = getClass().getResourceAsStream(baseName + ".js");
+		InputStream is = YUI.class.getResourceAsStream(baseName + ".js");
 
 		if (null == is)
 		{
@@ -64,7 +65,7 @@ public class YuiDependencyResolver implements Serializable
 				log.debug("Unable to find " + baseName + ".js" + ". Trying beta...");
 			}
 
-			is = getClass().getResourceAsStream(baseName + "-beta.js");
+			is = YUI.class.getResourceAsStream(baseName + "-beta.js");
 			if (null == is)
 			{
 				if (log.isDebugEnabled())
@@ -74,7 +75,7 @@ public class YuiDependencyResolver implements Serializable
 				}
 
 
-				is = getClass().getResourceAsStream(baseName + "-experimental.js");
+				is = YUI.class.getResourceAsStream(baseName + "-experimental.js");
 				if (null == is)
 				{
 					if (log.isInfoEnabled())
