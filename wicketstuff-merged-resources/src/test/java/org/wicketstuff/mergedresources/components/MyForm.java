@@ -6,11 +6,7 @@ import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.Model;
-import org.wicketstuff.mergedresources.annotations.CssContribution;
-import org.wicketstuff.mergedresources.annotations.JsContribution;
 
-@JsContribution
-@CssContribution
 public class MyForm extends Form {
 
 	private static final long serialVersionUID = 1L;
