@@ -36,7 +36,7 @@ public class NewInterfaceTestApplication extends WebApplication
 
 			ResourceMount mount = new ResourceMount()
 				.setResourceVersionProvider(p)
-				.setDefaultAggresiveCacheDuration();
+				.setDefaultAggressiveCacheDuration();
 			
 			mount.clone()
 				.setPath("/style/all.css")
