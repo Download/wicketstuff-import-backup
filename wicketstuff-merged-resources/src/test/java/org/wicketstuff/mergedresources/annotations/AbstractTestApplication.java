@@ -1,4 +1,4 @@
-package org.wicketstuff.mergedresources;
+package org.wicketstuff.mergedresources.annotations;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -38,9 +38,9 @@ public abstract class AbstractTestApplication extends WebApplication
 	/**
 	 * @see wicket.Application#getHomePage()
 	 */
-	public Class<HomePage> getHomePage()
+	public Class<AnnotationHomePage> getHomePage()
 	{
-		return HomePage.class;
+		return AnnotationHomePage.class;
 	}
 
 	@Override
