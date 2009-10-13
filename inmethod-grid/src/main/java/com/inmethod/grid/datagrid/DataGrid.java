@@ -333,7 +333,7 @@ public class DataGrid<T extends Serializable> extends AbstractGrid<T> implements
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void onItemSelectionChanged(IModel item, boolean newValue) {
+	public void onItemSelectionChanged(IModel<T> item, boolean newValue) {
 		markItemDirty(item);
 	}
 

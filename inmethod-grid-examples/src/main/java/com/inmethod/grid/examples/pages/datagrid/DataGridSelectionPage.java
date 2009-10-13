@@ -36,21 +36,21 @@ public class DataGridSelectionPage extends BaseExamplePage {
 	 * Constructor.
 	 */
 	public DataGridSelectionPage() {
-		List<IGridColumn> columns = new ArrayList<IGridColumn>();
+		List<IGridColumn<Contact>> columns = new ArrayList<IGridColumn<Contact>>();
 
 		columns.add(new CheckBoxColumn("checkBox"));
-		columns.add(new PropertyColumn(new ResourceModel("id"), "id"));
-		columns.add(new PropertyColumn(new ResourceModel("firstName"), "firstName", "firstName"));
-		columns.add(new PropertyColumn(new ResourceModel("lastName"), "lastName", "lastName"));
-		columns.add(new PropertyColumn(new ResourceModel("homePhone"), "homePhone"));
-		columns.add(new PropertyColumn(new ResourceModel("cellPhone"), "cellPhone"));
+		columns.add(new PropertyColumn<Contact, String, Long>(new ResourceModel("id"), "id"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("firstName"), "firstName", "firstName"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("lastName"), "lastName", "lastName"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("homePhone"), "homePhone"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("cellPhone"), "cellPhone"));
 
-		final DataGrid grid = new DefaultDataGrid("grid", new ContactDataSource(), columns) {
+		final DataGrid<Contact> grid = new DefaultDataGrid<Contact>("grid", new ContactDataSource(), columns) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void onItemSelectionChanged(IModel item, boolean newValue) {
+			public void onItemSelectionChanged(IModel<Contact> item, boolean newValue) {
 				super.onItemSelectionChanged(item, newValue);
 
 				// when item selection changes the label showing selected items needs to be

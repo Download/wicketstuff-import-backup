@@ -20,7 +20,7 @@ import com.inmethod.grid.IRenderable;
  * 
  * @author Matej Knopp
  */
-public class PropertyColumn<T extends Serializable, H extends Serializable> extends AbstractLightWeightColumn<T, H>
+public class PropertyColumn<T extends Serializable, H extends Serializable, P> extends AbstractLightWeightColumn<T, H>
 {
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +109,7 @@ public class PropertyColumn<T extends Serializable, H extends Serializable> exte
      * @param escape
      * @return <code>this</code> (useful for method chaining)
      */
-    public PropertyColumn<T, H> setEscapeMarkup(boolean escape)
+    public PropertyColumn<T, H, P> setEscapeMarkup(boolean escape)
     {
         this.escapeMarkup = escape;
         return this;
@@ -127,12 +127,13 @@ public class PropertyColumn<T extends Serializable, H extends Serializable> exte
         return escapeMarkup;
     }
 
-    protected Object getProperty(Object object, String propertyExpression)
+    @SuppressWarnings("unchecked")
+	protected P getProperty(Object object, String propertyExpression)
     {
-        return PropertyResolver.getValue(propertyExpression, object);
+        return (P)PropertyResolver.getValue(propertyExpression, object);
     }
 
-    protected Object getModelObject(IModel<T> rowModel)
+    protected T getModelObject(IModel<T> rowModel)
     {
         return rowModel.getObject();
     }

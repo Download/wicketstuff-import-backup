@@ -12,6 +12,7 @@ import com.inmethod.grid.SizeUnit;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.datagrid.DataGrid;
 import com.inmethod.grid.datagrid.DefaultDataGrid;
+import com.inmethod.grid.examples.contact.Contact;
 import com.inmethod.grid.examples.pages.BaseExamplePage;
 
 /**
@@ -27,39 +28,39 @@ public class DataGridColumnPropertiesPage extends BaseExamplePage {
 	 * Constructor.
 	 */
 	public DataGridColumnPropertiesPage() {
-		List<IGridColumn> columns = new ArrayList<IGridColumn>();
+		List<IGridColumn<Contact>> columns = new ArrayList<IGridColumn<Contact>>();
 		
 		columns.add(
-			new PropertyColumn(new ResourceModel("id"), "id")
+			new PropertyColumn<Contact, String, Long>(new ResourceModel("id"), "id")
 				.setInitialSize(3)
 				.setSizeUnit(SizeUnit.EM)
 				.setResizable(false)
 				.setReorderable(false)
-				.setHeaderTooltipModel(new Model("Person Id"))
+				.setHeaderTooltipModel(new Model<String>("Person Id"))
 		);
 		
 		columns.add(
-			new PropertyColumn(new ResourceModel("firstName"), "firstName", "firstName")
+			new PropertyColumn<Contact, String, String>(new ResourceModel("firstName"), "firstName", "firstName")
 				.setReorderable(false)
 				.setInitialSize(200)
 				.setMinSize(100)
 				.setMaxSize(250)
-				.setHeaderTooltipModel(new Model("Person First Name"))
+				.setHeaderTooltipModel(new Model<String>("Person First Name"))
 		);
 		
-		columns.add(new PropertyColumn(new ResourceModel("lastName"), "lastName", "lastName") {
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("lastName"), "lastName", "lastName") {
 			private static final long serialVersionUID = 1L;
 			@Override
-			public String getCellCssClass(IModel rowModel, int rowNum) {
+			public String getCellCssClass(IModel<Contact> rowModel, int rowNum) {
 				return "lastName";
 			}
 		});
 		
 		columns.add(
-			new PropertyColumn(new ResourceModel("homePhone"), "homePhone") {
+			new PropertyColumn<Contact, String, String>(new ResourceModel("homePhone"), "homePhone") {
 				private static final long serialVersionUID = 1L;
 				@Override
-				public String getCellCssClass(IModel rowModel, int rowNum) {
+				public String getCellCssClass(IModel<Contact> rowModel, int rowNum) {
 					return "homePhone";
 				}
 			}
@@ -69,13 +70,13 @@ public class DataGridColumnPropertiesPage extends BaseExamplePage {
 		);
 
 		columns.add(
-			new PropertyColumn(new ResourceModel("cellPhone"), "cellPhone")
+			new PropertyColumn<Contact, String, String>(new ResourceModel("cellPhone"), "cellPhone")
 				.setInitialSize(10)
 				.setSizeUnit(SizeUnit.EM)
 				.setResizable(false)
 		);
 		
-		DataGrid grid = new DefaultDataGrid("grid", new ContactDataSource(), columns);
+		DataGrid<Contact> grid = new DefaultDataGrid<Contact>("grid", new ContactDataSource(), columns);
 		add(grid);
 		
 		grid.setRowsPerPage(15);

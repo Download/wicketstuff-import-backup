@@ -1,5 +1,7 @@
 package com.inmethod.grid.column.editable;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -10,11 +12,11 @@ import com.inmethod.grid.column.AbstractColumn;
 import com.inmethod.grid.common.Icons;
 import com.inmethod.icon.Icon;
 
-public class SubmitCancelColumn extends AbstractColumn {
+public class SubmitCancelColumn<T extends Serializable, H extends Serializable> extends AbstractColumn<T, H> {
 
 	private static final long serialVersionUID = 1L;
 
-	public SubmitCancelColumn(String columnId, IModel headerModel) {
+	public SubmitCancelColumn(String columnId, IModel<H> headerModel) {
 		super(columnId, headerModel);
 		
 		setResizable(false);
@@ -23,7 +25,7 @@ public class SubmitCancelColumn extends AbstractColumn {
 	}
 
 	@Override
-	public Component newCell(WebMarkupContainer parent, String componentId, final IModel rowModel) {
+	public Component newCell(WebMarkupContainer parent, String componentId, final IModel<T> rowModel) {
 		return new SubmitCancelPanel(componentId, rowModel, getGrid()) {
 			
 			private static final long serialVersionUID = 1L;
@@ -65,23 +67,23 @@ public class SubmitCancelColumn extends AbstractColumn {
 		return Icons.CANCEL;
 	}
 
-	protected void onCancel(AjaxRequestTarget target, IModel rowModel, WebMarkupContainer rowComponent) {
+	protected void onCancel(AjaxRequestTarget target, IModel<T> rowModel, WebMarkupContainer rowComponent) {
 		getGrid().setItemEdit(rowModel, false);
 		getGrid().update();
 	}
 	
-	protected void onError(AjaxRequestTarget target, IModel rowModel, WebMarkupContainer rowComponent) {
+	protected void onError(AjaxRequestTarget target, IModel<T> rowModel, WebMarkupContainer rowComponent) {
 		// just update the row
 		target.addComponent(rowComponent);
 	}
 	
-	protected void onSubmitted(AjaxRequestTarget target, IModel rowModel, WebMarkupContainer rowComponent) {
+	protected void onSubmitted(AjaxRequestTarget target, IModel<T> rowModel, WebMarkupContainer rowComponent) {
 		getGrid().setItemEdit(rowModel, false);
 		getGrid().update();		
 	}
 
 	@Override
-	public boolean cellClicked(IModel rowModel) {
+	public boolean cellClicked(IModel<T> rowModel) {
 		if (getGrid().isClickRowToSelect() && getGrid().isSelectToEdit()) {
 			return false;
 		} else {
@@ -92,7 +94,7 @@ public class SubmitCancelColumn extends AbstractColumn {
 	}
 
 	@Override
-	public String getCellCssClass(IModel rowModel, int rowNum) {
+	public String getCellCssClass(IModel<T> rowModel, int rowNum) {
 		return getGrid().isItemEdited(rowModel) ? "imxt-edit" : "imxt-want-prelight imxt-edit";
 	}
 	

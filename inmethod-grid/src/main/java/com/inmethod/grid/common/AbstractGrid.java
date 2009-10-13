@@ -641,7 +641,7 @@ public abstract class AbstractGrid<T extends Serializable> extends Panel impleme
 	 *            <code>true</code> if the item became selected,
 	 *            <code>false</code> otherwise.
 	 */
-	protected void onItemSelectionChanged(IModel item, boolean newValue) {
+	protected void onItemSelectionChanged(IModel<T> item, boolean newValue) {
 
 	}
 
