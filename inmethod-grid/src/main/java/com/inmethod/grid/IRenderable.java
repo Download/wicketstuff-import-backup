@@ -1,5 +1,7 @@
 package com.inmethod.grid;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Response;
 import org.apache.wicket.model.IModel;
 
@@ -9,7 +11,7 @@ import org.apache.wicket.model.IModel;
  * @see IGridColumn#isLightWeight(IModel)
  * @author Matej Knopp
  */
-public interface IRenderable {
+public interface IRenderable<T extends Serializable> {
 
 	/**
 	 * Renders the output for given cell model. The implementation must take care of proper escaping
@@ -19,6 +21,6 @@ public interface IRenderable {
 	 *            model for given row
 	 * @param response
 	 */
-	public void render(IModel rowModel, Response response);
+	public void render(IModel<T> rowModel, Response response);
 
 }

@@ -1,5 +1,6 @@
 package com.inmethod.grid.common;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -13,7 +14,7 @@ import com.inmethod.grid.IGridColumn;
  * @see ColumnsHeaderRepeater  
  * @author Matej Knopp
  */
-public abstract class ColumnsHeader extends Panel {
+public abstract class ColumnsHeader<T extends Serializable> extends Panel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,17 +27,17 @@ public abstract class ColumnsHeader extends Panel {
 
 		setRenderBodyOnly(true);
 		
-		add(new ColumnsHeaderRepeater("header") {
+		add(new ColumnsHeaderRepeater<T>("header") {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			Collection<IGridColumn> getActiveColumns() {
+			Collection<IGridColumn<T>> getActiveColumns() {
 				return ColumnsHeader.this.getActiveColumns();
 			}
 
 			@Override
-			int getColumnWidth(IGridColumn column) {
+			int getColumnWidth(IGridColumn<T> column) {
 				return ColumnsHeader.this.getColumnWidth(column);
 			}
 			
@@ -50,8 +51,8 @@ public abstract class ColumnsHeader extends Panel {
 	
 	abstract protected void sortStateChanged(AjaxRequestTarget target);
 
-	abstract Collection<IGridColumn> getActiveColumns();
+	abstract Collection<IGridColumn<T>> getActiveColumns();
 	
-	abstract int getColumnWidth(IGridColumn column);
+	abstract int getColumnWidth(IGridColumn<T> column);
 
 }

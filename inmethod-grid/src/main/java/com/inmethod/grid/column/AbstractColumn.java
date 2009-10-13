@@ -1,5 +1,7 @@
 package com.inmethod.grid.column;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.ISortState;
 import org.apache.wicket.markup.ComponentTag;
@@ -24,14 +26,14 @@ import com.inmethod.grid.common.AbstractGrid;
  * @see AbstractLightWeightColumn
  * @author Matej Knopp
  */
-public abstract class AbstractColumn implements IGridColumn
+public abstract class AbstractColumn<T extends Serializable, H extends Serializable> implements IGridColumn<T>
 {
 
     private static final long serialVersionUID = 1L;
 
     private final String columnId;
-    private final IModel headerModel;
-    private IModel headerTooltipModel;
+    private final IModel<H> headerModel;
+    private IModel<H> headerTooltipModel;
     private final String sortProperty;
 
     /**
@@ -46,7 +48,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            optional string that will be returned by {@link ISortState} to
      *            indicate that the column is being sorted
      */
-    public AbstractColumn(String columnId, IModel headerModel,
+    public AbstractColumn(String columnId, IModel<H> headerModel,
             String sortProperty)
     {
         this.columnId = columnId;
@@ -62,7 +64,7 @@ public abstract class AbstractColumn implements IGridColumn
      * @param headerModel
      *            model for column title
      */
-    public AbstractColumn(String columnId, IModel headerModel)
+    public AbstractColumn(String columnId, IModel<H> headerModel)
     {
         this(columnId, headerModel, null);
     }
@@ -74,7 +76,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            model for header tooltip
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setHeaderTooltipModel(IModel headerTooltipModel)
+    public AbstractColumn<T, H> setHeaderTooltipModel(IModel<H> headerTooltipModel)
     {
         this.headerTooltipModel = headerTooltipModel;
         return this;
@@ -85,7 +87,7 @@ public abstract class AbstractColumn implements IGridColumn
      * 
      * @return model for header tooltip
      */
-    public IModel getHeaderTooltipModel()
+    public IModel<H> getHeaderTooltipModel()
     {
         return headerTooltipModel;
     }
@@ -95,7 +97,7 @@ public abstract class AbstractColumn implements IGridColumn
      * 
      * @return header model
      */
-    public IModel getHeaderModel()
+    public IModel<H> getHeaderModel()
     {
         return headerModel;
     }
@@ -103,7 +105,7 @@ public abstract class AbstractColumn implements IGridColumn
     /**
      * {@inheritDoc}
      */
-    public String getCellCssClass(IModel rowModel, int rowNum)
+    public String getCellCssClass(IModel<T> rowModel, int rowNum)
     {
         return null;
     }
@@ -111,7 +113,7 @@ public abstract class AbstractColumn implements IGridColumn
     /**
      * {@inheritDoc}
      */
-    public int getColSpan(IModel rowModel)
+    public int getColSpan(IModel<T> rowModel)
     {
         return 1;
     }
@@ -142,7 +144,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            initial size of the column
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setInitialSize(int initialSize)
+    public AbstractColumn<T, H> setInitialSize(int initialSize)
     {
         this.initialSize = initialSize;
         return this;
@@ -165,7 +167,7 @@ public abstract class AbstractColumn implements IGridColumn
      * @param sizeUnit
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setSizeUnit(SizeUnit sizeUnit)
+    public AbstractColumn<T, H> setSizeUnit(SizeUnit sizeUnit)
     {
         this.sizeUnit = sizeUnit;
         return this;
@@ -189,7 +191,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            maximal column size
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setMaxSize(int maxSize)
+    public AbstractColumn<T, H> setMaxSize(int maxSize)
     {
         this.maxSize = maxSize;
         return this;
@@ -214,7 +216,7 @@ public abstract class AbstractColumn implements IGridColumn
      * @return <code>this</code> (useful for method chaining)
      */
 
-    public AbstractColumn setMinSize(int minSize)
+    public AbstractColumn<T, H> setMinSize(int minSize)
     {
         this.minSize = minSize;
         return this;
@@ -247,7 +249,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            <code>false</code> otherwise
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setReorderable(boolean reorderable)
+    public AbstractColumn<T, H> setReorderable(boolean reorderable)
     {
         this.reorderable = reorderable;
         return this;
@@ -274,7 +276,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            <code>false</code> otherwise
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setResizable(boolean resizable)
+    public AbstractColumn<T, H> setResizable(boolean resizable)
     {
         this.resizable = resizable;
         return this;
@@ -291,7 +293,7 @@ public abstract class AbstractColumn implements IGridColumn
     /**
      * {@inheritDoc}
      */
-    public boolean isLightWeight(IModel rowModel)
+    public boolean isLightWeight(IModel<T> rowModel)
     {
         return false;
     }
@@ -300,12 +302,12 @@ public abstract class AbstractColumn implements IGridColumn
      * {@inheritDoc}
      */
     public abstract Component newCell(WebMarkupContainer parent,
-            String componentId, IModel rowModel);
+            String componentId, IModel<T> rowModel);
 
     /**
      * {@inheritDoc}
      */
-    public IRenderable newCell(IModel rowModel)
+    public IRenderable<T> newCell(IModel<T> rowModel)
     {
         return null;
     }
@@ -381,7 +383,7 @@ public abstract class AbstractColumn implements IGridColumn
      *            otherwise.
      * @return <code>this</code> (useful for method chaining)
      */
-    public AbstractColumn setWrapText(boolean wrapText)
+    public AbstractColumn<T, H> setWrapText(boolean wrapText)
     {
         this.wrapText = wrapText;
         return this;
@@ -398,7 +400,7 @@ public abstract class AbstractColumn implements IGridColumn
     /**
      * {@inheritDoc}
      */
-    public boolean cellClicked(IModel rowModel)
+    public boolean cellClicked(IModel<T> rowModel)
     {
         return false;
     }

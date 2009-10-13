@@ -1,5 +1,6 @@
 package com.inmethod.grid.datagrid;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ import com.inmethod.grid.common.AbstractPageableView;
  * 
  * @author Matej Knopp
  */
-public class DataGrid extends AbstractGrid implements IPageable {
+public class DataGrid<T extends Serializable> extends AbstractGrid<T> implements IPageable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +40,7 @@ public class DataGrid extends AbstractGrid implements IPageable {
 	 * @param columns
 	 *            list of grid columns
 	 */
-	public DataGrid(String id, IModel model, List<IGridColumn> columns) {
+	public DataGrid(String id, IModel<IDataSource<T>> model, List<IGridColumn<T>> columns) {
 		super(id, model, columns);
 		init();
 	}
@@ -54,8 +55,8 @@ public class DataGrid extends AbstractGrid implements IPageable {
 	 * @param columns
 	 *            list of grid columns
 	 */
-	public DataGrid(String id, IDataSource dataSource, List<IGridColumn> columns) {
-		this(id, new Model(dataSource), columns);
+	public DataGrid(String id, IDataSource<T> dataSource, List<IGridColumn<T>> columns) {
+		this(id, new Model<IDataSource<T>>(dataSource), columns);
 	}
 
 	private class Body extends DataGridBody {
@@ -67,7 +68,7 @@ public class DataGrid extends AbstractGrid implements IPageable {
 		}
 
 		@Override
-		protected Collection<IGridColumn> getActiveColumns() {
+		protected Collection<IGridColumn<T>> getActiveColumns() {
 			return DataGrid.this.getActiveColumns();
 		}
 
@@ -103,8 +104,8 @@ public class DataGrid extends AbstractGrid implements IPageable {
 	 * 
 	 * @return {@link IDataSource} instance
 	 */
-	public IDataSource getDataSource() {
-		return ((IDataSource) getDefaultModelObject());
+	public IDataSource<T> getDataSource() {
+		return ((IDataSource<T>) getDefaultModelObject());
 	}
 
 	private int rowsPerPage = 20;
@@ -116,7 +117,7 @@ public class DataGrid extends AbstractGrid implements IPageable {
 	 *            how many rows (max) should be displayed on one page
 	 * @return <code>this</code> (useful for method chaining)
 	 */
-	public DataGrid setRowsPerPage(int rowsPerPage) {
+	public DataGrid<T> setRowsPerPage(int rowsPerPage) {
 		this.rowsPerPage = rowsPerPage;
 		return this;
 	}
@@ -186,13 +187,13 @@ public class DataGrid extends AbstractGrid implements IPageable {
 		return getBody().getCurrentPageItemCount();
 	}
 
-	private final Set<IModel> selectedItems = new HashSet<IModel>();
+	private final Set<IModel<T>> selectedItems = new HashSet<IModel<T>>();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Collection<IModel> getSelectedItems() {
+	public Collection<IModel<T>> getSelectedItems() {
 		return Collections.unmodifiableSet(selectedItems);
 	}
 
@@ -363,9 +364,9 @@ public class DataGrid extends AbstractGrid implements IPageable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void selectItem(IModel itemModel, boolean selected) {
+	public void selectItem(IModel<T> itemModel, boolean selected) {
 		if (isAllowSelectMultiple() == false && selectedItems.size() > 0) {
-			for (Iterator<IModel> i = selectedItems.iterator(); i.hasNext();) {
+			for (Iterator<IModel<T>> i = selectedItems.iterator(); i.hasNext();) {
 				IModel current = i.next();
 				if (current.equals(itemModel) == false) {
 					i.remove();

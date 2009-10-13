@@ -1,5 +1,6 @@
 package com.inmethod.grid.common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,79 +18,10 @@ import com.inmethod.grid.IGridColumn;
  * 
  * @author Matej Knopp
  */
-public class ColumnsState implements IClusterable {
+public class ColumnsState<T extends Serializable> implements IClusterable {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * State entry for single column.
-	 * 
-	 * @author Matej Knopp
-	 */
-	public class Entry implements IClusterable {
-
-		private static final long serialVersionUID = 1L;
-
-		private final String columnId;
-		private int currentWidth = -1;
-		private boolean visible = true;
-
-		/**
-		 * Creates new entry instance
-		 * 
-		 * @param columnId
-		 */
-		public Entry(String columnId) {
-			this.columnId = columnId;
-		}
-
-		/**
-		 * Returns the current width, or -1 if the width is not set. In that case the initial column
-		 * width will be used.
-		 * 
-		 * @return current column width
-		 */
-		public int getCurrentWidth() {
-			return currentWidth;
-		}
-
-		/**
-		 * Sets the current column width. If <code>currentWidth</code> is -1, the initial column
-		 * width will be used.
-		 * 
-		 * @param currentWidth
-		 */
-		public void setCurrentWidth(int currentWidth) {
-			this.currentWidth = currentWidth;
-		}
-
-		/**
-		 * Return whether the column is visible.
-		 * 
-		 * @return <code>true</code> if the column is visible, <code>false</code> otherwise.
-		 */
-		public boolean isVisible() {
-			return visible;
-		}
-
-		/**
-		 * Sets the visibility of the column.
-		 * 
-		 * @param visible
-		 */
-		public void setVisible(boolean visible) {
-			this.visible = visible;
-		}
-
-		/**
-		 * Returns column identifier.
-		 * 
-		 * @return column id
-		 */
-		public String getColumnId() {
-			return columnId;
-		};
-	};
 
 	private final Entry[] stateArray;
 
@@ -99,10 +31,10 @@ public class ColumnsState implements IClusterable {
 	 * 
 	 * @param columns
 	 */
-	public ColumnsState(Collection<IGridColumn> columns) {
+	public ColumnsState(Collection<IGridColumn<T>> columns) {
 		stateArray = new Entry[columns.size()];
 		int i = 0;
-		for (IGridColumn column : columns) {
+		for (IGridColumn<T> column : columns) {
 			stateArray[i] = new Entry(column.getId());
 			++i;
 		}
@@ -255,8 +187,9 @@ public class ColumnsState implements IClusterable {
 	 * Returns deep copy of the object.
 	 * @return {@link ColumnsState} instance that is a deep copy of this instance
 	 */
-	public ColumnsState clone() {
-		return (ColumnsState) Objects.cloneObject(this);
+	@SuppressWarnings("unchecked")
+	public ColumnsState<T> clone() {
+		return (ColumnsState<T>)Objects.cloneObject(this);
 	}
 
 	/**
@@ -265,11 +198,11 @@ public class ColumnsState implements IClusterable {
 	 * @param columns
 	 * @return
 	 */
-	boolean matches(Collection<IGridColumn> columns) {
+	boolean matches(Collection<IGridColumn<T>> columns) {
 		if (stateArray.length != columns.size()) {
 			return false;
 		}
-		for (IGridColumn column : columns) {
+		for (IGridColumn<T> column : columns) {
 			if (getEntryIndex(column.getId()) == -1) {
 				return false;
 			}
@@ -316,8 +249,8 @@ public class ColumnsState implements IClusterable {
 	 * @param columns
 	 * @return
 	 */
-	private IGridColumn getColumn(String id, Collection<IGridColumn> columns) {
-		for (IGridColumn column : columns) {
+	private IGridColumn<T> getColumn(String id, Collection<IGridColumn<T>> columns) {
+		for (IGridColumn<T> column : columns) {
 			if (column.getId().equals(id)) {
 				return column;
 			}
@@ -333,11 +266,11 @@ public class ColumnsState implements IClusterable {
 	 *            Collection to be filtered.
 	 * @return Collection of columns with visibility set to <code>true</code>.
 	 */
-	public Collection<IGridColumn> getVisibleColumns(Collection<IGridColumn> allColumns) {
-		List<IGridColumn> result = new ArrayList<IGridColumn>();
+	public Collection<IGridColumn<T>> getVisibleColumns(Collection<IGridColumn<T>> allColumns) {
+		List<IGridColumn<T>> result = new ArrayList<IGridColumn<T>>();
 		for (Entry state : stateArray) {
 			if (state.isVisible()) {
-				IGridColumn column = getColumn(state.getColumnId(), allColumns);
+				IGridColumn<T> column = getColumn(state.getColumnId(), allColumns);
 				if (column != null) {
 					result.add(column);
 				}

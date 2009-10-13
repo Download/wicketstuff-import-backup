@@ -1,5 +1,7 @@
 package com.inmethod.grid.column;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.ISortState;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -18,7 +20,9 @@ import com.inmethod.grid.IRenderable;
  * @see EditablePropertyColumn
  * @author Matej Knopp
  */
-public abstract class AbstractLightWeightColumn extends AbstractColumn {
+public abstract class AbstractLightWeightColumn<T extends Serializable, H extends Serializable> extends AbstractColumn<T, H> {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates instance with specified column id, header model and sort property.
@@ -31,7 +35,7 @@ public abstract class AbstractLightWeightColumn extends AbstractColumn {
 	 *            optional string that will be returned by {@link ISortState} to indicate that the
 	 *            column is being sorted
 	 */
-	public AbstractLightWeightColumn(String columnId, IModel headerModel, String sortProperty) {
+	public AbstractLightWeightColumn(String columnId, IModel<H> headerModel, String sortProperty) {
 		super(columnId, headerModel, sortProperty);
 	}
 
@@ -44,7 +48,7 @@ public abstract class AbstractLightWeightColumn extends AbstractColumn {
 	 *            model for column title
 	 */
 
-	public AbstractLightWeightColumn(String columnId, IModel headerModel) {
+	public AbstractLightWeightColumn(String columnId, IModel<H> headerModel) {
 		super(columnId, headerModel);
 	}
 
@@ -52,7 +56,7 @@ public abstract class AbstractLightWeightColumn extends AbstractColumn {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isLightWeight(IModel rowModel) {
+	public boolean isLightWeight(IModel<T> rowModel) {
 		return true;
 	}
 
@@ -60,13 +64,13 @@ public abstract class AbstractLightWeightColumn extends AbstractColumn {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public abstract IRenderable newCell(IModel rowModel);
+	public abstract IRenderable<T> newCell(IModel<T> rowModel);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Component newCell(WebMarkupContainer parent, String componentId, IModel rowModel) {
+	public Component newCell(WebMarkupContainer parent, String componentId, IModel<T> rowModel) {
 		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package com.inmethod.grid.column;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import org.apache.wicket.Application;
@@ -19,7 +20,7 @@ import com.inmethod.grid.IRenderable;
  * 
  * @author Matej Knopp
  */
-public class PropertyColumn extends AbstractLightWeightColumn
+public class PropertyColumn<T extends Serializable, H extends Serializable> extends AbstractLightWeightColumn<T, H>
 {
 
     private static final long serialVersionUID = 1L;
@@ -40,7 +41,7 @@ public class PropertyColumn extends AbstractLightWeightColumn
      *            optional string that will be returned by {@link ISortState} to
      *            indicate that the column is being sorted
      */
-    public PropertyColumn(String columnId, IModel headerModel,
+    public PropertyColumn(String columnId, IModel<H> headerModel,
             String propertyExpression, String sortProperty)
     {
         super(columnId, headerModel, sortProperty);
@@ -58,7 +59,7 @@ public class PropertyColumn extends AbstractLightWeightColumn
      *            property expression used to get the displayed value for row
      *            object
      */
-    public PropertyColumn(String columnId, IModel headerModel,
+    public PropertyColumn(String columnId, IModel<H> headerModel,
             String propertyExpression)
     {
         this(columnId, headerModel, propertyExpression, null);
@@ -77,7 +78,7 @@ public class PropertyColumn extends AbstractLightWeightColumn
      *            optional string that will be returned by {@link ISortState} to
      *            indicate that the column is being sorted
      */
-    public PropertyColumn(IModel headerModel, String propertyExpression,
+    public PropertyColumn(IModel<H> headerModel, String propertyExpression,
             String sortProperty)
     {
         this(propertyExpression, headerModel, propertyExpression, sortProperty);
@@ -93,7 +94,7 @@ public class PropertyColumn extends AbstractLightWeightColumn
      *            property expression used to get the displayed value for row
      *            object
      */
-    public PropertyColumn(IModel headerModel, String propertyExpression)
+    public PropertyColumn(IModel<H> headerModel, String propertyExpression)
     {
         this(propertyExpression, headerModel, propertyExpression);
     }
@@ -108,7 +109,7 @@ public class PropertyColumn extends AbstractLightWeightColumn
      * @param escape
      * @return <code>this</code> (useful for method chaining)
      */
-    public PropertyColumn setEscapeMarkup(boolean escape)
+    public PropertyColumn<T, H> setEscapeMarkup(boolean escape)
     {
         this.escapeMarkup = escape;
         return this;
@@ -131,12 +132,12 @@ public class PropertyColumn extends AbstractLightWeightColumn
         return PropertyResolver.getValue(propertyExpression, object);
     }
 
-    protected Object getModelObject(IModel rowModel)
+    protected Object getModelObject(IModel<T> rowModel)
     {
         return rowModel.getObject();
     }
 
-    private CharSequence getValue(IModel rowModel)
+    private CharSequence getValue(IModel<T> rowModel)
     {
         Object rowObject = getModelObject(rowModel);
         Object property = null;
@@ -186,11 +187,11 @@ public class PropertyColumn extends AbstractLightWeightColumn
      * {@inheritDoc}
      */
     @Override
-    public IRenderable newCell(IModel rowModel)
+    public IRenderable<T> newCell(IModel<T> rowModel)
     {
-        return new IRenderable()
+        return new IRenderable<T>()
         {
-            public void render(IModel rowModel, Response response)
+            public void render(IModel<T> rowModel, Response response)
             {
                 CharSequence value = getValue(rowModel);
                 if (value != null)

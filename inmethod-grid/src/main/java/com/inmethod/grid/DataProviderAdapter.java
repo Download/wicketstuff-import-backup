@@ -1,5 +1,6 @@
 package com.inmethod.grid;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,11 +17,11 @@ import com.inmethod.grid.datagrid.DataGrid;
  * 
  * @author Matej Knopp
  */
-public class DataProviderAdapter implements IDataSource {
+public class DataProviderAdapter<T extends Serializable> implements IDataSource<T> {
 
 	private static final long serialVersionUID = 1L;
 
-	final IDataProvider dataProvider;
+	final IDataProvider<T> dataProvider;
 
 	/**
 	 * Creates a new {@link DataProviderAdapter} instance.
@@ -28,7 +29,7 @@ public class DataProviderAdapter implements IDataSource {
 	 * @param dataProvider
 	 *            {@link IDataProvider} instance
 	 */
-	public DataProviderAdapter(IDataProvider dataProvider) {
+	public DataProviderAdapter(IDataProvider<T> dataProvider) {
 		this.dataProvider = dataProvider;
 	}
 
@@ -42,13 +43,13 @@ public class DataProviderAdapter implements IDataSource {
 	/**
 	 * {@inheritDoc}
 	 */
-	public IModel model(Object object) {
+	public IModel<T> model(T object) {
 		return dataProvider.model(object);
 	}
 	
-	private void setSortState(ISortState dest, DataGrid grid, IGridSortState gridSortState) {
+	private void setSortState(ISortState dest, DataGrid<T> grid, IGridSortState gridSortState) {
 		Set<String> unsortedColumns = new HashSet<String>(grid.getAllColumns().size());
-		for (IGridColumn column : grid.getAllColumns()) {
+		for (IGridColumn<T> column : grid.getAllColumns()) {
 			if (column.getSortProperty() != null) {
 				unsortedColumns.add(column.getSortProperty());
 			}
@@ -79,7 +80,7 @@ public class DataProviderAdapter implements IDataSource {
 
 			ISortState state = locator.getSortState();
 			if (state != null) {
-				DataGrid grid = ((DataGrid.IGridQuery) query).getDataGrid();
+				DataGrid<T> grid = ((DataGrid.IGridQuery) query).getDataGrid();
 				setSortState(state, grid, gridSortState);
 			}
 		}

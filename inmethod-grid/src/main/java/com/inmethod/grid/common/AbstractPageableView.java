@@ -1,5 +1,6 @@
 package com.inmethod.grid.common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +21,7 @@ import com.inmethod.grid.IDataSource.IQueryResult;
  * 
  * @author Matej Knopp
  */
-public abstract class AbstractPageableView extends RefreshingView implements IPageable {
+public abstract class AbstractPageableView<T extends Serializable> extends RefreshingView<T> implements IPageable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +31,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 	 * @param id
 	 * @param model
 	 */
-	public AbstractPageableView(String id, IModel model) {
+	public AbstractPageableView(String id, IModel<T> model) {
 		super(id, model);
 	}
 
@@ -190,7 +191,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 			queryResult = new QueryResult();
 			Query query = new Query(queryResult);
 
-			IDataSource dataSource = getDataSource();
+			IDataSource<T> dataSource = getDataSource();
 
 			int oldItemCount = realItemCount;
 
@@ -294,7 +295,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 	 * 
 	 * @param <T>
 	 */
-	private static class EmptyIterator<T> implements Iterator<T> {
+	private static class EmptyIterator implements Iterator<Serializable> {
 		/**
 		 * {@inheritDoc}
 		 */
@@ -305,7 +306,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 		/**
 		 * {@inheritDoc}
 		 */
-		public T next() {
+		public Serializable next() {
 			throw new IndexOutOfBoundsException();
 		}
 
@@ -316,7 +317,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 			throw new UnsupportedOperationException();
 		}
 
-		private static final EmptyIterator<?> INSTANCE = new EmptyIterator<Object>();
+		private static final EmptyIterator INSTANCE = new EmptyIterator();
 	};
 
 	/**
@@ -324,20 +325,20 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 	 * 
 	 * @author Matej Knopp
 	 */
-	private class QueryResult implements IQueryResult {
+	private class QueryResult implements IQueryResult<T> {
 		// start with empty items
-		private Iterator<?> items = EmptyIterator.INSTANCE;
+		private Iterator<T> items = (Iterator<T>)EmptyIterator.INSTANCE;
 
 		// and actual total count (could be UNKNOWN)
 		private int totalCount = AbstractPageableView.this.realItemCount;
 
 		// process will put the actual item model's here
-		private ArrayList<IModel> itemCache = new ArrayList<IModel>();
+		private ArrayList<IModel<T>> itemCache = new ArrayList<IModel<T>>();
 
 		/**
 		 * @see IQueryResult#setItems(Iterator)
 		 */
-		public void setItems(Iterator<?> items) {
+		public void setItems(Iterator<T> items) {
 			this.items = items;
 		}
 
@@ -354,7 +355,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 		 * 
 		 * @param source
 		 */
-		public void process(IDataSource source) {
+		public void process(IDataSource<T> source) {
 			// count the maximum number of items that should have been loaded
 			int max = getRowsPerPage();
 			if (totalCount > 0) {
@@ -399,7 +400,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 
 	protected abstract IGridSortState getSortState();
 
-	protected abstract IDataSource getDataSource();
+	protected abstract IDataSource<T> getDataSource();
 
 	protected abstract int getRowsPerPage();
 
@@ -407,7 +408,7 @@ public abstract class AbstractPageableView extends RefreshingView implements IPa
 	 * @see RefreshingView#getItemModels()
 	 */
 	@Override
-	protected Iterator<IModel> getItemModels() {
+	protected Iterator<IModel<T>> getItemModels() {
 		initialize();
 		return queryResult.itemCache.iterator();
 	}

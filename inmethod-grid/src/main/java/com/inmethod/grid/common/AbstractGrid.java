@@ -47,7 +47,7 @@ import com.inmethod.grid.treegrid.TreeGrid;
  * 
  * @author Matej Knopp
  */
-public abstract class AbstractGrid extends Panel implements IHeaderContributor {
+public abstract class AbstractGrid<T extends Serializable> extends Panel implements IHeaderContributor {
 
 	/**
 	 * Creates new {@link AbstractGrid} instance
@@ -56,7 +56,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * @param model
 	 * @param columns
 	 */
-	public AbstractGrid(String id, IModel model, List<IGridColumn> columns) {
+	public AbstractGrid(String id, IModel model, List<IGridColumn<T>> columns) {
 		super(id, model);
 
 		setVersioned(false);
@@ -117,7 +117,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * 
 	 * @param column
 	 */
-	protected void columnSanityCheck(IGridColumn column) {
+	protected void columnSanityCheck(IGridColumn<T> column) {
 		String id = column.getId();
 		if (Strings.isEmpty(id)) {
 			throw new IllegalStateException("Column id must be a non-empty string.");
@@ -138,17 +138,17 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * 
 	 * @param columns
 	 */
-	private void columnsSanityCheck(List<IGridColumn> columns) {
+	private void columnsSanityCheck(List<IGridColumn<T>> columns) {
 		for (int i = 0; i < columns.size(); ++i) {
-			IGridColumn column = columns.get(i);
+			IGridColumn<T> column = columns.get(i);
 			columnSanityCheck(column);
 		}
 		for (int i = 0; i < columns.size(); ++i) {
-			IGridColumn column = columns.get(i);
+			IGridColumn<T> column = columns.get(i);
 
 			for (int j = 0; j < columns.size(); ++j) {
 				if (i != j) {
-					IGridColumn otherColumn = columns.get(j);
+					IGridColumn<T> otherColumn = columns.get(j);
 					if (column.getId().equals(otherColumn.getId())) {
 						throw new IllegalStateException("Each column must have unique id");
 					}
@@ -352,7 +352,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * @see ColumnsHeader
 	 * @author Matej Knopp
 	 */
-	private class Header extends ColumnsHeader {
+	private class Header extends ColumnsHeader<T> {
 
 		private static final long serialVersionUID = 1L;
 
@@ -361,7 +361,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 		}
 
 		@Override
-		Collection<IGridColumn> getActiveColumns() {
+		Collection<IGridColumn<T>> getActiveColumns() {
 			return AbstractGrid.this.getActiveColumns();
 		}
 
@@ -403,9 +403,9 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 
 		// initialize the columns
 		response.write("var columns = [\n");
-		Collection<IGridColumn> columns = getActiveColumns();
+		Collection<IGridColumn<T>> columns = getActiveColumns();
 		int i = 0;
-		for (IGridColumn column : columns) {
+		for (IGridColumn<T> column : columns) {
 			++i;
 			response.write("  {");
 			response.write(" minSize: " + column.getMinSize());
@@ -439,7 +439,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * 
 	 * @return collection of currently visible columns
 	 */
-	public Collection<IGridColumn> getActiveColumns() {
+	public Collection<IGridColumn<T>> getActiveColumns() {
 		return getColumnState().getVisibleColumns(columns);
 	}
 
@@ -448,12 +448,12 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * 
 	 * @return list of columns
 	 */
-	public List<IGridColumn> getAllColumns() {
+	public List<IGridColumn<T>> getAllColumns() {
 		return Collections.unmodifiableList(columns);
 	}
 
 	// contains all columns
-	private final List<IGridColumn> columns;
+	private final List<IGridColumn<T>> columns;
 
 	private GridSortState sortState = null;
 
@@ -563,7 +563,7 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 *            <code>true</code> if the item should be selected,
 	 *            <code>false</code> otherwise.
 	 */
-	public abstract void selectItem(IModel itemModel, boolean selected);
+	public abstract void selectItem(IModel<T> itemModel, boolean selected);
 
 	/**
 	 * Marks all currently displayed items as selected. For {@link DataGrid}
@@ -586,14 +586,14 @@ public abstract class AbstractGrid extends Panel implements IHeaderContributor {
 	 * @return <code>true</code> if the item is selected, <code>false</code>
 	 *         otherwise
 	 */
-	public abstract boolean isItemSelected(IModel itemModel);
+	public abstract boolean isItemSelected(IModel<T> itemModel);
 
 	/**
 	 * Returns the collection of models of all currently selected items.
 	 * 
 	 * @return collection of models of currently selected items
 	 */
-	public abstract Collection<IModel> getSelectedItems();
+	public abstract Collection<IModel<T>> getSelectedItems();
 
 	/**
 	 * Sets whether user will be able to select more than one item.
