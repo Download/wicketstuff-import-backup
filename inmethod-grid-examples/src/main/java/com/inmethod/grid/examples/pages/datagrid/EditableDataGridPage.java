@@ -33,7 +33,7 @@ public class EditableDataGridPage extends BaseExamplePage {
 	public EditableDataGridPage() {
 		List<IGridColumn<Contact>> columns = new ArrayList<IGridColumn<Contact>>();
 		
-		Form form = new Form("form");
+		Form<DataGrid<Contact>> form = new Form<DataGrid<Contact>>("form");
 		add(form);
 		
 		columns.add(new PropertyColumn<Contact, String, Long>(new ResourceModel("id"), "id"));

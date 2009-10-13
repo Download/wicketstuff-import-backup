@@ -9,6 +9,7 @@ import com.inmethod.grid.IGridColumn;
 import com.inmethod.grid.column.PropertyColumn;
 import com.inmethod.grid.datagrid.DataGrid;
 import com.inmethod.grid.datagrid.DefaultDataGrid;
+import com.inmethod.grid.examples.contact.Contact;
 import com.inmethod.grid.examples.pages.BaseExamplePage;
 
 /**
@@ -24,15 +25,15 @@ public class SimpleDataGridPage extends BaseExamplePage {
 	 * Constructor.
 	 */
 	public SimpleDataGridPage() {
-		List<IGridColumn> columns = new ArrayList<IGridColumn>();
+		List<IGridColumn<Contact>> columns = new ArrayList<IGridColumn<Contact>>();
 		
-		columns.add(new PropertyColumn(new ResourceModel("id"), "id"));
-		columns.add(new PropertyColumn(new ResourceModel("firstName"), "firstName", "firstName"));
-		columns.add(new PropertyColumn(new ResourceModel("lastName"), "lastName", "lastName"));
-		columns.add(new PropertyColumn(new ResourceModel("homePhone"), "homePhone"));
-		columns.add(new PropertyColumn(new ResourceModel("cellPhone"), "cellPhone"));
+		columns.add(new PropertyColumn<Contact, String, Long>(new ResourceModel("id"), "id"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("firstName"), "firstName", "firstName"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("lastName"), "lastName", "lastName"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("homePhone"), "homePhone"));
+		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("cellPhone"), "cellPhone"));
 		
-		DataGrid grid = new DefaultDataGrid("grid", new ContactDataSource(), columns);
+		DataGrid<Contact> grid = new DefaultDataGrid<Contact>("grid", new ContactDataSource(), columns);
 		
 		add(grid);
 	}

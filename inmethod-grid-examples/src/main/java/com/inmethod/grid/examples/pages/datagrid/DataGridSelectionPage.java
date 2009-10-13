@@ -1,6 +1,5 @@
 package com.inmethod.grid.examples.pages.datagrid;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,7 +37,7 @@ public class DataGridSelectionPage extends BaseExamplePage {
 	public DataGridSelectionPage() {
 		List<IGridColumn<Contact>> columns = new ArrayList<IGridColumn<Contact>>();
 
-		columns.add(new CheckBoxColumn("checkBox"));
+		columns.add(new CheckBoxColumn<Contact>("checkBox"));
 		columns.add(new PropertyColumn<Contact, String, Long>(new ResourceModel("id"), "id"));
 		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("firstName"), "firstName", "firstName"));
 		columns.add(new PropertyColumn<Contact, String, String>(new ResourceModel("lastName"), "lastName", "lastName"));
@@ -66,11 +65,11 @@ public class DataGridSelectionPage extends BaseExamplePage {
 		grid.setRowsPerPage(15);
 
 		// model for label that shows selected items
-		IModel selectedItemsModel = new Model() {
+		IModel<String> selectedItemsModel = new Model<String>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Serializable getObject() {
+			public String getObject() {
 				return selectedItemsAsString(grid);
 			}
 		};
@@ -80,11 +79,11 @@ public class DataGridSelectionPage extends BaseExamplePage {
 		addOptionLinks(grid);
 	}
 
-	private String selectedItemsAsString(AbstractGrid grid) {
+	private String selectedItemsAsString(AbstractGrid<Contact> grid) {
 		StringBuilder res = new StringBuilder();
-		Collection<IModel> selected = grid.getSelectedItems();
-		for (IModel model : selected) {
-			Contact contact = (Contact) model.getObject();
+		Collection<IModel<Contact>> selected = grid.getSelectedItems();
+		for (IModel<Contact> model : selected) {
+			Contact contact = model.getObject();
 			if (res.length() > 0) {
 				res.append(", ");
 			}
@@ -95,9 +94,9 @@ public class DataGridSelectionPage extends BaseExamplePage {
 		return res.toString();
 	}
 
-	private void addOptionLinks(final DataGrid grid) {
+	private void addOptionLinks(final DataGrid<Contact> grid) {
 
-		add(new Link("cleanSelectionOnPageChangeOn") {
+		add(new Link<Contact>("cleanSelectionOnPageChangeOn") {
 
 			private static final long serialVersionUID = 1L;
 
@@ -112,7 +111,7 @@ public class DataGridSelectionPage extends BaseExamplePage {
 			}
 		});
 
-		add(new Link("cleanSelectionOnPageChangeOff") {
+		add(new Link<Contact>("cleanSelectionOnPageChangeOff") {
 
 			private static final long serialVersionUID = 1L;
 
@@ -127,7 +126,7 @@ public class DataGridSelectionPage extends BaseExamplePage {
 			}
 		});
 
-		add(new Link("selectMultipleOn") {
+		add(new Link<Contact>("selectMultipleOn") {
 
 			private static final long serialVersionUID = 1L;
 
@@ -142,7 +141,7 @@ public class DataGridSelectionPage extends BaseExamplePage {
 			}
 		});
 
-		add(new Link("selectMultipleOff") {
+		add(new Link<Contact>("selectMultipleOff") {
 
 			private static final long serialVersionUID = 1L;
 

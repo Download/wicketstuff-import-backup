@@ -1,5 +1,7 @@
 package com.inmethod.grid.column;
 
+import java.io.Serializable;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
@@ -31,7 +33,7 @@ import com.inmethod.grid.treegrid.TreeGrid;
  * 
  * @author Matej Knopp
  */
-public class CheckBoxColumn extends AbstractColumn {
+public class CheckBoxColumn<T extends Serializable> extends AbstractColumn<T, Serializable> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +54,7 @@ public class CheckBoxColumn extends AbstractColumn {
 	 */
 	@Override
 	public Component newCell(WebMarkupContainer parent, String componentId,
-			IModel rowModel) {
+			IModel<T> rowModel) {
 		return new BodyCheckBoxPanel(componentId, rowModel);
 	}
 
@@ -64,7 +66,7 @@ public class CheckBoxColumn extends AbstractColumn {
 		return new HeadPanel(componentId);
 	}
 
-	private void processTag(ComponentTag tag, IModel model) {
+	private void processTag(ComponentTag tag, IModel<T> model) {
 		if (!isCheckBoxEnabled(model)) {
 
 			tag.put("disabled", "disabled");
@@ -80,11 +82,11 @@ public class CheckBoxColumn extends AbstractColumn {
 		}
 	}
 
-	protected boolean isCheckBoxEnabled(IModel model) {
+	protected boolean isCheckBoxEnabled(IModel<T> model) {
 		return true;
 	}
 
-	protected boolean isCheckBoxVisible(IModel model) {
+	protected boolean isCheckBoxVisible(IModel<T> model) {
 		return true;
 	}
 
@@ -317,7 +319,7 @@ public class CheckBoxColumn extends AbstractColumn {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getCellCssClass(IModel rowModel, int rowNum) {
+	public String getCellCssClass(IModel<T> rowModel, int rowNum) {
 		return "imxt-select";
 	}
 
@@ -334,7 +336,7 @@ public class CheckBoxColumn extends AbstractColumn {
 	 *            model for item in given row
 	 * @return tooltip model or <code>null</code>
 	 */
-	protected IModel getRowTooltipModel(IModel itemModel) {
+	protected IModel<T> getRowTooltipModel(IModel<T> itemModel) {
 		return null;
 	}
 
