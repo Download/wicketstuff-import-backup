@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.MetaDataKey;
 import org.apache.wicket.Resource;
 import org.apache.wicket.ResourceReference;
@@ -18,6 +19,7 @@ import org.apache.wicket.markup.html.WicketEventReference;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.target.coding.IRequestTargetUrlCodingStrategy;
 import org.apache.wicket.request.target.coding.SharedResourceRequestTargetUrlCodingStrategy;
+import org.apache.wicket.util.resource.ResourceStreamNotFoundException;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.time.Duration;
 import org.wicketstuff.mergedresources.annotations.ContributionInjector;
@@ -46,12 +48,7 @@ import org.wicketstuff.mergedresources.versioning.IResourceVersionProvider.Versi
 
 public class ResourceMount implements Cloneable {
 	private static final MetaDataKey ANNOTATIONS_ENABLED_KEY = new MetaDataKey(Boolean.class) {
-
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
-		
 	};
 	
 	/**
@@ -109,7 +106,7 @@ public class ResourceMount implements Cloneable {
 	 * @param application the application
 	 */
 	public static void mountWicketResources(String mountPrefix, WebApplication application) {
-		mountWicketResources(mountPrefix, application, new ResourceMount().setDefaultAggresiveCacheDuration());
+		mountWicketResources(mountPrefix, application, new ResourceMount().setDefaultAggressiveCacheDuration());
 	}
 	
 	/**
@@ -122,7 +119,7 @@ public class ResourceMount implements Cloneable {
 	public static void mountWicketResources(String mountPrefix, WebApplication application, ResourceMount mount) {
 		mount = mount.clone()
 			.setResourceVersionProvider(new WicketVersionProvider(application))
-			.setDefaultAggresiveCacheDuration();
+			.setDefaultAggressiveCacheDuration();
 		
 		if (!mountPrefix.endsWith("/")) {
 			mountPrefix = mountPrefix + "/";
@@ -767,16 +764,36 @@ public class ResourceMount implements Cloneable {
 				String name = specs.length == 1 ? specs[0].getFile() : unversionedPath;
 				
 				final ResourceReference ref = newResourceReference(getScope(specs), name, getLocale(specs), getStyle(specs), getCacheDuration(specs, versioned), specs, _preProcessor);
+				ref.bind(application);
 				application.mount(newStrategy(path, ref, merge));
 	
 				if (_mountRedirect && versioned) {
 					application.mount(newRedirectStrategy(unversionedPath, path));
 				}
+				
+				initResource(ref);
 			}
 			return this;
 		} catch (Exception e) {
 			throw new WicketRuntimeException("failed to mount resource ('" + _path
 					+ "')", e);
+		}
+	}
+
+	/**
+	 * load resource stream once in order to load it into memory
+	 * 
+	 * @param ref
+	 * @throws ResourceStreamNotFoundException
+	 */
+	private void initResource(final ResourceReference ref)
+			throws ResourceStreamNotFoundException {
+		boolean gzip = Application.get().getResourceSettings().getDisableGZipCompression();
+		try {
+			Application.get().getResourceSettings().setDisableGZipCompression(true);
+			ref.getResource().getResourceStream().getInputStream();
+		} finally {
+			Application.get().getResourceSettings().setDisableGZipCompression(gzip);
 		}
 	}
 
@@ -798,7 +815,11 @@ public class ResourceMount implements Cloneable {
 
 					@Override
 					protected Resource newResource() {
-						return ref.getResource();
+						Resource r = ref.getResource();
+						if (r == null) {
+							throw new WicketRuntimeException("ResourceReference wasn't bound to application yet");
+						}
+						return r;
 					}
 
 				}.getSharedResourceKey());

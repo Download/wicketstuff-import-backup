@@ -22,6 +22,7 @@ import org.apache.wicket.Application;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.ajax.WicketAjaxReference;
 import org.apache.wicket.markup.html.WicketEventReference;
+import org.wicketstuff.mergedresources.AbstractTestApplication;
 import org.wicketstuff.mergedresources.ResourceMount;
 import org.wicketstuff.mergedresources.annotations.components.PanelOne;
 import org.wicketstuff.mergedresources.util.WicketResourceTester;

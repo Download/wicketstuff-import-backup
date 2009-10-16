@@ -1,7 +1,8 @@
-package org.wicketstuff.mergedresources.annotations;
+package org.wicketstuff.mergedresources;
 
 import org.apache.wicket.Application;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.wicketstuff.mergedresources.annotations.AnnotationHomePage;
 
 public abstract class AbstractTestApplication extends WebApplication
 {    
