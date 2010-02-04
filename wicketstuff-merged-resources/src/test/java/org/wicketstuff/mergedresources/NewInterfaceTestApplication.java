@@ -44,6 +44,12 @@ public class NewInterfaceTestApplication extends WebApplication
 				.mount(this);
 
 			mount.clone()
+			.setPath("/style/print.css")
+			.addResourceSpec(PanelOne.class, "PanelOne-print.css")
+			.addResourceSpec(ComponentB.class, "ComponentB-print.css")
+			.mount(this);
+			
+			mount.clone()
 				.setPath("/script/all.js")
 				.addResourceSpecsMatchingSuffix(PanelOne.class, ComponentB.class, MyForm.class)
 				.mount(this);

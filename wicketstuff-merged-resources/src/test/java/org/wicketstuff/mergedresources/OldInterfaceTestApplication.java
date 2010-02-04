@@ -40,6 +40,10 @@ public class OldInterfaceTestApplication extends WebApplication
 				    new Class<?>[] {PanelOne.class, ComponentB.class, MyForm.class},
 				    new String[] {"PanelOne.css", "ComponentB.css", "MyForm.css" });
 			
+			h.mountMergedSharedResource("style", "print.css", true,
+				    new Class<?>[] {PanelOne.class, ComponentB.class},
+				    new String[] {"PanelOne-print.css", "ComponentB-print.css"});
+			
 			h.mountMergedSharedResource("script", "all.js", true,
 				    new Class<?>[] {PanelOne.class, ComponentB.class, MyForm.class},
 				    new String[] {"PanelOne.js", "ComponentB.js", "MyForm.js" });

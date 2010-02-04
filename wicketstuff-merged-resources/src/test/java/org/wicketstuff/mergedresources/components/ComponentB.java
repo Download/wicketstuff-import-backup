@@ -11,6 +11,7 @@ public class ComponentB extends Panel {
 	public ComponentB(String id) {
 		super(id);
 		add(HeaderContributor.forCss(ComponentB.class, ComponentB.class.getSimpleName() + ".css"));
+		add(HeaderContributor.forCss(ComponentB.class, ComponentB.class.getSimpleName() + "-print.css", "print"));
 		add(HeaderContributor.forJavaScript(ComponentB.class, ComponentB.class.getSimpleName() + ".js"));
 		add(new Label("label", "Wicket!"));
 	}

@@ -10,6 +10,7 @@ public class PanelOne extends Panel {
 	public PanelOne(String id) {
 		super(id);
 		add(HeaderContributor.forCss(PanelOne.class, PanelOne.class.getSimpleName() + ".css"));
+		add(HeaderContributor.forCss(PanelOne.class, PanelOne.class.getSimpleName() + "-print.css", "print"));
 		add(HeaderContributor.forJavaScript(PanelOne.class, PanelOne.class.getSimpleName() + ".js"));
 		add(new MyForm("myForm"));
 		add(new ComponentB("componentB"));
