@@ -6,7 +6,7 @@
 	<groupId>org.wicketstuff</groupId>
 	<artifactId>wicketstuff-core</artifactId>
 	<packaging>pom</packaging>
-	<version>1.4.9.2-SNAPSHOT</version>
+	<version>1.4.9.3-SNAPSHOT</version>
 
 	<name>WicketStuff Core Parent</name>
 	<description>
@@ -295,6 +295,19 @@
 			</snapshots>
 			</repository>
 			</repositories>
+
+			<pluginRepositories>
+		    <pluginRepository>
+		      <id>apache-snapshots</id>
+      <name>ApacheMaven Plugin Repository</name>
+	      <url>http://repository.apache.org/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+
+			</pluginRepositories>
+
 
 		</profile>
 
