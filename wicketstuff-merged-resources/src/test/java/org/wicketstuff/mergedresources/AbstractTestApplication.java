@@ -42,6 +42,7 @@ public abstract class AbstractTestApplication extends WebApplication
 	/**
 	 * @see wicket.Application#getHomePage()
 	 */
+	@Override
 	public Class<? extends WebPage> getHomePage()
 	{
 		return HomePage.class;

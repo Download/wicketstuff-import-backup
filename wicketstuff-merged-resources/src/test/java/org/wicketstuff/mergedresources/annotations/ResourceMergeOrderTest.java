@@ -33,10 +33,12 @@ public class ResourceMergeOrderTest extends TestCase
 	{
 		new WicketTester(new AnnotationTestApplication() {
 			
+			@Override
 			protected boolean strip() {
 				return false;
 			}
 			
+			@Override
 			protected ResourceMount newResourceMount() {
 				ResourceMount mount = super.newResourceMount();
 				mount.setPreProcessor(new StringResourcePreProcessor() {

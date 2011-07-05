@@ -19,11 +19,13 @@ public class AnnotationTestApplication extends AbstractTestApplication
 	/**
 	 * @see wicket.Application#getHomePage()
 	 */
+	@Override
 	public Class<? extends WebPage> getHomePage()
 	{
 		return AnnotationHomePage.class;
 	}
 	
+	@Override
 	protected boolean merge() {
 		return true;
 	}

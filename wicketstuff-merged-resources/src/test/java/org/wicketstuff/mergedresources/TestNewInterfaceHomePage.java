@@ -30,6 +30,7 @@ public class TestNewInterfaceHomePage extends TestCase
 {
 	private WicketTester tester;
 
+	@Override
 	public void setUp()
 	{
 		tester = new WicketTester(new NewInterfaceTestApplication() {
@@ -45,6 +46,10 @@ public class TestNewInterfaceHomePage extends TestCase
 				return true;
 			}
 			
+			@Override
+			protected void initMount(ResourceMount mount) {
+				mount.setRequireVersion(false);
+			}
 		});
 	}
 
@@ -58,8 +63,9 @@ public class TestNewInterfaceHomePage extends TestCase
 		//assert rendered page class
 		tester.assertRenderedPage(HomePage.class);
 		
+		String document = tester.getServletResponse().getDocument();
 		assertFalse(tester.ifContains("style/all-[0-9]+\\.css").wasFailed());
-		assertFalse(tester.ifContains("script/all-[0-9]+\\.js").wasFailed());
+		assertFalse(tester.ifContains("script/all\\.js").wasFailed());
 		System.out.println(tester.getServletResponse().getDocument());
 		assertTrue(tester.ifContains("resources/").wasFailed());
 		// does anybody know how to check resources?

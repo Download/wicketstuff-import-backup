@@ -33,6 +33,7 @@ public class TestAnnotationHomePage extends TestCase
 {
 	private WicketResourceTester tester;
 
+	@Override
 	public void setUp()
 	{
 		tester = new WicketResourceTester(new AnnotationTestApplication());

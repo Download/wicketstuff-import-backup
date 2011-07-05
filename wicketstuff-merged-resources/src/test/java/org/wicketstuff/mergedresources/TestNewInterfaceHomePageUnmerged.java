@@ -31,6 +31,7 @@ public class TestNewInterfaceHomePageUnmerged extends TestCase
 {
 	private WicketTester tester;
 
+	@Override
 	public void setUp()
 	{
 		tester = new WicketTester(new NewInterfaceTestApplication() {

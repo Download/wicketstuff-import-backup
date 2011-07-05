@@ -11,6 +11,7 @@ public class MergedHeaderContributorTest {
 		WicketTester tester = new WicketTester(
 				new NewInterfaceTestApplication() {
 
+					@Override
 					protected void initMount(ResourceMount mount) {
 						mount.setMerged(false);
 					}
