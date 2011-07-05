@@ -36,15 +36,18 @@ public final class SimpleResourceVersion extends AbstractResourceVersion {
 		_value = value;
 	}
 
+	@Override
 	public boolean isValid() {
 		return _value > 0;
 	}
 
+	@Override
 	public String getVersion() {
 		return Integer.toString(_value);
 	}
 	
-	protected int compareValid(AbstractResourceVersion o) throws IncompatibleVersionsException {
+	@Override
+	public int compareValid(AbstractResourceVersion o) throws IncompatibleVersionsException {
 		if (o instanceof SimpleResourceVersion) {
 			return ((Integer) getValue()).compareTo(((SimpleResourceVersion)o).getValue());
 		} else {

@@ -177,7 +177,7 @@ public class MergedResourceStream implements IResourceStream {
 
 			IResourceStream resourceStream = null;
 			while (resourceStream == null && iter.hasNext()) {
-				final String resourceName = (String) iter.next();
+				final String resourceName = iter.next();
 				resourceStream = Application.get().getResourceSettings().getResourceStreamLocator()
 						.locate(scope, resourceName, _style, _locale, null);
 			}

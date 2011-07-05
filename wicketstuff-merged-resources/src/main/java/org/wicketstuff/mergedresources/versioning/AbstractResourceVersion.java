@@ -25,15 +25,18 @@ public abstract class AbstractResourceVersion implements IClusterable {
 
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public String getVersion() {
 			return "";
 		}
 
+		@Override
 		public boolean isValid() {
 			return false;
 		}
 
-		public int compareValid(AbstractResourceVersion o) {
+		@Override
+		public int compareValid(AbstractResourceVersion o) { 
 			// shouldn't ever be called
 			return -1;
 		}

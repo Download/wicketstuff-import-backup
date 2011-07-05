@@ -65,6 +65,7 @@ public class MergedResource extends PackageResource {
 		return _cacheDuration;
 	}
 	
+	@Override
 	protected void setHeaders(WebResponse response)
 	{
 		super.setHeaders(response);

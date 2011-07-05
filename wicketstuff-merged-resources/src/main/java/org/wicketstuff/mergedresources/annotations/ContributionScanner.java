@@ -172,6 +172,7 @@ public class ContributionScanner {
 			this(scope, file, 0);
 		}
 		
+		@Override
 		public String toString() {
 			return super.toString() + " (weight="+_weight+")";
 		}
